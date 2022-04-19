@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="Common\" />
+    <Folder Include="Common\Mappings\" />
+    <Folder Include="CQRS\" />
+    <Folder Include="CQRS\AddressToClients\" />
+    <Folder Include="CQRS\AddressToClients\Commands\" />
+    <Folder Include="CQRS\AddressToClients\Commands\CreateAddressToClient\" />
+    <Folder Include="CQRS\AddressToClients\Commands\UpdateAddressToClient\" />
+    <Folder Include="Common\Exceptions\" />
+    <Folder Include="CQRS\AddressToClients\Commands\DeleteAddressToClient\" />
+    <Folder Include="CQRS\AddressToClients\Queries\" />
+    <Folder Include="CQRS\AddressToClients\Queries\GetAddressToClientDetails\" />
+    <Folder Include="CQRS\AddressToClients\Queries\GetAddressToClientList\" />
+    <Folder Include="Common\Behaviors\" />
+    <Folder Include="Common\Constants\" />
+    <Folder Include="CQRS\CardInfoToClients\" />
+    <Folder Include="CQRS\CardInfoToClients\Commands\" />
+    <Folder Include="CQRS\CardInfoToClients\Queries\" />
+    <Folder Include="CQRS\CardInfoToClients\Commands\CreateCardInfoToClient\" />
+    <Folder Include="CQRS\CardInfoToClients\Commands\DeleteCardInfoToClient\" />
+    <Folder Include="CQRS\CardInfoToClients\Commands\UpdateCardInfoToClient\" />
+    <Folder Include="CQRS\CardInfoToClients\Queries\GetCardInfoToClientDetails\" />
+    <Folder Include="CQRS\CardInfoToClients\Queries\GetCardInfoToClientList\" />
+    <Folder Include="CQRS\Categories\" />
+    <Folder Include="CQRS\Categories\Queries\" />
+    <Folder Include="CQRS\Categories\Queries\GetCategoryDetails\" />
+    <Folder Include="CQRS\Categories\Queries\GetCategoryList\" />
+    <Folder Include="CQRS\Goods\" />
+    <Folder Include="CQRS\Goods\Queries\" />
+    <Folder Include="CQRS\Goods\Queries\GetGoodDetails\" />
+    <Folder Include="CQRS\Goods\Queries\GetGoodListByCategory\" />
+    <Folder Include="CQRS\Goods\Queries\GetGoodPagedListByCategory\" />
+    <Folder Include="Models\" />
+    <Folder Include="CQRS\Orders\" />
+    <Folder Include="CQRS\Orders\Commands\" />
+    <Folder Include="CQRS\Orders\Queries\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="MediatR" Version="10.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.4.0" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Atlas.Domain\Atlas.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Serilog" />
+    <None Remove="Serilog.Sinks.File" />
+    <None Remove="CQRS\Categories\" />
+    <None Remove="CQRS\Categories\Queries\" />
+    <None Remove="CQRS\Categories\Queries\GetCategoryDetailsQuery\" />
+    <None Remove="CQRS\Categories\Queries\GetCategoryList\" />
+    <None Remove="CQRS\Goods\" />
+    <None Remove="CQRS\Goods\Queries\" />
+    <None Remove="CQRS\Goods\Queries\GetGoodDetails\" />
+    <None Remove="CQRS\Goods\Queries\GetGoodList\" />
+    <None Remove="CQRS\Goods\Queries\GetGoodPagedListByCategory\" />
+    <None Remove="Models\" />
+    <None Remove="CQRS\Orders\" />
+    <None Remove="CQRS\Orders\Commands\" />
+    <None Remove="CQRS\Orders\Queries\" />
+  </ItemGroup>
+</Project>
