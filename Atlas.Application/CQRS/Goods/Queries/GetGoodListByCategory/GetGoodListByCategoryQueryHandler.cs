@@ -24,12 +24,12 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
         {
             var goodIds = await _dbContext.CategoryToGoods
                 .Where(x => x.CategoryId == request.CategoryId)
-                .Select(e => e.Id).ToListAsync();
+                .Select(e => e.Id).ToListAsync(cancellationToken);
 
             var goods = await _dbContext.Goods
                 .Where(e => goodIds.Contains(e.Id))
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return new GoodListVm { Goods = goods };
         }

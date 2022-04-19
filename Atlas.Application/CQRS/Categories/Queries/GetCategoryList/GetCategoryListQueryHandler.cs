@@ -22,7 +22,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
         {
             var categories = await _dbContext.Categories
                 .ProjectTo<CategoryLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return new CategoryListVm { Categories = categories };
         }

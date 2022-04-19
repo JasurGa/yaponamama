@@ -26,14 +26,14 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory
         {
             var goodIds = await _dbContext.CategoryToGoods
                 .Where(x => x.CategoryId == request.CategoryId)
-                .Select(e => e.Id).ToListAsync();
+                .Select(e => e.Id).ToListAsync(cancellationToken);
 
             var goods = await _dbContext.Goods
                 .Where(e => goodIds.Contains(e.Id))
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return new PageDto<GoodLookupDto>
             {
