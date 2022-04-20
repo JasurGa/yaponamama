@@ -44,7 +44,8 @@
     <Folder Include="CQRS\Notifications\" />
     <Folder Include="CQRS\Notifications\Commands\" />
     <Folder Include="CQRS\Notifications\Queries\" />
-    <Folder Include="CQRS\Notifications\Queries\GetNotificationsPagedListQuery\" />
+    <Folder Include="CQRS\Notifications\Queries\GetNotificationsPagedList\" />
+    <Folder Include="CQRS\Notifications\Queries\GetNotificationDetails\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -78,5 +79,6 @@
     <None Remove="CQRS\Notifications\Commands\" />
     <None Remove="CQRS\Notifications\Queries\" />
     <None Remove="CQRS\Notifications\Queries\GetNotificationsPagedListQuery\" />
+    <None Remove="CQRS\Notifications\Queries\GetNotificationDetails\" />
   </ItemGroup>
 </Project>
