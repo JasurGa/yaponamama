@@ -49,7 +49,6 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         /// GET /api/1.0/order/last/paged?pageIndex=0&pageSize=10
         /// </remarks>
-        /// <param name="clientId">Client id (guid)</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>Returns PageDto OrderLookupDto object</returns>
