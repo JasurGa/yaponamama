@@ -72,6 +72,8 @@ namespace Atlas.Persistence
 
         public DbSet<VehicleType> VehicleTypes { get; set; }
 
+        public DbSet<VerifyCode> VerifyCodes { get; set; }
+
         public AtlasDbContext(DbContextOptions<AtlasDbContext> options)
             : base(options) { }
 
@@ -109,6 +111,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new VehicleConfiguration());
             modelBuilder.ApplyConfiguration(new VehicleTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new VerifyCodeConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
