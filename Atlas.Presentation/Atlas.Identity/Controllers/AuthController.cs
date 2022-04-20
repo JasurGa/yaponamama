@@ -51,6 +51,14 @@ namespace Atlas.Identity.Controllers
                 throw new NotFoundException(nameof(VerifyCode), registerDto.PhoneNumber);
             }
 
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
+                x.Login == registerDto.PhoneNumber, cancellationToken);
+
+            if (user != null)
+            {
+                return BadRequest();
+            }
+
             var userId   = Guid.NewGuid();
             var clientId = Guid.NewGuid();
             var salt     = GenerateSalt();
