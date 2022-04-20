@@ -7,8 +7,6 @@ namespace Atlas.Domain
 
         public Guid UserId { get; set; }
 
-        public Guid LanguageId { get; set; }
-
         public string PhoneNumber { get; set; }
 
         public string SelfieWithPassportPhotoPath { get; set; }

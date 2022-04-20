@@ -11,6 +11,9 @@ using Atlas.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Atlas.Application.Common.Constants;
 using Atlas.Application.Common.Exceptions;
+using System;
+using System.Linq;
+using System.Threading;
 
 namespace Atlas.Identity.Controllers
 {
@@ -32,11 +35,69 @@ namespace Atlas.Identity.Controllers
         }
 
         /// <summary>
+        /// Register client (for all)
+        /// </summary>
+        [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<AuthToken>> RegisterAsync([FromBody] RegisterDto registerDto,
+            CancellationToken cancellationToken)
+        {
+            var verification = await _dbContext.VerifyCodes.FirstOrDefaultAsync(x =>
+                x.PhoneNumber == registerDto.PhoneNumber, cancellationToken);
+
+            if (verification == null || !verification.IsVerified)
+            {
+                throw new NotFoundException(nameof(VerifyCode), registerDto.PhoneNumber);
+            }
+
+            var userId   = Guid.NewGuid();
+            var clientId = Guid.NewGuid();
+            var salt     = GenerateSalt();
+
+            await _dbContext.Users.AddAsync(new User
+            {
+                Id              = userId,
+                Login           = registerDto.PhoneNumber,
+                FirstName       = registerDto.FirstName,
+                LastName        = registerDto.LastName,
+                Birthday        = registerDto.Birthday,
+                CreatedAt       = DateTime.UtcNow,
+                AvatarPhotoPath = "",
+                IsDeleted       = false,
+                Salt            = salt,
+                PasswordHash    = Sha256Crypto.GetHash(salt + registerDto.Password)
+            });
+
+            await _dbContext.Clients.AddAsync(new Client
+            {
+                Id                          = clientId,
+                UserId                      = userId,
+                SelfieWithPassportPhotoPath = "",
+                Balance                     = 0,
+                IsDeleted                   = false,
+                IsPassportVerified          = false,
+                PhoneNumber                 = registerDto.PhoneNumber,
+                PassportPhotoPath           = "",
+            });
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            var token = _tokenService.GenerateToken(new Claim[]
+            {
+                new Claim(TokenClaims.UserId, userId.ToString()),
+                new Claim(TokenClaims.ClientId, clientId.ToString())
+            });
+
+            return Ok(token);
+        }
+
+        /// <summary>
         /// Auth user (for all)
         /// </summary>
         [HttpPost]
-        [ProducesResponseType(typeof(AuthToken), StatusCodes.Status200OK)]
-        public async Task<IActionResult> SignInAsync([FromBody] SignInDto signIn)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<AuthToken>> SignInAsync([FromBody] SignInDto signIn)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
                 x.Login == signIn.Login);
@@ -86,6 +147,15 @@ namespace Atlas.Identity.Controllers
 
             var token = _tokenService.GenerateToken(claims.ToArray());
             return Ok(token);
+        }
+
+        private static string GenerateSalt()
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            return new string(Enumerable.Repeat(chars, 10)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
