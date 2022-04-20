@@ -23,6 +23,21 @@ namespace Atlas.Identity
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var smsSettings = Configuration.GetSection("SmsSettings");
+
+            var accountSid = smsSettings.GetValue<string>("AccountSid");
+            var authToken  = smsSettings.GetValue<string>("AuthToken");
+            var fromNumber = smsSettings.GetValue<string>("FromPhoneNumber");
+
+            services.Configure<SmsSettings>(op =>
+            {
+                op.AccountSid      = accountSid;
+                op.AuthToken       = authToken;
+                op.FromPhoneNumber = fromNumber;
+            });
+
+            services.AddScoped<SmsService>();
+
             var tokenGenerationSettings = Configuration.GetSection("TokenGenerationSettings");
 
             var secret        = tokenGenerationSettings.GetValue<string>("Secret");
