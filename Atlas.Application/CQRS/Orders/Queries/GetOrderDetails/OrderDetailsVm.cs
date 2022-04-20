@@ -3,9 +3,9 @@ using Atlas.Application.Common.Mappings;
 using Atlas.Domain;
 using AutoMapper;
 
-namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
+namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 {
-    public class OrderLookupDto : IMapWith<Order>
+    public class OrderDetailsVm : IMapWith<Order>
     {
         public Guid Id { get; set; }
 
@@ -25,7 +25,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Order, OrderLookupDto>()
+            profile.CreateMap<Order, OrderDetailsVm>()
                 .ForMember(dest => dest.Id, opt =>
                     opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.CourierId, opt =>

@@ -40,7 +40,7 @@
     <Folder Include="Models\" />
     <Folder Include="CQRS\Orders\" />
     <Folder Include="CQRS\Orders\Commands\" />
-    <Folder Include="CQRS\Orders\Queries\" />
+    <Folder Include="CQRS\Orders\Queries\GetOrderDetails\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -69,6 +69,6 @@
     <None Remove="Models\" />
     <None Remove="CQRS\Orders\" />
     <None Remove="CQRS\Orders\Commands\" />
-    <None Remove="CQRS\Orders\Queries\" />
+    <None Remove="CQRS\Orders\Queries\GetOrderByClient\" />
   </ItemGroup>
 </Project>
