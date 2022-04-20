@@ -13,4 +13,3 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
         public int PageIndex { get; set; }
     }
 }
-}
