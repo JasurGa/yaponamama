@@ -49,6 +49,9 @@
     <Folder Include="CQRS\Users\" />
     <Folder Include="CQRS\Users\Queries\" />
     <Folder Include="CQRS\Users\Queries\GetUserDetails\" />
+    <Folder Include="CQRS\Clients\" />
+    <Folder Include="CQRS\Clients\Queries\" />
+    <Folder Include="CQRS\Clients\Queries\GetClientDetails\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -86,5 +89,8 @@
     <None Remove="CQRS\Users\" />
     <None Remove="CQRS\Users\Queries\" />
     <None Remove="CQRS\Users\Queries\GetUserDetailsQuery\" />
+    <None Remove="CQRS\Clients\" />
+    <None Remove="CQRS\Clients\Queries\" />
+    <None Remove="CQRS\Clients\Queries\GetClientDetails\" />
   </ItemGroup>
 </Project>
