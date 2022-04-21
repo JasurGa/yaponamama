@@ -105,7 +105,9 @@ namespace Atlas.Identity
             }
 
             app.UseCustomExceptionHandler();
+            app.UseAuthentication();
             app.UseRouting();
+            app.UseAuthorization();
             app.UseCors("AllowAll");
 
             app.UseEndpoints(endpoints =>

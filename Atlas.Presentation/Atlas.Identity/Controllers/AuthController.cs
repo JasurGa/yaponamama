@@ -14,6 +14,7 @@ using Atlas.Application.Common.Exceptions;
 using System;
 using System.Linq;
 using System.Threading;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Atlas.Identity.Controllers
 {
@@ -26,12 +27,42 @@ namespace Atlas.Identity.Controllers
 
         private readonly TokenService _tokenService;
 
+        internal Guid UserId => !User.Identity.IsAuthenticated
+            ? Guid.Empty
+            : Guid.Parse(User.FindFirst(TokenClaims.UserId).Value);
+
         public AuthController(TokenService tokenService, IAtlasDbContext dbContext) =>
             (_tokenService, _dbContext) = (tokenService, dbContext);
 
         private static bool IsCorrectPassword(User user, string password)
         {
             return user.PasswordHash == Sha256Crypto.GetHash(user.Salt + password);
+        }
+
+        /// <summary>
+        /// Change password (for all authorized)
+        /// </summary>
+        [HttpPut("password")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> ChangePasswordAsync([FromBody] ChangePasswordDto changePassword,
+            CancellationToken cancellationToken)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
+                x.Id == UserId, cancellationToken);
+
+            if (user == null || !IsCorrectPassword(user, changePassword.OldPassword))
+            {
+                return BadRequest();
+            }
+
+            user.Salt         = GenerateSalt();
+            user.PasswordHash = Sha256Crypto.GetHash(user.Salt + changePassword.NewPassword);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return NoContent();
         }
 
         /// <summary>
