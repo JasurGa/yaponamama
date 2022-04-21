@@ -32,8 +32,8 @@ namespace Atlas.Identity.Controllers
         public async Task<IActionResult> SendSmsAsync([FromBody] SendVerifySmsDto sendVerifySmsDto,
             CancellationToken cancellationToken)
         {
-            var oldVerificationCode = await _dbContext.VerifyCodes
-                .FirstOrDefaultAsync(x => x.PhoneNumber == sendVerifySmsDto.PhoneNumber);
+            var oldVerificationCode = await _dbContext.VerifyCodes.FirstOrDefaultAsync(x =>
+                x.PhoneNumber == sendVerifySmsDto.PhoneNumber, cancellationToken);
 
             if (oldVerificationCode != null)
             {
@@ -43,7 +43,6 @@ namespace Atlas.Identity.Controllers
                 }
 
                 _dbContext.VerifyCodes.Remove(oldVerificationCode);
-                await _dbContext.SaveChangesAsync(cancellationToken);
             }
 
             var newCode = GenerateVerificationCode();
@@ -66,12 +65,12 @@ namespace Atlas.Identity.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> SendSmsAsync([FromBody] VerifyPhoneDto verifyPhoneDto,
+        public async Task<IActionResult> VerifyPhoneAsync([FromBody] VerifyPhoneDto verifyPhoneDto,
             CancellationToken cancellationToken)
         {
             var verificationCode = await _dbContext.VerifyCodes
                 .FirstOrDefaultAsync(x => x.PhoneNumber == verifyPhoneDto.PhoneNumber &&
-                    x.VerificationCode == verifyPhoneDto.VerificationCode);
+                    x.VerificationCode == verifyPhoneDto.VerificationCode, cancellationToken);
 
             if (verificationCode == null || verificationCode.ExpiresAt < DateTime.UtcNow)
             {

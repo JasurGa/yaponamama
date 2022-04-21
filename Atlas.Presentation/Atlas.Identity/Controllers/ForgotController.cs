@@ -67,7 +67,8 @@ namespace Atlas.Identity.Controllers
         {
             var forgotPasswordCode = await _dbContext.ForgotPasswordCodes
                 .FirstOrDefaultAsync(x => x.PhoneNumber == resetPasswordDto.PhoneNumber &&
-                    x.VerificationCode == resetPasswordDto.VerificationCode);
+                    x.VerificationCode == resetPasswordDto.VerificationCode,
+                    cancellationToken);
 
             if (forgotPasswordCode == null || forgotPasswordCode.ExpiresAt < DateTime.UtcNow)
             {
