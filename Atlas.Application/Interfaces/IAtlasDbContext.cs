@@ -24,6 +24,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<Courier> Couriers { get; set; }
 
+        DbSet<ForgotPasswordCode> ForgotPasswordCodes { get; set; }
+
         DbSet<Good> Goods { get; set; }
 
         DbSet<GoodToOrder> GoodToOrders { get; set; }

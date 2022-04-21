@@ -24,6 +24,8 @@ namespace Atlas.Persistence
 
         public DbSet<Courier> Couriers { get; set; }
 
+        public DbSet<ForgotPasswordCode> ForgotPasswordCodes { get; set; }
+
         public DbSet<Good> Goods { get; set; }
 
         public DbSet<GoodToOrder> GoodToOrders { get; set; }
@@ -87,6 +89,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new ConsignmentConfiguration());
             modelBuilder.ApplyConfiguration(new CourierConfiguration());
+            modelBuilder.ApplyConfiguration(new ForgotPasswordCodeConfiguration());
             modelBuilder.ApplyConfiguration(new GoodConfiguration());
             modelBuilder.ApplyConfiguration(new GoodToOrderConfiguration());
             modelBuilder.ApplyConfiguration(new HeadRecruiterConfiguration());
