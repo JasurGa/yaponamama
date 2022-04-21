@@ -45,7 +45,7 @@ namespace Atlas.WebApi.Controllers
         /// <param name="categoryId">Category id (guid)</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="pageIndex">Page index</param>
-        /// <returns>Returns PageDto GoodLookupDto object></returns>
+        /// <returns>Returns PageDto GoodLookupDto object</returns>
         /// <response code="200">Success</response>
         [HttpGet("paged/category/{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
