@@ -11,16 +11,17 @@ namespace Atlas.Application.CQRS.Clients.Commands.UpdateClient
 {
     public class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand>
     {
-
         private readonly IAtlasDbContext _dbContext;
 
-        public UpdateClientCommandHandler(IAtlasDbContext dbContext) => _dbContext = dbContext;
+        public UpdateClientCommandHandler(IAtlasDbContext dbContext) => 
+            _dbContext = dbContext;
 
         public async Task<Unit> Handle(UpdateClientCommand request, CancellationToken cancellationToken)
         {
-            var client = await _dbContext.Clients.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+            var client = await _dbContext.Clients.FirstOrDefaultAsync(c => 
+                c.Id == request.Id, cancellationToken);
 
-            if(client == null)
+            if (client == null)
             {
                 throw new NotFoundException(nameof(Client), request.Id);
             }
