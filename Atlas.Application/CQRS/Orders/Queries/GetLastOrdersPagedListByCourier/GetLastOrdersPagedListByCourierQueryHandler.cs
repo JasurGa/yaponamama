@@ -17,8 +17,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
         private readonly IMapper _mapper;
         private readonly IAtlasDbContext _dbContext;
 
-        public GetLastOrdersPagedListByCourierQueryHandler(IMapper mapper, IAtlasDbContext dbContext)
-            => (_mapper, _dbContext) = (mapper, dbContext);
+        public GetLastOrdersPagedListByCourierQueryHandler(IMapper mapper, IAtlasDbContext dbContext) => 
+            (_mapper, _dbContext) = (mapper, dbContext);
 
         public async Task<PageDto<OrderLookupDto>> Handle(GetLastOrdersPagedListByCourierQuery request, CancellationToken cancellationToken)
         {
@@ -33,10 +33,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
 
             return new PageDto<OrderLookupDto>
             {
-                PageIndex = request.PageIndex,
+                PageIndex  = request.PageIndex,
                 TotalCount = ordersCount,
-                PageCount = (int)Math.Ceiling((double)ordersCount / request.PageSize),
-                Data = orders,
+                PageCount  = (int)Math.Ceiling((double)ordersCount / request.PageSize),
+                Data       = orders,
             };
         }
     }

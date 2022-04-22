@@ -39,7 +39,7 @@ namespace Atlas.WebApi.Controllers
         {
             var vm = await Mediator.Send(new GetOrderDetailsQuery
             {
-                Id = id,
+                Id       = id,
                 ClientId = ClientId
             });
 
@@ -67,7 +67,7 @@ namespace Atlas.WebApi.Controllers
         {
             var vm = await Mediator.Send(new GetOrderDetailsForCourierQuery
             {
-                Id = id,
+                Id        = id,
                 CourierId = CourierId
             });
 
