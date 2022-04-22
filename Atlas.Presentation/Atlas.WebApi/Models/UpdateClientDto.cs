@@ -9,15 +9,19 @@ namespace Atlas.WebApi.Models
     {
         public Guid Id { get; set; }
 
-        public string PhoneNumber { get; set; }
-
-        public object VehicleId { get; internal set; }
+        public string PassportPhotoPath { get; set; }
+        
+        public string SelfieWithPassportPhotoPath { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateClientDto, UpdateClientCommand>()
-                .ForMember(x => x.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(x => x.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber));
+                .ForMember(x => x.Id, opt => 
+                    opt.MapFrom(src => src.Id))
+                .ForMember(x => x.PassportPhotoPath, opt => 
+                    opt.MapFrom(src => src.PassportPhotoPath))
+                .ForMember(x => x.SelfieWithPassportPhotoPath, opt =>
+                    opt.MapFrom(src => src.SelfieWithPassportPhotoPath));
         }
     }
 }
