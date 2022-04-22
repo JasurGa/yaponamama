@@ -4,7 +4,7 @@ using AutoMapper;
 
 namespace Atlas.WebApi.Models
 {
-    public class UpdateCardInfoToClientDto
+    public class UpdateCardInfoToClientDto : IMapWith<UpdateCardInfoToClientDto>
     {
         public Guid Id { get; set; }
 
