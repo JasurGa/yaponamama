@@ -16,5 +16,7 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
         public string LastName { get; set; }
 
         public DateTime Birthday { get; set; }
+        
+        public string AvatarPhotoPath { get; set; }        
     }
 }
