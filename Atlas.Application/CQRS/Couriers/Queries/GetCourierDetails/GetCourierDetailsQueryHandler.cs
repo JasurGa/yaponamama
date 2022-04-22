@@ -11,18 +11,19 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
 {
     public class GetCourierDetailsQueryHandler : IRequestHandler<GetCourierDetailsQuery, CourierDetailsVm>
     {
-
         private readonly IMapper _mapper;
 
         private readonly IAtlasDbContext _dbContext;
 
-        public GetCourierDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) => (_mapper, _dbContext) = (mapper, dbContext);
+        public GetCourierDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) => 
+            (_mapper, _dbContext) = (mapper, dbContext);
 
         public async Task<CourierDetailsVm> Handle(GetCourierDetailsQuery request, CancellationToken cancellationToken)
         {
-            var courier = await _dbContext.Couriers.FirstOrDefaultAsync(c => c.Id == request.Id,cancellationToken);
+            var courier = await _dbContext.Couriers.FirstOrDefaultAsync(c => 
+                c.Id == request.Id, cancellationToken);
 
-            if (courier == null || courier.UserId != request.UserId)
+            if (courier == null)
             {
                 throw new NotFoundException(nameof(Courier), request.Id);
             }
