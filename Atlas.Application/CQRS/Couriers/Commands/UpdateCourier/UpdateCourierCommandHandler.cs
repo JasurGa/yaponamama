@@ -14,7 +14,8 @@ namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
     {
         private readonly IAtlasDbContext _dbContext;
 
-        public UpdateCourierCommandHandler(IAtlasDbContext dbContext) => _dbContext = dbContext;
+        public UpdateCourierCommandHandler(IAtlasDbContext dbContext) => 
+            _dbContext = dbContext;
 
         public async Task<Unit> Handle(UpdateCourierCommand request, CancellationToken cancellationToken)
         {
@@ -24,14 +25,13 @@ namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
             {
                 throw new NotFoundException(nameof(Courier), request.Id);
             }
-
-            courier.PhoneNumber = request.PhoneNumber;
-            courier.VehicleId = request.VehicleId;
+        
+            courier.PassportPhotoPath = request.PassportPhotoPath;
+            courier.DriverLicensePath = request.DriverLicensePath;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }
-
     }
 }
