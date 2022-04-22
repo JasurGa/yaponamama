@@ -9,9 +9,6 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
         {
             RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
-
-            RuleFor(x => x.UserId)
-                .NotEqual(Guid.Empty);
         }
     }
 }
