@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Atlas.Application.CQRS.Clients.Commands.UpdateClient;
 using Atlas.Application.CQRS.Clients.Queries.GetClientDetails;
 using Atlas.Application.CQRS.Couriers.Commands.UpdateCourier;
+using Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails;
 using Atlas.Application.CQRS.Users.Commands.UpdateUser;
 using Atlas.Application.CQRS.Users.Queries.GetUserDetails;
 using Atlas.WebApi.Models;
@@ -66,6 +67,30 @@ namespace Atlas.WebApi.Controllers
             var vm = await Mediator.Send(new GetClientDetailsQuery
             {
                 Id = ClientId
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets courier profile
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/profile/courier
+        /// </remarks>
+        /// <returns>Returns CourierDetailsVm object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("courier")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<CourierDetailsVm>> GetCourierProfileAsync()
+        {
+            var vm = await Mediator.Send(new GetCourierDetailsQuery
+            {
+                Id = CourierId
             });
 
             return Ok(vm);
