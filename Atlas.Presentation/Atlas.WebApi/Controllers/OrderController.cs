@@ -1,4 +1,5 @@
 ﻿using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
+using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetails;
 using Atlas.Application.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -37,12 +38,14 @@ namespace Atlas.WebApi.Controllers
         {
             var vm = await Mediator.Send(new GetOrderDetailsQuery
             {
-                Id       = id,
+                Id = id,
                 ClientId = ClientId
             });
 
             return Ok(vm);
         }
+
+
 
         /// <summary>
         /// Get the list of last orders by client id
@@ -68,6 +71,33 @@ namespace Atlas.WebApi.Controllers
                 PageIndex = pageIndex,
                 PageSize  = pageSize
             });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get the list of last orders by courier id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/order/courier/last/paged?pageIndex=0&pageSize=10
+        /// </remarks>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>Returns PageDto OrderLookupDto object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("courier/last/paged")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetLastOrdersByCourierIdAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetLastOrdersPagedListByCourierQuery
+            {
+                CourierId = CourierId,
+                PageIndex = pageIndex,
+                PageSize  = pageSize
+            }) ;
 
             return Ok(vm);
         }
