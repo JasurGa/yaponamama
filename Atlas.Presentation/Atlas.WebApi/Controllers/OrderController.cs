@@ -1,6 +1,7 @@
 ﻿using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetails;
+using Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForCourier;
 using Atlas.Application.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +46,33 @@ namespace Atlas.WebApi.Controllers
             return Ok(vm);
         }
 
+        /// <summary>
+        /// Get the order details for courier
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/courier
+        /// </remarks>
+        /// <param name="id">Order id (guid)</param>
+        /// <returns>Returns OrderDetailsVm object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("{id}/courier")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<OrderDetailsVm>> GetByForCourierAsync([FromRoute] Guid id) 
+        {
+            var vm = await Mediator.Send(new GetOrderDetailsForCourierQuery
+            {
+                Id = id,
+                CourierId = CourierId
+            });
+
+            return Ok(vm);
+        }
 
 
         /// <summary>
@@ -86,6 +114,7 @@ namespace Atlas.WebApi.Controllers
         /// <param name="pageSize">Page size</param>
         /// <returns>Returns PageDto OrderLookupDto object</returns>
         /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
         [HttpGet("courier/last/paged")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
