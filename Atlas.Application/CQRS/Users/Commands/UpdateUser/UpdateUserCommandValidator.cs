@@ -12,12 +12,6 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
         public UpdateUserCommandValidator()
         {
             RuleFor(e => e.Id).NotEqual(Guid.Empty);
-
-            RuleFor(e => e.FirstName).NotEmpty();
-
-            RuleFor(e => e.LastName).NotEmpty();
-
-            RuleFor(e => e.Birthday).NotEmpty();
         }
     }
 }
