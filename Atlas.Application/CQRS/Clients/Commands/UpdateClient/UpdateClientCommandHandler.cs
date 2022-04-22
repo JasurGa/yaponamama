@@ -26,7 +26,8 @@ namespace Atlas.Application.CQRS.Clients.Commands.UpdateClient
                 throw new NotFoundException(nameof(Client), request.Id);
             }
 
-            client.PhoneNumber = request.PhoneNumber;
+            client.PassportPhotoPath           = request.PassportPhotoPath;
+            client.SelfieWithPassportPhotoPath = request.SelfieWithPassportPhotoPath;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
