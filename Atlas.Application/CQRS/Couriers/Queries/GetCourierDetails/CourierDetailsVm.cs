@@ -17,6 +17,16 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
 
         public string PhoneNumber { get; set; }
 
+        public string PassportPhotoPath { get; set; }
+
+        public string DriverLicensePath { get; set; }
+
+        public long Balance { get; set; }
+
+        public long KPI { get; set; }
+
+        public Guid? VehicleId { get; set; }
+        
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Courier, CourierDetailsVm>()
@@ -25,7 +35,17 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
                 .ForMember(x => x.UserId,
                     opt => opt.MapFrom(src => src.UserId))
                 .ForMember(x => x.PhoneNumber,
-                    opt => opt.MapFrom(src => src.PhoneNumber));
+                    opt => opt.MapFrom(src => src.PhoneNumber))
+                .ForMember(x => x.PassportPhotoPath,
+                    opt => opt.MapFrom(src => src.PassportPhotoPath))
+                .ForMember(x => x.DriverLicensePath,
+                    opt => opt.MapFrom(src => src.DriverLicensePath))
+                .ForMember(x => x.Balance,
+                    opt => opt.MapFrom(src => src.Balance))
+                .ForMember(x => x.KPI,
+                    opt => opt.MapFrom(src => src.KPI))
+                .ForMember(x => x.VehicleId,
+                    opt => opt.MapFrom(src => src.VehicleId));
         }
     }
 }
