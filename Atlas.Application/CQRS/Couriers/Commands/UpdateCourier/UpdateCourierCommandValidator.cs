@@ -13,13 +13,6 @@ namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
         {
             RuleFor(e => e.Id)
                 .NotEqual(Guid.Empty);
-
-            RuleFor(e => e.PhoneNumber)
-                .NotEmpty()
-                .MaximumLength(13);
-
-            RuleFor(e => e.VehicleId)
-                .NotEqual(Guid.Empty);
         }
     }
 }
