@@ -76,11 +76,12 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/profile/user
+        /// PUT /api/1.0/profile
         /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "firstname": "John",
-        ///     "lastname": "Doe"
+        ///     "lastname": "Doe",
+        ///     "birthDay": "1900-01-01T10:00:00",
+        ///     "avatarPhotoPath": ""
         /// }
         /// </remarks>
         /// <param name="updateUser">UpdateUserDto object</param>
@@ -88,7 +89,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpPut("user")]
+        [HttpPut]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -104,7 +105,6 @@ namespace Atlas.WebApi.Controllers
             });
 
             await Mediator.Send(command);
-
             return NoContent();
         }
 
@@ -115,8 +115,8 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         /// PUT /api/1.0/profile/client
         /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "phonenumber": "+998901234567"
+        ///     "passportPhotoPath": "test",
+        ///     "selfieWithPassportPhotoPath": "test"
         /// }
         /// </remarks>
         /// <param name="updateClient">UpdateClientDto object</param>
@@ -151,9 +151,8 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         /// PUT /api/1.0/profile/courier
         /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "phonenumber": "+998901234567"
-        ///     "vehicleid": "a3eb7b4a-9f4e-4c71-8619-398655c563b9"
+        ///     "passportPhotoPath": "test",
+        ///     "driverLicensePath": "test"
         /// }
         /// </remarks>
         /// <param name="updateCourier">UpdateCourierDto object</param>
@@ -177,7 +176,6 @@ namespace Atlas.WebApi.Controllers
             });
 
             await Mediator.Send(command);
-
             return NoContent();
         }
     }
