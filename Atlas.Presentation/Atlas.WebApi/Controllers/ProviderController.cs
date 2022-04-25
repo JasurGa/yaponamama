@@ -3,6 +3,8 @@ using Atlas.Application.CQRS.Providers.Commands.DeleteProvider;
 using Atlas.Application.CQRS.Providers.Commands.UpdateProvider;
 using Atlas.Application.CQRS.Providers.Queries.GetProviderDetails;
 using Atlas.Application.CQRS.Providers.Queries.GetProviderList;
+using Atlas.Application.CQRS.Providers.Queries.GetProviderPagedList;
+using Atlas.Application.Models;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -23,6 +25,33 @@ namespace Atlas.WebApi.Controllers
         private readonly IMapper _mapper;
 
         public ProviderController(IMapper mapper) => _mapper = mapper;
+
+        /// <summary>
+        /// Get the paged list of providers
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/provider/paged?pageIndex=0&pageSize=10
+        /// </remarks>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>Returns PageDto ProviderLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("paged")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<ProviderLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetProviderPagedListQuery
+            {
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Get the list of providers
