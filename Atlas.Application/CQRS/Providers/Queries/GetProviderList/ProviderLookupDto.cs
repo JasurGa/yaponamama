@@ -21,8 +21,6 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderList
 
         public string Address { get; set; }
 
-        public string Description { get; set; }
-
         public string LogotypePath { get; set; }
 
         public void Mapping(Profile profile)
@@ -38,8 +36,6 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderList
                     opt.MapFrom(src => src.Latitude))
                 .ForMember(dst => dst.Address, opt =>
                     opt.MapFrom(src => src.Address))
-                .ForMember(dst => dst.Description, opt =>
-                    opt.MapFrom(src => src.Description))
                 .ForMember(dst => dst.LogotypePath, opt =>
                     opt.MapFrom(src => src.LogotypePath));
 

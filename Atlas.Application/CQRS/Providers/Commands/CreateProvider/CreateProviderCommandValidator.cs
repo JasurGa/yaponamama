@@ -22,12 +22,6 @@ namespace Atlas.Application.CQRS.Providers.Commands.CreateProvider
 
             RuleFor(p => p.Longitude)
                 .NotEmpty();
-
-            RuleFor(p => p.Description)
-                .NotEmpty();
-
-            RuleFor(p => p.LogotypePath)
-                .NotEmpty();
         }
     }
 }

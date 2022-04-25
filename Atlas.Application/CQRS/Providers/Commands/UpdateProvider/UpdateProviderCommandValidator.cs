@@ -23,14 +23,7 @@ namespace Atlas.Application.CQRS.Providers.Commands.UpdateProvider
             RuleFor(p => p.Latitude)
                 .NotEmpty();
 
-            RuleFor(p => p.Description)
-                .NotEmpty();
-
             RuleFor(p => p.Address)
-                .NotEmpty()
-                .MaximumLength(250);
-
-            RuleFor(p => p.LogotypePath)
                 .NotEmpty();
         }
     }
