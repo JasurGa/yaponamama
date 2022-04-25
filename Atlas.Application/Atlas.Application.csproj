@@ -8,7 +8,6 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Common\" />
     <Folder Include="Common\Mappings\" />
-    <Folder Include="CQRS\" />
     <Folder Include="CQRS\AddressToClients\" />
     <Folder Include="CQRS\AddressToClients\Commands\" />
     <Folder Include="CQRS\AddressToClients\Commands\CreateAddressToClient\" />

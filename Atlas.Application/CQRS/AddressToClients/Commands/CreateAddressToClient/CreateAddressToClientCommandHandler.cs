@@ -30,6 +30,7 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.CreateAddressToClient
 
             await _dbContext.AddressToClients.AddAsync(addressToClient,
                 cancellationToken);
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return addressToClient.Id;
