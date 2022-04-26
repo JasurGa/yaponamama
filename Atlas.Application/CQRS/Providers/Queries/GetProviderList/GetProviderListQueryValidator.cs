@@ -11,7 +11,7 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderList
     {
         public GetProviderListQueryValidator()
         {
-
+            
         }
     }
 }
