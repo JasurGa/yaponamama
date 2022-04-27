@@ -21,7 +21,6 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.CreateVehicle
 
         public async Task<Guid> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
         {
-
             var store       = await _dbContext.Stores.FirstOrDefaultAsync(s => 
                 s.Id == request.StoreId, cancellationToken);
 

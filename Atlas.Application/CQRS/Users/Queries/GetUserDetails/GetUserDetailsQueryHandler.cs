@@ -14,7 +14,6 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserDetails
         UserDetailsVm>
     {
         private readonly IMapper _mapper;
-
         private readonly IAtlasDbContext _dbContext;
 
         public GetUserDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>

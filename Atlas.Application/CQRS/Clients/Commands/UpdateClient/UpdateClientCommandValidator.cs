@@ -9,7 +9,6 @@ namespace Atlas.Application.CQRS.Clients.Commands.UpdateClient
         {
             RuleFor(e => e.Id)
                 .NotEqual(Guid.Empty);
-
         }
     }
 }

@@ -35,10 +35,10 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderPagedList
 
             return new PageDto<ProviderLookupDto>
             {
-                PageIndex = request.PageIndex,
+                PageIndex  = request.PageIndex,
                 TotalCount = providersCount,
-                PageCount = (int)Math.Ceiling((double)providersCount / request.PageSize),
-                Data = providers
+                PageCount  = (int)Math.Ceiling((double)providersCount / request.PageSize),
+                Data       = providers
             };
         }
     }

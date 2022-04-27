@@ -14,7 +14,6 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
         ClientDetailsVm>
     {
         private readonly IMapper _mapper;
-
         private readonly IAtlasDbContext _dbContext;
 
         public GetClientDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>

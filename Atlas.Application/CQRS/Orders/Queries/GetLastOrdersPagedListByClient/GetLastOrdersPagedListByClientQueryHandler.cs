@@ -33,10 +33,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
             return new PageDto<OrderLookupDto>
             {
-                PageIndex = request.PageIndex,
+                PageIndex  = request.PageIndex,
                 TotalCount = ordersCount,
-                PageCount = (int)Math.Ceiling((double)ordersCount / request.PageSize),
-                Data = orders
+                PageCount  = (int)Math.Ceiling((double)ordersCount / request.PageSize),
+                Data       = orders
             };
         }
     }

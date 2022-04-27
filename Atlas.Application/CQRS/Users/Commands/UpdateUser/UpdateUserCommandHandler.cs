@@ -35,6 +35,7 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
             user.AvatarPhotoPath = request.AvatarPhotoPath;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
+
             return Unit.Value;
         }
     }

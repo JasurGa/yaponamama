@@ -30,6 +30,7 @@ namespace Atlas.Application.CQRS.Clients.Commands.UpdateClient
             client.SelfieWithPassportPhotoPath = request.SelfieWithPassportPhotoPath;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
+
             return Unit.Value;
         }
     }
