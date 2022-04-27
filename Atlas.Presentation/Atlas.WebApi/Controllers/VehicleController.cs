@@ -2,9 +2,10 @@
 using Atlas.Application.CQRS.Vehicles.Commands.DeleteVehicle;
 using Atlas.Application.CQRS.Vehicles.Commands.UpdateVehicle;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleDetails;
-using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleDetailsByStore;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList;
+using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleListByStore;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedList;
+using Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListByStore;
 using Atlas.Application.Models;
 using Atlas.WebApi.Models;
 using AutoMapper;
@@ -12,8 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Atlas.WebApi.Controllers
@@ -50,6 +49,31 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
+        /// Get the list of vehicles by store id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/vehicle/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// </remarks>
+        /// <param name="storeId">Store id (guid)</param>
+        /// <returns>Returns VehicleListVm object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("store/{storeId}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<VehicleListVm>> GetAllByStoreIdAsync(Guid storeId)
+        {
+            var vm = await Mediator.Send(new GetVehicleListByStoreQuery 
+            { 
+                StoreId = storeId,
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
         /// Get the vehicle by its id
         /// </summary>
         /// <remarks>
@@ -77,33 +101,6 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get the vehicle by store id
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// GET /api/1.0/vehicle/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
-        /// </remarks>
-        /// <param name="storeId">Store id (guid)</param>
-        /// <returns>Returns VehicleDetailsVm object</returns>
-        /// <response code="200">Success</response>
-        /// <response code="404">Not found</response>
-        /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("store/{storeId}")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<VehicleDetailsVm>> GetByStoreAsync(Guid storeId)
-        {
-            var vm = await Mediator.Send(new GetVehicleDetailsByStoreQuery
-            {
-                StoreId = storeId
-            });
-
-            return Ok(vm);
-        }
-
-        /// <summary>
         /// Get the paged list of vehicles
         /// </summary>
         /// <remarks>
@@ -123,6 +120,35 @@ namespace Atlas.WebApi.Controllers
         {
             var vm = await Mediator.Send(new GetVehiclePagedListQuery
             {
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get the paged list of vehicles by store id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/vehicle/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?pageIndex=0&amp;pageSize=10
+        /// </remarks>
+        /// <param name="storeId">Store id (guid)</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>Returns PageDto VehicleLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("store/{storeId}/paged")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<VehicleLookupDto>>> GetAllPagedByStoreIdAsync(Guid storeId, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetVehiclePagedListByStoreQuery
+            {
+                StoreId = storeId,
                 PageIndex = pageIndex,
                 PageSize = pageSize
             });
@@ -186,7 +212,7 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> UpdateAsync([FromBody] UpdatVehicleDto updateVehicleDto)
+        public async Task<ActionResult> UpdateAsync([FromBody] UpdateVehicleDto updateVehicleDto)
         {
             var command = _mapper.Map<UpdateVehicleCommand>(updateVehicleDto);
 
