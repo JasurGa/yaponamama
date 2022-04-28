@@ -24,7 +24,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForCourier
 
         public async Task<OrderDetailsVm> Handle(GetOrderDetailsForCourierQuery request, CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(o => o.Id == request.Id, cancellationToken);
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(o => o.Id == request.Id, 
+                cancellationToken);
 
             if (order == null || order.CourierId != request.CourierId)
             {

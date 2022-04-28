@@ -24,7 +24,7 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedList
 
         public async Task<PageDto<VehicleLookupDto>> Handle(GetVehiclePagedListQuery request, CancellationToken cancellationToken)
         {
-            var vehiclesCount = await _dbContext.Vehicles.CountAsync();
+            var vehiclesCount = await _dbContext.Vehicles.CountAsync(cancellationToken);
 
             var vehicles = await _dbContext.Vehicles
                 .Skip(request.PageIndex * request.PageSize)

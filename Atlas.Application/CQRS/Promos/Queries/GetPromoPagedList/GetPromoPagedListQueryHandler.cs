@@ -24,7 +24,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList
 
         public async Task<PageDto<PromoLookupDto>> Handle(GetPromoPagedListQuery request, CancellationToken cancellationToken)
         {
-            var promosCount = await _dbContext.Promos.CountAsync();
+            var promosCount = await _dbContext.Promos.CountAsync(cancellationToken);
             
             var promos = await _dbContext.Promos
                 .Skip(request.PageIndex * request.PageSize)

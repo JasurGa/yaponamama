@@ -24,14 +24,15 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListByStore
 
         public async Task<PageDto<VehicleLookupDto>> Handle(GetVehiclePagedListByStoreQuery request, CancellationToken cancellationToken)
         {
-            var vehiclesCount = await _dbContext.Vehicles.CountAsync(v => v.StoreId == request.StoreId);
+            var vehiclesCount = await _dbContext.Vehicles.CountAsync(v => v.StoreId == request.StoreId, 
+                cancellationToken);
 
             var vehicles = await _dbContext.Vehicles
                 .Where(v => v.StoreId == request.StoreId)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<VehicleLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return new PageDto<VehicleLookupDto>
             {

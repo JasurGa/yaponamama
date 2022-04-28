@@ -23,7 +23,8 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderDetails
 
         public async Task<ProviderDetailsVm> Handle(GetProviderDetailsQuery request, CancellationToken cancellationToken)
         {
-            var provider = await _dbContext.Providers.FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
+            var provider = await _dbContext.Providers.FirstOrDefaultAsync(p => p.Id == request.Id, 
+                cancellationToken);
 
             if (provider == null)
             {

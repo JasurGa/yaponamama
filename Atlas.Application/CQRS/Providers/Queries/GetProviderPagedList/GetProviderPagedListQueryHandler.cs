@@ -25,7 +25,7 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderPagedList
         public async Task<PageDto<ProviderLookupDto>> Handle(GetProviderPagedListQuery request, CancellationToken cancellationToken)
         {
 
-            var providersCount = await _dbContext.Providers.CountAsync();
+            var providersCount = await _dbContext.Providers.CountAsync(cancellationToken);
 
             var providers = await _dbContext.Providers
                     .Skip(request.PageIndex * request.PageSize)
