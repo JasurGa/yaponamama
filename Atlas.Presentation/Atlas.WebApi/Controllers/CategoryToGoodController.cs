@@ -1,5 +1,6 @@
 ﻿using Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoryToGood;
 using Atlas.Application.CQRS.CategoryToGoods.Commands.DeleteCategoryToGood;
+using Atlas.Application.CQRS.CategoryToGoods.Queries.GetCategoryToGoodListByGoodId;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +20,29 @@ namespace Atlas.WebApi.Controllers
 
         public CategoryToGoodController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Get the list of categories with goods by good id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/categoryToGoods/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// </remarks>
+        /// <returns>Returns CategoryToGoodListVm object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("good/{goodId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<CategoryToGoodListVm>> GetAllAsync(Guid goodId)
+        {
+            var vm = await Mediator.Send(new GetCategoryToGoodListByGoodIdQuery 
+            { 
+                GoodId = goodId,
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Attaches category and good
