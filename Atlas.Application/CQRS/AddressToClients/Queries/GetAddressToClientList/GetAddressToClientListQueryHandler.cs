@@ -25,7 +25,7 @@ namespace Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientList
             var addressToClientsQuery = await _dbContext.AddressToClients
                 .Where(e => e.ClientId == request.ClientId)
                 .ProjectTo<AddressToClientLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return new AddressToClientListVm { AddressToClients = addressToClientsQuery };
         }
