@@ -71,7 +71,7 @@ namespace Atlas.WebApi.Controllers
         {
             var command = _mapper.Map<CreateStoreToGoodCommand>(createStoreToGood);
 
-            var storeToGoodId = Mediator.Send(command);
+            var storeToGoodId = await Mediator.Send(command);
 
             return Ok(storeToGoodId);
         }
