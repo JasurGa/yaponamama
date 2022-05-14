@@ -24,7 +24,7 @@ namespace Atlas.Application.CQRS.CardInfoToClients.Queries.GetCardInfoToClientLi
             var cardInfoToClients = await _dbContext.CardInfoToClients
                 .Where(e => e.ClientId == request.ClientId)
                 .ProjectTo<CardInfoToClientLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return new CardInfoToClientListVm { CardInfoToClients = cardInfoToClients };
         }
