@@ -31,7 +31,7 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/provider/paged?pageIndex=0&pageSize=10
+        /// GET /api/1.0/provider/paged?pageIndex=0&amp;pageSize=10
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>

@@ -40,7 +40,7 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/paged/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8?pageSize=10&pageIndex=0
+        /// GET /api/1.0/good/paged/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8?pageSize=10&amp;pageIndex=0
         /// </remarks>
         /// <param name="categoryId">Category id (guid)</param>
         /// <param name="pageSize">Page size</param>
