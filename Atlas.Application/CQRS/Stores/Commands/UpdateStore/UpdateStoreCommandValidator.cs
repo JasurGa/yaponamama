@@ -21,9 +21,6 @@ namespace Atlas.Application.CQRS.Stores.Commands.UpdateStore
 
             RuleFor(s => s.Longitude)
                 .NotEmpty();
-
-            RuleFor(s => s.IsDeleted)
-                .NotEmpty();
         }
     }
 }

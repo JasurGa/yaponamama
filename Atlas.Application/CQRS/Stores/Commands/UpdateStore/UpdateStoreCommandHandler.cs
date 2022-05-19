@@ -29,7 +29,6 @@ namespace Atlas.Application.CQRS.Stores.Commands.UpdateStore
             store.Address   = request.Address;
             store.Latitude  = request.Latitude;
             store.Longitude = request.Longitude;
-            store.IsDeleted = request.IsDeleted;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
