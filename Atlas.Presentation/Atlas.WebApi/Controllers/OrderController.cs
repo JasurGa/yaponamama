@@ -21,11 +21,6 @@ namespace Atlas.WebApi.Controllers
     [Route("/api/{version:apiVersion}/[controller]")]
     public class OrderController : BaseController
     {
-        private readonly IMapper _mapper;
-
-        public OrderController(IMapper mapper) =>
-            _mapper = mapper;
-
         /// <summary>
         /// Get the order details
         /// </summary>

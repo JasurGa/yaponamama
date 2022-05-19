@@ -106,7 +106,7 @@ namespace Atlas.Identity.Controllers
                 IsDeleted       = false,
                 Salt            = salt,
                 PasswordHash    = Sha256Crypto.GetHash(salt + registerDto.Password)
-            });
+            }, cancellationToken);
 
             await _dbContext.Clients.AddAsync(new Client
             {
@@ -118,7 +118,7 @@ namespace Atlas.Identity.Controllers
                 IsPassportVerified          = false,
                 PhoneNumber                 = registerDto.PhoneNumber,
                 PassportPhotoPath           = "",
-            });
+            }, cancellationToken);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
@@ -190,7 +190,8 @@ namespace Atlas.Identity.Controllers
 
         private static string GenerateSalt()
         {
-            Random random = new Random();
+            Random random = new();
+
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
             return new string(Enumerable.Repeat(chars, 10)
