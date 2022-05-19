@@ -17,8 +17,6 @@ namespace Atlas.WebApi.Models
 
         public float Longitude { get; set; }
 
-        public bool IsDeleted { get; set; }
-
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateStoreDto, UpdateStoreCommand>()
@@ -31,9 +29,7 @@ namespace Atlas.WebApi.Models
                 .ForMember(x => x.Latitude, opt =>
                     opt.MapFrom(x => x.Latitude))
                 .ForMember(x => x.Longitude, opt =>
-                    opt.MapFrom(x => x.Longitude))
-                .ForMember(x => x.IsDeleted, opt =>
-                    opt.MapFrom(x => x.IsDeleted));
+                    opt.MapFrom(x => x.Longitude));
         }
     }
 }

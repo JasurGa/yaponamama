@@ -110,7 +110,7 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         /// DELETE /api/1.0/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
         /// </remarks>
-        /// <param name="id">DeleteStoreCommand id</param>
+        /// <param name="id">Store id (guid)</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
@@ -201,7 +201,7 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         /// PATCH /api/1.0/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
         /// </remarks>
-        /// <param name="id">Guid id</param>
+        /// <param name="id">Store id (guid)</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
