@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MediatR;
 
 namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
@@ -17,6 +13,6 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
 
         public DateTime Birthday { get; set; }
         
-        public string AvatarPhotoPath { get; set; }        
+        public string AvatarPhotoPath { get; set; }
     }
 }
