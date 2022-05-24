@@ -1,8 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Atlas.Application.CQRS.Goods.Commands.CreateGood;
+using Atlas.Application.CQRS.Goods.Commands.DeleteGood;
+using Atlas.Application.CQRS.Goods.Commands.RestoreGood;
+using Atlas.Application.CQRS.Goods.Commands.UpdateGood;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodDetails;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory;
 using Atlas.Application.Models;
+using Atlas.WebApi.Models;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +21,11 @@ namespace Atlas.WebApi.Controllers
     [Route("/api/{version:apiVersion}/[controller]")]
     public class GoodController : BaseController
     {
+
+        private readonly IMapper _mapper;
+
+        public GoodController(IMapper mapper) =>
+            _mapper = mapper;
         /// <summary>
         /// Get the list of good by category id
         /// </summary>
@@ -60,6 +73,156 @@ namespace Atlas.WebApi.Controllers
             });
 
             return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the good by id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// </remarks>
+        /// <param name="id">Good id (guid)</param>
+        /// <returns>Returns GoodDetailsVm object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("{id}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<GoodDetailsVm>> GetAsync(Guid id)
+        {
+            var vm = await Mediator.Send(new GetGoodDetailsQuery
+            {
+                Id = id,
+            });
+
+            return Ok(vm);
+        }
+
+
+
+        /// <summary>
+        /// Creates a new good
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// POST /api/1.0/good
+        /// {
+        ///     "name": "Sample name",
+        ///     "description": "Sample description",
+        ///     "photoPath": "/main/dir",
+        ///     "sellingPrice": 100,
+        ///     "purchasePrice": 99,
+        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        /// }
+        /// </remarks>
+        /// <param name="createGood">CreateGoodDto object</param>
+        /// <returns>Returns id (guid)</returns> 
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpPost]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateGoodDto createGood)
+        {
+            var command = _mapper.Map<CreateGoodCommand>(createGood);
+
+            var goodId = await Mediator.Send(command);
+
+            return Ok(goodId);
+        }
+
+        /// <summary>
+        /// Updates the good
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// PUT /api/1.0/good
+        /// {
+        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "name": "Sample name",
+        ///     "description": "Sample description",
+        ///     "photoPath": "/main/dir",
+        ///     "sellingPrice": 100,
+        ///     "purchasePrice": 99,
+        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        /// }
+        /// </remarks>
+        /// <param name="updateGood">UpdateGoodDto object</param>
+        /// <returns>Returns id (guid)</returns> 
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpPut]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Guid>> UpdateAsync([FromBody] UpdateGoodDto updateGood)
+        {
+            var command = _mapper.Map<UpdateGoodCommand>(updateGood);
+
+            await Mediator.Send(command);
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Deletes the good by id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// DELETE /api/1.0/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// </remarks>
+        /// <param name="id">Good id</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpDelete("{id}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            await Mediator.Send(new DeleteGoodCommand
+            {
+                Id = id,
+            });
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Restores the good by id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// PATCH /api/1.0/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8/restore
+        /// </remarks>
+        /// <param name="id">Good id</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpPatch("{id}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> RestoreAsync(Guid id)
+        {
+            await Mediator.Send(new RestoreGoodCommand
+            {
+                Id = id,
+            });
+
+            return NoContent();
         }
     }
 }

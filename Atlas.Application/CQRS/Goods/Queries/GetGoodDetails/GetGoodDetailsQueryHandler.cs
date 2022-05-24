@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Atlas.Application.Interfaces;
@@ -21,8 +20,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public async Task<GoodDetailsVm> Handle(GetGoodDetailsQuery request, CancellationToken cancellationToken)
         {
-            var good = await _dbContext.Goods.FirstOrDefaultAsync(x => x.Id == request.Id,
-                cancellationToken);
+            var good = await _dbContext.Goods
+                .FirstOrDefaultAsync(x => x.Id == request.Id,cancellationToken);
 
             if (good == null)
             {
