@@ -68,7 +68,7 @@ namespace Atlas.WebApi.Controllers
         {
             var command = _mapper.Map<CreateCategoryToGoodCommand>(createCategoryToGood);
 
-            var categoryToGoodId = Mediator.Send(command);
+            var categoryToGoodId = await Mediator.Send(command);
 
             return Ok(categoryToGoodId);
         }

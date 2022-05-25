@@ -22,9 +22,11 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList
 
         public async Task<PageDto<CategoryLookupDto>> Handle(GetCategoryPagedListQuery request, CancellationToken cancellationToken)
         {
-            var categoriesCount = await _dbContext.Categories.CountAsync(cancellationToken);
+            var categoriesCount = await _dbContext.Categories
+                .Where(c => c.IsDeleted == request.ShowDeleted)
+                .CountAsync(cancellationToken);
 
-            var categories = await _dbContext.Goods
+            var categories = await _dbContext.Categories
                 .Where(c => c.IsDeleted == request.ShowDeleted)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)

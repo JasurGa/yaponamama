@@ -19,9 +19,11 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
             var consignment = new Consignment
             {
                 Id              = Guid.NewGuid(),
-                PurchasedAt     = request.PurchasedAt,
                 ExpirateAt      = request.ExpirateAt,
+                PurchasedAt     = request.PurchasedAt,
                 ShelfLocation   = request.ShelfLocation,
+                StoreToGoodId   = request.StoreToGoodId,
+
             };
 
             await _dbContext.Consignments.AddAsync(consignment, cancellationToken);

@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList
 {
@@ -7,8 +6,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList
     {
         public GetConsignmentListQueryValidator()
         {
-            RuleFor(x => x.Id)
-                .NotEqual(Guid.Empty);
+
         }
     }
 }

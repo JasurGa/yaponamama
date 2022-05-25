@@ -15,6 +15,8 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList
 
         public DateTime ExpirateAt { get; set; }
 
+        public string ShelfLocation { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Consignment, ConsignmentLookupDto>()
@@ -25,7 +27,9 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList
                 .ForMember(eVm => eVm.PurchasedAt,
                     opt => opt.MapFrom(e => e.PurchasedAt))
                 .ForMember(eVm => eVm.ExpirateAt,
-                    opt => opt.MapFrom(e => e.ExpirateAt));
+                    opt => opt.MapFrom(e => e.ExpirateAt))
+                .ForMember(eVm => eVm.ShelfLocation,
+                    opt => opt.MapFrom(e => e.ShelfLocation));
         }
     }
 }

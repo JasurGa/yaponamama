@@ -48,7 +48,7 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get the paged list of providers
+        /// Get the paged list of stores
         /// </summary>
         /// <remarks>
         /// Sample request:

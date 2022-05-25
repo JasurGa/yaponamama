@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Atlas.Persistence.Migrations
 {
     [DbContext(typeof(AtlasDbContext))]
-    [Migration("20220420082922_VerificationCodesMigration")]
-    partial class VerificationCodesMigration
+    [Migration("20220525131841_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -157,9 +157,6 @@ namespace Atlas.Persistence.Migrations
                     b.Property<bool>("IsPassportVerified")
                         .HasColumnType("boolean");
 
-                    b.Property<Guid>("LanguageId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("PassportPhotoPath")
                         .HasColumnType("text");
 
@@ -242,6 +239,29 @@ namespace Atlas.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Couriers");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.ForgotPasswordCode", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<string>("VerificationCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("ForgotPasswordCodes");
                 });
 
             modelBuilder.Entity("Atlas.Domain.Good", b =>

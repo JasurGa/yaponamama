@@ -22,7 +22,9 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStorePagedList
 
         public async Task<PageDto<StoreLookupDto>> Handle(GetStorePagedListQuery request, CancellationToken cancellationToken)
         {
-            var storesCount = await _dbContext.Stores.CountAsync(cancellationToken);
+            var storesCount = await _dbContext.Stores
+                .Where(s => s.IsDeleted == request.ShowDeleted)
+                .CountAsync(cancellationToken);
                 
             var stores = await _dbContext.Stores
                 .Where(s => s.IsDeleted == request.ShowDeleted)

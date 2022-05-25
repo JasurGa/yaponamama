@@ -7,7 +7,6 @@ namespace Atlas.Persistence.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            /*
             migrationBuilder.CreateTable(
                 name: "AddressToClients",
                 columns: table => new
@@ -86,7 +85,6 @@ namespace Atlas.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    LanguageId = table.Column<Guid>(type: "uuid", nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: true),
                     SelfieWithPassportPhotoPath = table.Column<string>(type: "text", nullable: true),
                     PassportPhotoPath = table.Column<string>(type: "text", nullable: true),
@@ -131,6 +129,20 @@ namespace Atlas.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Couriers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ForgotPasswordCodes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    VerificationCode = table.Column<string>(type: "text", nullable: true),
+                    ExpiresAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ForgotPasswordCodes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -498,6 +510,21 @@ namespace Atlas.Persistence.Migrations
                     table.PrimaryKey("PK_VehicleTypes", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "VerifyCodes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    IsVerified = table.Column<bool>(type: "boolean", nullable: false),
+                    VerificationCode = table.Column<string>(type: "text", nullable: true),
+                    ExpiresAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VerifyCodes", x => x.Id);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AddressToClients_Id",
                 table: "AddressToClients",
@@ -543,6 +570,12 @@ namespace Atlas.Persistence.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Couriers_Id",
                 table: "Couriers",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ForgotPasswordCodes_Id",
+                table: "ForgotPasswordCodes",
                 column: "Id",
                 unique: true);
 
@@ -689,7 +722,12 @@ namespace Atlas.Persistence.Migrations
                 table: "VehicleTypes",
                 column: "Id",
                 unique: true);
-            */
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VerifyCodes_Id",
+                table: "VerifyCodes",
+                column: "Id",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -717,6 +755,9 @@ namespace Atlas.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Couriers");
+
+            migrationBuilder.DropTable(
+                name: "ForgotPasswordCodes");
 
             migrationBuilder.DropTable(
                 name: "Goods");
@@ -789,6 +830,9 @@ namespace Atlas.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "VehicleTypes");
+
+            migrationBuilder.DropTable(
+                name: "VerifyCodes");
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStorePagedList
         public GetStorePagedListQueryValidator()
         {
             RuleFor(u => u.ShowDeleted)
-                .NotEmpty();
+                .Must(sd => sd == true || sd == false);
 
             RuleFor(u => u.PageSize)
                 .NotEmpty();

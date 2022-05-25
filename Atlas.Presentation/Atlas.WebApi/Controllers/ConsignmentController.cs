@@ -30,7 +30,7 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/consigment?pageIndex=0&amp;pageSize=10
+        /// GET /api/1.0/consigment
         /// </remarks>
         /// <returns>Returns ConsignmentListVm object</returns>
         /// <response code="200">Success</response>

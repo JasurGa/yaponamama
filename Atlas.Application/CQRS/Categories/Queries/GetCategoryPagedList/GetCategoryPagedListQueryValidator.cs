@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList
 {
     public class GetCategoryPagedListQueryValidator : AbstractValidator<GetCategoryPagedListQuery>
@@ -7,7 +6,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList
         public GetCategoryPagedListQueryValidator()
         {
             RuleFor(e => e.ShowDeleted)
-                .NotEmpty();
+                .Must(sd => sd == true || sd == false);
 
             RuleFor(e => e.PageSize)
                .NotEmpty();
