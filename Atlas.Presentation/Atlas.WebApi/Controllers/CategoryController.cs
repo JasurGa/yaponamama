@@ -27,7 +27,7 @@ namespace Atlas.WebApi.Controllers
             _mapper = mapper;
 
         /// <summary>
-        /// Get the category by id
+        /// Gets the category by id
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -37,12 +37,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns CategoryDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
-        /// <response code="401">If the user is unauthorized</response>
         [HttpGet("{id}")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<CategoryDetailsVm>> GetAsync(Guid id)
         {
             var vm = await Mediator.Send(new GetCategoryDetailsQuery
@@ -54,27 +51,30 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get the list of categories
+        /// Gets the list of categories
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/category
+        /// GET /api/1.0/category?showDeleted=false
         /// </remarks>
         /// <returns>Returns CategoryListVm object</returns>
         /// <response code="200">Success</response>
-        /// <response code="401">If the user is unauthorized</response>
         [HttpGet]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<CategoryListVm>> GetAllAsync()
+        public async Task<ActionResult<CategoryListVm>> GetAllAsync(
+            [FromQuery] bool showDeleted = false)
         {
-            var vm = await Mediator.Send(new GetCategoryListQuery());
+            var vm = await Mediator.Send(new GetCategoryListQuery()
+            {
+                ShowDeleted = showDeleted
+            });
+
             return Ok(vm);
         }
 
         /// <summary>
-        /// Get the paged list of categories
+        /// Gets the paged list of categories
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -85,9 +85,7 @@ namespace Atlas.WebApi.Controllers
         /// <param name="pageSize">Page size</param>
         /// <returns>Returns PageDto CategoryLookupDto object</returns>
         /// <response code="200">Success</response>
-        /// <response code="401">If the user is unauthorized</response>
         [HttpGet("paged")]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<CategoryLookupDto>>> GetAllPagedAsync([FromQuery] bool showDeleted = false, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
@@ -122,9 +120,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateCategoryDto createCategory)
         {
-            var command = _mapper.Map<CreateCategoryCommand>(createCategory);
-
-            var categoryId = await Mediator.Send(command);
+            var categoryId = await Mediator.Send(_mapper.Map<CreateCategoryDto,
+                CreateCategoryCommand>(createCategory));
 
             return Ok(categoryId);
         }
@@ -152,9 +149,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> UpdateAsync([FromBody] UpdateCategoryDto updateCategory)
         {
-            var command = _mapper.Map<UpdateCategoryCommand>(updateCategory);
-
-            await Mediator.Send(command);
+            await Mediator.Send(_mapper.Map<UpdateCategoryDto,
+                UpdateCategoryCommand>(updateCategory));
 
             return NoContent();
         }
@@ -171,12 +167,12 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new DeleteCategoryCommand
             {
@@ -191,15 +187,15 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PATCH /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/restore
+        /// PATCH /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
         /// </remarks>
         /// <param name="id">Category id</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpPatch("{id}/restore")]
         [Authorize]
+        [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Consignments.Commands.DeleteConsignment
     {
         public DeleteConsignmentCommandValidator()
         {
-            RuleFor(c => c.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

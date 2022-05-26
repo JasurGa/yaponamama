@@ -14,7 +14,7 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Queries.GetCategoryToGoodListBy
 {
     public class GetCategoryToGoodListByGoodIdQueryHandler : IRequestHandler<GetCategoryToGoodListByGoodIdQuery, CategoryToGoodListVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetCategoryToGoodListByGoodIdQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -23,11 +23,11 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Queries.GetCategoryToGoodListBy
         public async Task<CategoryToGoodListVm> Handle(GetCategoryToGoodListByGoodIdQuery request, CancellationToken cancellationToken)
         {
             var categoryToGoods = await _dbContext.CategoryToGoods
-                .Where(ctg => ctg.GoodId == request.GoodId)
+                .Where(x => x.GoodId == request.GoodId)
                 .ProjectTo<CategoryToGoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new CategoryToGoodListVm{ CategoryToGoods = categoryToGoods };
+            return new CategoryToGoodListVm { CategoryToGoods = categoryToGoods };
         }
     }
 }

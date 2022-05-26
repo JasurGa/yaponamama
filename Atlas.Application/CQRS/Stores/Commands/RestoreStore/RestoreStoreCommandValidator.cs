@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Stores.Commands.RestoreStore
     {
         public RestoreStoreCommandValidator()
         {
-            RuleFor(s => s.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

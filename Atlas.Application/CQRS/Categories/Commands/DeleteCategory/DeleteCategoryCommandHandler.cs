@@ -11,6 +11,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.DeleteCategory
     public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand>
     {
         private readonly IAtlasDbContext _dbContext;
+
         public DeleteCategoryCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 

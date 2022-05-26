@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.OrderFeedbacks.Queries.GetOrderFeedbackDetails
     {
         public GetOrderFeedbackDetailsQueryValidator()
         {
-            RuleFor(of => of.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

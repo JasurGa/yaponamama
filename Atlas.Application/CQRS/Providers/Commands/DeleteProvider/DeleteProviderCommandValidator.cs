@@ -11,7 +11,7 @@ namespace Atlas.Application.CQRS.Providers.Commands.DeleteProvider
     {
         public DeleteProviderCommandValidator()
         {
-            RuleFor(p => p.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

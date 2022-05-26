@@ -13,7 +13,7 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserPagedList
 {
     public class GetUserPagedListQueryHandler : IRequestHandler<GetUserPagedListQuery, PageDto<UserLookupDto>>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetUserPagedListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -21,7 +21,9 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserPagedList
 
         public async Task<PageDto<UserLookupDto>> Handle(GetUserPagedListQuery request, CancellationToken cancellationToken)
         {
-            var usersCount = await _dbContext.Users.CountAsync(cancellationToken);
+            var usersCount = await _dbContext.Users
+                .CountAsync(x => x.IsDeleted == request.ShowDeleted,
+                    cancellationToken);
 
             var users = await _dbContext.Users
                 .Where(s => s.IsDeleted == request.ShowDeleted)
@@ -32,10 +34,10 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserPagedList
 
             return new PageDto<UserLookupDto>
             {
-                PageIndex = request.PageIndex,
+                PageIndex  = request.PageIndex,
                 TotalCount = usersCount,
-                PageCount = (int)Math.Ceiling((double)usersCount / request.PageSize),
-                Data = users
+                PageCount  = (int)Math.Ceiling((double)usersCount / request.PageSize),
+                Data       = users
             };
         }
     }

@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Goods.Commands.DeleteGood
     {
         public DeleteGoodCommandValidator()
         {
-            RuleFor(g => g.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

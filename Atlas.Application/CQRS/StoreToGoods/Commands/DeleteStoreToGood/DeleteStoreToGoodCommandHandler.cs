@@ -16,10 +16,11 @@ namespace Atlas.Application.CQRS.StoreToGoods.Commands.DeleteStoreToGood
         public DeleteStoreToGoodCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(DeleteStoreToGoodCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteStoreToGoodCommand request,
+            CancellationToken cancellationToken)
         {
-            var storeToGood = await _dbContext.StoreToGoods
-                .FirstOrDefaultAsync(stg => stg.Id == request.Id, cancellationToken);
+            var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(stg =>
+                stg.Id == request.Id, cancellationToken);
 
             if (storeToGood == null)
             {

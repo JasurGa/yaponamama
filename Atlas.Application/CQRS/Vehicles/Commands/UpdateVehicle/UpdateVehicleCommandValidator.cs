@@ -11,22 +11,22 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.UpdateVehicle
     {
         public UpdateVehicleCommandValidator()
         {
-            RuleFor(v => v.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(v => v.Name)
+            RuleFor(x => x.Name)
                 .NotEmpty();
 
-            RuleFor(v => v.RegistrationCertificatePhotoPath)
+            RuleFor(x => x.RegistrationCertificatePhotoPath)
                 .NotEmpty();
 
-            RuleFor(v => v.RegistrationNumber)
+            RuleFor(x => x.RegistrationNumber)
                 .NotEmpty();
 
-            RuleFor(v => v.VehicleTypeId)
+            RuleFor(x => x.VehicleTypeId)
                 .NotEmpty();
 
-            RuleFor(v => v.StoreId)
+            RuleFor(x => x.StoreId)
                 .NotEmpty();
         }
     }

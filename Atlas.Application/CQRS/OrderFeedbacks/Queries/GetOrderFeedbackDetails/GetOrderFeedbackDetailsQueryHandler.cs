@@ -20,15 +20,15 @@ namespace Atlas.Application.CQRS.OrderFeedbacks.Queries.GetOrderFeedbackDetails
 
         public async Task<OrderFeedbackDetailsVm> Handle(GetOrderFeedbackDetailsQuery request, CancellationToken cancellationToken)
         {
-            var orderFeedback = await _dbContext.OrderFeedbacks.FirstOrDefaultAsync(of =>
-                of.Id == request.Id, cancellationToken);
+            var orderFeedback = await _dbContext.OrderFeedbacks.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (orderFeedback == null)
             {
                 throw new NotFoundException(nameof(OrderFeedback), request.Id);
             }
 
-            return _mapper.Map<OrderFeedbackDetailsVm>(orderFeedback);
+            return _mapper.Map<OrderFeedback, OrderFeedbackDetailsVm>(orderFeedback);
         }
     }
 }

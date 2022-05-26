@@ -11,7 +11,7 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedList
     {
         public GetVehiclePagedListQueryValidator()
         {
-            RuleFor(o => o.PageSize)
+            RuleFor(x => x.PageSize)
                 .NotEmpty();
         }
     }

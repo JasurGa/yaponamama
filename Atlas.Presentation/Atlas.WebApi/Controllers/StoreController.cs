@@ -31,7 +31,7 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/store
+        /// GET /api/1.0/store?showDeleted=true
         /// </remarks>
         /// <returns>Returns StoreListVm object</returns>
         /// <response code="200">Success</response>
@@ -40,15 +40,18 @@ namespace Atlas.WebApi.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<StoreListVm>> GetAllAsync()
+        public async Task<ActionResult<StoreListVm>> GetAllAsync([FromQuery] bool showDeleted = false)
         {
-            var vm = await Mediator.Send(new GetStoreListQuery());
+            var vm = await Mediator.Send(new GetStoreListQuery()
+            {
+                ShowDeleted = showDeleted
+            });
 
             return Ok(vm);
         }
 
         /// <summary>
-        /// Get the paged list of stores
+        /// Gets the paged list of stores
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -60,11 +63,14 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto ProviderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("paged")]
         [Authorize]
+        [HttpGet("paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<StoreLookupDto>>> GetAllPagedAsync([FromQuery] bool showDeleted = false, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<StoreLookupDto>>> GetAllPagedAsync(
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 10)
         {
             var vm = await Mediator.Send(new GetStorePagedListQuery
             {
@@ -77,7 +83,7 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get the store details
+        /// Gets the store details
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -87,9 +93,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns StoreDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
-        /// /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("{id}")]
+        /// <response code="401">If the user is unauthorized</response>
         [Authorize]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -115,12 +121,12 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new DeleteStoreCommand
             {
@@ -153,9 +159,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateStoreDto createStore)
         {
-            var command = _mapper.Map<CreateStoreCommand>(createStore);
-
-            var storeId = await Mediator.Send(command);
+            var storeId = await Mediator.Send(_mapper.Map<CreateStoreDto,
+                CreateStoreCommand>(createStore));
 
             return Ok(storeId);
         }
@@ -172,7 +177,6 @@ namespace Atlas.WebApi.Controllers
         ///     "address": "Sample address",
         ///     "longitude": 0,
         ///     "longitude": 0,
-        ///     "isDeleted": false,
         /// }
         /// </remarks>
         /// <param name="updateStore">UpdateStoreDto object</param>
@@ -187,10 +191,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> UpdateAsync([FromBody] UpdateStoreDto updateStore)
         {
-            var command = _mapper.Map<UpdateStoreCommand>(updateStore);
-
-            await Mediator.Send(command);
-
+            await Mediator.Send(_mapper.Map<UpdateStoreDto,
+                UpdateStoreCommand>(updateStore));
             return NoContent();
         }
 
@@ -206,12 +208,12 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpPatch("{id}")]
         [Authorize]
+        [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> RestoreAsync(Guid id)
+        public async Task<ActionResult> RestoreAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new RestoreStoreCommand
             {

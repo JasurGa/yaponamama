@@ -19,10 +19,10 @@ namespace Atlas.Application.CQRS.Goods.Commands.RestoreGood
 
         public async Task<Unit> Handle(RestoreGoodCommand request, CancellationToken cancellationToken)
         {
-            var good = await _dbContext.Goods
-                .FirstOrDefaultAsync(g => g.Id == request.Id, cancellationToken);
+            var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
-            if (good == null)
+            if (good == null || !good.IsDeleted)
             {
                 throw new NotFoundException(nameof(Good), request.Id);
             }

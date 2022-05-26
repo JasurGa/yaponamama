@@ -24,20 +24,20 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserPagedList
         public void Mapping(Profile profile)
         {
             profile.CreateMap<User, UserLookupDto>()
-                .ForMember(eVm => eVm.Id,
-                    opt => opt.MapFrom(e => e.Id))
-                .ForMember(eVm => eVm.Login,
-                    opt => opt.MapFrom(e => e.Login))
-                .ForMember(eVm => eVm.FirstName,
-                    opt => opt.MapFrom(e => e.FirstName))
-                .ForMember(eVm => eVm.LastName,
-                    opt => opt.MapFrom(e => e.LastName))
-                .ForMember(eVm => eVm.CreatedAt,
-                    opt => opt.MapFrom(e => e.CreatedAt))
-                .ForMember(eVm => eVm.Birthday,
-                    opt => opt.MapFrom(e => e.Birthday))
-                .ForMember(eVm => eVm.AvatarPhotoPath,
-                    opt => opt.MapFrom(e => e.AvatarPhotoPath));
+                .ForMember(x => x.Id, opt =>
+                    opt.MapFrom(x => x.Id))
+                .ForMember(x => x.Login, opt =>
+                    opt.MapFrom(x => x.Login))
+                .ForMember(x => x.FirstName, opt =>
+                    opt.MapFrom(x => x.FirstName))
+                .ForMember(x => x.LastName, opt =>
+                    opt.MapFrom(x => x.LastName))
+                .ForMember(x => x.CreatedAt, opt =>
+                    opt.MapFrom(x => x.CreatedAt))
+                .ForMember(x => x.Birthday, opt =>
+                    opt.MapFrom(x => x.Birthday))
+                .ForMember(x => x.AvatarPhotoPath, opt =>
+                    opt.MapFrom(x => x.AvatarPhotoPath));
         }
     }
 }

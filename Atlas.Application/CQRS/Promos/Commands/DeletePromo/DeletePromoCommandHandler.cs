@@ -17,8 +17,8 @@ namespace Atlas.Application.CQRS.Promos.Commands.DeletePromo
 
         public async Task<Unit> Handle(DeletePromoCommand request, CancellationToken cancellationToken)
         {
-            var promo = await _dbContext.Promos
-                .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
+            var promo = await _dbContext.Promos.FirstOrDefaultAsync(p =>
+                p.Id == request.Id, cancellationToken);
 
             if (promo == null)
             {

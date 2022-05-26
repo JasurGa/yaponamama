@@ -17,8 +17,8 @@ namespace Atlas.Application.CQRS.Stores.Commands.UpdateStore
 
         public async Task<Unit> Handle(UpdateStoreCommand request, CancellationToken cancellationToken)
         {
-            var store = await _dbContext.Stores
-                .FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
+            var store = await _dbContext.Stores.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (store == null)
             {

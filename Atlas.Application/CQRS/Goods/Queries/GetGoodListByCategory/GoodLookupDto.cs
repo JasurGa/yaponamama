@@ -16,6 +16,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
 
         public string PhotoPath { get; set; }
 
+        public long PurchasePrice { get; set; }
+
         public long SellingPrice { get; set; }
 
         public void Mapping(Profile profile)
@@ -29,6 +31,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                     opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.PhotoPath, opt =>
                     opt.MapFrom(src => src.PhotoPath))
+                .ForMember(dest => dest.PurchasePrice, opt =>
+                    opt.MapFrom(src => src.PurchasePrice))
                 .ForMember(dest => dest.SellingPrice, opt =>
                     opt.MapFrom(src => src.SellingPrice));
         }

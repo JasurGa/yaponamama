@@ -11,7 +11,7 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderPagedList
     {
         public GetProviderPagedListQueryValidator()
         {
-            RuleFor(o => o.PageSize)
+            RuleFor(x => x.PageSize)
                 .NotEmpty();
         }
     }

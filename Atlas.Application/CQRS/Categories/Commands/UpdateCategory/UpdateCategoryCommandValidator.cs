@@ -7,10 +7,10 @@ namespace Atlas.Application.CQRS.Categories.Commands.UpdateCategory
     {
         public UpdateCategoryCommandValidator()
         {
-            RuleFor(c => c.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(c => c.Name)
+            RuleFor(x => x.Name)
                 .NotEmpty();
         }
     }

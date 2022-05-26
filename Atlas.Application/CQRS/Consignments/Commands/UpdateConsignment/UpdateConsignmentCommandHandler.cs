@@ -16,16 +16,20 @@ namespace Atlas.Application.CQRS.Consignments.Commands.UpdateConsignment
         public UpdateConsignmentCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(UpdateConsignmentCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateConsignmentCommand request,
+            CancellationToken cancellationToken)
         {
-            var consigment = await _dbContext.Consignments
-                .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+            var consigment = await _dbContext.Consignments.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (consigment == null)
             {
                 throw new NotFoundException(nameof(Consignment), request.Id);
             }
 
+            consigment.ExpirateAt    = request.ExpirateAt;
+            consigment.PurchasedAt   = request.PurchasedAt;
+            consigment.StoreToGoodId = request.StoreToGoodId;
             consigment.ShelfLocation = request.ShelfLocation;
 
             await _dbContext.SaveChangesAsync(cancellationToken);

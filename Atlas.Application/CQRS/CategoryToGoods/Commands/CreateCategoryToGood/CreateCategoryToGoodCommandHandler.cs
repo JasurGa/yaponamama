@@ -14,7 +14,8 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoryToGood
         public CreateCategoryToGoodCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Guid> Handle(CreateCategoryToGoodCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateCategoryToGoodCommand request,
+            CancellationToken cancellationToken)
         {
             var categoryToGood = new CategoryToGood
             {
@@ -23,7 +24,9 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoryToGood
                 CategoryId  = request.CategoryId,
             };
 
-            await _dbContext.CategoryToGoods.AddAsync(categoryToGood, cancellationToken);
+            await _dbContext.CategoryToGoods.AddAsync(categoryToGood,
+                cancellationToken);
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return categoryToGood.Id;

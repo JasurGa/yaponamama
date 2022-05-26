@@ -18,7 +18,8 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
         public GetCategoryListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<CategoryListVm> Handle(GetCategoryListQuery request, CancellationToken cancellationToken)
+        public async Task<CategoryListVm> Handle(GetCategoryListQuery request,
+            CancellationToken cancellationToken)
         {
             var categories = await _dbContext.Categories
                 .ProjectTo<CategoryLookupDto>(_mapper.ConfigurationProvider)

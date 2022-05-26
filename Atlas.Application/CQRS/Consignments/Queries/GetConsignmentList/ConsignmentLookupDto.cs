@@ -20,16 +20,16 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Consignment, ConsignmentLookupDto>()
-                .ForMember(eVm => eVm.Id,
-                    opt => opt.MapFrom(e => e.Id))
-                .ForMember(eVm => eVm.StoreToGoodId,
-                    opt => opt.MapFrom(e => e.StoreToGoodId))
-                .ForMember(eVm => eVm.PurchasedAt,
-                    opt => opt.MapFrom(e => e.PurchasedAt))
-                .ForMember(eVm => eVm.ExpirateAt,
-                    opt => opt.MapFrom(e => e.ExpirateAt))
-                .ForMember(eVm => eVm.ShelfLocation,
-                    opt => opt.MapFrom(e => e.ShelfLocation));
+                .ForMember(x => x.Id, opt =>
+                    opt.MapFrom(x => x.Id))
+                .ForMember(x => x.StoreToGoodId, opt =>
+                    opt.MapFrom(x => x.StoreToGoodId))
+                .ForMember(x => x.PurchasedAt, opt =>
+                    opt.MapFrom(x => x.PurchasedAt))
+                .ForMember(x => x.ExpirateAt, opt =>
+                    opt.MapFrom(x => x.ExpirateAt))
+                .ForMember(x => x.ShelfLocation, opt =>
+                    opt.MapFrom(x => x.ShelfLocation));
         }
     }
 }

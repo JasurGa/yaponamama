@@ -19,8 +19,8 @@ namespace Atlas.Application.CQRS.Goods.Commands.DeleteGood
 
         public async Task<Unit> Handle(DeleteGoodCommand request, CancellationToken cancellationToken)
         {
-            var good = await _dbContext.Goods.FirstOrDefaultAsync(g =>
-                g.Id == request.Id, cancellationToken);
+            var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (good == null)
             {

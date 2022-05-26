@@ -26,7 +26,7 @@ namespace Atlas.WebApi.Controllers
             _mapper = mapper;
 
         /// <summary>
-        /// Get the list of promos
+        /// Gets the list of promo codes
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -42,12 +42,11 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<PromoListVm>> GetAllAsync()
         {
             var vm = await Mediator.Send(new GetPromoListQuery());
-
             return Ok(vm);
         }
 
         /// <summary>
-        /// Get the paged list of promos
+        /// Gets the paged list of promo codes
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -58,8 +57,8 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto PromoLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("paged")]
         [Authorize]
+        [HttpGet("paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<PromoLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10) 
@@ -74,7 +73,7 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get the promo by id
+        /// Gets the promo code by id
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -85,12 +84,12 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("{id}")]
         [Authorize]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PromoDetailsVm>> GetAsync(Guid id)
+        public async Task<ActionResult<PromoDetailsVm>> GetAsync([FromRoute] Guid id)
         {
             var vm = await Mediator.Send(new GetPromoDetailsQuery
             {
@@ -101,7 +100,7 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Creates a new promo
+        /// Creates a new promo code
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -122,15 +121,14 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreatePromoDto createPromoDto)
         {
-            var command = _mapper.Map<CreatePromoCommand>(createPromoDto);
-
-            var promoId = await Mediator.Send(command);
+            var promoId = await Mediator.Send(_mapper
+                .Map<CreatePromoCommand>(createPromoDto));
 
             return Ok(promoId);
         }
 
         /// <summary>
-        /// Updates the promo by id
+        /// Updates the promo code by id
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -154,15 +152,14 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> UpdateAsync([FromBody] UpdatePromoDto updatePromoDto)
         {
-            var command = _mapper.Map<UpdatePromoCommand>(updatePromoDto);
-
-            await Mediator.Send(command);
+            await Mediator.Send(_mapper
+                .Map<UpdatePromoCommand>(updatePromoDto));
 
             return NoContent();
         }
 
         /// <summary>
-        /// Deletes a specific promo by id
+        /// Deletes a specific promo code by id
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -173,8 +170,8 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -182,11 +179,10 @@ namespace Atlas.WebApi.Controllers
         {
             await Mediator.Send(new DeletePromoCommand
             {
-                Id = id,
+                Id = id
             });
 
             return NoContent();
         }
-
     }
 }

@@ -18,9 +18,6 @@ namespace Atlas.Application.CQRS.Consignments.Commands.UpdateConsignment
 
             RuleFor(c => c.ExpirateAt)
                 .NotEmpty();
-
-            RuleFor(c => c.ShelfLocation)
-                .NotEmpty();
         }
     }
 }

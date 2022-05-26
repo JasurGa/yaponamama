@@ -23,24 +23,25 @@ namespace Atlas.WebApi.Controllers
             _mapper = mapper;
 
         /// <summary>
-        /// Get StoreToGood relation by store id
+        /// Gets good ids by store id
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/storeToGood/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// GET /api/1.0/storetogood/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
         /// </remarks>
         /// <returns>Returns StoreToGoodVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("store/{storeId}")]
         [Authorize]
+        [HttpGet("store/{storeId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<StoreToGoodVm>> GetByStoreIdAsync(Guid storeId)
+        public async Task<ActionResult<StoreToGoodVm>> GetByStoreIdAsync([FromRoute] Guid storeId)
         {
-            var vm = await Mediator.Send(new GetStoreToGoodByStoreIdQuery { 
+            var vm = await Mediator.Send(new GetStoreToGoodByStoreIdQuery
+            { 
                 StoreId = storeId,
             });
 
@@ -52,7 +53,7 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/storeToGood
+        /// POST /api/1.0/storetogood
         /// {
         ///     "GoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "Store":  "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
@@ -69,9 +70,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> CreateAsync([FromBody] CreateStoreToGoodDto createStoreToGood)
         {
-            var command = _mapper.Map<CreateStoreToGoodCommand>(createStoreToGood);
-
-            var storeToGoodId = await Mediator.Send(command);
+            var storeToGoodId = await Mediator.Send(_mapper
+                .Map<CreateStoreToGoodCommand>(createStoreToGood));
 
             return Ok(storeToGoodId);
         }
@@ -81,7 +81,7 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/storeToGood
+        /// PUT /api/1.0/storetogood
         /// {
         ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
         ///     "count": 10,
@@ -97,17 +97,17 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> UpdateAsync([FromBody] UpdateStoreToGoodDto updateStoreToGoodDto)
+        public async Task<ActionResult> UpdateAsync([FromBody]
+            UpdateStoreToGoodDto updateStoreToGoodDto)
         {
-            var command = _mapper.Map<UpdateStoreToGoodCommand>(updateStoreToGoodDto);
-
-            await Mediator.Send(command);
+            await Mediator.Send(_mapper.Map<UpdateStoreToGoodDto, UpdateStoreToGoodCommand>
+                (updateStoreToGoodDto));
 
             return NoContent();
         }
 
         /// <summary>
-        /// Deataches goods from store by StoreToGood relation id
+        /// Detaches good from store
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -118,16 +118,16 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new DeleteStoreToGoodCommand
             {
-                Id = id,
+                Id = id
             });
 
             return NoContent();

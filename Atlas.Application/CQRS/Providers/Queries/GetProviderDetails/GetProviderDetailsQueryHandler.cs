@@ -15,7 +15,7 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderDetails
 {
     public class GetProviderDetailsQueryHandler : IRequestHandler<GetProviderDetailsQuery, ProviderDetailsVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetProviderDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -23,15 +23,15 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderDetails
 
         public async Task<ProviderDetailsVm> Handle(GetProviderDetailsQuery request, CancellationToken cancellationToken)
         {
-            var provider = await _dbContext.Providers.FirstOrDefaultAsync(p => p.Id == request.Id, 
-                cancellationToken);
+            var provider = await _dbContext.Providers.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (provider == null)
             {
                 throw new NotFoundException(nameof(Provider), request.Id);
             }
 
-            return _mapper.Map<ProviderDetailsVm>(provider);
+            return _mapper.Map<Provider, ProviderDetailsVm>(provider);
         }
     }
 }

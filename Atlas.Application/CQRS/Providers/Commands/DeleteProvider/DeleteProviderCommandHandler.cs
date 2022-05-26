@@ -21,8 +21,8 @@ namespace Atlas.Application.CQRS.Providers.Commands.DeleteProvider
 
         public async Task<Unit> Handle(DeleteProviderCommand request, CancellationToken cancellationToken)
         {
-            var provider = await _dbContext.Providers.FirstOrDefaultAsync(p =>
-            p.Id == request.Id, cancellationToken);
+            var provider = await _dbContext.Providers.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (provider == null)
             {
@@ -30,6 +30,7 @@ namespace Atlas.Application.CQRS.Providers.Commands.DeleteProvider
             }
 
             _dbContext.Providers.Remove(provider);
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;

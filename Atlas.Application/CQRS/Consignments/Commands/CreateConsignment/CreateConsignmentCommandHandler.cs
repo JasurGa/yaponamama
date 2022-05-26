@@ -14,7 +14,8 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
         public CreateConsignmentCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Guid> Handle(CreateConsignmentCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateConsignmentCommand request,
+            CancellationToken cancellationToken)
         {
             var consignment = new Consignment
             {
@@ -25,7 +26,9 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
                 StoreToGoodId   = request.StoreToGoodId,
             };
 
-            await _dbContext.Consignments.AddAsync(consignment, cancellationToken);
+            await _dbContext.Consignments.AddAsync(consignment,
+                cancellationToken);
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return consignment.Id;

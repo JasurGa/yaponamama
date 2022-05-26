@@ -18,10 +18,10 @@ namespace Atlas.Application.CQRS.Users.Commands.RestoreUser
 
         public async Task<Unit> Handle(RestoreUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _dbContext.Users
-                .FirstOrDefaultAsync(u => u.Id == request.Id, cancellationToken);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
-            if (user == null)
+            if (user == null || !user.IsDeleted)
             {
                 throw new NotFoundException(nameof(User), request.Id);
             }

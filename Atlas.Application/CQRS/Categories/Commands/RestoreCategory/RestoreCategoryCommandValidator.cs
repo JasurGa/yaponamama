@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.RestoreCategory
     {
         public RestoreCategoryCommandValidator()
         {
-            RuleFor(c => c.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

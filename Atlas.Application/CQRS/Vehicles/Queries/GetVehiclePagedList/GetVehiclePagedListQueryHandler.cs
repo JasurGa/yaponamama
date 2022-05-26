@@ -14,9 +14,10 @@ using System.Threading.Tasks;
 
 namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedList
 {
-    public class GetVehiclePagedListQueryHandler : IRequestHandler<GetVehiclePagedListQuery, PageDto<VehicleLookupDto>>
+    public class GetVehiclePagedListQueryHandler : IRequestHandler<GetVehiclePagedListQuery,
+        PageDto<VehicleLookupDto>>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetVehiclePagedListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>

@@ -15,10 +15,11 @@ namespace Atlas.Application.CQRS.Categories.Commands.UpdateCategory
         public UpdateCategoryCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateCategoryCommand request,
+            CancellationToken cancellationToken)
         {
-            var category = await _dbContext.Categories
-                .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+            var category = await _dbContext.Categories.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (category == null)
             {

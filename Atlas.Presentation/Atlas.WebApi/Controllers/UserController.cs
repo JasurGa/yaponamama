@@ -24,7 +24,6 @@ namespace Atlas.WebApi.Controllers
         public UserController(IMapper mapper) =>
             _mapper = mapper;
 
-
         /// <summary>
         /// Get the paged list of users
         /// </summary>
@@ -38,8 +37,8 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto UserLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("paged")]
         [Authorize]
+        [HttpGet("paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<UserLookupDto>>> GetAllPagedAsync([FromQuery] bool showDeleted = false, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
@@ -47,8 +46,8 @@ namespace Atlas.WebApi.Controllers
             var vm = await Mediator.Send(new GetUserPagedListQuery
             {
                 ShowDeleted = showDeleted,
-                PageIndex = pageIndex,
-                PageSize = pageSize
+                PageIndex   = pageIndex,
+                PageSize    = pageSize
             });
 
             return Ok(vm);
@@ -66,8 +65,8 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("{id}")]
         [Authorize]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -107,9 +106,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> UpdateAsync([FromBody] UpdateUserDto updateUser)
         {
-            var command = _mapper.Map<UpdateUserCommand>(updateUser);
-
-            await Mediator.Send(command);
+            await Mediator.Send(_mapper.Map<UpdateUserDto,
+                UpdateUserCommand>(updateUser));
 
             return NoContent();
         }
@@ -126,8 +124,8 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -146,15 +144,15 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PATCH /api/1.0/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8/restore
+        /// PATCH /api/1.0/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
         /// </remarks>
         /// <param name="id">User id</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpPatch("{id}")]
         [Authorize]
+        [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

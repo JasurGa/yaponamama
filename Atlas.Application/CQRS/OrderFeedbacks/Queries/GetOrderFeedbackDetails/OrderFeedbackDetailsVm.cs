@@ -20,16 +20,16 @@ namespace Atlas.Application.CQRS.OrderFeedbacks.Queries.GetOrderFeedbackDetails
         public void Mapping(Profile profile)
         {
             profile.CreateMap<OrderFeedback, OrderFeedbackDetailsVm>()
-                .ForMember(of => of.Id,
-                    opt => opt.MapFrom(e => e.Id))
-                .ForMember(of => of.OrderId,
-                    opt => opt.MapFrom(e => e.OrderId))
-                .ForMember(of => of.Rating,
-                    opt => opt.MapFrom(e => e.Rating))
-                .ForMember(of => of.Text,
-                    opt => opt.MapFrom(e => e.Text))
-                .ForMember(of => of.CreatedAt,
-                    opt => opt.MapFrom(e => e.CreatedAt));
+                .ForMember(x => x.Id, opt =>
+                    opt.MapFrom(x => x.Id))
+                .ForMember(x => x.OrderId, opt =>
+                    opt.MapFrom(x => x.OrderId))
+                .ForMember(x => x.Rating, opt =>
+                    opt.MapFrom(x => x.Rating))
+                .ForMember(x => x.Text, opt =>
+                    opt.MapFrom(x => x.Text))
+                .ForMember(x => x.CreatedAt, opt =>
+                    opt.MapFrom(x => x.CreatedAt));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehicleDetails
 {
     public class GetVehicleDetailsQueryHandler : IRequestHandler<GetVehicleDetailsQuery, VehicleDetailsVm>
     {
-        readonly private IMapper _mapper;
+        readonly private IMapper         _mapper;
         readonly private IAtlasDbContext _dbContext;
 
         public GetVehicleDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -20,14 +20,15 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehicleDetails
 
         public async Task<VehicleDetailsVm> Handle(GetVehicleDetailsQuery request, CancellationToken cancellationToken)
         {
-            var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(v => v.Id == request.Id, cancellationToken);
+            var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (vehicle == null)
             {
                 throw new NotFoundException(nameof(Vehicle), request.Id);
             }
 
-            return _mapper.Map<VehicleDetailsVm>(vehicle);
+            return _mapper.Map<Vehicle, VehicleDetailsVm>(vehicle);
         }
     }
 }

@@ -2,9 +2,6 @@
 using Atlas.Domain;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +14,8 @@ namespace Atlas.Application.CQRS.StoreToGoods.Commands.CreateStoreToGood
         public CreateStoreToGoodCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Guid> Handle(CreateStoreToGoodCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateStoreToGoodCommand request,
+            CancellationToken cancellationToken)
         {
             var storeToGood = new StoreToGood
             {
@@ -27,7 +25,9 @@ namespace Atlas.Application.CQRS.StoreToGoods.Commands.CreateStoreToGood
                 Count   = request.Count,
             };
 
-            await _dbContext.StoreToGoods.AddAsync(storeToGood, cancellationToken);
+            await _dbContext.StoreToGoods.AddAsync(storeToGood,
+                cancellationToken);
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return storeToGood.Id;

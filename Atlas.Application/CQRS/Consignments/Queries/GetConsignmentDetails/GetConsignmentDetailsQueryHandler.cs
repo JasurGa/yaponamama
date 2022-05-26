@@ -4,24 +4,25 @@ using Atlas.Domain;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails
 {
-    public class GetConsignmentDetailsQueryHandler : IRequestHandler<GetConsignmentDetailsQuery, ConsignmentDetailsVm>
+    public class GetConsignmentDetailsQueryHandler : IRequestHandler<GetConsignmentDetailsQuery,
+        ConsignmentDetailsVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetConsignmentDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<ConsignmentDetailsVm> Handle(GetConsignmentDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<ConsignmentDetailsVm> Handle(GetConsignmentDetailsQuery request,
+            CancellationToken cancellationToken)
         {
-            var consignment = await _dbContext.Consignments
-                .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+            var consignment = await _dbContext.Consignments.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (consignment == null)
             {

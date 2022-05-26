@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
     {
         public GetGoodDetailsQueryValidator()
         {
-            RuleFor(e => e.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty); 
         }
     }

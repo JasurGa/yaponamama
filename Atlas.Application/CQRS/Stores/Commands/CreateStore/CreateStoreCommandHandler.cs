@@ -10,6 +10,7 @@ namespace Atlas.Application.CQRS.Stores.Commands.CreateStore
     public class CreateStoreCommandHandler : IRequestHandler<CreateStoreCommand, Guid>
     {
         private readonly IAtlasDbContext _dbContext;
+
         public CreateStoreCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
@@ -25,7 +26,9 @@ namespace Atlas.Application.CQRS.Stores.Commands.CreateStore
                 IsDeleted   = false,
             };
 
-            await _dbContext.Stores.AddAsync(store, cancellationToken);
+            await _dbContext.Stores.AddAsync(store,
+                cancellationToken);
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return store.Id;

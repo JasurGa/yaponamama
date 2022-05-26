@@ -17,8 +17,8 @@ namespace Atlas.Application.CQRS.Stores.Commands.DeleteStore
 
         public async Task<Unit> Handle(DeleteStoreCommand request, CancellationToken cancellationToken)
         {
-            var store = await _dbContext.Stores
-                .FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
+            var store = await _dbContext.Stores.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (store == null)
             {
@@ -30,7 +30,6 @@ namespace Atlas.Application.CQRS.Stores.Commands.DeleteStore
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
-            
         }
     }
 }

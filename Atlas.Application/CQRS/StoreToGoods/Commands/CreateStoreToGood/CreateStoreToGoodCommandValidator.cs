@@ -12,9 +12,6 @@ namespace Atlas.Application.CQRS.StoreToGoods.Commands.CreateStoreToGood
 
             RuleFor(stg => stg.GoodId)
                 .NotEqual(Guid.Empty);
-
-            RuleFor(stg => stg.Count)
-                .NotEmpty();
         }
     }
 }

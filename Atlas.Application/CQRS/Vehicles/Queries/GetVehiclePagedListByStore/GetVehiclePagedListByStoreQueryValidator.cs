@@ -11,10 +11,10 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListByStore
     {
         public GetVehiclePagedListByStoreQueryValidator()
         {
-            RuleFor(v => v.StoreId)
+            RuleFor(x => x.StoreId)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(v => v.PageSize)
+            RuleFor(x => x.PageSize)
                 .NotEmpty();
         }
     }

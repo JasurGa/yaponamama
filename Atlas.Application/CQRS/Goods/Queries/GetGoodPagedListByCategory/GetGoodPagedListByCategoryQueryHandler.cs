@@ -26,15 +26,17 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory
         {
             var goodIds = await _dbContext.CategoryToGoods
                 .Where(x => x.CategoryId == request.CategoryId)
-                .Select(e => e.GoodId).ToListAsync(cancellationToken);
+                .Select(x => x.GoodId)
+                .ToListAsync(cancellationToken);
 
             var goodsCount = await _dbContext.Goods
-                .CountAsync(e => goodIds.Contains(e.Id) &&
-                    e.IsDeleted == request.ShowDeleted,
+                .CountAsync(x => goodIds.Contains(x.Id) &&
+                    x.IsDeleted == request.ShowDeleted,
                     cancellationToken);
 
             var goods = await _dbContext.Goods
-                .Where(e => goodIds.Contains(e.Id) && e.IsDeleted == request.ShowDeleted)
+                .Where(x => goodIds.Contains(x.Id) &&
+                    x.IsDeleted == request.ShowDeleted)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
@@ -46,7 +48,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory
                 TotalCount = goodsCount,
                 PageCount  = (int)Math.Ceiling((double)goodsCount /
                     request.PageSize),
-                Data = goods
+                Data       = goods
             };
         }
     }

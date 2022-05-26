@@ -10,7 +10,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList
 {
     public class GetConsignmentListQueryHandler : IRequestHandler<GetConsignmentListQuery, ConsignmentListVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetConsignmentListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>

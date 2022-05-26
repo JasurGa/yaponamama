@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Clients.Commands.UpdateClient
     {
         public UpdateClientCommandValidator()
         {
-            RuleFor(e => e.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

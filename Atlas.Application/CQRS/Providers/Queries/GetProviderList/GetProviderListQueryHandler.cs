@@ -14,7 +14,7 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderList
 {
     public class GetProviderListQueryHandler : IRequestHandler<GetProviderListQuery, ProviderListVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetProviderListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>

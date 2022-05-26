@@ -21,7 +21,7 @@ namespace Atlas.Application.CQRS.Stores.Commands.RestoreStore
             var store = await _dbContext.Stores
                 .FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
 
-            if (store == null)
+            if (store == null || !store.IsDeleted)
             {
                 throw new NotFoundException(nameof(Store), request.Id);
             }

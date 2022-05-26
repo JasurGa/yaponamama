@@ -18,8 +18,8 @@ namespace Atlas.Application.CQRS.Clients.Commands.UpdateClient
 
         public async Task<Unit> Handle(UpdateClientCommand request, CancellationToken cancellationToken)
         {
-            var client = await _dbContext.Clients.FirstOrDefaultAsync(c => 
-                c.Id == request.Id, cancellationToken);
+            var client = await _dbContext.Clients.FirstOrDefaultAsync(x => 
+                x.Id == request.Id, cancellationToken);
 
             if (client == null)
             {

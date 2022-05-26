@@ -11,7 +11,7 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehicleListByStore
     {
         public GetVehicleListByStoreValidator()
         {
-            RuleFor(v => v.StoreId)
+            RuleFor(x => x.StoreId)
                 .NotEqual(Guid.Empty);
         }
     }

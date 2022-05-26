@@ -19,7 +19,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.RestoreCategory
         {
             var category = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
 
-            if (category == null)
+            if (category == null || !category.IsDeleted)
             {
                 throw new NotFoundException(nameof(Category), request.Id);
             }

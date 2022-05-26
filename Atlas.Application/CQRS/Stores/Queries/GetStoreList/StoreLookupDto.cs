@@ -24,16 +24,16 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStoreList
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Store, StoreLookupDto>()
-                .ForMember(eVm => eVm.Id,
-                    opt => opt.MapFrom(e => e.Id))
-                .ForMember(eVm => eVm.Name,
-                    opt => opt.MapFrom(e => e.Name))
-                .ForMember(eVm => eVm.Latitude,
-                    opt => opt.MapFrom(e => e.Latitude))
-                .ForMember(eVm => eVm.Longitude,
-                    opt => opt.MapFrom(e => e.Longitude))
-                .ForMember(eVm => eVm.Address,
-                    opt => opt.MapFrom(e => e.Address));
+                .ForMember(x => x.Id, opt =>
+                    opt.MapFrom(x => x.Id))
+                .ForMember(x => x.Name, opt =>
+                    opt.MapFrom(x => x.Name))
+                .ForMember(x => x.Latitude, opt =>
+                    opt.MapFrom(x => x.Latitude))
+                .ForMember(x => x.Longitude, opt =>
+                    opt.MapFrom(x => x.Longitude))
+                .ForMember(x => x.Address, opt =>
+                    opt.MapFrom(x => x.Address));
         }
     }
 }

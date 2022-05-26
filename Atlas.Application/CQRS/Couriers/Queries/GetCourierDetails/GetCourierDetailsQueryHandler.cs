@@ -17,7 +17,8 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
         public GetCourierDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) => 
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<CourierDetailsVm> Handle(GetCourierDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<CourierDetailsVm> Handle(GetCourierDetailsQuery request,
+            CancellationToken cancellationToken)
         {
             var courier = await _dbContext.Couriers.FirstOrDefaultAsync(c => 
                 c.Id == request.Id, cancellationToken);
@@ -27,7 +28,7 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
                 throw new NotFoundException(nameof(Courier), request.Id);
             }
 
-            return _mapper.Map<CourierDetailsVm>(courier);
+            return _mapper.Map<Courier, CourierDetailsVm>(courier);
         }
     }
 }

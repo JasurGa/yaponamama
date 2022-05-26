@@ -1,12 +1,10 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Atlas.Domain;
-
 
 namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
 {

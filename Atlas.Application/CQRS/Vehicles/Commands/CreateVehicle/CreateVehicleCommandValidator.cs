@@ -11,19 +11,19 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.CreateVehicle
     {
         public CreateVehicleCommandValidator()
         {
-            RuleFor(v => v.Name)
+            RuleFor(x => x.Name)
                 .NotEmpty();
 
-            RuleFor(v => v.RegistrationCertificatePhotoPath)
+            RuleFor(x => x.RegistrationCertificatePhotoPath)
                 .NotEmpty();
 
-            RuleFor(v => v.RegistrationNumber)
+            RuleFor(x => x.RegistrationNumber)
                 .NotEmpty();
 
-            RuleFor(v => v.VehicleTypeId)
+            RuleFor(x => x.VehicleTypeId)
                 .NotEmpty();
 
-            RuleFor(v => v.StoreId)
+            RuleFor(x => x.StoreId)
                 .NotEmpty();
         }
     }

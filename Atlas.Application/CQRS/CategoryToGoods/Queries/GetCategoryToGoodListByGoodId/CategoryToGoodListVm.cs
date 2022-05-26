@@ -8,6 +8,6 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Queries.GetCategoryToGoodListBy
 {
     public class CategoryToGoodListVm
     {
-        public List<CategoryToGoodLookupDto> CategoryToGoods { get; set; }
+        public IList<CategoryToGoodLookupDto> CategoryToGoods { get; set; }
     }
 }

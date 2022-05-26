@@ -22,7 +22,7 @@ namespace Atlas.WebApi.Controllers
             _mapper = mapper;
 
         /// <summary>
-        /// Get the order's feedback
+        /// Gets the order feedback
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -32,9 +32,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns OrderFeedbackDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
-        /// /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("{id}")]
+        /// <response code="401">If the user is unauthorized</response>
         [Authorize]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -42,14 +42,14 @@ namespace Atlas.WebApi.Controllers
         {
             var vm = await Mediator.Send(new GetOrderFeedbackDetailsQuery
             {
-                Id = id,
+                Id = id
             });
 
             return Ok(vm);
         }
 
         /// <summary>
-        /// Creates an order's feedback
+        /// Creates an order feedback
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -68,11 +68,12 @@ namespace Atlas.WebApi.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateOrderFeedbackDto createOrderFeedback)
+        public async Task<ActionResult<Guid>> CreateAsync([FromBody]
+            CreateOrderFeedbackDto createOrderFeedback)
         {
-            var command = _mapper.Map<CreateOrderFeedbackCommand>(createOrderFeedback);
-
-            var orderFeedbackId = await Mediator.Send(command);
+            var orderFeedbackId = await Mediator.Send(_mapper
+                .Map<CreateOrderFeedbackDto, CreateOrderFeedbackCommand>
+                (createOrderFeedback));
 
             return Ok(orderFeedbackId);
         }

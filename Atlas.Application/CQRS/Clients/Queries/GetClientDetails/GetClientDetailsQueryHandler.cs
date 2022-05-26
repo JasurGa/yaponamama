@@ -13,7 +13,7 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
     public class GetClientDetailsQueryHandler : IRequestHandler<GetClientDetailsQuery,
         ClientDetailsVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetClientDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>

@@ -7,10 +7,10 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoryToGood
     {
         public CreateCategoryToGoodCommandValidator()
         {
-            RuleFor(ctg => ctg.GoodId)
+            RuleFor(x => x.GoodId)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(ctg => ctg.CategoryId)
+            RuleFor(x => x.CategoryId)
                 .NotEqual(Guid.Empty);
         }
     }

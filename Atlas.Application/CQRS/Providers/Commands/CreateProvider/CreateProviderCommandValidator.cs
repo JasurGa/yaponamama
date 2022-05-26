@@ -19,9 +19,6 @@ namespace Atlas.Application.CQRS.Providers.Commands.CreateProvider
 
             RuleFor(p => p.Latitude)
                 .NotEmpty();
-
-            RuleFor(p => p.Longitude)
-                .NotEmpty();
         }
     }
 }

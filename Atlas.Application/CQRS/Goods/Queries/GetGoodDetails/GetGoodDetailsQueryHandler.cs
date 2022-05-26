@@ -18,7 +18,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
         public GetGoodDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<GoodDetailsVm> Handle(GetGoodDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<GoodDetailsVm> Handle(GetGoodDetailsQuery request,
+            CancellationToken cancellationToken)
         {
             var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
                 x.Id == request.Id,cancellationToken);
@@ -28,7 +29,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 throw new NotFoundException(nameof(Good), request.Id);
             }
 
-            return _mapper.Map<GoodDetailsVm>(good);
+            return _mapper.Map<Good, GoodDetailsVm>(good);
         }
     }
 }

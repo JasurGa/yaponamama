@@ -17,7 +17,7 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
                 .NotEmpty();
 
             RuleFor(g => g.SellingPrice)
-                .NotEmpty();
+                .GreaterThan(x => x.PurchasePrice);
 
             RuleFor(g => g.PurchasePrice)
                 .NotEmpty();

@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Users.Commands.DeleteUser
     {
         public DeleteUserCommandValidator()
         {
-            RuleFor(u => u.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

@@ -11,7 +11,7 @@ namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
     {
         public UpdateCourierCommandValidator()
         {
-            RuleFor(e => e.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

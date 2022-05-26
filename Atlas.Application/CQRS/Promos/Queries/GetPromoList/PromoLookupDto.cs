@@ -22,7 +22,6 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
                     opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.Name, opt =>
                     opt.MapFrom(src => src.Name));
-
         }
     }
 }

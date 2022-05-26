@@ -11,19 +11,19 @@ namespace Atlas.Application.CQRS.Providers.Commands.UpdateProvider
     {
         public UpdateProviderCommandValidator()
         {
-            RuleFor(p => p.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(p => p.Name)
+            RuleFor(x => x.Name)
                 .NotEmpty();
 
-            RuleFor(p => p.Longitude)
+            RuleFor(x => x.Longitude)
                 .NotEmpty();
 
-            RuleFor(p => p.Latitude)
+            RuleFor(x => x.Latitude)
                 .NotEmpty();
 
-            RuleFor(p => p.Address)
+            RuleFor(x => x.Address)
                 .NotEmpty();
         }
     }

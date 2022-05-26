@@ -20,7 +20,7 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
                 .NotEmpty();
 
             RuleFor(g => g.SellingPrice)
-                .NotEmpty();
+                .GreaterThan(x => x.PurchasePrice);
 
             RuleFor(g => g.PurchasePrice)
                 .NotEmpty();

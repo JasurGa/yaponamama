@@ -11,7 +11,7 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.DeleteVehicle
     {
         public DeleteVehicleCommandValidator()
         {
-            RuleFor(p => p.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

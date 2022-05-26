@@ -14,10 +14,10 @@ namespace Atlas.Application.CQRS.Languages.Queries
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Language, LanguageLookupDto>()
-                .ForMember(eVm => eVm.Id,
-                    opt => opt.MapFrom(e => e.Id))
-                .ForMember(eVm => eVm.Name,
-                    opt => opt.MapFrom(e => e.Name));
+                .ForMember(x => x.Id, opt =>
+                    opt.MapFrom(x => x.Id))
+                .ForMember(x => x.Name, opt =>
+                    opt.MapFrom(x => x.Name));
         }
     }
 }

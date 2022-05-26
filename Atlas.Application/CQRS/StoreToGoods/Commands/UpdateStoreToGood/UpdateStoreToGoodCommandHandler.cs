@@ -21,8 +21,8 @@ namespace Atlas.Application.CQRS.StoreToGoods.Commands.UpdateStoreToGood
 
         public async Task<Unit> Handle(UpdateStoreToGoodCommand request, CancellationToken cancellationToken)
         {
-            var storeToGood = await _dbContext.StoreToGoods
-                .FirstOrDefaultAsync(stg => stg.Id == request.Id, cancellationToken);
+            var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (storeToGood == null)
             {

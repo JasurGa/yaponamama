@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
     {
         public GetClientDetailsQueryValidator()
         {
-            RuleFor(e => e.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

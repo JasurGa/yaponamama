@@ -15,7 +15,7 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehicleListByStore
 {
     public class GetVehicleListByStoreQueryHandler : IRequestHandler<GetVehicleListByStoreQuery, VehicleListVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetVehicleListByStoreQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -24,7 +24,7 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehicleListByStore
         public async Task<VehicleListVm> Handle(GetVehicleListByStoreQuery request, CancellationToken cancellationToken)
         {
             var vehicles = await _dbContext.Vehicles
-                .Where(v => v.StoreId == request.StoreId)
+                .Where(x => x.StoreId == request.StoreId)
                 .ProjectTo<VehicleLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
             

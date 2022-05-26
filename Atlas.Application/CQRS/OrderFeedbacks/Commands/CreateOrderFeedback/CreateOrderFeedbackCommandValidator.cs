@@ -7,13 +7,13 @@ namespace Atlas.Application.CQRS.OrderFeedbacks.Commands.CreateOrderFeedback
     {
         public CreateOrderFeedbackCommandValidator()
         {
-            RuleFor(of => of.OrderId)
+            RuleFor(x => x.OrderId)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(of => of.Rating)
+            RuleFor(x => x.Rating)
                 .NotEmpty();
 
-            RuleFor(of => of.Text)
+            RuleFor(x => x.Text)
                 .NotEmpty();
         }
     }

@@ -14,21 +14,23 @@ using System.Threading.Tasks;
 
 namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListByStore
 {
-    public class GetVehiclePagedListByStoreQueryHandler : IRequestHandler<GetVehiclePagedListByStoreQuery, PageDto<VehicleLookupDto>>
+    public class GetVehiclePagedListByStoreQueryHandler : IRequestHandler<GetVehiclePagedListByStoreQuery,
+        PageDto<VehicleLookupDto>>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetVehiclePagedListByStoreQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<PageDto<VehicleLookupDto>> Handle(GetVehiclePagedListByStoreQuery request, CancellationToken cancellationToken)
+        public async Task<PageDto<VehicleLookupDto>> Handle(GetVehiclePagedListByStoreQuery request,
+            CancellationToken cancellationToken)
         {
-            var vehiclesCount = await _dbContext.Vehicles.CountAsync(v => v.StoreId == request.StoreId, 
-                cancellationToken);
+            var vehiclesCount = await _dbContext.Vehicles.CountAsync(x =>
+                x.StoreId == request.StoreId, cancellationToken);
 
             var vehicles = await _dbContext.Vehicles
-                .Where(v => v.StoreId == request.StoreId)
+                .Where(x => x.StoreId == request.StoreId)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<VehicleLookupDto>(_mapper.ConfigurationProvider)

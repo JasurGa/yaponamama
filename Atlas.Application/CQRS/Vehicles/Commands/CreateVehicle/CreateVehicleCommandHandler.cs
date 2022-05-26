@@ -21,23 +21,21 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.CreateVehicle
 
         public async Task<Guid> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
         {
-            var store       = await _dbContext.Stores.FirstOrDefaultAsync(s => 
-                s.Id == request.StoreId, cancellationToken);
-
-            var vehicleType = await _dbContext.VehicleTypes.FirstOrDefaultAsync(vt =>
-                vt.Id == request.VehicleTypeId, cancellationToken);
-
+            var store = await _dbContext.Stores.FirstOrDefaultAsync(x => 
+                x.Id == request.StoreId, cancellationToken);
 
             if (store == null)
             {
                 throw new NotFoundException(nameof(Store), request.StoreId);
             }
 
+            var vehicleType = await _dbContext.VehicleTypes.FirstOrDefaultAsync(x =>
+                x.Id == request.VehicleTypeId, cancellationToken);
+
             if (vehicleType == null)
             {
                 throw new NotFoundException(nameof(VehicleType), request.VehicleTypeId);
             }
-
 
             var vehicle = new Vehicle
             {

@@ -5,10 +5,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList
     {
         public GetCategoryPagedListQueryValidator()
         {
-            RuleFor(e => e.ShowDeleted)
-                .Must(sd => sd == true || sd == false);
-
-            RuleFor(e => e.PageSize)
+            RuleFor(x => x.PageSize)
                .NotEmpty();
         }
     }

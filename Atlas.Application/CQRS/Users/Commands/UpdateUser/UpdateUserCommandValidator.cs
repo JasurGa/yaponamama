@@ -7,8 +7,17 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
     {
         public UpdateUserCommandValidator()
         {
-            RuleFor(e => e.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
+
+            RuleFor(x => x.FirstName)
+                .NotEmpty();
+
+            RuleFor(x => x.LastName)
+                .NotEmpty();
+
+            RuleFor(x => x.Birthday)
+                .NotEmpty();
         }
     }
 }

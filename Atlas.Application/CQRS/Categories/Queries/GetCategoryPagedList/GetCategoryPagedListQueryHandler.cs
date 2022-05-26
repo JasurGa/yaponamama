@@ -12,22 +12,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList
 {
-    public class GetCategoryPagedListQueryHandler : IRequestHandler<GetCategoryPagedListQuery, PageDto<CategoryLookupDto>>
+    public class GetCategoryPagedListQueryHandler : IRequestHandler<GetCategoryPagedListQuery,
+        PageDto<CategoryLookupDto>>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetCategoryPagedListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<PageDto<CategoryLookupDto>> Handle(GetCategoryPagedListQuery request, CancellationToken cancellationToken)
+        public async Task<PageDto<CategoryLookupDto>> Handle(GetCategoryPagedListQuery request,
+            CancellationToken cancellationToken)
         {
             var categoriesCount = await _dbContext.Categories
-                .Where(c => c.IsDeleted == request.ShowDeleted)
-                .CountAsync(cancellationToken);
+                .CountAsync(x => x.IsDeleted == request.ShowDeleted,
+                    cancellationToken);
 
             var categories = await _dbContext.Categories
-                .Where(c => c.IsDeleted == request.ShowDeleted)
+                .Where(x => x.IsDeleted == request.ShowDeleted)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<CategoryLookupDto>(_mapper.ConfigurationProvider)
@@ -35,10 +37,10 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList
 
             return new PageDto<CategoryLookupDto>
             {
-                PageIndex = request.PageIndex,
+                PageIndex  = request.PageIndex,
                 TotalCount = categoriesCount,
-                PageCount = (int)Math.Ceiling((double)categoriesCount / request.PageSize),
-                Data = categories
+                PageCount  = (int)Math.Ceiling((double)categoriesCount / request.PageSize),
+                Data       = categories
             };
         }
     }

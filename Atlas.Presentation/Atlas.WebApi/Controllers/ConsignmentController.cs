@@ -1,17 +1,17 @@
-﻿using Atlas.Application.CQRS.Consignments.Commands.CreateConsignment;
+﻿using System;
+using AutoMapper;
+using Atlas.WebApi.Models;
+using System.Threading.Tasks;
+using Atlas.Application.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Atlas.Application.CQRS.Consignments.Commands.CreateConsignment;
 using Atlas.Application.CQRS.Consignments.Commands.DeleteConsignment;
 using Atlas.Application.CQRS.Consignments.Commands.UpdateConsignment;
 using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails;
 using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
 using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList;
-using Atlas.Application.Models;
-using Atlas.WebApi.Models;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -26,7 +26,7 @@ namespace Atlas.WebApi.Controllers
             _mapper = mapper;
 
         /// <summary>
-        /// Get the list of consignments
+        /// Gets the list of consignments
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -42,7 +42,6 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<ConsignmentListVm>> GetAllAsync()
         {
             var vm = await Mediator.Send(new GetConsignmentListQuery());
-
             return Ok(vm);
         }
 
@@ -58,8 +57,8 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto ConsignmentLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("paged")]
         [Authorize]
+        [HttpGet("paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<ConsignmentLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
@@ -67,26 +66,26 @@ namespace Atlas.WebApi.Controllers
             var vm = await Mediator.Send(new GetConsignmentPagedListQuery
             {
                 PageIndex = pageIndex,
-                PageSize = pageSize
+                PageSize  = pageSize
             });
 
             return Ok(vm);
         }
 
         /// <summary>
-        /// Get the specific consignment details
+        /// Gets the specific consignment details
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/consigment/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// GET /api/1.0/consignment/a3eb7b4a-9f4e-4c71-8619-398655c563b8
         /// </remarks>
         /// <param name="id">Consignment id (guid)</param>
         /// <returns>Returns ConsignmentDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
-        /// /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("{id}")]
+        /// <response code="401">If the user is unauthorized</response>
         [Authorize]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -123,9 +122,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateConsignmentDto createConsignment)
         {
-            var command = _mapper.Map<CreateConsignmentCommand>(createConsignment);
-
-            var consignmentId = await Mediator.Send(command);
+            var consignmentId = await Mediator.Send(_mapper
+                .Map<CreateConsignmentCommand>(createConsignment));
 
             return Ok(consignmentId);
         }
@@ -139,8 +137,8 @@ namespace Atlas.WebApi.Controllers
         /// {
         ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
         ///     "storeToGoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "purchasedAt":   "2022-05-14T14:12:02.953Z",
-        ///     "expirateAt":    "2022-05-14T14:12:02.953Z",
+        ///     "purchasedAt": "2022-05-14T14:12:02.953Z",
+        ///     "expirateAt": "2022-05-14T14:12:02.953Z",
         ///     "shelfLocation": "1st shelf, 2nd box",
         /// }
         /// </remarks>
@@ -156,9 +154,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> UpdateAsync([FromBody] UpdateConsignmentDto updateConsignment)
         {
-            var command = _mapper.Map<UpdateConsignmentCommand>(updateConsignment);
-
-            await Mediator.Send(command);
+            await Mediator.Send(_mapper.Map<UpdateConsignmentDto, UpdateConsignmentCommand>
+                (updateConsignment));
 
             return NoContent();
         }
@@ -175,8 +172,8 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -13,7 +13,7 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserDetails
     public class GetUserDetailsQueryHandler : IRequestHandler<GetUserDetailsQuery,
         UserDetailsVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetUserDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -30,7 +30,7 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserDetails
                 throw new NotFoundException(nameof(User), request.Id);
             }
 
-            return _mapper.Map<UserDetailsVm>(user);
+            return _mapper.Map<User, UserDetailsVm>(user);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Goods.Commands.RestoreGood
     {
         public RestoreGoodCommandValidator()
         {
-            RuleFor(g => g.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

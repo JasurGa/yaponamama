@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserDetails
     {
         public GetUserDetailsQueryValidator()
         {
-            RuleFor(e => e.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

@@ -14,7 +14,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
 {
     public class GetConsignmentPagedListQueryHandler : IRequestHandler<GetConsignmentPagedListQuery, PageDto<ConsignmentLookupDto>>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetConsignmentPagedListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>

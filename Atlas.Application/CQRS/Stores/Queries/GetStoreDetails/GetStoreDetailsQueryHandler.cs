@@ -11,21 +11,24 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStoreDetails
 {
     public class GetStoreDetailsQueryHandler : IRequestHandler<GetStoreDetailsQuery, StoreDetailsVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
+
         public GetStoreDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<StoreDetailsVm> Handle(GetStoreDetailsQuery request, CancellationToken cancellationToken)
+        public async Task<StoreDetailsVm> Handle(GetStoreDetailsQuery request,
+            CancellationToken cancellationToken)
         {
-            var store = await _dbContext.Stores.FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
+            var store = await _dbContext.Stores.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (store == null)
             {
                 throw new NotFoundException(nameof(Store), request.Id);
             }
 
-            return _mapper.Map<StoreDetailsVm>(store);
+            return _mapper.Map<Store, StoreDetailsVm>(store);
         }
     }
 }

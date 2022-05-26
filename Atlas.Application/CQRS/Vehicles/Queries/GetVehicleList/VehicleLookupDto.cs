@@ -34,7 +34,6 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList
                     opt.MapFrom(src => src.VehicleTypeId))
                 .ForMember(dst => dst.StoreId, opt =>
                     opt.MapFrom(src => src.StoreId));
-
         }
     }
 }
