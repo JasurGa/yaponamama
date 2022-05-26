@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="Middlewares\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Atlas.Identity\Startup.cs" />
@@ -47,6 +48,7 @@
     <None Remove="Swashbuckle.AspNetCore" />
     <None Remove="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <None Remove="Microsoft.AspNetCore.Mvc.Versioning" />
+    <None Remove="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Atlas.Application\Atlas.Application.csproj">
