@@ -30,7 +30,7 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
                 throw new NotFoundException(nameof(Client), request.Id);
             }
 
-            return _mapper.Map<ClientDetailsVm>(client);
+            return _mapper.Map<Client, ClientDetailsVm>(client);
         }
     }
 }

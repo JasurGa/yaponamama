@@ -28,7 +28,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails
                 throw new NotFoundException(nameof(Consignment), request.Id);
             }
 
-            return _mapper.Map<ConsignmentDetailsVm>(consignment);
+            return _mapper.Map<Consignment, ConsignmentDetailsVm>(consignment);
         }
     }
 }

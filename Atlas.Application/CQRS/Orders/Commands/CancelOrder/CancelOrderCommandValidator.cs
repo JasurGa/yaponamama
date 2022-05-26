@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 
 namespace Atlas.Application.CQRS.Orders.Commands.CancelOrder
 {
@@ -7,7 +8,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CancelOrder
         public CancelOrderCommandValidator()
         {
             RuleFor(o => o.Id)
-                .NotEmpty();
+                .NotEqual(Guid.Empty);
         }
     }
 }

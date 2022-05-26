@@ -8,7 +8,7 @@ namespace Atlas.Application.CQRS.Stores.Commands.DeleteStore
         public DeleteStoreCommandValidator()
         {
             RuleFor(s => s.Id)
-                .NotEqual(Guid.NewGuid());
+                .NotEqual(Guid.Empty);
         }
     }
 }

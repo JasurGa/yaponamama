@@ -14,7 +14,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
 {
     public class GetLastOrdersPagedListByCourierQueryHandler : IRequestHandler<GetLastOrdersPagedListByCourierQuery, PageDto<OrderLookupDto>>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetLastOrdersPagedListByCourierQueryHandler(IMapper mapper, IAtlasDbContext dbContext) => 

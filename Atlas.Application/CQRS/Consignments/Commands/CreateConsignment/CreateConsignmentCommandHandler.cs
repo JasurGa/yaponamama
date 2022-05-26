@@ -23,7 +23,6 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
                 PurchasedAt     = request.PurchasedAt,
                 ShelfLocation   = request.ShelfLocation,
                 StoreToGoodId   = request.StoreToGoodId,
-
             };
 
             await _dbContext.Consignments.AddAsync(consignment, cancellationToken);

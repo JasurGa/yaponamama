@@ -8,7 +8,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails
         public GetConsignmentDetailsQueryValidator()
         {
             RuleFor(c => c.Id)
-                .NotEqual(Guid.NewGuid());
+                .NotEqual(Guid.Empty);
         }
     }
 }

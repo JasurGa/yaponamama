@@ -13,7 +13,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 {
     public class GetLastOrdersPagedListByClientQueryHandler : IRequestHandler<GetLastOrdersPagedListByClientQuery, PageDto<OrderLookupDto>>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetLastOrdersPagedListByClientQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>

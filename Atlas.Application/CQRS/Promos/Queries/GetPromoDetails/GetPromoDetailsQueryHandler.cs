@@ -11,7 +11,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
 {
     public class GetPromoDetailsQueryHandler : IRequestHandler<GetPromoDetailsQuery, PromoDetailsVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetPromoDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) => 
@@ -22,7 +22,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
             var promo = await _dbContext.Promos.FirstOrDefaultAsync(p => p.Id == request.Id, 
                 cancellationToken);
 
-            if(promo == null)
+            if (promo == null)
             {
                 throw new NotFoundException(nameof(Promo), request.Id);
             }

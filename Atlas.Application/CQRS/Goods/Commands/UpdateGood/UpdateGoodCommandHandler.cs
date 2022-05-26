@@ -19,8 +19,16 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
 
         public async Task<Unit> Handle(UpdateGoodCommand request, CancellationToken cancellationToken)
         {
-            var good = await _dbContext.Goods
-                .FirstOrDefaultAsync(g => g.Id == request.Id, cancellationToken);
+            var provider = await _dbContext.Providers.FirstOrDefaultAsync(x =>
+                x.Id == request.ProviderId, cancellationToken);
+
+            if (provider == null)
+            {
+                throw new NotFoundException(nameof(Provider), request.ProviderId);
+            }
+
+            var good = await _dbContext.Goods.FirstOrDefaultAsync(g =>
+                g.Id == request.Id, cancellationToken);
 
             if (good == null)
             {

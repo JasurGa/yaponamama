@@ -15,10 +15,11 @@ namespace Atlas.Application.CQRS.Orders.Commands.DeleteOrder
         public DeleteOrderCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteOrderCommand request,
+            CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders
-                .FirstOrDefaultAsync(o => o.Id == request.Id, cancellationToken);
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(o =>
+                o.Id == request.Id, cancellationToken);
 
             if (order == null)
             {

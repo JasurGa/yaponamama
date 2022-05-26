@@ -5,6 +5,7 @@ using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
 {
@@ -17,6 +18,14 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
 
         public async Task<Guid> Handle(CreateGoodCommand request, CancellationToken cancellationToken)
         {
+            var provider = await _dbContext.Providers.FirstOrDefaultAsync(x =>
+                x.Id == request.ProviderId);
+
+            if (provider == null)
+            {
+                throw new NotFoundException(nameof(Provider), request.ProviderId);
+            }
+
             var good = new Good
             {
                 Id            = Guid.NewGuid(),

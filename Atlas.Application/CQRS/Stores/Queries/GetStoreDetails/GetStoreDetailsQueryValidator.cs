@@ -8,7 +8,7 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStoreDetails
         public GetStoreDetailsQueryValidator()
         {
             RuleFor(s => s.Id)
-                .NotEqual(Guid.NewGuid());
+                .NotEqual(Guid.Empty);
         }
     }
 }

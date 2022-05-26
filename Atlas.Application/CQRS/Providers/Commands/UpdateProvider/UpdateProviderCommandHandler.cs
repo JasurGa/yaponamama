@@ -19,9 +19,11 @@ namespace Atlas.Application.CQRS.Providers.Commands.UpdateProvider
         public UpdateProviderCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(UpdateProviderCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateProviderCommand request,
+            CancellationToken cancellationToken)
         {
-            var provider = await _dbContext.Providers.FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
+            var provider = await _dbContext.Providers.FirstOrDefaultAsync(p =>
+                p.Id == request.Id, cancellationToken);
 
             if (provider == null)
             {

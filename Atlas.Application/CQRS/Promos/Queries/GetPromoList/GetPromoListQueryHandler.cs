@@ -14,7 +14,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
 {
     public class GetPromoListQueryHandler : IRequestHandler<GetPromoListQuery, PromoListVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetPromoListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) => 

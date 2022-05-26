@@ -17,9 +17,11 @@ namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
         public UpdateCourierCommandHandler(IAtlasDbContext dbContext) => 
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(UpdateCourierCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateCourierCommand request,
+            CancellationToken cancellationToken)
         {
-            var courier = await _dbContext.Couriers.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            var courier = await _dbContext.Couriers.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if(courier == null)
             {

@@ -8,7 +8,7 @@ namespace Atlas.Application.CQRS.Stores.Commands.UpdateStore
         public UpdateStoreCommandValidator()
         {
             RuleFor(s => s.Id)
-               .NotEqual(Guid.NewGuid());
+               .NotEqual(Guid.Empty);
 
             RuleFor(s => s.Name)
                 .NotEmpty();

@@ -12,7 +12,7 @@ namespace Atlas.Application.CQRS.OrderFeedbacks.Queries.GetOrderFeedbackDetails
 {
     public class GetOrderFeedbackDetailsQueryHandler : IRequestHandler<GetOrderFeedbackDetailsQuery, OrderFeedbackDetailsVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetOrderFeedbackDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -20,8 +20,8 @@ namespace Atlas.Application.CQRS.OrderFeedbacks.Queries.GetOrderFeedbackDetails
 
         public async Task<OrderFeedbackDetailsVm> Handle(GetOrderFeedbackDetailsQuery request, CancellationToken cancellationToken)
         {
-            var orderFeedback = await _dbContext.OrderFeedbacks
-                .FirstOrDefaultAsync(of => of.Id == request.Id, cancellationToken);
+            var orderFeedback = await _dbContext.OrderFeedbacks.FirstOrDefaultAsync(of =>
+                of.Id == request.Id, cancellationToken);
 
             if (orderFeedback == null)
             {
@@ -29,7 +29,6 @@ namespace Atlas.Application.CQRS.OrderFeedbacks.Queries.GetOrderFeedbackDetails
             }
 
             return _mapper.Map<OrderFeedbackDetailsVm>(orderFeedback);
-
         }
     }
 }

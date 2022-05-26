@@ -16,7 +16,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList
 {
     public class GetPromoPagedListQueryHandler : IRequestHandler<GetPromoPagedListQuery, PageDto<PromoLookupDto>>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetPromoPagedListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -34,10 +34,10 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList
 
             return new PageDto<PromoLookupDto>
             {
-                PageIndex = request.PageIndex,
+                PageIndex  = request.PageIndex,
                 TotalCount = promosCount,
-                PageCount = (int)Math.Ceiling((double)promosCount / request.PageSize),
-                Data = promos
+                PageCount  = (int)Math.Ceiling((double)promosCount / request.PageSize),
+                Data       = promos
             };
         }
     }

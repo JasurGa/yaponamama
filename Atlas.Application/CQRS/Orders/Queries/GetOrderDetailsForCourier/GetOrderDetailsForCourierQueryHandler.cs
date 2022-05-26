@@ -16,7 +16,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForCourier
 {
     public class GetOrderDetailsForCourierQueryHandler : IRequestHandler<GetOrderDetailsForCourierQuery, OrderDetailsVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetOrderDetailsForCourierQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>

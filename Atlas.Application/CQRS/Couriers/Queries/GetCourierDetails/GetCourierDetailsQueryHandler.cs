@@ -11,7 +11,7 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
 {
     public class GetCourierDetailsQueryHandler : IRequestHandler<GetCourierDetailsQuery, CourierDetailsVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetCourierDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) => 
