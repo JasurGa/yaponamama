@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Categories.Commands.CreateCategory;
 using Atlas.Application.CQRS.Categories.Commands.DeleteCategory;
 using Atlas.Application.CQRS.Categories.Commands.RestoreCategory;
@@ -8,6 +9,7 @@ using Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList;
 using Atlas.Application.Models;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -116,6 +118,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
+        [AuthRoleFilter(TokenClaims.AdminId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateCategoryDto createCategory)

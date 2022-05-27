@@ -3,18 +3,18 @@ namespace Atlas.Application.Common.Constants
 {
     public static class TokenClaims
     {
-        public static readonly string UserId = "UserId";
+        public const string UserId = "UserId";
 
-        public static readonly string AdminId = "AdminId";
+        public const string AdminId = "AdminId";
 
-        public static readonly string CourierId = "CourierId";
+        public const string CourierId = "CourierId";
 
-        public static readonly string SupplyManagerId = "SupplyManagerId";
+        public const string SupplyManagerId = "SupplyManagerId";
 
-        public static readonly string HeadRecruiterId = "HeadRecruiterId";
+        public const string HeadRecruiterId = "HeadRecruiterId";
 
-        public static readonly string ClientId = "ClientId";
+        public const string ClientId = "ClientId";
 
-        public static readonly string SupportId = "SupportId";
+        public const string SupportId = "SupportId";
     }
 }
