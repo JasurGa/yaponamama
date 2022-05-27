@@ -33,8 +33,8 @@ namespace Atlas.WebApi.Filters
             {
                 try
                 {
-                    var adminId = context.HttpContext.User.FindFirstValue(role);
-                    if (adminId != null)
+                    var roleId = context.HttpContext.User.FindFirstValue(role);
+                    if (roleId != null)
                     {
                         hasAny = true;
                         break;
