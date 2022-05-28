@@ -1,12 +1,10 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
+using System;
 
-namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
+namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
 {
-    public class UpdateCourierCommand : IRequest
+    public class CreateCourierCommand : IRequest<Guid>
     {
-        public Guid Id { get; set; }
-
         public Guid UserId { get; set; }
 
         public string PhoneNumber { get; set; }

@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentValidation;
 
-namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
+namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
 {
-    public class UpdateCourierCommandValidator : AbstractValidator<UpdateCourierCommand>
+    public class CreateCourierCommandValidator : AbstractValidator<CreateCourierCommand>
     {
-        public UpdateCourierCommandValidator()
+        public CreateCourierCommandValidator()
         {
-            RuleFor(x => x.Id)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.UserId)
                 .NotEqual(Guid.Empty);
 

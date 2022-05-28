@@ -22,5 +22,9 @@ namespace Atlas.Domain
         public string AvatarPhotoPath { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public Courier Courier { get; set; }
+
+        public SupplyManager SupplyManager { get; set; }
     }
 }

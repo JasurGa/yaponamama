@@ -23,6 +23,8 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
             var courier = await _dbContext.Couriers.FirstOrDefaultAsync(c => 
                 c.Id == request.Id, cancellationToken);
 
+            var cs = await _dbContext.Couriers.Include(x => x.User).ToListAsync(cancellationToken);
+
             if (courier == null)
             {
                 throw new NotFoundException(nameof(Courier), request.Id);
