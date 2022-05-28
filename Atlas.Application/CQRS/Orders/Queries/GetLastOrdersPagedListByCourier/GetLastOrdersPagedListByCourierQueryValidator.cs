@@ -7,10 +7,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
     {
         public GetLastOrdersPagedListByCourierQueryValidator()
         {
-            RuleFor(o => o.CourierId)
+            RuleFor(x => x.CourierId)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(o => o.PageSize)
+            RuleFor(x => x.PageSize)
                 .NotEmpty();
         }
     }

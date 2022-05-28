@@ -18,8 +18,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.DeleteOrder
         public async Task<Unit> Handle(DeleteOrderCommand request,
             CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(o =>
-                o.Id == request.Id, cancellationToken);
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (order == null)
             {

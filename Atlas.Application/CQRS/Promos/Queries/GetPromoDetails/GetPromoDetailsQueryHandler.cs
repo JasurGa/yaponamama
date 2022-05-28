@@ -20,8 +20,8 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
         public async Task<PromoDetailsVm> Handle(GetPromoDetailsQuery request,
             CancellationToken cancellationToken)
         {
-            var promo = await _dbContext.Promos.FirstOrDefaultAsync(p =>
-                p.Id == request.Id, cancellationToken);
+            var promo = await _dbContext.Promos.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (promo == null)
             {

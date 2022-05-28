@@ -3,10 +3,6 @@ using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,6 +17,14 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.UpdateVehicle
 
         public async Task<Unit> Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)
         {
+            var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
+
+            if (vehicle == null)
+            {
+                throw new NotFoundException(nameof(Vehicle), request.Id);
+            }
+
             var store = await _dbContext.Stores.FirstOrDefaultAsync(x => 
                 x.Id == request.StoreId, cancellationToken);
 
@@ -35,14 +39,6 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.UpdateVehicle
             if (vehicleType == null)
             {
                 throw new NotFoundException(nameof(VehicleType), request.VehicleTypeId);
-            }
-
-            var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(x =>
-                x.Id == request.Id, cancellationToken);
-
-            if (vehicle == null)
-            {
-                throw new NotFoundException(nameof(Vehicle), request.Id);
             }
 
             vehicle.Name                             = request.Name;

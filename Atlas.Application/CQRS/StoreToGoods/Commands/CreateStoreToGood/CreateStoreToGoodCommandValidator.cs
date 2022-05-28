@@ -7,10 +7,10 @@ namespace Atlas.Application.CQRS.StoreToGoods.Commands.CreateStoreToGood
     {
         public CreateStoreToGoodCommandValidator()
         {
-            RuleFor(stg => stg.StoreId)
+            RuleFor(x => x.StoreId)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(stg => stg.GoodId)
+            RuleFor(x => x.GoodId)
                 .NotEqual(Guid.Empty);
         }
     }

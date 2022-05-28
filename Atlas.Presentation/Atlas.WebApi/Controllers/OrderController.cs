@@ -5,13 +5,10 @@ using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetails;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForCourier;
 using Atlas.Application.Models;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Atlas.WebApi.Controllers

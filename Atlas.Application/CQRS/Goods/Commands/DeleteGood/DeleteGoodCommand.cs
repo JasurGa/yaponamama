@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using MediatR;
 
 namespace Atlas.Application.CQRS.Goods.Commands.DeleteGood

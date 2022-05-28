@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.StoreToGoods.Commands.DeleteStoreToGood
     {
         public DeleteStoreToGoodCommandValidator()
         {
-            RuleFor(stg => stg.Id).
+            RuleFor(x => x.Id).
                 NotEqual(Guid.Empty);
         }
     }

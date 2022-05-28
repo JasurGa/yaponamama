@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
 {
@@ -11,13 +6,13 @@ namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
     {
         public CreatePromoCommandValidator()
         {
-            RuleFor(p => p.Name)
+            RuleFor(x => x.Name)
                 .NotEmpty();
 
-            RuleFor(p => p.DiscountPrice)
+            RuleFor(x => x.DiscountPrice)
                 .NotEmpty();
 
-            RuleFor(p => p.DiscountPercent)
+            RuleFor(x => x.DiscountPercent)
                 .NotEmpty();
         }
     }

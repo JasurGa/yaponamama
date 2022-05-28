@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.DeleteCategory
     {
         public DeleteCategoryCommandValidator()
         {
-            RuleFor(c => c.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

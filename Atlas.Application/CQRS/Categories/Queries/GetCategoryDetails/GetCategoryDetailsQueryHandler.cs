@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -27,7 +26,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails
 
             if (category == null)
             {
-                throw new NotFoundException(nameof(category), request.Id.ToString());
+                throw new NotFoundException(nameof(category), request.Id);
             }
 
             return _mapper.Map<Category, CategoryDetailsVm>(category);

@@ -4,9 +4,6 @@ using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,13 +26,13 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.CreateVehicle
                 throw new NotFoundException(nameof(Store), request.StoreId);
             }
 
-            //var vehicleType = await _dbContext.VehicleTypes.FirstOrDefaultAsync(x =>
-            //    x.Id == request.VehicleTypeId, cancellationToken);
+            var vehicleType = await _dbContext.VehicleTypes.FirstOrDefaultAsync(x =>
+                x.Id == request.VehicleTypeId, cancellationToken);
 
-            //if (vehicleType == null)
-            //{
-            //    throw new NotFoundException(nameof(VehicleType), request.VehicleTypeId);
-            //}
+            if (vehicleType == null)
+            {
+                throw new NotFoundException(nameof(VehicleType), request.VehicleTypeId);
+            }
 
             var vehicle = new Vehicle
             {

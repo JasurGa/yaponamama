@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
 {
@@ -7,6 +6,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
     {
         public GetCategoryListQueryValidator()
         {
+
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -22,13 +20,15 @@ namespace Atlas.Application.CQRS.Goods.Commands.DeleteGood
             var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
                 x.Id == request.Id, cancellationToken);
 
-            if (good == null)
+            if (good == null || good.IsDeleted)
             {
                 throw new NotFoundException(nameof(Good), request.Id);
             }
 
             good.IsDeleted = true;
+
             await _dbContext.SaveChangesAsync(cancellationToken);
+
             return Unit.Value;
         }
     }

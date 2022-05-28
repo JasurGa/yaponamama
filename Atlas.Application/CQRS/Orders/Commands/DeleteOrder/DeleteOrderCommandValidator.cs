@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.DeleteOrder
     {
         public DeleteOrderCommandValidator()
         {
-            RuleFor(o => o.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

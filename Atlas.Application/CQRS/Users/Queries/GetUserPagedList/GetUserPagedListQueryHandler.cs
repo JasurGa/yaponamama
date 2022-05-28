@@ -26,7 +26,7 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserPagedList
                     cancellationToken);
 
             var users = await _dbContext.Users
-                .Where(s => s.IsDeleted == request.ShowDeleted)
+                .Where(x => x.IsDeleted == request.ShowDeleted)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<UserLookupDto>(_mapper.ConfigurationProvider)

@@ -20,8 +20,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CancelOrder
         public async Task<Unit> Handle(CancelOrderCommand request,
             CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(o =>
-                o.Id == request.Id, cancellationToken);
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (order == null)
             {
@@ -29,7 +29,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CancelOrder
             }
 
             order.Status     = (int)OrderStatus.Canceled;
-            order.FinishedAt = DateTime.Now;
+            order.FinishedAt = DateTime.UtcNow;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

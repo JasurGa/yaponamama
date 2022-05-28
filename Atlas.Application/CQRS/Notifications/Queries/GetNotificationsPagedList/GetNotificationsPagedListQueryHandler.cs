@@ -23,11 +23,11 @@ namespace Atlas.Application.CQRS.Notifications.Queries.GetNotificationsPagedList
         public async Task<PageDto<NotificationLookupDto>> Handle(GetNotificationsPagedListQuery request,
             CancellationToken cancellationToken)
         {
-            var notificationsCount = await _dbContext.Notifications.CountAsync(e =>
-                e.UserId == request.UserId, cancellationToken);
+            var notificationsCount = await _dbContext.Notifications.CountAsync(x =>
+                x.UserId == request.UserId, cancellationToken);
 
             var notifications = await _dbContext.Notifications
-                  .Where(e => e.UserId == request.UserId)
+                  .Where(x => x.UserId == request.UserId)
                   .Skip(request.PageIndex * request.PageSize)
                   .Take(request.PageSize)
                   .ProjectTo<NotificationLookupDto>(_mapper.ConfigurationProvider)

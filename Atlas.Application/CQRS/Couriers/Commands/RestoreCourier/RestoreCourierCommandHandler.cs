@@ -20,7 +20,7 @@ namespace Atlas.Application.CQRS.Couriers.Commands.RestoreCourier
             var courier = await _dbContext.Couriers.FirstOrDefaultAsync(x =>
                 x.Id == request.Id, cancellationToken);
 
-            if (courier == null)
+            if (courier == null || !courier.IsDeleted)
             {
                 throw new NotFoundException(nameof(Courier), request.Id);
             }

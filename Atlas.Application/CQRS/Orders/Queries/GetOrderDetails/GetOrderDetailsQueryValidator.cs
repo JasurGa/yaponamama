@@ -7,9 +7,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
     {
         public GetOrderDetailsQueryValidator()
         {
-            RuleFor(e => e.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
-            RuleFor(e => e.ClientId)
+            RuleFor(x => x.ClientId)
                 .NotEqual(Guid.Empty);
         }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using Atlas.Application.Common.Mappings;
+﻿using Atlas.Application.Common.Mappings;
 using Atlas.Application.CQRS.CardInfoToClients.Commands.CreateCardInfoToClient;
 using AutoMapper;
 

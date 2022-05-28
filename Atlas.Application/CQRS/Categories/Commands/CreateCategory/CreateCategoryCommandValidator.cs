@@ -6,7 +6,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.CreateCategory
     {
         public CreateCategoryCommandValidator()
         {
-            RuleFor(c => c.Name)
+            RuleFor(x => x.Name)
                 .NotEmpty();
         }
     }

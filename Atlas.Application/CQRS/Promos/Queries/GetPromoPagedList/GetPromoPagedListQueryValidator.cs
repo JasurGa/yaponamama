@@ -6,7 +6,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList
     {
         public GetPromoPagedListQueryValidator()
         {
-            RuleFor(p => p.PageSize)
+            RuleFor(x => x.PageSize)
                 .NotEmpty();
         }
     }

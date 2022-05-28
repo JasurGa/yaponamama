@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails
     {
         public GetCategoryDetailsQueryValidator()
         {
-            RuleFor(e => e.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

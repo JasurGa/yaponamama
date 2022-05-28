@@ -1,10 +1,6 @@
 ﻿using Atlas.Application.Common.Mappings;
 using Atlas.Application.CQRS.Promos.Commands.CreatePromo;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Atlas.WebApi.Models
 {

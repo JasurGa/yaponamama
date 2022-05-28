@@ -7,10 +7,10 @@ namespace Atlas.Application.CQRS.Notifications.Queries.GetNotificationDetails
     {
         public GetNotificationDetailsQueryValidator()
         {
-            RuleFor(e => e.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(e => e.UserId)
+            RuleFor(x => x.UserId)
                 .NotEqual(Guid.Empty);
         }
     }

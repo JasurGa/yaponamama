@@ -7,25 +7,25 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
     {
         public UpdateGoodCommandValidator()
         {
-            RuleFor(g => g.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(g => g.Name)
+            RuleFor(x => x.Name)
                 .NotEmpty();
 
-            RuleFor(g => g.Description)
+            RuleFor(x => x.Description)
                 .NotEmpty();
 
-            RuleFor(g => g.PhotoPath)
+            RuleFor(x => x.PhotoPath)
                 .NotEmpty();
 
-            RuleFor(g => g.SellingPrice)
+            RuleFor(x => x.SellingPrice)
                 .GreaterThan(x => x.PurchasePrice);
 
-            RuleFor(g => g.PurchasePrice)
+            RuleFor(x => x.PurchasePrice)
                 .NotEmpty();
 
-            RuleFor(g => g.ProviderId)
+            RuleFor(x => x.ProviderId)
                 .NotEqual(Guid.Empty);
         }
     }

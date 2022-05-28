@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -21,7 +20,7 @@ namespace Atlas.Application.CQRS.Users.Commands.DeleteUser
             var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
                 x.Id == request.Id, cancellationToken);
 
-            if (user == null)
+            if (user == null || user.IsDeleted)
             {
                 throw new NotFoundException(nameof(User), request.Id);
             }

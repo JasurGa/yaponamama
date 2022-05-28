@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CancelOrder
     {
         public CancelOrderCommandValidator()
         {
-            RuleFor(o => o.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

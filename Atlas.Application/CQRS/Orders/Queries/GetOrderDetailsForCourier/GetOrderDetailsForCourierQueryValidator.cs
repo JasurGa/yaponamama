@@ -7,10 +7,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForCourier
     {
         public GetOrderDetailsForCourierQueryValidator()
         {
-            RuleFor(o => o.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(o => o.CourierId)
+            RuleFor(x => x.CourierId)
                 .NotEqual(Guid.Empty);
         }
     }

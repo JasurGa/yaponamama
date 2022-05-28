@@ -14,9 +14,8 @@ namespace Atlas.Application.CQRS.Statistics.Queries.GetOverallBalanceOfClients
 
         public async Task<long> Handle(GetOverallBalanceOfClientsQuery request, CancellationToken cancellationToken)
         {
-            var overallBalance = await _dbContext.Clients.SumAsync(c => c.Balance, cancellationToken);
-
-            return overallBalance;
+            return await _dbContext.Clients.SumAsync(x => 
+                x.Balance, cancellationToken);
 
         }
     }

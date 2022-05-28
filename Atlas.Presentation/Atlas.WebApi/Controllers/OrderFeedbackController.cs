@@ -1,6 +1,5 @@
 ﻿using Atlas.Application.CQRS.OrderFeedbacks.Commands.CreateOrderFeedback;
 using Atlas.Application.CQRS.OrderFeedbacks.Queries.GetOrderFeedbackDetails;
-using Atlas.Application.Interfaces;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
