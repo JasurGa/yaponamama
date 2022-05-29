@@ -2,6 +2,9 @@
 using Atlas.Application.CQRS.StoreToGoods.Commands.DeleteStoreToGood;
 using Atlas.Application.CQRS.StoreToGoods.Commands.UpdateStoreToGood;
 using Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodByStoreId;
+using Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodListByStoreId;
+using Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByStoreId;
+using Atlas.Application.Models;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -23,7 +26,7 @@ namespace Atlas.WebApi.Controllers
             _mapper = mapper;
 
         /// <summary>
-        /// Gets good ids by store id
+        /// Gets list of goods by store id
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -38,11 +41,39 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<StoreToGoodVm>> GetByStoreIdAsync([FromRoute] Guid storeId)
+        public async Task<ActionResult<StoreToGoodListVm>> GetAllByStoreIdAsync([FromRoute] Guid storeId)
         {
-            var vm = await Mediator.Send(new GetStoreToGoodByStoreIdQuery
+            var vm = await Mediator.Send(new GetStoreToGoodListByStoreIdQuery
             { 
                 StoreId = storeId,
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets paged list of goods by store id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/storetogood/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged
+        /// </remarks>
+        /// <returns>Returns PageDto StoreToGoodLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("store/{storeId}/paged")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<StoreToGoodLookupDto>>> GetAllPagedByStoreIdAsync([FromRoute] Guid storeId, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetStoreToGoodPagedListByStoreIdQuery
+            {
+                StoreId     = storeId,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
             });
 
             return Ok(vm);

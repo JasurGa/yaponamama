@@ -18,5 +18,7 @@ namespace Atlas.Domain
         public Guid ProviderId { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public StoreToGood StoreToGood { get; set; }
     }
 }
