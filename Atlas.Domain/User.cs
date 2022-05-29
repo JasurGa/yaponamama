@@ -26,5 +26,7 @@ namespace Atlas.Domain
         public Courier Courier { get; set; }
 
         public SupplyManager SupplyManager { get; set; }
+
+        public Support Support { get; set; }
     }
 }

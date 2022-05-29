@@ -1,7 +1,9 @@
 ﻿using System;
-namespace Atlas.Domain
+using MediatR;
+
+namespace Atlas.Application.CQRS.Supports.Commands.UpdateSupport
 {
-    public class Support
+    public class UpdateSupportCommand : IRequest
     {
         public Guid Id { get; set; }
 
@@ -10,9 +12,5 @@ namespace Atlas.Domain
         public string InternalPhoneNumber { get; set; }
 
         public string PassportPhotoPath { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public User User { get; set; }
     }
 }
