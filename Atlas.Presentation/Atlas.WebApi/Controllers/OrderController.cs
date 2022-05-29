@@ -29,7 +29,7 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns OrderDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
-        /// /// <response code="401">If the user is unauthorized</response>
+        /// <response code="401">If the user is unauthorized</response>
         [HttpGet("{id}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -57,7 +57,7 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns OrderDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
-        /// /// <response code="401">If the user is unauthorized</response>
+        /// <response code="401">If the user is unauthorized</response>
         [HttpGet("{id}/courier")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]

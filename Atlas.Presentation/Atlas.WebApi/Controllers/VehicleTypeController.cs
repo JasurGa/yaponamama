@@ -1,4 +1,4 @@
-﻿using Atlas.Application.CQRS.Languages.Queries;
+﻿using Atlas.Application.CQRS.VehicleTypes.GetVehicleTypeList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,24 +9,24 @@ namespace Atlas.WebApi.Controllers
     [ApiVersion("1.0")]
     [Produces("application/json")]
     [Route("/api/{version:apiVersion}/[controller]")]
-    public class LanguageController : BaseController
+    public class VehicleTypeController : BaseController
     {
         /// <summary>
-        /// Gets the list of languages
+        /// Gets the list of types of vehicles
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/language
+        /// GET /api/1.0/vehicletype
         /// </remarks>
-        /// <returns>Returns LanguageListVm object</returns>
+        /// <returns>Returns VehicleTypeListVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
         [HttpGet]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<LanguageListVm>> GetAllAsync()
+        public async Task<ActionResult<VehicleTypeListVm>> GetAllAsync()
         {
-            var vm = await Mediator.Send(new GetLanguageListQuery());
+            var vm = await Mediator.Send(new GetVehicleTypeListQuery());
             return Ok(vm);
         }
     }
