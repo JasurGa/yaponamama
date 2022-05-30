@@ -8,5 +8,7 @@ namespace Atlas.Domain
         public Guid ProviderId { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public Provider Provider { get; set; }
     }
 }

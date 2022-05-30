@@ -89,7 +89,7 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ProviderDetailsVm>> GetAsync(Guid id)
+        public async Task<ActionResult<ProviderDetailsVm>> GetAsync([FromRoute] Guid id)
         {
             var vm = await Mediator.Send(new GetProviderDetailsQuery
             {
@@ -183,7 +183,7 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new DeleteProviderCommand 
             { 
