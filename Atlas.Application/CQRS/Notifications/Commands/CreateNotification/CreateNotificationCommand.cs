@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using MediatR;
 
-namespace Atlas.Domain
+namespace Atlas.Application.CQRS.Notifications.Commands.CreateNotification
 {
-    public class Notification
+    public class CreateNotificationCommand : IRequest<Guid>
     {
-        public Guid Id { get; set; }
-
         public Guid NotificationTypeId { get; set; }
 
         public string Subject { get; set; }
@@ -14,7 +12,5 @@ namespace Atlas.Domain
         public string Body { get; set; }
 
         public int Priority { get; set; }
-
-        public List<NotificationAccess> NotificationAccesses { get; set; }
     }
 }

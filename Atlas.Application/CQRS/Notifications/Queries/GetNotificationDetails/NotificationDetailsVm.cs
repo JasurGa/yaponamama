@@ -9,23 +9,19 @@ namespace Atlas.Application.CQRS.Notifications.Queries.GetNotificationDetails
     {
         public Guid Id { get; set; }
 
-        public Guid UserId { get; set; }
-
         public Guid NotificationTypeId { get; set; }
 
         public string Subject { get; set; }
 
         public string Body { get; set; }
 
-        public string Priority { get; set; }
+        public int Priority { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Notification, NotificationDetailsVm>()
                 .ForMember(dest => dest.Id, opt =>
                     opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.UserId, opt =>
-                    opt.MapFrom(src => src.UserId))
                 .ForMember(dest => dest.NotificationTypeId, opt =>
                     opt.MapFrom(src => src.NotificationTypeId))
                 .ForMember(dest => dest.Subject, opt =>

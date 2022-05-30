@@ -36,6 +36,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<Notification> Notifications { get; set; }
 
+        DbSet<NotificationAccess> NotificationAccesses { get; set; }
+
         DbSet<NotificationType> NotificationTypes { get; set; }
 
         DbSet<Order> Orders { get; set; }

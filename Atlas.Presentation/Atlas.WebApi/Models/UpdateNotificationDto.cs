@@ -1,11 +1,10 @@
 ﻿using System;
-using Atlas.Application.Common.Mappings;
-using Atlas.Domain;
+using Atlas.Application.CQRS.Notifications.Commands.UpdateNotification;
 using AutoMapper;
 
-namespace Atlas.Application.CQRS.Notifications.Queries.GetNotificationsPagedList
+namespace Atlas.WebApi.Models
 {
-    public class NotificationLookupDto : IMapWith<Notification>
+    public class UpdateNotificationDto
     {
         public Guid Id { get; set; }
 
@@ -13,17 +12,21 @@ namespace Atlas.Application.CQRS.Notifications.Queries.GetNotificationsPagedList
 
         public string Subject { get; set; }
 
-        public string Priority { get; set; }
+        public string Body { get; set; }
+
+        public int Priority { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Notification, NotificationLookupDto>()
+            profile.CreateMap<UpdateNotificationDto, UpdateNotificationCommand>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.NotificationTypeId, opt =>
                     opt.MapFrom(src => src.NotificationTypeId))
                 .ForMember(dst => dst.Subject, opt =>
                     opt.MapFrom(src => src.Subject))
+                .ForMember(dst => dst.Body, opt =>
+                    opt.MapFrom(src => src.Body))
                 .ForMember(dst => dst.Priority, opt =>
                     opt.MapFrom(src => src.Priority));
         }

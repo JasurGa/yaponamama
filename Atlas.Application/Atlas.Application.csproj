@@ -51,6 +51,13 @@
     <Folder Include="CQRS\Clients\Queries\" />
     <Folder Include="CQRS\Clients\Queries\GetClientDetails\" />
     <Folder Include="Enums\" />
+    <Folder Include="CQRS\Notifications\Commands\CreateNotification\" />
+    <Folder Include="CQRS\Notifications\Commands\AttachNotificationToRole\" />
+    <Folder Include="CQRS\Notifications\Commands\AttachNotificationToUser\" />
+    <Folder Include="CQRS\Notifications\Commands\DeleteNotification\" />
+    <Folder Include="CQRS\Notifications\Commands\DettachNotificationToRole\" />
+    <Folder Include="CQRS\Notifications\Commands\DettachNotificationToUser\" />
+    <Folder Include="CQRS\Notifications\Commands\UpdateNotification\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -92,5 +99,12 @@
     <None Remove="CQRS\Clients\Queries\" />
     <None Remove="CQRS\Clients\Queries\GetClientDetails\" />
     <None Remove="Enums\" />
+    <None Remove="CQRS\Notifications\Commands\CreateNotification\" />
+    <None Remove="CQRS\Notifications\Commands\AttachNotificationToRole\" />
+    <None Remove="CQRS\Notifications\Commands\AttachNotificationToUser\" />
+    <None Remove="CQRS\Notifications\Commands\DeleteNotification\" />
+    <None Remove="CQRS\Notifications\Commands\DettachNotificationToRole\" />
+    <None Remove="CQRS\Notifications\Commands\DettachNotificationToUser\" />
+    <None Remove="CQRS\Notifications\Commands\UpdateNotification\" />
   </ItemGroup>
 </Project>

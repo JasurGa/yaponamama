@@ -22,13 +22,17 @@ namespace Atlas.Application.CQRS.Notifications.Queries.GetNotificationDetails
         public async Task<NotificationDetailsVm> Handle(GetNotificationDetailsQuery request,
             CancellationToken cancellationToken)
         {
-            var notification = await _dbContext.Notifications.FirstOrDefaultAsync(x =>
-                x.Id == request.Id, cancellationToken);
+            var notificationAccess = await _dbContext.NotificationAccesses
+                .FirstOrDefaultAsync(x => x.NotificationId == request.Id &&
+                    x.UserId == request.UserId);
 
-            if (notification == null || notification.UserId != request.UserId)
+            if (notificationAccess == null)
             {
                 throw new NotFoundException(nameof(Notification), request.Id);
             }
+
+            var notification = await _dbContext.Notifications.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             return _mapper.Map<NotificationDetailsVm>(notification);
         }
