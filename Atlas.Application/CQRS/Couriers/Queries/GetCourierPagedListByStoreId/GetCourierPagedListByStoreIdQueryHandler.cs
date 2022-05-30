@@ -22,9 +22,10 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedListByStoreId
 
         public async Task<PageDto<CourierLookupDto>> Handle(GetCourierPagedListByStoreIdQuery request, CancellationToken cancellationToken)
         {
-            var couriersCount = await _dbContext.Couriers.CountAsync(x =>
-                x.IsDeleted == request.ShowDeleted && x.Vehicle.StoreId == request.StoreId,
-                cancellationToken);
+            var couriersCount = await _dbContext.Couriers
+                .Include(x => x.User)
+                .CountAsync(x => x.IsDeleted == request.ShowDeleted && 
+                    x.Vehicle.StoreId == request.StoreId, cancellationToken);
 
             var couriers = await _dbContext.Couriers
                 .Where(x => x.IsDeleted == request.ShowDeleted && x.Vehicle.StoreId == request.StoreId)
@@ -36,10 +37,10 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedListByStoreId
 
             return new PageDto<CourierLookupDto>
             {
-                PageIndex = request.PageIndex,
+                PageIndex  = request.PageIndex,
                 TotalCount = couriersCount,
-                PageCount = (int)Math.Ceiling((double)couriersCount / request.PageSize),
-                Data = couriers,
+                PageCount  = (int)Math.Ceiling((double)couriersCount / request.PageSize),
+                Data       = couriers,
             };
         }
     }
