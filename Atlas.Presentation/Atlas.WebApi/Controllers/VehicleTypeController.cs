@@ -1,4 +1,4 @@
-﻿using Atlas.Application.CQRS.VehicleTypes.GetVehicleTypeList;
+﻿using Atlas.Application.CQRS.VehicleTypes.Queries.GetVehicleTypeList;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

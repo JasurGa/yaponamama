@@ -3,7 +3,7 @@ using Atlas.Domain;
 using AutoMapper;
 using System;
 
-namespace Atlas.Application.CQRS.VehicleTypes.GetVehicleTypeList
+namespace Atlas.Application.CQRS.VehicleTypes.Queries.GetVehicleTypeList
 {
     public class VehicleTypeLookupDto : IMapWith<VehicleType>
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Atlas.Application.CQRS.VehicleTypes.GetVehicleTypeList
+namespace Atlas.Application.CQRS.VehicleTypes.Queries.GetVehicleTypeList
 {
     public class VehicleTypeListVm
     {
