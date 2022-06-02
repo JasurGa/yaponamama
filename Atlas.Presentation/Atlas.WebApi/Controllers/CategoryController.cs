@@ -5,6 +5,7 @@ using Atlas.Application.CQRS.Categories.Commands.CreateCategory;
 using Atlas.Application.CQRS.Categories.Commands.DeleteCategory;
 using Atlas.Application.CQRS.Categories.Commands.RestoreCategory;
 using Atlas.Application.CQRS.Categories.Commands.UpdateCategory;
+using Atlas.Application.CQRS.Categories.Queries.GetCategoriesByGeneralCategory;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList;
@@ -70,6 +71,30 @@ namespace Atlas.WebApi.Controllers
             var vm = await Mediator.Send(new GetCategoryListQuery()
             {
                 ShowDeleted = showDeleted
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the list of categories by general category id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/category?showDeleted=false
+        /// </remarks>
+        /// <returns>Returns CategoryListVm object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("generalcategory/{generalCategoryId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<CategoryListVm>> GetAllAsync([FromRoute] Guid generalCategoryId,
+            [FromQuery] bool showDeleted = false)
+        {
+            var vm = await Mediator.Send(new GetCategoriesByGeneralCategoryQuery
+            {
+                GeneralCategoryId = generalCategoryId,
+                ShowDeleted       = showDeleted
             });
 
             return Ok(vm);

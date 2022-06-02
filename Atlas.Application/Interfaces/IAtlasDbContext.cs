@@ -26,6 +26,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<ForgotPasswordCode> ForgotPasswordCodes { get; set; }
 
+        DbSet<GeneralCategory> GeneralCategories { get; set; }
+
         DbSet<Good> Goods { get; set; }
 
         DbSet<GoodToOrder> GoodToOrders { get; set; }

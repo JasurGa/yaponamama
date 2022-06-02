@@ -58,6 +58,16 @@
     <Folder Include="CQRS\Notifications\Commands\DettachNotificationToRole\" />
     <Folder Include="CQRS\Notifications\Commands\DettachNotificationToUser\" />
     <Folder Include="CQRS\Notifications\Commands\UpdateNotification\" />
+    <Folder Include="CQRS\GeneralCategories\" />
+    <Folder Include="CQRS\GeneralCategories\Commands\" />
+    <Folder Include="CQRS\GeneralCategories\Queries\" />
+    <Folder Include="CQRS\GeneralCategories\Commands\CreateGeneralCategory\" />
+    <Folder Include="CQRS\GeneralCategories\Commands\UpdateGeneralCategory\" />
+    <Folder Include="CQRS\GeneralCategories\Commands\DeleteGeneralCategory\" />
+    <Folder Include="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
+    <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
+    <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
+    <Folder Include="CQRS\Categories\Queries\GetCategoriesByGeneralCategory\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -106,5 +116,15 @@
     <None Remove="CQRS\Notifications\Commands\DettachNotificationToRole\" />
     <None Remove="CQRS\Notifications\Commands\DettachNotificationToUser\" />
     <None Remove="CQRS\Notifications\Commands\UpdateNotification\" />
+    <None Remove="CQRS\GeneralCategories\" />
+    <None Remove="CQRS\GeneralCategories\Commands\" />
+    <None Remove="CQRS\GeneralCategories\Queries\" />
+    <None Remove="CQRS\GeneralCategories\Commands\CreateGeneralCategory\" />
+    <None Remove="CQRS\GeneralCategories\Commands\UpdateGeneralCategory\" />
+    <None Remove="CQRS\GeneralCategories\Commands\DeleteGeneralCategory\" />
+    <None Remove="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
+    <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
+    <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
+    <None Remove="CQRS\Categories\Queries\GetCategoriesByGeneralCategory\" />
   </ItemGroup>
 </Project>
