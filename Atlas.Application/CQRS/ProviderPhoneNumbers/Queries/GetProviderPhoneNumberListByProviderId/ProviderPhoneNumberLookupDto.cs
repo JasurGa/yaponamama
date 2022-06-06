@@ -1,9 +1,9 @@
-﻿using Atlas.Application.Common.Mappings;
+﻿using System;
+using Atlas.Application.Common.Mappings;
 using Atlas.Domain;
 using AutoMapper;
-using System;
 
-namespace Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberList
+namespace Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberListByProviderId
 {
     public class ProviderPhoneNumberLookupDto : IMapWith<ProviderPhoneNumber>
     {

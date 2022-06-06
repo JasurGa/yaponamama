@@ -1,5 +1,4 @@
-﻿using Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberList;
-using Atlas.Application.Interfaces;
+﻿using Atlas.Application.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
@@ -25,7 +24,7 @@ namespace Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNu
                 .ProjectTo<ProviderPhoneNumberLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new ProviderPhoneNumberListVm { ProviderPhoneNumbers = providerPhoneNumbers };
+            return new ProviderPhoneNumberListVm { PhoneNumbers = providerPhoneNumbers };
         }
     }
 }

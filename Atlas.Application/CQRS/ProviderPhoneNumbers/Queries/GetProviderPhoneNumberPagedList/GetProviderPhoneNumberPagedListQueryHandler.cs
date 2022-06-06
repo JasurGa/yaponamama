@@ -1,4 +1,4 @@
-﻿using Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberList;
+﻿using Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberListByProviderId;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberPagedList
 {
-    public class GetProviderPhoneNumberPagedListQueryHandler : IRequestHandler<GetProviderPhoneNumberPagedListQuery, PageDto<ProviderPhoneNumberLookupDto>>
+    public class GetProviderPhoneNumberPagedListQueryHandler : IRequestHandler
+        <GetProviderPhoneNumberPagedListQuery, PageDto<ProviderPhoneNumberLookupDto>>
     {
         private readonly IMapper _mapper;
         private readonly IAtlasDbContext _dbContext;
@@ -20,7 +21,8 @@ namespace Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNu
         public GetProviderPhoneNumberPagedListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<PageDto<ProviderPhoneNumberLookupDto>> Handle(GetProviderPhoneNumberPagedListQuery request, CancellationToken cancellationToken)
+        public async Task<PageDto<ProviderPhoneNumberLookupDto>> Handle(GetProviderPhoneNumberPagedListQuery request,
+            CancellationToken cancellationToken)
         {
             var providerPhoneNumbersCount = await _dbContext.ProviderPhoneNumbers.CountAsync(cancellationToken);
 

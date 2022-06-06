@@ -2,7 +2,8 @@
 
 namespace Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberPagedList
 {
-    public class GetProviderPhoneNumberPagedListQueryValidator : AbstractValidator<GetProviderPhoneNumberPagedListQuery>
+    public class GetProviderPhoneNumberPagedListQueryValidator :
+        AbstractValidator<GetProviderPhoneNumberPagedListQuery>
     {
         public GetProviderPhoneNumberPagedListQueryValidator()
         {

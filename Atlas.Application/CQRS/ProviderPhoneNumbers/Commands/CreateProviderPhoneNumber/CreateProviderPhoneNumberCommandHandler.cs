@@ -9,14 +9,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.ProviderPhoneNumbers.Commands.CreateProviderPhoneNumber
 {
-    public class CreateProviderPhoneNumberCommandHandler : IRequestHandler<CreateProviderPhoneNumberCommand, Guid>
+    public class CreateProviderPhoneNumberCommandHandler : IRequestHandler
+        <CreateProviderPhoneNumberCommand, Guid>
     {
         private readonly IAtlasDbContext _dbContext;
 
         public CreateProviderPhoneNumberCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Guid> Handle(CreateProviderPhoneNumberCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateProviderPhoneNumberCommand request,
+            CancellationToken cancellationToken)
         {
             var provider = await _dbContext.Providers.FirstOrDefaultAsync(x =>
                 x.Id == request.ProviderId, cancellationToken);
@@ -33,7 +35,9 @@ namespace Atlas.Application.CQRS.ProviderPhoneNumbers.Commands.CreateProviderPho
                 PhoneNumber = request.PhoneNumber,
             };
 
-            await _dbContext.ProviderPhoneNumbers.AddAsync(providerPhoneNumber, cancellationToken);
+            await _dbContext.ProviderPhoneNumbers.AddAsync(providerPhoneNumber,
+                cancellationToken);
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return providerPhoneNumber.Id;
