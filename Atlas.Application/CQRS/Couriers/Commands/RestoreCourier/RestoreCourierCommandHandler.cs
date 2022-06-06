@@ -15,7 +15,8 @@ namespace Atlas.Application.CQRS.Couriers.Commands.RestoreCourier
         public RestoreCourierCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(RestoreCourierCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(RestoreCourierCommand request,
+            CancellationToken cancellationToken)
         {
             var courier = await _dbContext.Couriers.FirstOrDefaultAsync(x =>
                 x.Id == request.Id, cancellationToken);

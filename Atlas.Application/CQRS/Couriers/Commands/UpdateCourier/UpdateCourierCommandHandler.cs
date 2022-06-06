@@ -34,19 +34,22 @@ namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
                 throw new NotFoundException(nameof(User), request.UserId);
             }
 
-            var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(x =>
-                x.Id == request.VehicleId, cancellationToken);
-
-            if (vehicle == null)
+            if (request.VehicleId != null)
             {
-                throw new NotFoundException(nameof(Vehicle), request.VehicleId);
+                var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(x =>
+                    x.Id == request.VehicleId, cancellationToken);
+
+                if (vehicle == null)
+                {
+                    throw new NotFoundException(nameof(Vehicle), request.VehicleId);
+                }
             }
 
-            courier.UserId            = user.Id;
+            courier.UserId            = request.UserId;
             courier.PhoneNumber       = request.PhoneNumber;
             courier.PassportPhotoPath = request.PassportPhotoPath;
             courier.DriverLicensePath = request.DriverLicensePath;
-            courier.VehicleId         = vehicle.Id;
+            courier.VehicleId         = request.VehicleId;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
