@@ -71,6 +71,12 @@
     <Folder Include="CQRS\PaymentTypes\" />
     <Folder Include="CQRS\PaymentTypes\Queries\" />
     <Folder Include="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
+    <Folder Include="CQRS\FavoriteGoods\" />
+    <Folder Include="CQRS\FavoriteGoods\Commands\" />
+    <Folder Include="CQRS\FavoriteGoods\Commands\CreateFavoriteGood\" />
+    <Folder Include="CQRS\FavoriteGoods\Commands\DeleteFavoriteGood\" />
+    <Folder Include="CQRS\FavoriteGoods\Queries\" />
+    <Folder Include="CQRS\FavoriteGoods\Queries\GetFavoritesByClientId\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -132,5 +138,11 @@
     <None Remove="CQRS\PaymentTypes\" />
     <None Remove="CQRS\PaymentTypes\Queries\" />
     <None Remove="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
+    <None Remove="CQRS\FavoriteGoods\" />
+    <None Remove="CQRS\FavoriteGoods\Commands\" />
+    <None Remove="CQRS\FavoriteGoods\Commands\CreateFavoriteGood\" />
+    <None Remove="CQRS\FavoriteGoods\Commands\DeleteFavoriteGood\" />
+    <None Remove="CQRS\FavoriteGoods\Queries\" />
+    <None Remove="CQRS\FavoriteGoods\Queries\GetFavoritesByClientId\" />
   </ItemGroup>
 </Project>

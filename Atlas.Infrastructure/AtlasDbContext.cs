@@ -24,6 +24,8 @@ namespace Atlas.Persistence
 
         public DbSet<Courier> Couriers { get; set; }
 
+        public DbSet<FavoriteGood> FavoriteGoods { get; set; }
+
         public DbSet<ForgotPasswordCode> ForgotPasswordCodes { get; set; }
 
         public DbSet<GeneralCategory> GeneralCategories { get; set; }
