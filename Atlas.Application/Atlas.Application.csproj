@@ -68,6 +68,9 @@
     <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
     <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
     <Folder Include="CQRS\Categories\Queries\GetCategoriesByGeneralCategory\" />
+    <Folder Include="CQRS\PaymentTypes\" />
+    <Folder Include="CQRS\PaymentTypes\Queries\" />
+    <Folder Include="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -126,5 +129,8 @@
     <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
     <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
     <None Remove="CQRS\Categories\Queries\GetCategoriesByGeneralCategory\" />
+    <None Remove="CQRS\PaymentTypes\" />
+    <None Remove="CQRS\PaymentTypes\Queries\" />
+    <None Remove="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
   </ItemGroup>
 </Project>
