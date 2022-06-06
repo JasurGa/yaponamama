@@ -20,9 +20,7 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <returns>Returns VehicleTypeListVm object</returns>
         /// <response code="200">Success</response>
-        /// <response code="401">If the user is unauthorized</response>
         [HttpGet]
-        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<VehicleTypeListVm>> GetAllAsync()
         {
