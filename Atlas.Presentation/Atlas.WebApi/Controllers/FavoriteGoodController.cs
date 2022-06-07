@@ -100,7 +100,7 @@ namespace Atlas.WebApi.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> GetByClientAsync()
+        public async Task<ActionResult<FavoriteGoodListVm>> GetByClientAsync()
         {
             var vm = await Mediator.Send(new GetFavoritesByClientIdQuery
             {
