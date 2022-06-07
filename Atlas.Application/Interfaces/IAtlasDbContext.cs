@@ -50,6 +50,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<OrderFeedback> OrderFeedbacks { get; set; }
 
+        DbSet<PageVisit> PageVisits { get; set; }
+
         DbSet<PaymentType> PaymentTypes { get; set; }
 
         DbSet<Promo> Promos { get; set; }

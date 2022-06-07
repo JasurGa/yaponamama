@@ -83,6 +83,11 @@
     <Folder Include="CQRS\Recommendations\" />
     <Folder Include="CQRS\Recommendations\Queries\" />
     <Folder Include="CQRS\Recommendations\Queries\GetRecommendationListByClient\" />
+    <Folder Include="CQRS\PageVisits\" />
+    <Folder Include="CQRS\PageVisits\Commands\" />
+    <Folder Include="CQRS\PageVisits\Commands\IncrementPageVisit\" />
+    <Folder Include="CQRS\PageVisits\Queries\" />
+    <Folder Include="CQRS\PageVisits\Queries\GetPagesVisits\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -156,5 +161,10 @@
     <None Remove="CQRS\Recommendations\" />
     <None Remove="CQRS\Recommendations\Queries\" />
     <None Remove="CQRS\Recommendations\Queries\GetRecommendationListByClient\" />
+    <None Remove="CQRS\PageVisits\" />
+    <None Remove="CQRS\PageVisits\Commands\" />
+    <None Remove="CQRS\PageVisits\Commands\IncrementPageVisit\" />
+    <None Remove="CQRS\PageVisits\Queries\" />
+    <None Remove="CQRS\PageVisits\Queries\GetPagesVisits\" />
   </ItemGroup>
 </Project>
