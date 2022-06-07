@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Atlas.Domain
 {
-    public class Recommendation
+    public class FavoriteGood
     {
         public Guid Id { get; set; }
 
@@ -9,6 +9,6 @@ namespace Atlas.Domain
 
         public Guid GoodId { get; set; }
 
-        public Guid RecommendationTypeId { get; set; }
+        public DateTime CreatedAt { get; set;  }
     }
 }

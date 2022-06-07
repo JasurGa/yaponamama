@@ -59,6 +59,31 @@
     <Folder Include="CQRS\Notifications\Commands\DettachNotificationToRole\" />
     <Folder Include="CQRS\Notifications\Commands\DettachNotificationToUser\" />
     <Folder Include="CQRS\Notifications\Commands\UpdateNotification\" />
+    <Folder Include="CQRS\GeneralCategories\" />
+    <Folder Include="CQRS\GeneralCategories\Commands\" />
+    <Folder Include="CQRS\GeneralCategories\Queries\" />
+    <Folder Include="CQRS\GeneralCategories\Commands\CreateGeneralCategory\" />
+    <Folder Include="CQRS\GeneralCategories\Commands\UpdateGeneralCategory\" />
+    <Folder Include="CQRS\GeneralCategories\Commands\DeleteGeneralCategory\" />
+    <Folder Include="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
+    <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
+    <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
+    <Folder Include="CQRS\Categories\Queries\GetCategoriesByGeneralCategory\" />
+    <Folder Include="CQRS\PaymentTypes\" />
+    <Folder Include="CQRS\PaymentTypes\Queries\" />
+    <Folder Include="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
+    <Folder Include="CQRS\FavoriteGoods\" />
+    <Folder Include="CQRS\FavoriteGoods\Commands\" />
+    <Folder Include="CQRS\FavoriteGoods\Commands\CreateFavoriteGood\" />
+    <Folder Include="CQRS\FavoriteGoods\Commands\DeleteFavoriteGood\" />
+    <Folder Include="CQRS\FavoriteGoods\Queries\" />
+    <Folder Include="CQRS\FavoriteGoods\Queries\GetFavoritesByClientId\" />
+    <Folder Include="CQRS\RecommendationTypes\" />
+    <Folder Include="CQRS\RecommendationTypes\Queries\" />
+    <Folder Include="CQRS\RecommendationTypes\Queries\GetRecommendationTypesList\" />
+    <Folder Include="CQRS\Recommendations\" />
+    <Folder Include="CQRS\Recommendations\Queries\" />
+    <Folder Include="CQRS\Recommendations\Queries\GetRecommendationListByClient\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -107,5 +132,30 @@
     <None Remove="CQRS\Notifications\Commands\DettachNotificationToRole\" />
     <None Remove="CQRS\Notifications\Commands\DettachNotificationToUser\" />
     <None Remove="CQRS\Notifications\Commands\UpdateNotification\" />
+    <None Remove="CQRS\GeneralCategories\" />
+    <None Remove="CQRS\GeneralCategories\Commands\" />
+    <None Remove="CQRS\GeneralCategories\Queries\" />
+    <None Remove="CQRS\GeneralCategories\Commands\CreateGeneralCategory\" />
+    <None Remove="CQRS\GeneralCategories\Commands\UpdateGeneralCategory\" />
+    <None Remove="CQRS\GeneralCategories\Commands\DeleteGeneralCategory\" />
+    <None Remove="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
+    <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
+    <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
+    <None Remove="CQRS\Categories\Queries\GetCategoriesByGeneralCategory\" />
+    <None Remove="CQRS\PaymentTypes\" />
+    <None Remove="CQRS\PaymentTypes\Queries\" />
+    <None Remove="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
+    <None Remove="CQRS\FavoriteGoods\" />
+    <None Remove="CQRS\FavoriteGoods\Commands\" />
+    <None Remove="CQRS\FavoriteGoods\Commands\CreateFavoriteGood\" />
+    <None Remove="CQRS\FavoriteGoods\Commands\DeleteFavoriteGood\" />
+    <None Remove="CQRS\FavoriteGoods\Queries\" />
+    <None Remove="CQRS\FavoriteGoods\Queries\GetFavoritesByClientId\" />
+    <None Remove="CQRS\RecommendationTypes\" />
+    <None Remove="CQRS\RecommendationTypes\Queries\" />
+    <None Remove="CQRS\RecommendationTypes\Queries\GetRecommendationTypesList\" />
+    <None Remove="CQRS\Recommendations\" />
+    <None Remove="CQRS\Recommendations\Queries\" />
+    <None Remove="CQRS\Recommendations\Queries\GetRecommendationListByClient\" />
   </ItemGroup>
 </Project>
