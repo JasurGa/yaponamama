@@ -1,4 +1,5 @@
-﻿using Atlas.Application.Common.Mappings;
+﻿using System;
+using Atlas.Application.Common.Mappings;
 using Atlas.Application.CQRS.Promos.Commands.CreatePromo;
 using AutoMapper;
 
@@ -9,6 +10,8 @@ namespace Atlas.WebApi.Models
     {
         public string Name { get; set; }
 
+        public Guid GoodId { get; set; }
+
         public int DiscountPrice { get; set; }
 
         public int DiscountPercent { get; set; }
@@ -16,12 +19,14 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreatePromoDto, CreatePromoCommand>()
-                .ForMember(p => p.Name, opt =>
-                    opt.MapFrom(p => p.Name))
-                .ForMember(p => p.DiscountPrice, opt =>
-                    opt.MapFrom(p => p.DiscountPrice))
-                .ForMember(p => p.DiscountPercent, opt =>
-                    opt.MapFrom(p => p.DiscountPercent));
+                .ForMember(dst => dst.Name, opt =>
+                    opt.MapFrom(src => src.Name))
+                .ForMember(dst => dst.GoodId, opt =>
+                    opt.MapFrom(src => src.GoodId))
+                .ForMember(dst => dst.DiscountPrice, opt =>
+                    opt.MapFrom(src => src.DiscountPrice))
+                .ForMember(dst => dst.DiscountPercent, opt =>
+                    opt.MapFrom(src => src.DiscountPercent));
         }
     }
 }

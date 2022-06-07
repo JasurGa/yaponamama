@@ -9,6 +9,8 @@ namespace Atlas.WebApi.Models
     {
         public Guid Id { get; set; }
 
+        public Guid GoodId { get; set; }
+
         public string Name { get; set; }
 
         public int DiscountPrice { get; set; }
@@ -18,14 +20,14 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdatePromoDto, UpdatePromoCommand>()
-                .ForMember(p => p.Id, opt =>
-                    opt.MapFrom(p => p.Id))
-                .ForMember(p => p.Name, opt =>
-                    opt.MapFrom(p => p.Name))
-                .ForMember(p => p.DiscountPrice, opt =>
-                    opt.MapFrom(p => p.DiscountPrice))
-                .ForMember(p => p.DiscountPercent, opt =>
-                    opt.MapFrom(p => p.DiscountPercent));
+                .ForMember(dst => dst.Id, opt =>
+                    opt.MapFrom(src => src.Id))
+                .ForMember(dst => dst.Name, opt =>
+                    opt.MapFrom(src => src.Name))
+                .ForMember(dst => dst.DiscountPrice, opt =>
+                    opt.MapFrom(src => src.DiscountPrice))
+                .ForMember(dst => dst.DiscountPercent, opt =>
+                    opt.MapFrom(src => src.DiscountPercent));
         }
     }
 }

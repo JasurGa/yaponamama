@@ -107,6 +107,7 @@ namespace Atlas.WebApi.Controllers
         /// POST /api/1.0/promo
         /// {
         ///     "name": "Sample name",
+        ///     "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "discountPrice": 1000,
         ///     "discountPercent": 10,
         /// }
@@ -134,7 +135,8 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         /// PUT /api/1.0/promo
         /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "name": "Sample name",
         ///     "discountPrice": 1000,
         ///     "discountPercent": 10,

@@ -8,6 +8,8 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
     {
         public Guid Id { get; set; }
 
+        public Guid GoodId { get; set; }
+
         public string Name { get; set; }
 
         public int DiscountPrice { get; set; }

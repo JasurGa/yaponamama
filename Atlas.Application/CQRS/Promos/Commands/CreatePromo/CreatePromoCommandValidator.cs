@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 
 namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
 {
@@ -6,6 +7,9 @@ namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
     {
         public CreatePromoCommandValidator()
         {
+            RuleFor(x => x.GoodId)
+                .NotEqual(Guid.Empty);
+
             RuleFor(x => x.Name)
                 .NotEmpty();
 
