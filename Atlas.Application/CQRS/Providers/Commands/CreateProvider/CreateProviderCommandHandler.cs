@@ -14,7 +14,8 @@ namespace Atlas.Application.CQRS.Providers.Commands.CreateProvider
         public CreateProviderCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Guid> Handle(CreateProviderCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateProviderCommand request,
+            CancellationToken cancellationToken)
         {
             var provider = new Provider
             {

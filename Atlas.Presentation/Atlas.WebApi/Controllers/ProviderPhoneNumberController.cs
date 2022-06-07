@@ -2,7 +2,6 @@
 using Atlas.Application.CQRS.ProviderPhoneNumbers.Commands.DeleteProviderPhoneNumber;
 using Atlas.Application.CQRS.ProviderPhoneNumbers.Commands.UpdateProviderPhoneNumber;
 using Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberDetails;
-using Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberList;
 using Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberListByProviderId;
 using Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberPagedList;
 using Atlas.Application.Models;
@@ -23,28 +22,8 @@ namespace Atlas.WebApi.Controllers
     {
         private readonly IMapper _mapper;
 
-        public ProviderPhoneNumberController(IMapper mapper) => _mapper = mapper;
-
-        /// <summary>
-        /// Gets the list of phone numbers of providers
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// GET /api/1.0/providerphonenumber
-        /// </remarks>
-        /// <returns>Returns ProviderPhoneNumberListVm object</returns>
-        /// <response code="200">Success</response>
-        /// <response code="401">If the user is unauthorized</response>
-        [HttpGet]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ProviderPhoneNumberListVm>> GetAllAsync()
-        {
-            var vm = await Mediator.Send(new GetProviderPhoneNumberListQuery());
-
-            return Ok(vm);
-        }
+        public ProviderPhoneNumberController(IMapper mapper) =>
+            _mapper = mapper;
 
         /// <summary>
         /// Gets the list of phone numbers of providers by provider id
@@ -94,7 +73,7 @@ namespace Atlas.WebApi.Controllers
             var vm = await Mediator.Send(new GetProviderPhoneNumberPagedListQuery
             {
                 PageIndex = pageIndex,
-                PageSize = pageSize
+                PageSize  = pageSize
             });
 
             return Ok(vm);
@@ -150,9 +129,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateProviderPhoneNumberDto createProviderPhoneNumber)
         {
-            var command = _mapper.Map<CreateProviderPhoneNumberCommand>(createProviderPhoneNumber);
-
-            var providerPhoneNumberId = await Mediator.Send(command);
+            var providerPhoneNumberId = await Mediator.Send(_mapper.Map<CreateProviderPhoneNumberDto,
+                CreateProviderPhoneNumberCommand>(createProviderPhoneNumber));
 
             return Ok(providerPhoneNumberId);
         }
@@ -181,9 +159,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> UpdateAsync([FromBody] UpdateProviderPhoneNumberDto updateProviderPhoneNumber)
         {
-            var command = _mapper.Map<UpdateProviderPhoneNumberCommand>(updateProviderPhoneNumber);
-
-            await Mediator.Send(command);
+            await Mediator.Send(_mapper.Map<UpdateProviderPhoneNumberDto,
+                UpdateProviderPhoneNumberCommand>(updateProviderPhoneNumber));
 
             return NoContent();
         }

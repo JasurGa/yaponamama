@@ -12,6 +12,7 @@ namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
     public class CreateCourierCommandHandler : IRequestHandler<CreateCourierCommand, Guid>
     {
         private readonly IAtlasDbContext _dbContext;
+
         public CreateCourierCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
@@ -25,12 +26,15 @@ namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
                 throw new NotFoundException(nameof(User), request.UserId);
             }
 
-            var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(x =>
-                x.Id == request.VehicleId, cancellationToken);
-
-            if (vehicle == null)
+            if (request.VehicleId != null)
             {
-                throw new NotFoundException(nameof(Vehicle), request.VehicleId);
+                var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(x =>
+                    x.Id == request.VehicleId, cancellationToken);
+
+                if (vehicle == null)
+                {
+                    throw new NotFoundException(nameof(Vehicle), request.VehicleId);
+                }
             }
 
             var courier = new Courier
@@ -40,7 +44,7 @@ namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
                 PhoneNumber       = request.PhoneNumber,
                 PassportPhotoPath = request.PassportPhotoPath,
                 DriverLicensePath = request.DriverLicensePath,
-                VehicleId         = vehicle.Id,
+                VehicleId         = request.VehicleId,
                 Balance           = 0,
                 KPI               = 0, 
                 IsDeleted         = false,

@@ -15,7 +15,8 @@ namespace Atlas.Application.CQRS.Providers.Commands.DeleteProvider
         public DeleteProviderCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(DeleteProviderCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteProviderCommand request,
+            CancellationToken cancellationToken)
         {
             var provider = await _dbContext.Providers.FirstOrDefaultAsync(x =>
                 x.Id == request.Id, cancellationToken);
