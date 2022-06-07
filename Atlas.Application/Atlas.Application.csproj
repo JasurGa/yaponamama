@@ -77,6 +77,12 @@
     <Folder Include="CQRS\FavoriteGoods\Commands\DeleteFavoriteGood\" />
     <Folder Include="CQRS\FavoriteGoods\Queries\" />
     <Folder Include="CQRS\FavoriteGoods\Queries\GetFavoritesByClientId\" />
+    <Folder Include="CQRS\RecommendationTypes\" />
+    <Folder Include="CQRS\RecommendationTypes\Queries\" />
+    <Folder Include="CQRS\RecommendationTypes\Queries\GetRecommendationTypesList\" />
+    <Folder Include="CQRS\Recommendations\" />
+    <Folder Include="CQRS\Recommendations\Queries\" />
+    <Folder Include="CQRS\Recommendations\Queries\GetRecommendationListByClient\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -144,5 +150,11 @@
     <None Remove="CQRS\FavoriteGoods\Commands\DeleteFavoriteGood\" />
     <None Remove="CQRS\FavoriteGoods\Queries\" />
     <None Remove="CQRS\FavoriteGoods\Queries\GetFavoritesByClientId\" />
+    <None Remove="CQRS\RecommendationTypes\" />
+    <None Remove="CQRS\RecommendationTypes\Queries\" />
+    <None Remove="CQRS\RecommendationTypes\Queries\GetRecommendationTypesList\" />
+    <None Remove="CQRS\Recommendations\" />
+    <None Remove="CQRS\Recommendations\Queries\" />
+    <None Remove="CQRS\Recommendations\Queries\GetRecommendationListByClient\" />
   </ItemGroup>
 </Project>
