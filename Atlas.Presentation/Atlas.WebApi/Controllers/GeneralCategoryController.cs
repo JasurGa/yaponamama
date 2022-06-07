@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.GeneralCategories.Commands.CreateGeneralCategory;
 using Atlas.Application.CQRS.GeneralCategories.Commands.DeleteGeneralCategory;
 using Atlas.Application.CQRS.GeneralCategories.Commands.RestoreGeneralCategory;
 using Atlas.Application.CQRS.GeneralCategories.Commands.UpdateGeneralCategory;
 using Atlas.Application.CQRS.GeneralCategories.Queries.GetGeneralCategories;
 using Atlas.Application.CQRS.GeneralCategories.Queries.GetGeneralCategoryById;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -39,6 +41,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync(CreateGeneralCategoryDto createGeneralCategoryDto)
@@ -110,6 +113,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPut]
         [Authorize]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -134,6 +138,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is uauthorized</response>
         [Authorize]
         [HttpDelete("{id}")]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -160,6 +165,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is uauthorized</response>
         [Authorize]
         [HttpPatch("{id}")]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

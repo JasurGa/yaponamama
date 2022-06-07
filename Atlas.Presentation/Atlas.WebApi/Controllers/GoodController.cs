@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Goods.Commands.CreateGood;
 using Atlas.Application.CQRS.Goods.Commands.DeleteGood;
 using Atlas.Application.CQRS.Goods.Commands.RestoreGood;
@@ -8,6 +9,7 @@ using Atlas.Application.CQRS.Goods.Queries.GetGoodDetails;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory;
 using Atlas.Application.Models;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -44,7 +46,7 @@ namespace Atlas.WebApi.Controllers
             var vm = await Mediator.Send(new GetGoodListByCategoryQuery
             {
                 ShowDeleted = showDeleted,
-                CategoryId  = categoryId
+                CategoryId = categoryId
             });
 
             return Ok(vm);
@@ -72,9 +74,9 @@ namespace Atlas.WebApi.Controllers
         {
             var vm = await Mediator.Send(new GetGoodPagedListByCategoryQuery
             {
-                CategoryId  = categoryId,
-                PageIndex   = pageIndex,
-                PageSize    = pageSize,
+                CategoryId = categoryId,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
                 ShowDeleted = showDeleted
             });
 
@@ -126,6 +128,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateGoodDto createGood)
@@ -159,6 +162,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPut]
         [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -184,6 +188,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpDelete("{id}")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -211,6 +216,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpPatch("{id}")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
