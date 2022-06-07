@@ -3,7 +3,6 @@ using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,8 +18,8 @@ namespace Atlas.Application.CQRS.StoreToGoods.Commands.DeleteStoreToGood
         public async Task<Unit> Handle(DeleteStoreToGoodCommand request,
             CancellationToken cancellationToken)
         {
-            var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(stg =>
-                stg.Id == request.Id, cancellationToken);
+            var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (storeToGood == null)
             {

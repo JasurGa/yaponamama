@@ -17,10 +17,10 @@ namespace Atlas.Application.CQRS.Categories.Commands.DeleteCategory
 
         public async Task<Unit> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = await _dbContext.Categories
-                .FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+            var category = await _dbContext.Categories.FirstOrDefaultAsync(x => 
+                x.Id == request.Id, cancellationToken);
 
-            if (category == null)
+            if (category == null || category.IsDeleted)
             {
                 throw new NotFoundException(nameof(Category), request.Id);
             }

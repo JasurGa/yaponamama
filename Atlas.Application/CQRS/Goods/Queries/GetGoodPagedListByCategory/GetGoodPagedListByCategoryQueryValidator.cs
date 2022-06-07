@@ -1,5 +1,4 @@
 ﻿using System;
-using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using FluentValidation;
 
 namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory
@@ -8,10 +7,10 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory
     {
         public GetGoodPagedListByCategoryQueryValidator()
         {
-            RuleFor(e => e.PageSize)
+            RuleFor(x => x.PageSize)
                 .NotEmpty();
 
-            RuleFor(e => e.CategoryId)
+            RuleFor(x => x.CategoryId)
                 .NotEqual(Guid.Empty);
         }
     }

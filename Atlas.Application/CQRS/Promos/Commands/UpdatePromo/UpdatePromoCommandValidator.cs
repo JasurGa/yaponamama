@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentValidation;
 
 namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
@@ -11,16 +7,16 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
     {
         public UpdatePromoCommandValidator()
         {
-            RuleFor(p => p.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(p => p.Name)
+            RuleFor(x => x.Name)
                .NotEmpty();
 
-            RuleFor(p => p.DiscountPrice)
+            RuleFor(x => x.DiscountPrice)
                .NotEmpty();
 
-            RuleFor(p => p.DiscountPercent)
+            RuleFor(x => x.DiscountPercent)
                .NotEmpty();
         }
     }

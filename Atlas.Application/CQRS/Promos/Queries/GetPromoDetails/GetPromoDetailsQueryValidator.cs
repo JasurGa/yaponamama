@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentValidation;
 
 namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
@@ -11,7 +7,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
     {
         public GetPromoDetailsQueryValidator()
         {
-            RuleFor(p => p.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

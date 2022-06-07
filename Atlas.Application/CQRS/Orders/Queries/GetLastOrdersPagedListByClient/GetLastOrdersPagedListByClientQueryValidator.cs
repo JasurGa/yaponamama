@@ -8,10 +8,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
     {
         public GetLastOrdersPagedListByClientQueryValidator()
         {
-            RuleFor(e => e.ClientId)
+            RuleFor(x => x.ClientId)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(e => e.PageSize)
+            RuleFor(x => x.PageSize)
                 .NotEmpty();
         }
     }

@@ -4,10 +4,6 @@ using Atlas.Domain;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,8 +19,9 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderDetails
 
         public async Task<ProviderDetailsVm> Handle(GetProviderDetailsQuery request, CancellationToken cancellationToken)
         {
-            var provider = await _dbContext.Providers.FirstOrDefaultAsync(x =>
-                x.Id == request.Id, cancellationToken);
+            var provider = await _dbContext.Providers
+                .Include(x => x.ProviderPhoneNumbers)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (provider == null)
             {

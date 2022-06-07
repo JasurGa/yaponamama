@@ -17,8 +17,8 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
 
         public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _dbContext.Users
-                .FirstOrDefaultAsync(u =>u.Id == request.Id, cancellationToken);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => 
+                x.Id == request.Id, cancellationToken);
 
             if (user == null)
             {

@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
     {
         public GetGoodListByCategoryQueryValidator()
         {
-            RuleFor(e => e.CategoryId)
+            RuleFor(x => x.CategoryId)
                 .NotEqual(Guid.Empty);
         }
     }

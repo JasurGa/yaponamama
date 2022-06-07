@@ -10,5 +10,7 @@ namespace Atlas.Domain
         public Guid GoodId { get; set; }
 
         public long Count { get; set; }
+
+        public Good Good { get; set; }
     }
 }

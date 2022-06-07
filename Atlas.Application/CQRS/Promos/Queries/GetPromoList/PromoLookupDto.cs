@@ -1,10 +1,6 @@
 ﻿using Atlas.Application.Common.Mappings;
 using Atlas.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 
 namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList

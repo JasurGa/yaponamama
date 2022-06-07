@@ -5,13 +5,10 @@ using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetails;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForCourier;
 using Atlas.Application.Models;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Atlas.WebApi.Controllers
@@ -32,7 +29,7 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns OrderDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
-        /// /// <response code="401">If the user is unauthorized</response>
+        /// <response code="401">If the user is unauthorized</response>
         [HttpGet("{id}")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -60,7 +57,7 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns OrderDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
-        /// /// <response code="401">If the user is unauthorized</response>
+        /// <response code="401">If the user is unauthorized</response>
         [HttpGet("{id}/courier")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]

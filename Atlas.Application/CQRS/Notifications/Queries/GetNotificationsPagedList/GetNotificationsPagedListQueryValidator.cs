@@ -7,10 +7,10 @@ namespace Atlas.Application.CQRS.Notifications.Queries.GetNotificationsPagedList
     {
         public GetNotificationsPagedListQueryValidator()
         {
-            RuleFor(e => e.UserId)
+            RuleFor(x => x.UserId)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(e => e.PageSize)
+            RuleFor(x => x.PageSize)
                 .NotEmpty();
         }
     }

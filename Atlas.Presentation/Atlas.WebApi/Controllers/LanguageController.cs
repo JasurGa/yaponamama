@@ -1,4 +1,5 @@
 ﻿using Atlas.Application.CQRS.Languages.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -19,7 +20,9 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <returns>Returns LanguageListVm object</returns>
         /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<LanguageListVm>> GetAllAsync()
         {

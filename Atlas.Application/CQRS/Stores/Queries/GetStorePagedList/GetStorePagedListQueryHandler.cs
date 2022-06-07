@@ -26,7 +26,7 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStorePagedList
                 x.IsDeleted == request.ShowDeleted, cancellationToken);
                 
             var stores = await _dbContext.Stores
-                .Where(s => s.IsDeleted == request.ShowDeleted)
+                .Where(x => x.IsDeleted == request.ShowDeleted)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<StoreLookupDto>(_mapper.ConfigurationProvider)

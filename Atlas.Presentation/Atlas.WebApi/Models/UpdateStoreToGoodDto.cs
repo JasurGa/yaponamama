@@ -3,7 +3,6 @@ using Atlas.Application.CQRS.StoreToGoods.Commands.UpdateStoreToGood;
 using Atlas.Domain;
 using AutoMapper;
 using System;
-using System.Linq;
 
 namespace Atlas.WebApi.Models
 {

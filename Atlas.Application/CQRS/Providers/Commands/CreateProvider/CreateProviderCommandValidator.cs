@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Atlas.Application.CQRS.Providers.Commands.CreateProvider
 {
@@ -11,13 +6,13 @@ namespace Atlas.Application.CQRS.Providers.Commands.CreateProvider
     {
         public CreateProviderCommandValidator()
         {
-            RuleFor(p => p.Name)
+            RuleFor(x => x.Name)
                 .NotEmpty();
 
-            RuleFor(p => p.Longitude)
+            RuleFor(x => x.Longitude)
                 .NotEmpty();
 
-            RuleFor(p => p.Latitude)
+            RuleFor(x => x.Latitude)
                 .NotEmpty();
         }
     }

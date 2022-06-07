@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetails;
@@ -24,8 +20,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForCourier
 
         public async Task<OrderDetailsVm> Handle(GetOrderDetailsForCourierQuery request, CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(o => o.Id == request.Id, 
-                cancellationToken);
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(x => 
+                x.Id == request.Id, cancellationToken);
 
             if (order == null || order.CourierId != request.CourierId)
             {

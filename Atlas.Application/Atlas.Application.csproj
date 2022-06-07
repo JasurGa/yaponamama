@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="CQRS\PaymentTypes\Queries\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Common\" />
     <Folder Include="Common\Mappings\" />

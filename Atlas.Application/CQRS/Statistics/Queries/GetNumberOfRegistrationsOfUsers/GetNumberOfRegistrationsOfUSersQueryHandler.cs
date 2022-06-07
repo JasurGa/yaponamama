@@ -17,7 +17,7 @@ namespace Atlas.Application.CQRS.Statistics.Queries.GetNumberOfRegistrationsOfUs
         public async Task<long> Handle(GetNumberOfRegistrationsOfUsersQuery request, CancellationToken cancellationToken)
         {
             return await _dbContext.Users
-                    .Where(u => u.CreatedAt >= request.StartDate && u.CreatedAt < request.EndDate)
+                    .Where(x => x.CreatedAt >= request.StartDate && x.CreatedAt < request.EndDate)
                     .CountAsync(cancellationToken);
         }
     }

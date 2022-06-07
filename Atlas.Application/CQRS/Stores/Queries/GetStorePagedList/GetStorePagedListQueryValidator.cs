@@ -6,7 +6,7 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStorePagedList
     {
         public GetStorePagedListQueryValidator()
         {
-            RuleFor(u => u.PageSize)
+            RuleFor(x => x.PageSize)
                 .NotEmpty();
         }
     }

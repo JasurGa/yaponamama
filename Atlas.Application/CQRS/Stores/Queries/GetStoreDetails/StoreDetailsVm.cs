@@ -2,6 +2,7 @@
 using Atlas.Domain;
 using AutoMapper;
 using System;
+
 namespace Atlas.Application.CQRS.Stores.Queries.GetStoreDetails
 {
     public class StoreDetailsVm : IMapWith<Store>

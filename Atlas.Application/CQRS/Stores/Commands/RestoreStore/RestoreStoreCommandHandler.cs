@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -18,8 +17,8 @@ namespace Atlas.Application.CQRS.Stores.Commands.RestoreStore
 
         public async Task<Unit> Handle(RestoreStoreCommand request, CancellationToken cancellationToken)
         {
-            var store = await _dbContext.Stores
-                .FirstOrDefaultAsync(s => s.Id == request.Id, cancellationToken);
+            var store = await _dbContext.Stores.FirstOrDefaultAsync(x => 
+                x.Id == request.Id, cancellationToken);
 
             if (store == null || !store.IsDeleted)
             {

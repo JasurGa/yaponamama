@@ -17,7 +17,8 @@ namespace Atlas.Application.CQRS.Categories.Commands.RestoreCategory
 
         public async Task<Unit> Handle(RestoreCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == request.Id, cancellationToken);
+            var category = await _dbContext.Categories.FirstOrDefaultAsync(x => 
+                x.Id == request.Id, cancellationToken);
 
             if (category == null || !category.IsDeleted)
             {

@@ -20,8 +20,8 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
         public async Task<CourierDetailsVm> Handle(GetCourierDetailsQuery request,
             CancellationToken cancellationToken)
         {
-            var courier = await _dbContext.Couriers.FirstOrDefaultAsync(c => 
-                c.Id == request.Id, cancellationToken);
+            var courier = await _dbContext.Couriers.Include(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (courier == null)
             {

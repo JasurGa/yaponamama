@@ -6,16 +6,16 @@ namespace Atlas.Application.CQRS.Stores.Commands.CreateStore
     {
         public CreateStoreCommandValidator()
         {
-            RuleFor(s => s.Name)
+            RuleFor(x => x.Name)
                 .NotEmpty();
 
-            RuleFor(s => s.Address)
+            RuleFor(x => x.Address)
                 .NotEmpty();
 
-            RuleFor(s => s.Latitude)
+            RuleFor(x => x.Latitude)
                 .NotEmpty();
 
-            RuleFor(s => s.Longitude)
+            RuleFor(x => x.Longitude)
                 .NotEmpty();
         }
     }

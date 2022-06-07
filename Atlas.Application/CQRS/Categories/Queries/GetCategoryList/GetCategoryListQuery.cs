@@ -1,5 +1,4 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 
 namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
 {

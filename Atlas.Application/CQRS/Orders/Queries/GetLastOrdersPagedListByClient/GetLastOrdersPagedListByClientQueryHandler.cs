@@ -21,11 +21,12 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public async Task<PageDto<OrderLookupDto>> Handle(GetLastOrdersPagedListByClientQuery request, CancellationToken cancellationToken)
         {
-            var ordersCount = await _dbContext.Orders.CountAsync(e => e.ClientId == request.ClientId,
+            var ordersCount = await _dbContext.Orders.CountAsync(x => 
+                x.ClientId == request.ClientId,
                 cancellationToken);
 
             var orders = await _dbContext.Orders
-                  .Where(e => e.ClientId == request.ClientId)
+                  .Where(x => x.ClientId == request.ClientId)
                   .Skip(request.PageIndex * request.PageSize)
                   .Take(request.PageSize)
                   .ProjectTo<OrderLookupDto>(_mapper.ConfigurationProvider)

@@ -7,7 +7,7 @@ namespace Atlas.Application.CQRS.Promos.Commands.DeletePromo
     {
         public DeletePromoCommandValidator()
         {
-            RuleFor(p => p.Id)
+            RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
         }
     }

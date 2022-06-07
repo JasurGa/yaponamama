@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -19,7 +18,7 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Commands.DeleteCategoryToGood
         public async Task<Unit> Handle(DeleteCategoryToGoodCommand request, CancellationToken cancellationToken)
         {
             var categoryToGood = await _dbContext.CategoryToGoods
-                .FirstOrDefaultAsync(ctg => ctg.Id == request.Id, cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (categoryToGood == null)
             {

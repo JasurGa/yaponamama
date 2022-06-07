@@ -6,10 +6,10 @@ namespace Atlas.Application.CQRS.Statistics.Queries.GetNumberOfRegistrationsOfUs
     {
         public GetNumberOfRegistrationsOfUsersQueryValidator()
         {
-            RuleFor(nor => nor.StartDate)
+            RuleFor(x => x.StartDate)
                 .NotEmpty();
 
-            RuleFor(nor => nor.EndDate)
+            RuleFor(x => x.EndDate)
                 .NotEmpty();
         }
     }

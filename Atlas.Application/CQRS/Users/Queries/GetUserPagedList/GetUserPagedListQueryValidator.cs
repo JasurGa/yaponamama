@@ -6,9 +6,6 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserPagedList
     {
         public GetUserPagedListQueryValidator()
         {
-            RuleFor(x => x.ShowDeleted)
-                .NotEmpty();
-
             RuleFor(x => x.PageSize)
                 .NotEmpty();
         }

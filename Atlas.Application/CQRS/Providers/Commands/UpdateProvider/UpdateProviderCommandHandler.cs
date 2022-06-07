@@ -3,10 +3,6 @@ using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,8 +18,8 @@ namespace Atlas.Application.CQRS.Providers.Commands.UpdateProvider
         public async Task<Unit> Handle(UpdateProviderCommand request,
             CancellationToken cancellationToken)
         {
-            var provider = await _dbContext.Providers.FirstOrDefaultAsync(p =>
-                p.Id == request.Id, cancellationToken);
+            var provider = await _dbContext.Providers.FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
 
             if (provider == null)
             {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Atlas.Domain
 {
     public class Provider
@@ -16,5 +18,7 @@ namespace Atlas.Domain
         public string Description { get; set; }
 
         public string LogotypePath { get; set; }
+
+        public ICollection<ProviderPhoneNumber> ProviderPhoneNumbers { get; set; }
     }
 }

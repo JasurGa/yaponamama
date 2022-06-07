@@ -1,6 +1,5 @@
 ﻿using System;
 using Atlas.Application.Common.Mappings;
-using Atlas.Application.CQRS.Goods.Queries.GetGoodDetails;
 using Atlas.Domain;
 using AutoMapper;
 
