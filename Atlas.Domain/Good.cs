@@ -19,6 +19,12 @@ namespace Atlas.Domain
 
         public bool IsDeleted { get; set; }
 
+        public float Volume { get; set; }
+
+        public float Mass { get; set; }
+
+        public int Discount { get; set; }
+
         public StoreToGood StoreToGood { get; set; }
     }
 }

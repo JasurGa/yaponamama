@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Atlas.Domain
 {
     public class Order
@@ -26,5 +28,7 @@ namespace Atlas.Domain
         public bool IsPickup { get; set; }
 
         public Guid? PromoId { get; set; }
+
+        public IEnumerable<GoodToOrder> GoodToOrders { get; set; } 
     }
 }

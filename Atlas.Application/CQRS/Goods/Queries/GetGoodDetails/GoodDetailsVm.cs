@@ -17,6 +17,12 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public long SellingPrice { get; set; }
 
+        public float Mass { get; set; }
+
+        public float Volume { get; set; }
+
+        public int Discount { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Good, GoodDetailsVm>()
@@ -29,7 +35,13 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 .ForMember(dest => dest.PhotoPath, opt =>
                     opt.MapFrom(src => src.PhotoPath))
                 .ForMember(dest => dest.SellingPrice, opt =>
-                    opt.MapFrom(src => src.SellingPrice));
+                    opt.MapFrom(src => src.SellingPrice))
+                .ForMember(dest => dest.Mass, opt =>
+                    opt.MapFrom(src => src.Mass))
+                .ForMember(dest => dest.Volume, opt =>
+                    opt.MapFrom(src => src.Volume))
+                .ForMember(dest => dest.Discount, opt =>
+                    opt.MapFrom(src => src.Discount));
         }
     }
 }

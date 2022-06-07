@@ -25,6 +25,14 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
             RuleFor(x => x.ProviderId)
                 .NotEqual(Guid.Empty);
 
+            RuleFor(x => x.Mass)
+                .NotEmpty();
+
+            RuleFor(x => x.Volume)
+                .NotEmpty();
+
+            RuleFor(x => x.Discount)
+                .NotEmpty();
         }
     }
 }

@@ -6,9 +6,7 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,6 +28,9 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderPagedList
             var providers = await _dbContext.Providers
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
+                .Where(x => 
+                    x.Name.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()) ||
+                    x.Address.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()))
                 .ProjectTo<ProviderLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

@@ -18,5 +18,11 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
         public long PurchasePrice { get; set; }
 
         public Guid ProviderId { get; set; }
+
+        public float Mass { get; set; }
+        
+        public float Volume { get; set; }
+
+        public int Discount { get; set; }
     }
 }

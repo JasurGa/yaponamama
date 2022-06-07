@@ -31,6 +31,7 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         /// GET /api/1.0/provider/paged?pageIndex=0&amp;pageSize=10
         /// </remarks>
+        /// <param name="search">Search string</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>Returns PageDto ProviderLookupDto object</returns>
@@ -40,12 +41,13 @@ namespace Atlas.WebApi.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<ProviderLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<ProviderLookupDto>>> GetAllPagedAsync([FromQuery] string search = "", [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             var vm = await Mediator.Send(new GetProviderPagedListQuery
             {
+                Search    = search,
                 PageIndex = pageIndex,
-                PageSize = pageSize
+                PageSize  = pageSize
             });
 
             return Ok(vm);
@@ -58,6 +60,7 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         /// GET /api/1.0/provider
         /// </remarks>
+        /// <param name="search">Search string</param>
         /// <returns>Returns ProviderListVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -65,9 +68,12 @@ namespace Atlas.WebApi.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ProviderListVm>> GetAllAsync()
+        public async Task<ActionResult<ProviderListVm>> GetAllAsync([FromQuery] string search = "")
         {
-            var vm = await Mediator.Send(new GetProviderListQuery());
+            var vm = await Mediator.Send(new GetProviderListQuery 
+            {
+                Search = search
+            });
 
             return Ok(vm);
         }
