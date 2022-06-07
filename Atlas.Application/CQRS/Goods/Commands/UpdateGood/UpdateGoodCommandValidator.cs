@@ -29,13 +29,13 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
                 .NotEqual(Guid.Empty);
 
             RuleFor(x => x.Mass)
-                .NotEmpty();
+                .GreaterThanOrEqualTo(0);
 
             RuleFor(x => x.Volume)
-                .NotEmpty();
+                .GreaterThanOrEqualTo(0);
 
             RuleFor(x => x.Discount)
-                .NotEmpty();
+                .GreaterThanOrEqualTo(0);
         }
     }
 }

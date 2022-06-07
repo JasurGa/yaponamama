@@ -32,7 +32,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory
             var goodsCount = await _dbContext.Goods
                 .CountAsync(x => goodIds.Contains(x.Id) &&
                     x.IsDeleted == request.ShowDeleted,
-                    cancellationToken);
+                        cancellationToken);
 
             var goods = await _dbContext.Goods
                 .Where(x => goodIds.Contains(x.Id) &&
