@@ -3,6 +3,8 @@ namespace Atlas.Application.Enums
 {
     public enum OrderStatus
     {
-        Canceled = 2
+        Created    = 0,
+        Delivering = 1,
+        Canceled   = 2
     }
 }

@@ -8,6 +8,8 @@ namespace Atlas.Domain
 
         public string Name { get; set; }
 
+        public DateTime ExpiresAt { get; set; }
+
         public int DiscountPrice { get; set; }
 
         public int DiscountPercent { get; set; }

@@ -19,6 +19,8 @@ namespace Atlas.Domain
 
         public Guid? VehicleId { get; set; }
 
+        public Vehicle Vehicle { get; set; }
+
         public bool IsDeleted { get; set; }
     }
 }
