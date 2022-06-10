@@ -2,7 +2,8 @@
 
 namespace Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList
 {
-    public class GetGoodWithDiscountPagedListQueryValidator : AbstractValidator<GetGoodWithDiscountPagedListQuery>
+    public class GetGoodWithDiscountPagedListQueryValidator :
+        AbstractValidator<GetGoodWithDiscountPagedListQuery>
     {
         public GetGoodWithDiscountPagedListQueryValidator()
         {

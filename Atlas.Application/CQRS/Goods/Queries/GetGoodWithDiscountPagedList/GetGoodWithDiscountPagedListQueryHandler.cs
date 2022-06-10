@@ -17,6 +17,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList
     {
         private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
+
         public GetGoodWithDiscountPagedListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
@@ -36,10 +37,10 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList
 
             return new PageDto<GoodLookupDto>
             {
-                PageIndex = request.PageIndex,
+                PageIndex  = request.PageIndex,
                 TotalCount = goodsCount,
-                PageCount = (int)Math.Ceiling((double)goodsCount / request.PageSize),
-                Data = goods
+                PageCount  = (int)Math.Ceiling((double)goodsCount / request.PageSize),
+                Data       = goods
             };
         }
     }
