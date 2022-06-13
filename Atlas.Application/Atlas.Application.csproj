@@ -93,6 +93,7 @@
     <Folder Include="CQRS\GoodToOrders\Commands\" />
     <Folder Include="CQRS\GoodToOrders\Commands\CreateGoodToOrder\" />
     <Folder Include="Common\Helpers\" />
+    <Folder Include="CQRS\Orders\Commands\FinishOrder\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -176,5 +177,6 @@
     <None Remove="CQRS\GoodToOrders\Commands\" />
     <None Remove="CQRS\GoodToOrders\Commands\CreateGoodToOrder\" />
     <None Remove="Common\Helpers\" />
+    <None Remove="CQRS\Orders\Commands\FinishOrder\" />
   </ItemGroup>
 </Project>

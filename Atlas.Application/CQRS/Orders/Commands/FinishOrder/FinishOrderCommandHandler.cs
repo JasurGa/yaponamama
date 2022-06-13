@@ -8,28 +8,29 @@ using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Atlas.Application.CQRS.Orders.Commands.CancelOrder
+namespace Atlas.Application.CQRS.Orders.Commands.FinishOrder
 {
-    public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand>
+    public class FinishOrderCommandHandler :
+        IRequestHandler<FinishOrderCommand>
     {
         private readonly IAtlasDbContext _dbContext;
 
-        public CancelOrderCommandHandler(IAtlasDbContext dbContext) =>
+        public FinishOrderCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(CancelOrderCommand request,
+        public async Task<Unit> Handle(FinishOrderCommand request,
             CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(o =>
-                o.Id == request.OrderId, cancellationToken);
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(x =>
+                x.Id == request.OrderId, cancellationToken);
 
-            if (order == null || order.ClientId != request.ClientId)
+            if (order == null || order.CourierId != request.CourierId)
             {
                 throw new NotFoundException(nameof(Order), request.OrderId);
             }
 
-            order.Status     = (int)OrderStatus.Canceled;
-            order.FinishedAt = DateTime.Now;
+            order.FinishedAt = DateTime.UtcNow;
+            order.Status     = (int)OrderStatus.Finished;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

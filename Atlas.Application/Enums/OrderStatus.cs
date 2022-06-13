@@ -5,6 +5,7 @@ namespace Atlas.Application.Enums
     {
         Created    = 0,
         Delivering = 1,
-        Canceled   = 2
+        Canceled   = 2,
+        Finished   = 3
     }
 }

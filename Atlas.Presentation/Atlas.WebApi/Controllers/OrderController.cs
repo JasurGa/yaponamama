@@ -2,6 +2,7 @@
 using Atlas.Application.CQRS.Orders.Commands.CancelOrder;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
 using Atlas.Application.CQRS.Orders.Commands.DeleteOrder;
+using Atlas.Application.CQRS.Orders.Commands.FinishOrder;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetails;
@@ -189,31 +190,32 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Deletes the order
+        /// Finishes the order
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// DELETE /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/finish
         /// </remarks>
         /// <param name="id">Order id</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
-        [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support})]
+        [HttpDelete("{id}/finish")]
+        [AuthRoleFilter(new string[] { Roles.Courier })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        public async Task<IActionResult> FinishAsync([FromRoute] Guid id)
         {
-            await Mediator.Send(new DeleteOrderCommand
+            await Mediator.Send(new FinishOrderCommand
             {
-                Id = id,
+                OrderId   = id,
+                CourierId = CourierId
             });
 
-            return Ok();
+            return NoContent();
         }
 
         /// <summary>
@@ -230,18 +232,19 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpDelete("{id}/cancel")]
         [Authorize]
-        [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support, Roles.Client })]
+        [AuthRoleFilter(new string[] { Roles.Client })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CancelAsync(Guid id)
+        public async Task<IActionResult> CancelAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new CancelOrderCommand
             {
-                Id = id,
+                OrderId  = id,
+                ClientId = ClientId
             });
 
-            return Ok();
+            return NoContent();
         }
     }
 }

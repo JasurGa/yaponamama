@@ -5,6 +5,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CancelOrder
 {
     public class CancelOrderCommand : IRequest
     {
-        public Guid Id { get; set; }
+        public Guid OrderId { get; set; }
+
+        public Guid ClientId { get; set; }
     }
 }

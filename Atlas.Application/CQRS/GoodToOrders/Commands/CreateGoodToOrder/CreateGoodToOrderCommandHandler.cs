@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.GoodToOrders.Commands.CreateGoodToOrder
 {
-    public class CreateGoodToOrderCommandHandler : IRequestHandler<CreateGoodToOrderCommand,
-        Guid>
+    public class CreateGoodToOrderCommandHandler : IRequestHandler
+        <CreateGoodToOrderCommand, Guid>
     {
         private readonly IAtlasDbContext _dbContext;
 
