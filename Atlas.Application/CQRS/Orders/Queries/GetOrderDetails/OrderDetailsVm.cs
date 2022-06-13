@@ -23,25 +23,29 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public bool IsPickup { get; set; }
 
+        public float Price { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Order, OrderDetailsVm>()
-                .ForMember(dest => dest.Id, opt =>
+                .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.CourierId, opt =>
+                .ForMember(dst => dst.CourierId, opt =>
                     opt.MapFrom(src => src.CourierId))
-                .ForMember(dest => dest.ClientId, opt =>
+                .ForMember(dst => dst.ClientId, opt =>
                     opt.MapFrom(src => src.ClientId))
-                .ForMember(dest => dest.CreatedAt, opt =>
+                .ForMember(dst => dst.CreatedAt, opt =>
                     opt.MapFrom(src => src.CreatedAt))
-                .ForMember(dest => dest.FinishedAt, opt =>
+                .ForMember(dst => dst.FinishedAt, opt =>
                     opt.MapFrom(src => src.FinishedAt))
-                .ForMember(dest => dest.ToLongitude, opt =>
+                .ForMember(dst => dst.ToLongitude, opt =>
                     opt.MapFrom(src => src.ToLongitude))
-                .ForMember(dest => dest.ToLatitude, opt =>
+                .ForMember(dst => dst.ToLatitude, opt =>
                     opt.MapFrom(src => src.ToLatitude))
-                .ForMember(dest => dest.IsPickup, opt =>
-                    opt.MapFrom(src => src.IsPickup));
+                .ForMember(dst => dst.IsPickup, opt =>
+                    opt.MapFrom(src => src.IsPickup))
+                .ForMember(dst => dst.Price, opt =>
+                    opt.MapFrom(src => src.Price));
         }
     }
 }
