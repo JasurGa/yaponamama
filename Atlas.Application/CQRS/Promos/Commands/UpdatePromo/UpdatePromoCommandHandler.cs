@@ -19,7 +19,8 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
         public UpdatePromoCommandHandler(IAtlasDbContext dbContext) => 
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(UpdatePromoCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdatePromoCommand request,
+            CancellationToken cancellationToken)
         {
             var promo = await _dbContext.Promos.FirstOrDefaultAsync(p =>
                 p.Id == request.Id, cancellationToken);

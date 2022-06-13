@@ -109,6 +109,7 @@ namespace Atlas.WebApi.Controllers
         ///     "name": "Sample name",
         ///     "discountPrice": 1000,
         ///     "discountPercent": 10,
+        ///     "expiresAt": "1900-01-01T01:01:01"
         /// }
         /// </remarks>
         /// <param name="createPromoDto">CreatePromoDto object</param>
@@ -121,8 +122,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreatePromoDto createPromoDto)
         {
-            var promoId = await Mediator.Send(_mapper
-                .Map<CreatePromoCommand>(createPromoDto));
+            var promoId = await Mediator.Send(_mapper.Map<CreatePromoDto,
+                CreatePromoCommand>(createPromoDto));
 
             return Ok(promoId);
         }
@@ -138,6 +139,7 @@ namespace Atlas.WebApi.Controllers
         ///     "name": "Sample name",
         ///     "discountPrice": 1000,
         ///     "discountPercent": 10,
+        ///     "expiresAt": "1900-01-01T01:01:01"
         /// }
         /// </remarks>
         /// <param name="updatePromoDto">UpdatePromoDto object</param>
@@ -152,8 +154,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> UpdateAsync([FromBody] UpdatePromoDto updatePromoDto)
         {
-            await Mediator.Send(_mapper
-                .Map<UpdatePromoCommand>(updatePromoDto));
+            await Mediator.Send(_mapper.Map<UpdatePromoDto,
+                UpdatePromoCommand>(updatePromoDto));
 
             return NoContent();
         }

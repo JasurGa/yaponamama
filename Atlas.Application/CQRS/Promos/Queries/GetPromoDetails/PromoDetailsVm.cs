@@ -15,6 +15,8 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
 
         public int DiscountPercent { get; set; }
 
+        public DateTime ExpiresAt { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Promo, PromoDetailsVm>()
@@ -25,7 +27,9 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
                 .ForMember(dst => dst.DiscountPrice, opt =>
                     opt.MapFrom(src => src.DiscountPrice))
                 .ForMember(dst => dst.DiscountPercent, opt =>
-                    opt.MapFrom(src => src.DiscountPercent));
+                    opt.MapFrom(src => src.DiscountPercent))
+                .ForMember(dst => dst.ExpiresAt, opt =>
+                    opt.MapFrom(src => src.ExpiresAt));
         }
     }
 }

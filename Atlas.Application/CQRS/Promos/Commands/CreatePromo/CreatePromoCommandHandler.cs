@@ -22,6 +22,7 @@ namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
                 Name            = request.Name,
                 DiscountPrice   = request.DiscountPrice,
                 DiscountPercent = request.DiscountPercent,
+                ExpiresAt       = request.ExpiresAt,
             };
 
             await _dbContext.Promos.AddAsync(promo, cancellationToken);

@@ -15,13 +15,17 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
 
         public string Name { get; set; }
 
+        public DateTime ExpiresAt { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Promo, PromoLookupDto>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.Name, opt =>
-                    opt.MapFrom(src => src.Name));
+                    opt.MapFrom(src => src.Name))
+                .ForMember(dst => dst.ExpiresAt, opt =>
+                    opt.MapFrom(src => src.ExpiresAt));
         }
     }
 }
