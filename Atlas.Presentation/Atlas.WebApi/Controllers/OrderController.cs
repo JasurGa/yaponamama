@@ -1,7 +1,6 @@
 ﻿using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Orders.Commands.CancelOrder;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
-using Atlas.Application.CQRS.Orders.Commands.DeleteOrder;
 using Atlas.Application.CQRS.Orders.Commands.FinishOrder;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
@@ -56,6 +55,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
+        [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -203,7 +203,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpDelete("{id}/finish")]
-        [AuthRoleFilter(new string[] { Roles.Courier })]
+        [AuthRoleFilter(Roles.Courier)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -232,7 +232,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpDelete("{id}/cancel")]
         [Authorize]
-        [AuthRoleFilter(new string[] { Roles.Client })]
+        [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

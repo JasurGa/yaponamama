@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Clients.Commands.UpdateClient;
 using Atlas.Application.CQRS.Clients.Queries.GetClientDetails;
 using Atlas.Application.CQRS.Couriers.Commands.UpdateCourier;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails;
 using Atlas.Application.CQRS.Users.Commands.UpdateUser;
 using Atlas.Application.CQRS.Users.Queries.GetUserDetails;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -58,8 +60,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns ClientDetailsVm object</returns>\
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("client")]
         [Authorize]
+        [HttpGet("client")]
+        [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<ClientDetailsVm>> GetClientProfileAsync()
@@ -82,8 +85,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns CourierDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("courier")]
         [Authorize]
+        [HttpGet("courier")]
+        [AuthRoleFilter(Roles.Courier)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<CourierDetailsVm>> GetCourierProfileAsync()
@@ -149,8 +153,9 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpPut("client")]
         [Authorize]
+        [HttpPut("client")]
+        [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -185,8 +190,9 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpPut("courier")]
         [Authorize]
+        [HttpPut("courier")]
+        [AuthRoleFilter(Roles.Courier)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

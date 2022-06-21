@@ -1,6 +1,8 @@
-﻿using Atlas.Application.CQRS.Statistics.Queries.GetNumberOfRegistrationsOfUsers;
+﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Statistics.Queries.GetNumberOfRegistrationsOfUsers;
 using Atlas.Application.CQRS.Statistics.Queries.GetOverallBalanceOfClients;
 using Atlas.Application.Interfaces;
+using Atlas.WebApi.Filters;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,15 +29,15 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns (long) balance</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("client/balances")]
         [Authorize]
+        [HttpGet("client/balances")]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<long>> GetOverallClientBalance()
         {
-            var balance = await Mediator.Send(new GetOverallBalanceOfClientsQuery());
-
-            return Ok(balance);
+            var vm = await Mediator.Send(new GetOverallBalanceOfClientsQuery());
+            return Ok(vm);
         }
 
         /// <summary>
@@ -50,19 +52,20 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns (long) amount of registration </returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("user/registrations")]
         [Authorize]
+        [HttpGet("user/registrations")]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<long>> GetAmountOfRegistrations([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
-            var registrations = await Mediator.Send(new GetNumberOfRegistrationsOfUsersQuery
+            var vm = await Mediator.Send(new GetNumberOfRegistrationsOfUsersQuery
             {
                 StartDate = startDate,
                 EndDate   = endDate,
             });
 
-            return Ok(registrations);
+            return Ok(vm);
         }
     }
 }
