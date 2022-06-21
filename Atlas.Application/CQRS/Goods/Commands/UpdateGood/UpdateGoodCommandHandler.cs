@@ -39,6 +39,9 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
             good.SellingPrice   = request.SellingPrice;
             good.PurchasePrice  = request.PurchasePrice;
             good.ProviderId     = request.ProviderId;
+            good.Mass           = request.Mass;
+            good.Volume         = request.Volume;
+            good.Discount       = request.Discount;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

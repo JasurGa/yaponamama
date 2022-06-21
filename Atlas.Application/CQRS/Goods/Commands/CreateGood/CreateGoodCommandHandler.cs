@@ -19,7 +19,7 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
         public async Task<Guid> Handle(CreateGoodCommand request, CancellationToken cancellationToken)
         {
             var provider = await _dbContext.Providers.FirstOrDefaultAsync(x =>
-                x.Id == request.ProviderId);
+                x.Id == request.ProviderId, cancellationToken);
 
             if (provider == null)
             {
@@ -35,7 +35,11 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
                 SellingPrice  = request.SellingPrice,
                 PurchasePrice = request.PurchasePrice,
                 ProviderId    = request.ProviderId,
+                Volume        = request.Volume,
+                Mass          = request.Mass,
+                Discount      = request.Discount,
                 IsDeleted     = false,
+                
             };
 
             await _dbContext.Goods.AddAsync(good, cancellationToken);

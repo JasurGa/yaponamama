@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="CQRS\PaymentTypes\Queries\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Common\" />
     <Folder Include="Common\Mappings\" />
     <Folder Include="CQRS\AddressToClients\" />
     <Folder Include="CQRS\AddressToClients\Commands\" />
@@ -32,7 +31,6 @@
     <Folder Include="CQRS\Categories\Queries\" />
     <Folder Include="CQRS\Categories\Queries\GetCategoryDetails\" />
     <Folder Include="CQRS\Categories\Queries\GetCategoryList\" />
-    <Folder Include="CQRS\Goods\Queries\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodDetails\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodListByCategory\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodPagedListByCategory\" />

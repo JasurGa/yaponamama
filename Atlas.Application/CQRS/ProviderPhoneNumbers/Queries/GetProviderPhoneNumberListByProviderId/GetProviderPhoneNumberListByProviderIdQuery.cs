@@ -1,5 +1,4 @@
-﻿using Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberList;
-using MediatR;
+﻿using MediatR;
 using System;
 
 namespace Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberListByProviderId

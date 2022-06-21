@@ -18,6 +18,12 @@ namespace Atlas.WebApi.Models
         public long PurchasePrice { get; set; }
 
         public Guid ProviderId { get; set; }
+        
+        public float Mass { get; set; }
+
+        public float Volume { get; set; }
+
+        public int Discount { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -33,7 +39,13 @@ namespace Atlas.WebApi.Models
                 .ForMember(x => x.PurchasePrice, opt =>
                     opt.MapFrom(x => x.PurchasePrice))
                 .ForMember(x => x.ProviderId, opt =>
-                    opt.MapFrom(x => x.ProviderId));
+                    opt.MapFrom(x => x.ProviderId))
+                .ForMember(x => x.Mass, opt =>
+                    opt.MapFrom(x => x.Mass))
+                .ForMember(x => x.Volume, opt =>
+                    opt.MapFrom(x => x.Volume))
+                .ForMember(x => x.Discount, opt =>
+                    opt.MapFrom(x => x.Discount));
         }
     }
 }

@@ -7,6 +7,7 @@ using Atlas.Application.CQRS.Goods.Commands.UpdateGood;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodDetails;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList;
 using Atlas.Application.Models;
 using Atlas.WebApi.Models;
 using AutoMapper;
@@ -60,6 +61,7 @@ namespace Atlas.WebApi.Controllers
         /// <param name="categoryId">Category id (guid)</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="pageIndex">Page index</param>
+        /// <param name="showDeleted">Show deleted list</param>
         /// <returns>Returns PageDto GoodLookupDto object</returns>
         /// <response code="200">Success</response>
         [HttpGet("paged/category/{categoryId}")]
@@ -76,6 +78,32 @@ namespace Atlas.WebApi.Controllers
                 PageIndex   = pageIndex,
                 PageSize    = pageSize,
                 ShowDeleted = showDeleted
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the paged list of good which has discount
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/good/discounted/paged?pageSize=10&amp;pageIndex=0
+        /// </remarks>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <returns>Returns PageDto GoodLookupDto object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("discounted/paged")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<PageDto<GoodLookupDto>>> GetGoodsWithDiscountAsync(
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetGoodWithDiscountPagedListQuery
+            {
+                PageIndex = pageIndex,
+                PageSize = pageSize,
             });
 
             return Ok(vm);
@@ -110,15 +138,17 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/good
-        /// {
-        ///     "name": "Sample name",
-        ///     "description": "Sample description",
-        ///     "photoPath": "/main/dir",
-        ///     "sellingPrice": 100,
-        ///     "purchasePrice": 99,
-        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        /// }
+        /// 
+        ///     POST /api/1.0/good
+        ///     {
+        ///         "name": "Sample name",
+        ///         "description": "Sample description",
+        ///         "photoPath": "/main/dir",
+        ///         "sellingPrice": 100,
+        ///         "purchasePrice": 99,
+        ///         "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createGood">CreateGoodDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -141,16 +171,18 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/good
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "name": "Sample name",
-        ///     "description": "Sample description",
-        ///     "photoPath": "/main/dir",
-        ///     "sellingPrice": 100,
-        ///     "purchasePrice": 99,
-        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        /// }
+        /// 
+        ///     PUT /api/1.0/good
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "name": "Sample name",
+        ///         "description": "Sample description",
+        ///         "photoPath": "/main/dir",
+        ///         "sellingPrice": 100,
+        ///         "purchasePrice": 99,
+        ///         "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     }
+        /// 
         /// </remarks>
         /// <param name="updateGood">UpdateGoodDto object</param>
         /// <returns>Returns id (guid)</returns> 

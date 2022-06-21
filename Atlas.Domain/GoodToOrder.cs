@@ -10,5 +10,9 @@ namespace Atlas.Domain
         public Guid OrderId { get; set; }
 
         public int Count { get; set; }
+
+        public Order Order { get; set; }
+
+        public Good Good { get; set; }
     }
 }
