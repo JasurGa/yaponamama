@@ -4,7 +4,6 @@ using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.CreateFavoriteGood;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteFavoriteGood;
 using Atlas.Application.CQRS.FavoriteGoods.Queries.GetFavoritesByClientId;
-using Atlas.Application.Interfaces;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
@@ -19,11 +18,10 @@ namespace Atlas.WebApi.Controllers
     [Route("/api/{version:apiVersion}/[controller]")]
     public class FavoriteGoodController : BaseController
     {
-        private readonly IMapper         _mapper;
-        private readonly IAtlasDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public FavoriteGoodController(IMapper mapper, IAtlasDbContext dbContext) =>
-            (_mapper, _dbContext) = (mapper, dbContext);
+        public FavoriteGoodController(IMapper mapper) =>
+            _mapper = mapper;
 
         /// <summary>
         /// Creates new favorite good 
@@ -81,9 +79,9 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> DeleteAsync([FromRoute] Guid id)
         {
-            var vm = await Mediator.Send(new DeleteFavoriteGoodCommand
+            await Mediator.Send(new DeleteFavoriteGoodCommand
             {
-                Id       = id,
+                Id = id,
                 ClientId = ClientId,
             });
 

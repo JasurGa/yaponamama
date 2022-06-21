@@ -106,6 +106,9 @@ namespace Atlas.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("GeneralCategoryId")
+                        .HasColumnType("uuid");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -113,6 +116,8 @@ namespace Atlas.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GeneralCategoryId");
 
                     b.HasIndex("Id")
                         .IsUnique();
@@ -236,7 +241,33 @@ namespace Atlas.Persistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.HasIndex("VehicleId")
+                        .IsUnique();
+
                     b.ToTable("Couriers");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.FavoriteGood", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("GoodId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FavoriteGoods");
                 });
 
             modelBuilder.Entity("Atlas.Domain.ForgotPasswordCode", b =>
@@ -262,6 +293,26 @@ namespace Atlas.Persistence.Migrations
                     b.ToTable("ForgotPasswordCodes");
                 });
 
+            modelBuilder.Entity("Atlas.Domain.GeneralCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("GeneralCategories");
+                });
+
             modelBuilder.Entity("Atlas.Domain.Good", b =>
                 {
                     b.Property<Guid>("Id")
@@ -271,8 +322,14 @@ namespace Atlas.Persistence.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<float>("Discount")
+                        .HasColumnType("real");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<float>("Mass")
+                        .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -288,6 +345,9 @@ namespace Atlas.Persistence.Migrations
 
                     b.Property<long>("SellingPrice")
                         .HasColumnType("bigint");
+
+                    b.Property<float>("Volume")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -314,8 +374,12 @@ namespace Atlas.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GoodId");
+
                     b.HasIndex("Id")
                         .IsUnique();
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("GoodToOrders");
                 });
@@ -372,11 +436,28 @@ namespace Atlas.Persistence.Migrations
                     b.Property<Guid>("NotificationTypeId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Priority")
-                        .HasColumnType("text");
+                    b.Property<int>("Priority")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Subject")
                         .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.NotificationAccess", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("NotificationId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -386,7 +467,9 @@ namespace Atlas.Persistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Notifications");
+                    b.HasIndex("NotificationId");
+
+                    b.ToTable("NotificationAccesses");
                 });
 
             modelBuilder.Entity("Atlas.Domain.NotificationType", b =>
@@ -429,6 +512,9 @@ namespace Atlas.Persistence.Migrations
 
                     b.Property<Guid>("PaymentTypeId")
                         .HasColumnType("uuid");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
 
                     b.Property<Guid?>("PromoId")
                         .HasColumnType("uuid");
@@ -508,6 +594,26 @@ namespace Atlas.Persistence.Migrations
                     b.ToTable("OrderFeedbacks");
                 });
 
+            modelBuilder.Entity("Atlas.Domain.PageVisit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("text");
+
+                    b.Property<int>("VisitedCount")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.ToTable("PageVisits");
+                });
+
             modelBuilder.Entity("Atlas.Domain.PaymentType", b =>
                 {
                     b.Property<Guid>("Id")
@@ -537,10 +643,18 @@ namespace Atlas.Persistence.Migrations
                     b.Property<int>("DiscountPrice")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("GoodId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GoodId");
 
                     b.HasIndex("Id")
                         .IsUnique();
@@ -597,6 +711,8 @@ namespace Atlas.Persistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
+                    b.HasIndex("ProviderId");
+
                     b.ToTable("ProviderPhoneNumbers");
                 });
 
@@ -606,14 +722,11 @@ namespace Atlas.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("GoodId")
                         .HasColumnType("uuid");
-
-                    b.Property<string>("IconPath")
-                        .HasColumnType("text");
 
                     b.Property<Guid>("RecommendationTypeId")
                         .HasColumnType("uuid");
@@ -689,6 +802,9 @@ namespace Atlas.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GoodId")
+                        .IsUnique();
+
                     b.HasIndex("Id")
                         .IsUnique();
 
@@ -721,6 +837,9 @@ namespace Atlas.Persistence.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("SupplyManagers");
                 });
 
@@ -745,6 +864,9 @@ namespace Atlas.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("Supports");
@@ -925,6 +1047,158 @@ namespace Atlas.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("VerifyCodes");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.Category", b =>
+                {
+                    b.HasOne("Atlas.Domain.GeneralCategory", "GeneralCategory")
+                        .WithMany("Categories")
+                        .HasForeignKey("GeneralCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("GeneralCategory");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.Courier", b =>
+                {
+                    b.HasOne("Atlas.Domain.User", "User")
+                        .WithOne("Courier")
+                        .HasForeignKey("Atlas.Domain.Courier", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Atlas.Domain.Vehicle", "Vehicle")
+                        .WithOne("Courier")
+                        .HasForeignKey("Atlas.Domain.Courier", "VehicleId");
+
+                    b.Navigation("User");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.GoodToOrder", b =>
+                {
+                    b.HasOne("Atlas.Domain.Good", "Good")
+                        .WithMany()
+                        .HasForeignKey("GoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Atlas.Domain.Order", "Order")
+                        .WithMany("GoodToOrders")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Good");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.NotificationAccess", b =>
+                {
+                    b.HasOne("Atlas.Domain.Notification", "Notification")
+                        .WithMany("NotificationAccesses")
+                        .HasForeignKey("NotificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Notification");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.Promo", b =>
+                {
+                    b.HasOne("Atlas.Domain.Good", "Good")
+                        .WithMany()
+                        .HasForeignKey("GoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Good");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.ProviderPhoneNumber", b =>
+                {
+                    b.HasOne("Atlas.Domain.Provider", "Provider")
+                        .WithMany("ProviderPhoneNumbers")
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Provider");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.StoreToGood", b =>
+                {
+                    b.HasOne("Atlas.Domain.Good", "Good")
+                        .WithOne("StoreToGood")
+                        .HasForeignKey("Atlas.Domain.StoreToGood", "GoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Good");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.SupplyManager", b =>
+                {
+                    b.HasOne("Atlas.Domain.User", "User")
+                        .WithOne("SupplyManager")
+                        .HasForeignKey("Atlas.Domain.SupplyManager", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.Support", b =>
+                {
+                    b.HasOne("Atlas.Domain.User", "User")
+                        .WithOne("Support")
+                        .HasForeignKey("Atlas.Domain.Support", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.GeneralCategory", b =>
+                {
+                    b.Navigation("Categories");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.Good", b =>
+                {
+                    b.Navigation("StoreToGood");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.Notification", b =>
+                {
+                    b.Navigation("NotificationAccesses");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.Order", b =>
+                {
+                    b.Navigation("GoodToOrders");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.Provider", b =>
+                {
+                    b.Navigation("ProviderPhoneNumbers");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.User", b =>
+                {
+                    b.Navigation("Courier");
+
+                    b.Navigation("SupplyManager");
+
+                    b.Navigation("Support");
+                });
+
+            modelBuilder.Entity("Atlas.Domain.Vehicle", b =>
+                {
+                    b.Navigation("Courier");
                 });
 #pragma warning restore 612, 618
         }

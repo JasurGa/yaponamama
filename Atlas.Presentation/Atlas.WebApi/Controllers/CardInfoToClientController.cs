@@ -30,15 +30,17 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/cardinfotoclient
-        /// {
-        ///     "name": "123",
-        ///     "cardNumber": "123",
-        ///     "dateOfIssue": "1900-01-01T10:00:00",
-        ///     "cvc": "123",
-        ///     "cvc2": "123",
-        ///     "cardHolder": "123"
-        /// }
+        ///     
+        ///     POST /api/1.0/cardinfotoclient
+        ///     {
+        ///         "name": "123",
+        ///         "cardNumber": "123",
+        ///         "dateOfIssue": "1900-01-01T10:00:00",
+        ///         "cvc": "123",
+        ///         "cvc2": "123",
+        ///         "cardHolder": "123"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createCardInfoToClientDto">CreateCardInfoToClientDto object</param>
         /// <returns>Returns id (guid)</returns> 

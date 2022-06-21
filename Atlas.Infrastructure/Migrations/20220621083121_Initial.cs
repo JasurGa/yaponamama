@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Atlas.Persistence.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,19 +54,6 @@ namespace Atlas.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CategoryToGoods",
                 columns: table => new
                 {
@@ -113,22 +100,17 @@ namespace Atlas.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Couriers",
+                name: "FavoriteGoods",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PassportPhotoPath = table.Column<string>(type: "text", nullable: true),
-                    DriverLicensePath = table.Column<string>(type: "text", nullable: true),
-                    Balance = table.Column<long>(type: "bigint", nullable: false),
-                    KPI = table.Column<long>(type: "bigint", nullable: false),
-                    VehicleId = table.Column<Guid>(type: "uuid", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                    ClientId = table.Column<Guid>(type: "uuid", nullable: false),
+                    GoodId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Couriers", x => x.Id);
+                    table.PrimaryKey("PK_FavoriteGoods", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -146,6 +128,19 @@ namespace Atlas.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GeneralCategories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GeneralCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Goods",
                 columns: table => new
                 {
@@ -155,26 +150,15 @@ namespace Atlas.Persistence.Migrations
                     PhotoPath = table.Column<string>(type: "text", nullable: true),
                     SellingPrice = table.Column<long>(type: "bigint", nullable: false),
                     PurchasePrice = table.Column<long>(type: "bigint", nullable: false),
+                    Discount = table.Column<float>(type: "real", nullable: false),
                     ProviderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Volume = table.Column<float>(type: "real", nullable: false),
+                    Mass = table.Column<float>(type: "real", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Goods", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GoodToOrders",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    GoodId = table.Column<Guid>(type: "uuid", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Count = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GoodToOrders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -208,11 +192,10 @@ namespace Atlas.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     NotificationTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     Subject = table.Column<string>(type: "text", nullable: true),
                     Body = table.Column<string>(type: "text", nullable: true),
-                    Priority = table.Column<string>(type: "text", nullable: true)
+                    Priority = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -272,6 +255,7 @@ namespace Atlas.Persistence.Migrations
                     ClientId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     FinishedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Price = table.Column<float>(type: "real", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     ToLongitude = table.Column<float>(type: "real", nullable: false),
                     ToLatitude = table.Column<float>(type: "real", nullable: false),
@@ -285,6 +269,19 @@ namespace Atlas.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PageVisits",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Path = table.Column<string>(type: "text", nullable: true),
+                    VisitedCount = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PageVisits", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PaymentTypes",
                 columns: table => new
                 {
@@ -294,33 +291,6 @@ namespace Atlas.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PaymentTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Promos",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true),
-                    DiscountPrice = table.Column<int>(type: "integer", nullable: false),
-                    DiscountPercent = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Promos", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProviderPhoneNumbers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProviderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProviderPhoneNumbers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -345,9 +315,8 @@ namespace Atlas.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ClientId = table.Column<Guid>(type: "uuid", nullable: false),
                     GoodId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IconPath = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true),
                     RecommendationTypeId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -384,36 +353,6 @@ namespace Atlas.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StoreToGoods",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    StoreId = table.Column<Guid>(type: "uuid", nullable: false),
-                    GoodId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Count = table.Column<long>(type: "bigint", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StoreToGoods", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SupplyManagers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PassportPhotoPath = table.Column<string>(type: "text", nullable: true),
-                    StoreId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SupplyManagers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SupportCalls",
                 columns: table => new
                 {
@@ -444,21 +383,6 @@ namespace Atlas.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SupportNotes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Supports",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    InternalPhoneNumber = table.Column<string>(type: "text", nullable: true),
-                    PassportPhotoPath = table.Column<string>(type: "text", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Supports", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -525,6 +449,206 @@ namespace Atlas.Persistence.Migrations
                     table.PrimaryKey("PK_VerifyCodes", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    GeneralCategoryId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_GeneralCategories_GeneralCategoryId",
+                        column: x => x.GeneralCategoryId,
+                        principalTable: "GeneralCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Promos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    GoodId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    ExpiresAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    DiscountPrice = table.Column<int>(type: "integer", nullable: false),
+                    DiscountPercent = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Promos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Promos_Goods_GoodId",
+                        column: x => x.GoodId,
+                        principalTable: "Goods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StoreToGoods",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    StoreId = table.Column<Guid>(type: "uuid", nullable: false),
+                    GoodId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Count = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StoreToGoods", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StoreToGoods_Goods_GoodId",
+                        column: x => x.GoodId,
+                        principalTable: "Goods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NotificationAccesses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    NotificationId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NotificationAccesses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_NotificationAccesses_Notifications_NotificationId",
+                        column: x => x.NotificationId,
+                        principalTable: "Notifications",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GoodToOrders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    GoodId = table.Column<Guid>(type: "uuid", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Count = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GoodToOrders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GoodToOrders_Goods_GoodId",
+                        column: x => x.GoodId,
+                        principalTable: "Goods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GoodToOrders_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProviderPhoneNumbers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProviderId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProviderPhoneNumbers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProviderPhoneNumbers_Providers_ProviderId",
+                        column: x => x.ProviderId,
+                        principalTable: "Providers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SupplyManagers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PassportPhotoPath = table.Column<string>(type: "text", nullable: true),
+                    StoreId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SupplyManagers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SupplyManagers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Supports",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    InternalPhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PassportPhotoPath = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Supports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Supports_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Couriers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PassportPhotoPath = table.Column<string>(type: "text", nullable: true),
+                    DriverLicensePath = table.Column<string>(type: "text", nullable: true),
+                    Balance = table.Column<long>(type: "bigint", nullable: false),
+                    KPI = table.Column<long>(type: "bigint", nullable: false),
+                    VehicleId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Couriers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Couriers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Couriers_Vehicles_VehicleId",
+                        column: x => x.VehicleId,
+                        principalTable: "Vehicles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AddressToClients_Id",
                 table: "AddressToClients",
@@ -542,6 +666,11 @@ namespace Atlas.Persistence.Migrations
                 table: "CardInfoToClients",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_GeneralCategoryId",
+                table: "Categories",
+                column: "GeneralCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_Id",
@@ -574,8 +703,26 @@ namespace Atlas.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Couriers_UserId",
+                table: "Couriers",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Couriers_VehicleId",
+                table: "Couriers",
+                column: "VehicleId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ForgotPasswordCodes_Id",
                 table: "ForgotPasswordCodes",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GeneralCategories_Id",
+                table: "GeneralCategories",
                 column: "Id",
                 unique: true);
 
@@ -586,10 +733,20 @@ namespace Atlas.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_GoodToOrders_GoodId",
+                table: "GoodToOrders",
+                column: "GoodId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GoodToOrders_Id",
                 table: "GoodToOrders",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GoodToOrders_OrderId",
+                table: "GoodToOrders",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HeadRecruiters_Id",
@@ -602,6 +759,17 @@ namespace Atlas.Persistence.Migrations
                 table: "Languages",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NotificationAccesses_Id",
+                table: "NotificationAccesses",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NotificationAccesses_NotificationId",
+                table: "NotificationAccesses",
+                column: "NotificationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notifications_Id",
@@ -634,10 +802,21 @@ namespace Atlas.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_PageVisits_Id",
+                table: "PageVisits",
+                column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PaymentTypes_Id",
                 table: "PaymentTypes",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Promos_GoodId",
+                table: "Promos",
+                column: "GoodId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Promos_Id",
@@ -650,6 +829,11 @@ namespace Atlas.Persistence.Migrations
                 table: "ProviderPhoneNumbers",
                 column: "Id",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProviderPhoneNumbers_ProviderId",
+                table: "ProviderPhoneNumbers",
+                column: "ProviderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Providers_Id",
@@ -676,6 +860,12 @@ namespace Atlas.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_StoreToGoods_GoodId",
+                table: "StoreToGoods",
+                column: "GoodId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StoreToGoods_Id",
                 table: "StoreToGoods",
                 column: "Id",
@@ -685,6 +875,12 @@ namespace Atlas.Persistence.Migrations
                 name: "IX_SupplyManagers_Id",
                 table: "SupplyManagers",
                 column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplyManagers_UserId",
+                table: "SupplyManagers",
+                column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -703,6 +899,12 @@ namespace Atlas.Persistence.Migrations
                 name: "IX_Supports_Id",
                 table: "Supports",
                 column: "Id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Supports_UserId",
+                table: "Supports",
+                column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -757,10 +959,10 @@ namespace Atlas.Persistence.Migrations
                 name: "Couriers");
 
             migrationBuilder.DropTable(
-                name: "ForgotPasswordCodes");
+                name: "FavoriteGoods");
 
             migrationBuilder.DropTable(
-                name: "Goods");
+                name: "ForgotPasswordCodes");
 
             migrationBuilder.DropTable(
                 name: "GoodToOrders");
@@ -772,7 +974,7 @@ namespace Atlas.Persistence.Migrations
                 name: "Languages");
 
             migrationBuilder.DropTable(
-                name: "Notifications");
+                name: "NotificationAccesses");
 
             migrationBuilder.DropTable(
                 name: "NotificationTypes");
@@ -784,7 +986,7 @@ namespace Atlas.Persistence.Migrations
                 name: "OrderFeedbacks");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "PageVisits");
 
             migrationBuilder.DropTable(
                 name: "PaymentTypes");
@@ -794,9 +996,6 @@ namespace Atlas.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProviderPhoneNumbers");
-
-            migrationBuilder.DropTable(
-                name: "Providers");
 
             migrationBuilder.DropTable(
                 name: "Recommendations");
@@ -823,16 +1022,31 @@ namespace Atlas.Persistence.Migrations
                 name: "Supports");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "VehicleTypes");
+
+            migrationBuilder.DropTable(
+                name: "VerifyCodes");
+
+            migrationBuilder.DropTable(
+                name: "GeneralCategories");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");
 
             migrationBuilder.DropTable(
-                name: "VehicleTypes");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "VerifyCodes");
+                name: "Notifications");
+
+            migrationBuilder.DropTable(
+                name: "Providers");
+
+            migrationBuilder.DropTable(
+                name: "Goods");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

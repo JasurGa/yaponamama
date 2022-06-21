@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Claims;
-using Atlas.Application.Common.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -33,7 +31,7 @@ namespace Atlas.WebApi.Filters
             {
                 try
                 {
-                    var roleId = context.HttpContext.User.FindFirstValue(role);
+                    var roleId = context.HttpContext.User.FindFirstValue(role + "Id");
                     if (roleId != null)
                     {
                         hasAny = true;
