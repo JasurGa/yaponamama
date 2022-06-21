@@ -44,6 +44,8 @@ namespace Atlas.Persistence
 
         public DbSet<NotificationType> NotificationTypes { get; set; }
 
+        public DbSet<OfficialRole> OfficialRoles { get; set; }
+
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderChat> OrderChats { get; set; }
@@ -106,6 +108,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new NotificationConfiguration());
             modelBuilder.ApplyConfiguration(new NotificationAccessConfiguration());
             modelBuilder.ApplyConfiguration(new NotificationTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new OfficialRoleConfiguration());
             modelBuilder.ApplyConfiguration(new OrderChatConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderFeedbackConfiguration());

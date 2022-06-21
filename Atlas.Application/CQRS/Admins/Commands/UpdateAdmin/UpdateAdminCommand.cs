@@ -1,24 +1,20 @@
 ﻿using System;
-namespace Atlas.Domain
+using MediatR;
+
+namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
 {
-    public class Admin
+    public class UpdateAdminCommand : IRequest
     {
         public Guid Id { get; set; }
+
+        public long KPI { get; set; }
 
         public DateTime StartOfWorkingHours { get; set; }
 
         public long WorkingDayDuration { get; set; }
 
-        public long KPI { get; set; }
-
         public Guid OfficialRoleId { get; set; }
 
-        public OfficialRole OfficialRole { get; set; }
-
         public Guid UserId { get; set; }
-
-        public User User { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }
