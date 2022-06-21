@@ -19,7 +19,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace Atlas.Identity.Controllers
 {
     [ApiController]
-    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("/api/[controller]")]
     public class AuthController : ControllerBase
     {
@@ -40,8 +39,24 @@ namespace Atlas.Identity.Controllers
         }
 
         /// <summary>
-        /// Change password (for all authorized)
+        /// Change password
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PUT /api/1.0/auth/password
+        ///     {
+        ///         "oldPassword": "password",
+        ///         "newPassword": "password123",
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="changePassword">ChangePasswordDto object</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Returns token (AuthorizationToken)</returns>
+        /// <response code="204">No content</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="401">Unauthorized</response>
         [HttpPut("password")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -66,8 +81,26 @@ namespace Atlas.Identity.Controllers
         }
 
         /// <summary>
-        /// Register client (for all)
+        /// Register client
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/1.0/auth/register
+        ///     {
+        ///         "phoneNumber": "+998901234567",
+        ///         "firstName": "John",
+        ///         "lastName": "Doe",
+        ///         "password": "password",
+        ///         "birthday": "2022-05-14T14:12:02.953Z",
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="registerDto">RegisterDto object</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Returns token (AuthorizationToken)</returns>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad request</response>
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -132,8 +165,22 @@ namespace Atlas.Identity.Controllers
         }
 
         /// <summary>
-        /// Auth user (for all)
+        /// Login user
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/1.0/auth
+        ///     {
+        ///         "login" : "+998901234567",
+        ///         "password" : "password",
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="signIn">SignInDto object</param>
+        /// <returns>Returns token (AuthorizationToken)</returns>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad request</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<AuthToken>> SignInAsync([FromBody] SignInDto signIn)

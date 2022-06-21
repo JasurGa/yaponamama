@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using Atlas.Application;
 using Atlas.Identity.Middlewares;
@@ -86,6 +88,19 @@ namespace Atlas.Identity
             services.AddApplication();
             services.AddPersistence(Configuration);
 
+            services.AddRouting(config =>
+            {
+                config.LowercaseUrls = true;
+                config.LowercaseQueryStrings = true;
+            });
+
+            services.AddSwaggerGen(op =>
+            {
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                op.IncludeXmlComments(xmlPath);
+            });
+
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
@@ -103,6 +118,13 @@ namespace Atlas.Identity
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(op =>
+            {
+                op.SwaggerEndpoint("/swagger/v1/swagger.json",
+                    "AtlasWIdentity");
+            });
 
             app.UseCustomExceptionHandler();
             app.UseAuthentication();
