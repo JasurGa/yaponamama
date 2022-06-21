@@ -1,5 +1,7 @@
 ﻿using Atlas.Application.CQRS.OrderFeedbacks.Commands.CreateOrderFeedback;
 using Atlas.Application.CQRS.OrderFeedbacks.Queries.GetOrderFeedbackDetails;
+using Atlas.Application.Interfaces;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -70,11 +72,16 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<Guid>> CreateAsync([FromBody]
             CreateOrderFeedbackDto createOrderFeedback)
         {
-            var orderFeedbackId = await Mediator.Send(_mapper
-                .Map<CreateOrderFeedbackDto, CreateOrderFeedbackCommand>
-                (createOrderFeedback));
+            var vm = await Mediator.Send(_mapper.Map<CreateOrderFeedbackDto,
+                CreateOrderFeedbackCommand>(createOrderFeedback, opt =>
+                {
+                    opt.AfterMap((src, dst) =>
+                    {
+                        dst.ClientId = ClientId;
+                    });
+                }));
 
-            return Ok(orderFeedbackId);
+            return Ok(vm);
         }
     }
 }

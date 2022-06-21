@@ -1,10 +1,12 @@
-﻿using Atlas.Application.CQRS.Providers.Commands.CreateProvider;
+﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Providers.Commands.CreateProvider;
 using Atlas.Application.CQRS.Providers.Commands.DeleteProvider;
 using Atlas.Application.CQRS.Providers.Commands.UpdateProvider;
 using Atlas.Application.CQRS.Providers.Queries.GetProviderDetails;
 using Atlas.Application.CQRS.Providers.Queries.GetProviderList;
 using Atlas.Application.CQRS.Providers.Queries.GetProviderPagedList;
 using Atlas.Application.Models;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +24,8 @@ namespace Atlas.WebApi.Controllers
     {
         private readonly IMapper _mapper;
 
-        public ProviderController(IMapper mapper) => _mapper = mapper;
+        public ProviderController(IMapper mapper) =>
+            _mapper = mapper;
 
         /// <summary>
         /// Get the paged list of providers
@@ -37,8 +40,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto ProviderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("paged")]
         [Authorize]
+        [HttpGet("paged")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<ProviderLookupDto>>> GetAllPagedAsync([FromQuery] string search = "", [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
@@ -66,6 +70,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpGet]
         [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<ProviderListVm>> GetAllAsync([FromQuery] string search = "")
@@ -90,8 +95,9 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("{id}")]
         [Authorize]
+        [HttpGet("{id}")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -126,6 +132,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateProviderDto createProviderDto)
@@ -160,14 +167,14 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPut]
         [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> UpdateAsync([FromBody] UpdateProviderDto updateProviderDto)
         {
-            var command = _mapper.Map<UpdateProviderCommand>(updateProviderDto);
-
-            await Mediator.Send(command);
+            await Mediator.Send(_mapper.Map<UpdateProviderDto,
+                UpdateProviderCommand>(updateProviderDto));
 
             return NoContent();
         }
@@ -184,8 +191,9 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -1,10 +1,12 @@
-﻿using Atlas.Application.CQRS.Promos.Commands.CreatePromo;
+﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Promos.Commands.CreatePromo;
 using Atlas.Application.CQRS.Promos.Commands.DeletePromo;
 using Atlas.Application.CQRS.Promos.Commands.UpdatePromo;
 using Atlas.Application.CQRS.Promos.Queries.GetPromoDetails;
 using Atlas.Application.CQRS.Promos.Queries.GetPromoList;
 using Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList;
 using Atlas.Application.Models;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -37,6 +39,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpGet]
         [Authorize]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PromoListVm>> GetAllAsync()
@@ -59,6 +62,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpGet("paged")]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<PromoLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10) 
@@ -86,6 +90,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpGet("{id}")]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -110,6 +115,7 @@ namespace Atlas.WebApi.Controllers
         ///     "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "discountPrice": 1000,
         ///     "discountPercent": 10,
+        ///     "expiresAt": "1900-01-01T01:01:01"
         /// }
         /// </remarks>
         /// <param name="createPromoDto">CreatePromoDto object</param>
@@ -118,12 +124,13 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreatePromoDto createPromoDto)
         {
-            var promoId = await Mediator.Send(_mapper
-                .Map<CreatePromoCommand>(createPromoDto));
+            var promoId = await Mediator.Send(_mapper.Map<CreatePromoDto,
+                CreatePromoCommand>(createPromoDto));
 
             return Ok(promoId);
         }
@@ -140,6 +147,7 @@ namespace Atlas.WebApi.Controllers
         ///     "name": "Sample name",
         ///     "discountPrice": 1000,
         ///     "discountPercent": 10,
+        ///     "expiresAt": "1900-01-01T01:01:01"
         /// }
         /// </remarks>
         /// <param name="updatePromoDto">UpdatePromoDto object</param>
@@ -149,13 +157,14 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPut]
         [Authorize]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> UpdateAsync([FromBody] UpdatePromoDto updatePromoDto)
         {
-            await Mediator.Send(_mapper
-                .Map<UpdatePromoCommand>(updatePromoDto));
+            await Mediator.Send(_mapper.Map<UpdatePromoDto,
+                UpdatePromoCommand>(updatePromoDto));
 
             return NoContent();
         }
@@ -174,6 +183,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpDelete("{id}")]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

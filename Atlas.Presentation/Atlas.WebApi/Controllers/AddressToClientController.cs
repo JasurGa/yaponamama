@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.AddressToClients.Commands.CreateAddressToClient;
 using Atlas.Application.CQRS.AddressToClients.Commands.DeleteAddressToClient;
 using Atlas.Application.CQRS.AddressToClients.Commands.UpdateAddressToClient;
 using Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientDetails;
 using Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientList;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -41,6 +43,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
+        [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateAddressToClientDto createAddressToClient)
@@ -64,6 +67,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpGet]
         [Authorize]
+        [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<AddressToClientListVm>> GetAllAsync()
@@ -88,8 +92,9 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("{id}")]
         [Authorize]
+        [HttpGet("{id}")]
+        [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -124,6 +129,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPut]
         [Authorize]
+        [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -153,8 +159,9 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
+        [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

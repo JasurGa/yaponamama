@@ -50,6 +50,8 @@ namespace Atlas.Persistence
 
         public DbSet<OrderFeedback> OrderFeedbacks { get; set; }
 
+        public DbSet<PageVisit> PageVisits { get; set; }
+
         public DbSet<PaymentType> PaymentTypes { get; set; }
 
         public DbSet<Promo> Promos { get; set; }
@@ -107,6 +109,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new OrderChatConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderFeedbackConfiguration());
+            modelBuilder.ApplyConfiguration(new PageVisitConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PromoConfiguration());
             modelBuilder.ApplyConfiguration(new ProviderConfiguration());

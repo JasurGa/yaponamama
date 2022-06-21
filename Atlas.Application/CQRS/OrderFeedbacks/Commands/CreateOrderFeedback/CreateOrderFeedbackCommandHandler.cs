@@ -18,10 +18,10 @@ namespace Atlas.Application.CQRS.OrderFeedbacks.Commands.CreateOrderFeedback
 
         public async Task<Guid> Handle(CreateOrderFeedbackCommand request, CancellationToken cancellationToken)
         {
-            var order = _dbContext.Orders.FirstOrDefaultAsync(x =>
+            var order = await _dbContext.Orders.FirstOrDefaultAsync(x =>
                 x.Id == request.OrderId, cancellationToken);
 
-            if (order == null)
+            if (order == null || order.ClientId != request.ClientId)
             {
                 throw new NotFoundException(nameof(Order), request.OrderId);
             }
@@ -35,7 +35,8 @@ namespace Atlas.Application.CQRS.OrderFeedbacks.Commands.CreateOrderFeedback
                 CreatedAt   = DateTime.UtcNow,
             };
 
-            await _dbContext.OrderFeedbacks.AddAsync(orderFeedback, cancellationToken);
+            await _dbContext.OrderFeedbacks.AddAsync(orderFeedback,
+                cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return orderFeedback.Id;

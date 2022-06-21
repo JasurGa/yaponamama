@@ -82,6 +82,17 @@
     <Folder Include="CQRS\Recommendations\" />
     <Folder Include="CQRS\Recommendations\Queries\" />
     <Folder Include="CQRS\Recommendations\Queries\GetRecommendationListByClient\" />
+    <Folder Include="CQRS\PageVisits\" />
+    <Folder Include="CQRS\PageVisits\Commands\" />
+    <Folder Include="CQRS\PageVisits\Commands\IncrementPageVisit\" />
+    <Folder Include="CQRS\PageVisits\Queries\" />
+    <Folder Include="CQRS\PageVisits\Queries\GetPagesVisits\" />
+    <Folder Include="CQRS\Orders\Commands\CreateOrder\" />
+    <Folder Include="CQRS\GoodToOrders\" />
+    <Folder Include="CQRS\GoodToOrders\Commands\" />
+    <Folder Include="CQRS\GoodToOrders\Commands\CreateGoodToOrder\" />
+    <Folder Include="Common\Helpers\" />
+    <Folder Include="CQRS\Orders\Commands\FinishOrder\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -155,5 +166,16 @@
     <None Remove="CQRS\Recommendations\" />
     <None Remove="CQRS\Recommendations\Queries\" />
     <None Remove="CQRS\Recommendations\Queries\GetRecommendationListByClient\" />
+    <None Remove="CQRS\PageVisits\" />
+    <None Remove="CQRS\PageVisits\Commands\" />
+    <None Remove="CQRS\PageVisits\Commands\IncrementPageVisit\" />
+    <None Remove="CQRS\PageVisits\Queries\" />
+    <None Remove="CQRS\PageVisits\Queries\GetPagesVisits\" />
+    <None Remove="CQRS\Orders\Commands\CreateOrder\" />
+    <None Remove="CQRS\GoodToOrders\" />
+    <None Remove="CQRS\GoodToOrders\Commands\" />
+    <None Remove="CQRS\GoodToOrders\Commands\CreateGoodToOrder\" />
+    <None Remove="Common\Helpers\" />
+    <None Remove="CQRS\Orders\Commands\FinishOrder\" />
   </ItemGroup>
 </Project>

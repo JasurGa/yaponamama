@@ -16,6 +16,8 @@ namespace Atlas.WebApi.Models
 
         public int DiscountPercent { get; set; }
 
+        public DateTime ExpiresAt { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreatePromoDto, CreatePromoCommand>()
@@ -26,7 +28,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(dst => dst.DiscountPrice, opt =>
                     opt.MapFrom(src => src.DiscountPrice))
                 .ForMember(dst => dst.DiscountPercent, opt =>
-                    opt.MapFrom(src => src.DiscountPercent));
+                    opt.MapFrom(src => src.DiscountPercent))
+                .ForMember(dst => dst.ExpiresAt, opt =>
+                    opt.MapFrom(src => src.ExpiresAt));
         }
     }
 }

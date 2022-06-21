@@ -15,6 +15,8 @@ namespace Atlas.Domain
 
         public long PurchasePrice { get; set; }
 
+        public float Discount { get; set; }
+
         public Guid ProviderId { get; set; }
 
         public StoreToGood StoreToGood { get; set; }
@@ -22,8 +24,6 @@ namespace Atlas.Domain
         public float Volume { get; set; }
 
         public float Mass { get; set; }
-
-        public float Discount { get; set; }
 
         public bool IsDeleted { get; set; }
     }

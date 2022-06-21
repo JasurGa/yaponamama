@@ -7,6 +7,9 @@ namespace Atlas.Application.CQRS.OrderFeedbacks.Commands.CreateOrderFeedback
     {
         public CreateOrderFeedbackCommandValidator()
         {
+            RuleFor(x => x.ClientId)
+                .NotEqual(Guid.Empty);
+
             RuleFor(x => x.OrderId)
                 .NotEqual(Guid.Empty);
 

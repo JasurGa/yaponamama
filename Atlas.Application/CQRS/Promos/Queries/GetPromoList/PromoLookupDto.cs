@@ -13,6 +13,8 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
 
         public string Name { get; set; }
 
+        public DateTime ExpiresAt { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Promo, PromoLookupDto>()
@@ -21,7 +23,9 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
                 .ForMember(dst => dst.GoodId, opt =>
                     opt.MapFrom(src => src.GoodId))
                 .ForMember(dst => dst.Name, opt =>
-                    opt.MapFrom(src => src.Name));
+                    opt.MapFrom(src => src.Name))
+                .ForMember(dst => dst.ExpiresAt, opt =>
+                    opt.MapFrom(src => src.ExpiresAt));
         }
     }
 }

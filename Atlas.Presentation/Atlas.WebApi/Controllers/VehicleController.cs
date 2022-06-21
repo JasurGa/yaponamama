@@ -1,4 +1,5 @@
-﻿using Atlas.Application.CQRS.Vehicles.Commands.CreateVehicle;
+﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Vehicles.Commands.CreateVehicle;
 using Atlas.Application.CQRS.Vehicles.Commands.DeleteVehicle;
 using Atlas.Application.CQRS.Vehicles.Commands.UpdateVehicle;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleDetails;
@@ -7,6 +8,7 @@ using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleListByStore;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedList;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListByStore;
 using Atlas.Application.Models;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -39,12 +41,12 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpGet]
         [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<VehicleListVm>> GetAllAsync()
         {
             var vm = await Mediator.Send(new GetVehicleListQuery());
-
             return Ok(vm);
         }
 
@@ -59,8 +61,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns VehicleListVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("store/{storeId}")]
         [Authorize]
+        [HttpGet("store/{storeId}")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<VehicleListVm>> GetAllByStoreIdAsync(Guid storeId)
@@ -85,8 +88,8 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("{id}")]
         [Authorize]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -112,8 +115,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto VehicleLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("paged")]
         [Authorize]
+        [HttpGet("paged")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<VehicleLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
@@ -140,17 +144,18 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto VehicleLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("store/{storeId}/paged")]
         [Authorize]
+        [HttpGet("store/{storeId}/paged")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<VehicleLookupDto>>> GetAllPagedByStoreIdAsync(Guid storeId, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             var vm = await Mediator.Send(new GetVehiclePagedListByStoreQuery
             {
-                StoreId = storeId,
+                StoreId   = storeId,
                 PageIndex = pageIndex,
-                PageSize = pageSize
+                PageSize  = pageSize
             });
 
             return Ok(vm);
@@ -181,9 +186,7 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateVehicleDto createVehicleDto)
         {
             var command = _mapper.Map<CreateVehicleCommand>(createVehicleDto);
-
             var vehicleId = await Mediator.Send(command);
-
             return Ok(vehicleId);
         }
 
@@ -209,15 +212,14 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPut]
         [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> UpdateAsync([FromBody] UpdateVehicleDto updateVehicleDto)
         {
             var command = _mapper.Map<UpdateVehicleCommand>(updateVehicleDto);
-
             await Mediator.Send(command);
-
             return NoContent();
         }
 
@@ -233,8 +235,9 @@ namespace Atlas.WebApi.Controllers
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
