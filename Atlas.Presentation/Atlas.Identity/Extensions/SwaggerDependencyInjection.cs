@@ -2,31 +2,29 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using Atlas.WebApi.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace Atlas.WebApi.Extensions
+namespace Atlas.Identity.Extensions
 {
-    public static class SwaggerDepedencyInjection
+    public static class SwaggerDependencyInjection
     {
         public static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration Configuration)
         {
             var settings = Configuration.GetSection("TokenGenerationSettings");
 
-            var tokenType   = settings.GetValue<string>("TokenType");
+            var tokenType = settings.GetValue<string>("TokenType");
             var tokenHeader = settings.GetValue<string>("TokenHeader");
 
             services.AddRouting(config =>
             {
-                config.LowercaseUrls         = true;
+                config.LowercaseUrls = true;
                 config.LowercaseQueryStrings = true;
             });
 
             services.AddSwaggerGen(op =>
             {
-                op.DocumentFilter<HideInDocsFilter>();
                 op.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version     = "v1",
@@ -77,5 +75,6 @@ namespace Atlas.WebApi.Extensions
 
             return services;
         }
+
     }
 }

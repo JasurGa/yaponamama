@@ -6,6 +6,7 @@ using Atlas.Application.Common.Mappings;
 using Atlas.Application.Interfaces;
 using Atlas.Persistence;
 using Atlas.WebApi.Extensions;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

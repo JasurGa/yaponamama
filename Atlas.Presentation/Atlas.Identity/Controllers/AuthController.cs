@@ -19,7 +19,6 @@ using Microsoft.AspNetCore.Authorization;
 namespace Atlas.Identity.Controllers
 {
     [ApiController]
-    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("/api/[controller]")]
     public class AuthController : ControllerBase
     {
