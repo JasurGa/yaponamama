@@ -23,7 +23,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public bool IsPickup { get; set; }
 
-        public float Price { get; set; }
+        public float PurchasePrice { get; set; }
+
+        public float SellingPrice { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -44,8 +46,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                     opt.MapFrom(src => src.ToLatitude))
                 .ForMember(dst => dst.IsPickup, opt =>
                     opt.MapFrom(src => src.IsPickup))
-                .ForMember(dst => dst.Price, opt =>
-                    opt.MapFrom(src => src.Price));
+                .ForMember(dst => dst.PurchasePrice, opt =>
+                    opt.MapFrom(src => src.PurchasePrice))
+                .ForMember(dst => dst.SellingPrice, opt =>
+                    opt.MapFrom(src => src.SellingPrice));
         }
     }
 }
