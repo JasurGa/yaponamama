@@ -113,6 +113,7 @@ namespace Atlas.Identity
                     "AtlasWebApi");
             });
 
+            app.UseMiddleware<OptionsMiddleware>();
             app.UseCustomExceptionHandler();
             app.UseAuthentication();
             app.UseRouting();

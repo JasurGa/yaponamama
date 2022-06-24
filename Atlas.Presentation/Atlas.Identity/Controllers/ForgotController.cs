@@ -15,7 +15,6 @@ using Microsoft.EntityFrameworkCore;
 namespace Atlas.Identity.Controllers
 {
     [ApiController]
-    [ApiExplorerSettings(IgnoreApi = true)]
     [Route("/api/[controller]")]
     public class ForgotController : ControllerBase
     {

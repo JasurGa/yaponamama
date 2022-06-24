@@ -13,6 +13,8 @@ namespace Atlas.Domain
 
         public string Address { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public bool IsDeleted { get; set; }
     }
 }
