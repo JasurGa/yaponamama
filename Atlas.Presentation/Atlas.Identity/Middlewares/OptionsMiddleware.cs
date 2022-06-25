@@ -32,7 +32,8 @@ namespace Atlas.Identity.Middlewares
             });
 
             context.Response.Headers.Add("Access-Control-Allow-Methods", new[] {
-                HttpMethods.Get, HttpMethods.Post, HttpMethods.Put, HttpMethods.Delete, HttpMethods.Options
+                HttpMethods.Get, HttpMethods.Post, HttpMethods.Put, HttpMethods.Delete,
+                HttpMethods.Options, HttpMethods.Patch
             });
 
             context.Response.Headers.Add("Access-Control-Allow-Credentials", new[] {

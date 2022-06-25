@@ -9,6 +9,8 @@ namespace Atlas.Application.CQRS.Stores.Commands.CreateStore
         
         public string Address { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public float Latitude { get; set; }
 
         public float Longitude { get; set; }

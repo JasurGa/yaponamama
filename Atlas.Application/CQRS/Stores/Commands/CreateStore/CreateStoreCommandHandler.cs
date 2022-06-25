@@ -21,6 +21,7 @@ namespace Atlas.Application.CQRS.Stores.Commands.CreateStore
                 Id          = Guid.NewGuid(),
                 Name        = request.Name,
                 Address     = request.Address,
+                PhoneNumber = request.PhoneNumber,
                 Latitude    = request.Latitude,
                 Longitude   = request.Longitude,
                 IsDeleted   = false,
