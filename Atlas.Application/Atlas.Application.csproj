@@ -102,6 +102,10 @@
     <Folder Include="CQRS\Admins\Commands\RestoreAdmin\" />
     <Folder Include="CQRS\Admins\Queries\GetAdminDetails\" />
     <Folder Include="CQRS\Admins\Queries\GetAdminPagedList\" />
+    <Folder Include="CQRS\Vehicles\Commands\UpdateVehiclesStoreId\" />
+    <Folder Include="CQRS\SupplyManagers\Commands\UpdateSupplyManagersStoreId\" />
+    <Folder Include="CQRS\Couriers\Commands\UpdateCouriersStoreId\" />
+    <Folder Include="CQRS\Goods\Queries\GetGoodPagedList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -195,5 +199,9 @@
     <None Remove="CQRS\Admins\Commands\RestoreAdmin\" />
     <None Remove="CQRS\Admins\Queries\GetAdminDetails\" />
     <None Remove="CQRS\Admins\Queries\GetAdminPagedList\" />
+    <None Remove="CQRS\Vehicles\Commands\UpdateVehiclesStoreId\" />
+    <None Remove="CQRS\SupplyManagers\Commands\UpdateSupplyManagersStoreId\" />
+    <None Remove="CQRS\Couriers\Commands\UpdateCouriersStoreId\" />
+    <None Remove="CQRS\Goods\Queries\GetGoodPagedList\" />
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@ using Atlas.Application.CQRS.Goods.Commands.RestoreGood;
 using Atlas.Application.CQRS.Goods.Commands.UpdateGood;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodDetails;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList;
 using Atlas.Application.Models;
@@ -79,6 +80,34 @@ namespace Atlas.WebApi.Controllers
                 CategoryId = categoryId,
                 PageIndex = pageIndex,
                 PageSize = pageSize,
+                ShowDeleted = showDeleted
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the paged list of good which has discount
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/good/discounted/paged?pageSize=10&amp;pageIndex=0&amp;showDeleted=false
+        /// </remarks>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <returns>Returns PageDto GoodLookupDto object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("paged")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<PageDto<GoodLookupDto>>> GetAllAsync(
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] bool showDeleted = false)
+        {
+            var vm = await Mediator.Send(new GetGoodPagedListQuery
+            {
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
                 ShowDeleted = showDeleted
             });
 

@@ -2,6 +2,7 @@
 using Atlas.Application.CQRS.Vehicles.Commands.CreateVehicle;
 using Atlas.Application.CQRS.Vehicles.Commands.DeleteVehicle;
 using Atlas.Application.CQRS.Vehicles.Commands.UpdateVehicle;
+using Atlas.Application.CQRS.Vehicles.Commands.UpdateVehiclesStoreId;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleDetails;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleListByStore;
@@ -191,6 +192,39 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
+        /// Adds vehicles to store 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// PUT /api/1.0/vehicle/store
+        /// {
+        ///     "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "vehicleIds": [
+        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     ]
+        /// }
+        /// </remarks>
+        /// <param name="updateVehiclesStoreIdDto">UpdateVehiclesStoreIdDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPut("store")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> UpdateStoreIdAsync([FromBody] UpdateVehiclesStoreIdDto updateVehiclesStoreIdDto)
+        {
+            await Mediator.Send(_mapper.Map<UpdateVehiclesStoreIdDto,
+                UpdateVehiclesStoreIdCommand>(updateVehiclesStoreIdDto));
+            return NoContent();
+        }
+
+        /// <summary>
         /// Updates the vehicle by id
         /// </summary>
         /// <remarks>
@@ -205,7 +239,7 @@ namespace Atlas.WebApi.Controllers
         ///     "registrationCertificatePhotoPath": "/default/path"
         /// }
         /// </remarks>
-        /// <param name="updateVehicleDto">UpdatVehicleDto object</param>
+        /// <param name="updateVehicleDto">UpdateVehicleDto object</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
@@ -218,8 +252,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> UpdateAsync([FromBody] UpdateVehicleDto updateVehicleDto)
         {
-            var command = _mapper.Map<UpdateVehicleCommand>(updateVehicleDto);
-            await Mediator.Send(command);
+            await Mediator.Send(_mapper.Map<UpdateVehicleDto,
+                UpdateVehicleCommand>(updateVehicleDto));
             return NoContent();
         }
 
