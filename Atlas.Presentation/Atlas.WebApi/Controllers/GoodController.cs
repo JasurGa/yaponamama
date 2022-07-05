@@ -5,6 +5,7 @@ using Atlas.Application.CQRS.Goods.Commands.CreateGood;
 using Atlas.Application.CQRS.Goods.Commands.DeleteGood;
 using Atlas.Application.CQRS.Goods.Commands.RestoreGood;
 using Atlas.Application.CQRS.Goods.Commands.UpdateGood;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodCounts;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodDetails;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList;
@@ -31,6 +32,31 @@ namespace Atlas.WebApi.Controllers
             _mapper = mapper;
 
         /// <summary>
+        /// Get goods count by category id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/good/count/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// </remarks>
+        /// <param name="categoryId">Category id (guid)</param>
+        /// <returns>Returns int</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        [HttpGet("count/category/{categoryId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<int>> GetGoodsCountByCategoryIdAsync(
+            [FromRoute] Guid categoryId)
+        {
+            var vm = await Mediator.Send(new GetGoodCountsQuery
+            {
+                CategoryId = categoryId
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
         /// Gets the list of good by category id
         /// </summary>
         /// <remarks>
@@ -48,7 +74,7 @@ namespace Atlas.WebApi.Controllers
             var vm = await Mediator.Send(new GetGoodListByCategoryQuery
             {
                 ShowDeleted = showDeleted,
-                CategoryId = categoryId
+                CategoryId  = categoryId
             });
 
             return Ok(vm);
