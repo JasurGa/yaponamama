@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using System.Reflection;
 using System.Text;
 using Atlas.Application;
 using Atlas.Identity.Extensions;
@@ -29,13 +27,13 @@ namespace Atlas.Identity
             var smsSettings = Configuration.GetSection("SmsSettings");
 
             var accountSid = smsSettings.GetValue<string>("AccountSid");
-            var authToken  = smsSettings.GetValue<string>("AuthToken");
+            var authToken = smsSettings.GetValue<string>("AuthToken");
             var fromNumber = smsSettings.GetValue<string>("FromPhoneNumber");
 
             services.Configure<SmsSettings>(op =>
             {
-                op.AccountSid      = accountSid;
-                op.AuthToken       = authToken;
+                op.AccountSid = accountSid;
+                op.AuthToken = authToken;
                 op.FromPhoneNumber = fromNumber;
             });
 
@@ -43,44 +41,44 @@ namespace Atlas.Identity
 
             var tokenGenerationSettings = Configuration.GetSection("TokenGenerationSettings");
 
-            var secret        = tokenGenerationSettings.GetValue<string>("Secret");
-            var issuer        = tokenGenerationSettings.GetValue<string>("Issuer");
-            var audience      = tokenGenerationSettings.GetValue<string>("Audience");
-            var tokenType     = tokenGenerationSettings.GetValue<string>("TokenType");
-            var tokenHeader   = tokenGenerationSettings.GetValue<string>("TokenHeader");
+            var secret = tokenGenerationSettings.GetValue<string>("Secret");
+            var issuer = tokenGenerationSettings.GetValue<string>("Issuer");
+            var audience = tokenGenerationSettings.GetValue<string>("Audience");
+            var tokenType = tokenGenerationSettings.GetValue<string>("TokenType");
+            var tokenHeader = tokenGenerationSettings.GetValue<string>("TokenHeader");
             var encryptionKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret));
 
             services.Configure<TokenGenerationSettings>(op =>
             {
-                op.Secret             = secret;
-                op.Issuer             = issuer;
-                op.Audience           = audience;
+                op.Secret = secret;
+                op.Issuer = issuer;
+                op.Audience = audience;
                 op.SigningCredentials = new SigningCredentials(encryptionKey, SecurityAlgorithms.HmacSha256);
             });
 
             services.AddScoped<TokenService>();
             services.AddAuthentication(op =>
-                {
-                    op.DefaultAuthenticateScheme = tokenType;
-                    op.DefaultChallengeScheme    = tokenType;
-                })
+            {
+                op.DefaultAuthenticateScheme = tokenType;
+                op.DefaultChallengeScheme = tokenType;
+            })
                 .AddJwtBearer(op =>
                 {
-                    op.SaveToken            = true;
+                    op.SaveToken = true;
                     op.RequireHttpsMetadata = false;
 
                     op.TokenValidationParameters = new TokenValidationParameters
                     {
-                        IssuerSigningKey         = encryptionKey,
+                        IssuerSigningKey = encryptionKey,
                         ValidateIssuerSigningKey = true,
 
-                        ValidIssuer    = issuer,
+                        ValidIssuer = issuer,
                         ValidateIssuer = true,
 
-                        ValidAudience    = audience,
+                        ValidAudience = audience,
                         ValidateAudience = true,
 
-                        ClockSkew        = TimeSpan.Zero,
+                        ClockSkew = TimeSpan.Zero,
                         ValidateLifetime = false
                     };
                 });
@@ -89,19 +87,6 @@ namespace Atlas.Identity
             services.AddApplication();
             services.AddPersistence(Configuration);
             services.AddSwagger(Configuration);
-
-            services.AddRouting(config =>
-            {
-                config.LowercaseUrls = true;
-                config.LowercaseQueryStrings = true;
-            });
-
-            services.AddSwaggerGen(op =>
-            {
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                op.IncludeXmlComments(xmlPath);
-            });
 
             services.AddCors(options =>
             {
@@ -121,6 +106,14 @@ namespace Atlas.Identity
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(op =>
+            {
+                op.SwaggerEndpoint("/swagger/v1/swagger.json",
+                    "AtlasWebApi");
+            });
+
+            app.UseOptionsMiddleware();
             app.UseCustomExceptionHandler();
             app.UseAuthentication();
             app.UseRouting();

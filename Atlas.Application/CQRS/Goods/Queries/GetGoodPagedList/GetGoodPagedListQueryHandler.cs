@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Atlas.Application.CQRS.Goods.Queries.GetGoodDetails;
+using Atlas.Application.Common.Extensions;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
@@ -30,6 +30,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList
 
             var goods = await _dbContext.Goods
                 .Where(x => x.IsDeleted == request.ShowDeleted)
+                .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
@@ -45,5 +46,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList
             };
             
         }
+
+       
     }
 }
