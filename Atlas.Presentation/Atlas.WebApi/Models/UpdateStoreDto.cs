@@ -13,6 +13,8 @@ namespace Atlas.WebApi.Models
 
         public string Address { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public float Latitude { get; set; }
 
         public float Longitude { get; set; }
@@ -26,6 +28,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(x => x.Name))
                 .ForMember(x => x.Address, opt =>
                     opt.MapFrom(x => x.Address))
+                .ForMember(x => x.PhoneNumber, opt =>
+                    opt.MapFrom(x => x.PhoneNumber))
                 .ForMember(x => x.Latitude, opt =>
                     opt.MapFrom(x => x.Latitude))
                 .ForMember(x => x.Longitude, opt =>

@@ -93,6 +93,20 @@
     <Folder Include="CQRS\GoodToOrders\Commands\CreateGoodToOrder\" />
     <Folder Include="Common\Helpers\" />
     <Folder Include="CQRS\Orders\Commands\FinishOrder\" />
+    <Folder Include="CQRS\Admins\" />
+    <Folder Include="CQRS\Admins\Commands\" />
+    <Folder Include="CQRS\Admins\Queries\" />
+    <Folder Include="CQRS\Admins\Commands\CreateAdmin\" />
+    <Folder Include="CQRS\Admins\Commands\UpdateAdmin\" />
+    <Folder Include="CQRS\Admins\Commands\DeleteAdmin\" />
+    <Folder Include="CQRS\Admins\Commands\RestoreAdmin\" />
+    <Folder Include="CQRS\Admins\Queries\GetAdminDetails\" />
+    <Folder Include="CQRS\Admins\Queries\GetAdminPagedList\" />
+    <Folder Include="CQRS\Vehicles\Commands\UpdateVehiclesStoreId\" />
+    <Folder Include="CQRS\SupplyManagers\Commands\UpdateSupplyManagersStoreId\" />
+    <Folder Include="CQRS\Couriers\Commands\UpdateCouriersStoreId\" />
+    <Folder Include="CQRS\Goods\Queries\GetGoodPagedList\" />
+    <Folder Include="CQRS\Goods\Queries\GetGoodCounts\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -177,5 +191,19 @@
     <None Remove="CQRS\GoodToOrders\Commands\CreateGoodToOrder\" />
     <None Remove="Common\Helpers\" />
     <None Remove="CQRS\Orders\Commands\FinishOrder\" />
+    <None Remove="CQRS\Admins\" />
+    <None Remove="CQRS\Admins\Commands\" />
+    <None Remove="CQRS\Admins\Queries\" />
+    <None Remove="CQRS\Admins\Commands\CreateAdmin\" />
+    <None Remove="CQRS\Admins\Commands\UpdateAdmin\" />
+    <None Remove="CQRS\Admins\Commands\DeleteAdmin\" />
+    <None Remove="CQRS\Admins\Commands\RestoreAdmin\" />
+    <None Remove="CQRS\Admins\Queries\GetAdminDetails\" />
+    <None Remove="CQRS\Admins\Queries\GetAdminPagedList\" />
+    <None Remove="CQRS\Vehicles\Commands\UpdateVehiclesStoreId\" />
+    <None Remove="CQRS\SupplyManagers\Commands\UpdateSupplyManagersStoreId\" />
+    <None Remove="CQRS\Couriers\Commands\UpdateCouriersStoreId\" />
+    <None Remove="CQRS\Goods\Queries\GetGoodPagedList\" />
+    <None Remove="CQRS\Goods\Queries\GetGoodCounts\" />
   </ItemGroup>
 </Project>

@@ -1,11 +1,14 @@
-﻿using Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager;
+﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager;
 using Atlas.Application.CQRS.SupplyManagers.Commands.DeleteSupplyManager;
 using Atlas.Application.CQRS.SupplyManagers.Commands.RestoreSupplyManager;
 using Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager;
+using Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManagersStoreId;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerDetails;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedList;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedListByStoreId;
 using Atlas.Application.Models;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -142,6 +145,39 @@ namespace Atlas.WebApi.Controllers
                 CreateSupplyManagerCommand>(createSupplyManager));
 
             return Ok(supplyManagerId);
+        }
+
+        /// <summary>
+        /// Adds supply managers to store 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// PUT /api/1.0/supplymanager/store
+        /// {
+        ///     "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "supplyManagerIds": [
+        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     ]
+        /// }
+        /// </remarks>
+        /// <param name="updateSupplyManagersStoreIdDto">UpdateSupplyManagersStoreIdDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPut("store")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> UpdateStoreIdAsync([FromBody] UpdateSupplyManagersStoreIdDto updateSupplyManagersStoreIdDto)
+        {
+            await Mediator.Send(_mapper.Map<UpdateSupplyManagersStoreIdDto,
+                UpdateSupplyManagersStoreIdCommand>(updateSupplyManagersStoreIdDto));
+            return NoContent();
         }
 
         /// <summary>

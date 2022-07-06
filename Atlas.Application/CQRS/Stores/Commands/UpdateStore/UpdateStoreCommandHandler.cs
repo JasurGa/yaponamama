@@ -25,10 +25,11 @@ namespace Atlas.Application.CQRS.Stores.Commands.UpdateStore
                 throw new NotFoundException(nameof(Store), request.Id);
             }
 
-            store.Name      = request.Name;
-            store.Address   = request.Address;
-            store.Latitude  = request.Latitude;
-            store.Longitude = request.Longitude;
+            store.Name        = request.Name;
+            store.Address     = request.Address;
+            store.Latitude    = request.Latitude;
+            store.Longitude   = request.Longitude;
+            store.PhoneNumber = request.PhoneNumber;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

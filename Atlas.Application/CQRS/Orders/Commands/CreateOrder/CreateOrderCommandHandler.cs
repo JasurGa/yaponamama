@@ -42,7 +42,24 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             return foundPromo;
         }
 
-        private async Task<float> GetPriceAsync(CreateOrderCommand request,
+        private async Task<float> GetPurchasePriceAsync(CreateOrderCommand request,
+            CancellationToken cancellationToken)
+        {
+            var calculatedPrice = 0.0f;
+            foreach (var createGoodToOrder in request.GoodToOrders)
+            {
+                var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
+                    x.Id == createGoodToOrder.GoodId, cancellationToken);
+
+                var priceForGoods = good.PurchasePrice * createGoodToOrder.Count;
+
+                calculatedPrice += priceForGoods;
+            }
+
+            return calculatedPrice;
+        }
+
+        private async Task<float> GetSellingPriceAsync(CreateOrderCommand request,
             CancellationToken cancellationToken, Promo promo)
         {
             var calculatedPrice = 0.0f;
@@ -146,7 +163,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             }
 
             var foundPromo      = await GetPromoAsync(request, cancellationToken);
-            var calculatedPrice = await GetPriceAsync(request, cancellationToken, foundPromo);
+            var sellingPrice    = await GetSellingPriceAsync(request, cancellationToken, foundPromo);
+            var purchasePrice   = await GetPurchasePriceAsync(request, cancellationToken) ;
 
             var order = new Order
             {
@@ -159,7 +177,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 PaymentTypeId = request.PaymentTypeId,
                 CreatedAt     = DateTime.UtcNow,
                 FinishedAt    = null,
-                Price         = calculatedPrice,
+                SellingPrice  = sellingPrice,
+                PurchasePrice = purchasePrice,
                 StoreId       = foundStore.Id,
                 CourierId     = foundCourier.Id,
                 PromoId       = foundPromo != null ? foundPromo.Id : null,

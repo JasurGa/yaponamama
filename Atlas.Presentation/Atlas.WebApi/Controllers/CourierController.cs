@@ -1,11 +1,14 @@
-﻿using Atlas.Application.CQRS.Couriers.Commands.CreateCourier;
+﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Couriers.Commands.CreateCourier;
 using Atlas.Application.CQRS.Couriers.Commands.DeleteCourier;
 using Atlas.Application.CQRS.Couriers.Commands.RestoreCourier;
 using Atlas.Application.CQRS.Couriers.Commands.UpdateCourier;
+using Atlas.Application.CQRS.Couriers.Commands.UpdateCouriersStoreId;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedListByStoreId;
 using Atlas.Application.Models;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -143,6 +146,39 @@ namespace Atlas.WebApi.Controllers
                 CreateCourierCommand>(createCourier));
 
             return Ok(courierId);
+        }
+
+        /// <summary>
+        /// Adds couriers to store 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// PUT /api/1.0/courier/store
+        /// {
+        ///     "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "courierIds": [
+        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     ]
+        /// }
+        /// </remarks>
+        /// <param name="updateCouriersStoreIdDto">UpdateCouriersStoreIdDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPut("store")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> UpdateStoreIdAsync([FromBody] UpdateCouriersStoreIdDto updateCouriersStoreIdDto)
+        {
+            await Mediator.Send(_mapper.Map<UpdateCouriersStoreIdDto,
+                UpdateCouriersStoreIdCommand>(updateCouriersStoreIdDto));
+            return NoContent();
         }
 
         /// <summary>

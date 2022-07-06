@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Atlas.WebApi.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -25,6 +26,7 @@ namespace Atlas.WebApi.Extensions
 
             services.AddSwaggerGen(op =>
             {
+                op.DocumentFilter<HideInDocsFilter>();
                 op.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version     = "v1",

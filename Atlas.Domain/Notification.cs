@@ -13,7 +13,7 @@ namespace Atlas.Domain
 
         public string Body { get; set; }
 
-        public int Priority { get; set; }
+        public long Priority { get; set; }
 
         public List<NotificationAccess> NotificationAccesses { get; set; }
     }

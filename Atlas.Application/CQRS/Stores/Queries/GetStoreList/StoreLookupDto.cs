@@ -17,6 +17,8 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStoreList
 
         public string Address { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Store, StoreLookupDto>()
@@ -29,7 +31,9 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStoreList
                 .ForMember(x => x.Longitude, opt =>
                     opt.MapFrom(x => x.Longitude))
                 .ForMember(x => x.Address, opt =>
-                    opt.MapFrom(x => x.Address));
+                    opt.MapFrom(x => x.Address))
+                .ForMember(x => x.PhoneNumber, opt =>
+                    opt.MapFrom(x => x.PhoneNumber));
         }
     }
 }

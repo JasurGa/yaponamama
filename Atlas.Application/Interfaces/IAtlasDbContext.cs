@@ -44,6 +44,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<NotificationType> NotificationTypes { get; set; }
 
+        DbSet<OfficialRole> OfficialRoles { get; set; }
+
         DbSet<Order> Orders { get; set; }
 
         DbSet<OrderChat> OrderChats { get; set; }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using Atlas.Application;
+using Atlas.Identity.Extensions;
 using Atlas.Identity.Middlewares;
 using Atlas.Identity.Services;
 using Atlas.Identity.Settings;
@@ -87,6 +88,7 @@ namespace Atlas.Identity
             services.AddControllers();
             services.AddApplication();
             services.AddPersistence(Configuration);
+            services.AddSwagger(Configuration);
 
             services.AddRouting(config =>
             {
@@ -118,13 +120,6 @@ namespace Atlas.Identity
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseSwagger();
-            app.UseSwaggerUI(op =>
-            {
-                op.SwaggerEndpoint("/swagger/v1/swagger.json",
-                    "AtlasWIdentity");
-            });
 
             app.UseCustomExceptionHandler();
             app.UseAuthentication();
