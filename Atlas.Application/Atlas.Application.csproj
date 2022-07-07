@@ -107,6 +107,7 @@
     <Folder Include="CQRS\Couriers\Commands\UpdateCouriersStoreId\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodPagedList\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodCounts\" />
+    <Folder Include="CQRS\Users\Commands\CreateUser\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -205,5 +206,6 @@
     <None Remove="CQRS\Couriers\Commands\UpdateCouriersStoreId\" />
     <None Remove="CQRS\Goods\Queries\GetGoodPagedList\" />
     <None Remove="CQRS\Goods\Queries\GetGoodCounts\" />
+    <None Remove="CQRS\Users\Commands\CreateUser\" />
   </ItemGroup>
 </Project>

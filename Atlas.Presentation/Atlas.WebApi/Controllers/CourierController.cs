@@ -7,6 +7,7 @@ using Atlas.Application.CQRS.Couriers.Commands.UpdateCouriersStoreId;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedListByStoreId;
+using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -142,8 +143,17 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateCourierDto createCourier)
         {
+            var userId = await Mediator.Send(_mapper.Map<CreateUserDto,
+                CreateUserCommand>(createCourier.User));
+
             var courierId = await Mediator.Send(_mapper.Map<CreateCourierDto,
-                CreateCourierCommand>(createCourier));
+                CreateCourierCommand>(createCourier, opt =>
+                {
+                    opt.AfterMap((src, dst) =>
+                    {
+                        dst.UserId = userId;
+                    });
+                }));
 
             return Ok(courierId);
         }

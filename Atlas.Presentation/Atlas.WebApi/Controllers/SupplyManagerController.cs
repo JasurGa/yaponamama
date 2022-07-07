@@ -7,6 +7,7 @@ using Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManagersStoreId
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerDetails;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedList;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedListByStoreId;
+using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -141,8 +142,17 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateSupplyManagerDto createSupplyManager)
         {
+            var userId = await Mediator.Send(_mapper.Map<CreateUserDto,
+                CreateUserCommand>(createSupplyManager.User));
+
             var supplyManagerId = await Mediator.Send(_mapper.Map<CreateSupplyManagerDto,
-                CreateSupplyManagerCommand>(createSupplyManager));
+                CreateSupplyManagerCommand>(createSupplyManager, opt =>
+                {
+                    opt.AfterMap((src, dst) =>
+                    {
+                        dst.UserId = userId;
+                    });
+                }));
 
             return Ok(supplyManagerId);
         }

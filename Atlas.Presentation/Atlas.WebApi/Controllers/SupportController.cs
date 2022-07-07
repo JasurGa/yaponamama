@@ -4,6 +4,7 @@ using Atlas.Application.CQRS.Supports.Commands.RestoreSupport;
 using Atlas.Application.CQRS.Supports.Commands.UpdateSupport;
 using Atlas.Application.CQRS.Supports.Queries.GetSupportDetails;
 using Atlas.Application.CQRS.Supports.Queries.GetSupportPagedList;
+using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
 using Atlas.WebApi.Models;
 using AutoMapper;
@@ -105,8 +106,17 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateSupportDto createSupport)
         {
+            var userId = await Mediator.Send(_mapper.Map<CreateUserDto,
+                CreateUserCommand>(createSupport.User));
+
             var supportId = await Mediator.Send(_mapper.Map<CreateSupportDto,
-                CreateSupportCommand>(createSupport));
+                CreateSupportCommand>(createSupport, opt =>
+                {
+                    opt.AfterMap((src, dst) =>
+                    {
+                        dst.UserId = userId;
+                    });
+                }));
 
             return Ok(supportId);
         }

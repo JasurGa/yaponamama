@@ -7,6 +7,7 @@ using Atlas.Application.CQRS.Admins.Commands.RestoreAdmin;
 using Atlas.Application.CQRS.Admins.Commands.UpdateAdmin;
 using Atlas.Application.CQRS.Admins.Queries.GetAdminDetails;
 using Atlas.Application.CQRS.Admins.Queries.GetAdminPagedList;
+using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -52,8 +53,17 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateAdminDto createAdminDto)
         {
+            var userId = await Mediator.Send(_mapper.Map<CreateUserDto,
+                CreateUserCommand>(createAdminDto.User));
+
             var vm = await Mediator.Send(_mapper.Map<CreateAdminDto,
-                CreateAdminCommand>(createAdminDto));
+                CreateAdminCommand>(createAdminDto, opt =>
+                {
+                    opt.AfterMap((src, dst) =>
+                    {
+                        dst.UserId = userId;
+                    });
+                }));
 
             return Ok(vm);
         }
