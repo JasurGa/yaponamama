@@ -6,27 +6,38 @@ using Atlas.Domain;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Neo4j.Driver;
+using Atlas.Application.Helpers;
 
 namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails
 {
     public class GetCategoryDetailsQueryHandler : IRequestHandler<GetCategoryDetailsQuery,
         CategoryDetailsVm>
     {
-        private readonly IMapper         _mapper;
-        private readonly IAtlasDbContext _dbContext;
+        private readonly IMapper _mapper;
+        private readonly IDriver _driver;
 
-        public GetCategoryDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
-            (_mapper, _dbContext) = (mapper, dbContext);
+        public GetCategoryDetailsQueryHandler(IMapper mapper, IDriver driver) =>
+            (_mapper, _driver) = (mapper, driver);
 
         public async Task<CategoryDetailsVm> Handle(GetCategoryDetailsQuery request,
             CancellationToken cancellationToken)
         {
-            var category = await _dbContext.Categories.FirstOrDefaultAsync(x =>
-                x.Id == request.Id, cancellationToken);
+            Category category;
 
-            if (category == null)
+            var session = _driver.AsyncSession();
+            try
             {
-                throw new NotFoundException(nameof(category), request.Id);
+                var cursor = await session.RunAsync("MATCH (c:Category{Id: $Id}) RETURN c", new
+                {
+                    Id = request.Id.ToString()
+                });
+
+                category = await cursor.ConvertAsync<Category>();
+            }
+            finally
+            {
+                await session.CloseAsync();
             }
 
             return _mapper.Map<Category, CategoryDetailsVm>(category);

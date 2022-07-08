@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Atlas.Domain
 {
     public class Category
@@ -7,9 +8,7 @@ namespace Atlas.Domain
 
         public string Name { get; set; }
 
-        public Guid GeneralCategoryId { get; set; }
-
-        public GeneralCategory GeneralCategory { get; set; }
+        public bool IsMainCategory { get; set; }
 
         public bool IsDeleted { get; set; }
     }

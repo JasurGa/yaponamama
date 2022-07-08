@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Categories.Commands.AddCategoryParent;
 using Atlas.Application.CQRS.Categories.Commands.CreateCategory;
 using Atlas.Application.CQRS.Categories.Commands.DeleteCategory;
+using Atlas.Application.CQRS.Categories.Commands.RemoveCategoryParent;
 using Atlas.Application.CQRS.Categories.Commands.RestoreCategory;
 using Atlas.Application.CQRS.Categories.Commands.UpdateCategory;
-using Atlas.Application.CQRS.Categories.Queries.GetCategoriesByGeneralCategory;
+using Atlas.Application.CQRS.Categories.Queries.GetCategoryChildren;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList;
+using Atlas.Application.CQRS.Categories.Queries.GetCategoryParents;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -16,7 +19,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
 namespace Atlas.WebApi.Controllers
 {
     [ApiVersion("1.0")]
@@ -68,7 +70,7 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<CategoryListVm>> GetAllAsync(
             [FromQuery] bool showDeleted = false)
         {
-            var vm = await Mediator.Send(new GetCategoryListQuery()
+            var vm = await Mediator.Send(new GetCategoryListQuery
             {
                 ShowDeleted = showDeleted
             });
@@ -77,24 +79,48 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets the list of categories by general category id
+        /// Gets the list of children categories of category
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/category?showDeleted=false
+        /// GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/children?showDeleted=false
         /// </remarks>
         /// <returns>Returns CategoryListVm object</returns>
         /// <response code="200">Success</response>
-        [HttpGet("generalcategory/{generalCategoryId}")]
+        [HttpGet("{id}/children")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<CategoryListVm>> GetAllAsync([FromRoute] Guid generalCategoryId,
+        public async Task<ActionResult<CategoryListVm>> GetChildrenCategoriesAsync([FromRoute] Guid id,
             [FromQuery] bool showDeleted = false)
         {
-            var vm = await Mediator.Send(new GetCategoriesByGeneralCategoryQuery
+            var vm = await Mediator.Send(new GetCategoryChildrenQuery
             {
-                GeneralCategoryId = generalCategoryId,
-                ShowDeleted       = showDeleted
+                Id          = id,
+                ShowDeleted = showDeleted
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the list of parents of category
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/parent?showDeleted=false
+        /// </remarks>
+        /// <returns>Returns CategoryListVm object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("{id}/parent")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<CategoryListVm>> GetParentCategoriesAsync([FromRoute] Guid id,
+            [FromQuery] bool showDeleted = false)
+        {
+            var vm = await Mediator.Send(new GetCategoryParentsQuery
+            {
+                Id          = id,
+                ShowDeleted = showDeleted
             });
 
             return Ok(vm);
@@ -115,7 +141,10 @@ namespace Atlas.WebApi.Controllers
         [HttpGet("paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<CategoryLookupDto>>> GetAllPagedAsync([FromQuery] bool showDeleted = false, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<CategoryLookupDto>>> GetAllPagedAsync(
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] int  pageIndex   = 0,
+            [FromQuery] int  pageSize    = 10)
         {
             var vm = await Mediator.Send(new GetCategoryPagedListQuery
             {
@@ -125,6 +154,62 @@ namespace Atlas.WebApi.Controllers
             });
 
             return Ok(vm);
+        }
+
+        /// <summary>
+        /// Add category parent
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// POST /api/1.0/category/parent
+        /// {
+        ///     "CategoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "ParentId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        /// }
+        /// </remarks>
+        /// <param name="addCategoryParent">AddCategoryParentDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPost("parent")]
+        [AuthRoleFilter(Roles.Admin)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Guid>> AddCategoryParentAsync([FromBody] AddCategoryParentDto addCategoryParent)
+        {
+            await Mediator.Send(_mapper.Map<AddCategoryParentDto,
+                AddCategoryParentCommand>(addCategoryParent));
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Remove category parent
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// DELETE /api/1.0/category/parent
+        /// {
+        ///     "CategoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "ParentId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        /// }
+        /// </remarks>
+        /// <param name="removeCategoryParent">RemoveCategoryParentDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpDelete("parent")]
+        [AuthRoleFilter(Roles.Admin)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Guid>> RemoveCategoryParentAsync([FromBody] RemoveCategoryParentDto removeCategoryParent)
+        {
+            await Mediator.Send(_mapper.Map<RemoveCategoryParentDto,
+                RemoveCategoryParentCommand>(removeCategoryParent));
+
+            return NoContent();
         }
 
         /// <summary>
@@ -144,7 +229,6 @@ namespace Atlas.WebApi.Controllers
         [HttpPost]
         [Authorize]
         [AuthRoleFilter(Roles.Admin)]
-        [AuthRoleFilter(TokenClaims.AdminId)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateCategoryDto createCategory)

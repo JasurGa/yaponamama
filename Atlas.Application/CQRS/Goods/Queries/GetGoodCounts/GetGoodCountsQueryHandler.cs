@@ -20,13 +20,13 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodCounts
 
         public async Task<int> Handle(GetGoodCountsQuery request, CancellationToken cancellationToken)
         {
-            var category = await _dbContext.Categories.FirstOrDefaultAsync(x =>
-                x.Id == request.CategoryId);
+            //var category = await _dbContext.Categories.FirstOrDefaultAsync(x =>
+            //    x.Id == request.CategoryId);
 
-            if (category == null)
-            {
-                throw new NotFoundException(nameof(Category), request.CategoryId);
-            }
+            //if (category == null)
+            //{
+            //    throw new NotFoundException(nameof(Category), request.CategoryId);
+            //}
 
             var count = await _dbContext.CategoryToGoods.CountAsync(x =>
                 x.CategoryId == request.CategoryId);

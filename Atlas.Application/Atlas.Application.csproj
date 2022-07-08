@@ -66,7 +66,6 @@
     <Folder Include="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
     <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
     <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
-    <Folder Include="CQRS\Categories\Queries\GetCategoriesByGeneralCategory\" />
     <Folder Include="CQRS\PaymentTypes\" />
     <Folder Include="CQRS\PaymentTypes\Queries\" />
     <Folder Include="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
@@ -108,6 +107,11 @@
     <Folder Include="CQRS\Goods\Queries\GetGoodPagedList\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodCounts\" />
     <Folder Include="CQRS\Users\Commands\CreateUser\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="CQRS\Categories\Commands\AddCategoryParent\" />
+    <Folder Include="CQRS\Categories\Commands\RemoveCategoryParent\" />
+    <Folder Include="CQRS\Categories\Queries\GetCategoryChildren\" />
+    <Folder Include="CQRS\Categories\Queries\GetCategoryParents\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -117,6 +121,8 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.4.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Neo4j.Driver" Version="4.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Atlas.Domain\Atlas.Domain.csproj" />
@@ -165,7 +171,6 @@
     <None Remove="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
     <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
     <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
-    <None Remove="CQRS\Categories\Queries\GetCategoriesByGeneralCategory\" />
     <None Remove="CQRS\PaymentTypes\" />
     <None Remove="CQRS\PaymentTypes\Queries\" />
     <None Remove="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
@@ -207,5 +212,12 @@
     <None Remove="CQRS\Goods\Queries\GetGoodPagedList\" />
     <None Remove="CQRS\Goods\Queries\GetGoodCounts\" />
     <None Remove="CQRS\Users\Commands\CreateUser\" />
+    <None Remove="Neo4j.Driver" />
+    <None Remove="Helpers\" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="CQRS\Categories\Commands\AddCategoryParent\" />
+    <None Remove="CQRS\Categories\Commands\RemoveCategoryParent\" />
+    <None Remove="CQRS\Categories\Queries\GetCategoryChildren\" />
+    <None Remove="CQRS\Categories\Queries\GetCategoryParents\" />
   </ItemGroup>
 </Project>

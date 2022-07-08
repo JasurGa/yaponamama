@@ -11,10 +11,6 @@ namespace Atlas.Persistence.EntityTypeConfigurations
         {
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.Id).IsUnique();
-
-            builder.HasOne(x => x.GeneralCategory)
-                .WithMany(y => y.Categories)
-                .HasForeignKey(x => x.GeneralCategoryId);
         }
     }
 }

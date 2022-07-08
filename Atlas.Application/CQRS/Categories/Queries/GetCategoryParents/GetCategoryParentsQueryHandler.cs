@@ -1,27 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Application.Helpers;
-using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Neo4j.Driver;
 
-namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
+namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryParents
 {
-    public class GetCategoryListQueryHandler : IRequestHandler<GetCategoryListQuery,
-        CategoryListVm>
+    public class GetCategoryParentsQueryHandler : IRequestHandler
+        <GetCategoryParentsQuery, CategoryListVm>
     {
         private readonly IMapper _mapper;
         private readonly IDriver _driver;
 
-        public GetCategoryListQueryHandler(IMapper mapper, IDriver driver) =>
+        public GetCategoryParentsQueryHandler(IMapper mapper, IDriver driver) =>
             (_mapper, _driver) = (mapper, driver);
 
-        public async Task<CategoryListVm> Handle(GetCategoryListQuery request,
+        public async Task<CategoryListVm> Handle(GetCategoryParentsQuery request,
             CancellationToken cancellationToken)
         {
             List<CategoryLookupDto> categories;
@@ -29,9 +28,10 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $IsDeleted}) RETURN c", new
+                var cursor = await session.RunAsync("MATCH (c:Category{Id: $Id})-[:BELONGS_TO]->(p:Category{IsDeleted: $ShowDeleted}) RETURN p", new
                 {
-                    IsDeleted = request.ShowDeleted.ToString().ToLower()
+                    Id          = request.Id.ToString(),
+                    ShowDeleted = request.ShowDeleted,
                 });
 
                 categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>(

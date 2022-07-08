@@ -11,13 +11,17 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
 
         public string Name { get; set; }
 
+        public bool IsMainCategory { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Category, CategoryLookupDto>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.Name, opt =>
-                    opt.MapFrom(src => src.Name));
+                    opt.MapFrom(src => src.Name))
+                .ForMember(dst => dst.IsMainCategory, opt =>
+                    opt.MapFrom(src => src.IsMainCategory));
         }
     }
 }

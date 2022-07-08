@@ -5,29 +5,29 @@ using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Neo4j.Driver;
 
 namespace Atlas.Application.CQRS.Categories.Commands.RestoreCategory
 {
     public class RestoreCategoryCommandHandler : IRequestHandler<RestoreCategoryCommand>
     {
-        private readonly IAtlasDbContext _dbContext;
+        private readonly IDriver _driver;
 
-        public RestoreCategoryCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public RestoreCategoryCommandHandler(IDriver driver) =>
+            _driver = driver;
 
         public async Task<Unit> Handle(RestoreCategoryCommand request, CancellationToken cancellationToken)
         {
-            var category = await _dbContext.Categories.FirstOrDefaultAsync(x => 
-                x.Id == request.Id, cancellationToken);
-
-            if (category == null || !category.IsDeleted)
+            var session = _driver.AsyncSession();
+            try
             {
-                throw new NotFoundException(nameof(Category), request.Id);
+                await session.RunAsync("MATCH (c:Category{Id: $Id}) SET c.IsDeleted = False",
+                    new { Id = request.Id.ToString() });
             }
-
-            category.IsDeleted = false;
-
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            finally
+            {
+                await session.CloseAsync();
+            }
 
             return Unit.Value;
         }
