@@ -14,8 +14,6 @@ namespace Atlas.Application.Interfaces
 
         DbSet<CardInfoToClient> CardInfoToClients { get; set; }
 
-        DbSet<CategoryToGood> CategoryToGoods { get; set; }
-
         DbSet<Client> Clients { get; set; }
 
         DbSet<Consignment> Consignments { get; set; }

@@ -21,7 +21,7 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Commands.DeleteCategoryToGood
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (g:Good{Id: $GoodId})-[r:BELONGS_TO]->(c:Category{Id: $CategoryId}) DETACH r", new
+                var cursor = await session.RunAsync("MATCH (g:Good{Id: $GoodId})-[r:BELONGS_TO]->(c:Category{Id: $CategoryId}) DELETE r", new
                 {
                     GoodId     = request.GoodId.ToString(),
                     CategoryId = request.CategoryId.ToString(),
