@@ -7,8 +7,12 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Commands.DeleteCategoryToGood
     {
         public DeleteCategoryToGoodCommandValidator()
         {
-            RuleFor(x => x.Id)
+            RuleFor(x => x.CategoryId)
                 .NotEqual(Guid.Empty);
+
+            RuleFor(x => x.GoodId)
+                .NotEqual(Guid.Empty);
+
         }
     }
 }

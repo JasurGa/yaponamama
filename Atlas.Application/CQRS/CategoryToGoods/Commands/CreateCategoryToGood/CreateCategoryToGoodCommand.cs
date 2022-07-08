@@ -3,7 +3,7 @@ using System;
 
 namespace Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoryToGood
 {
-    public class CreateCategoryToGoodCommand : IRequest<Guid>
+    public class CreateCategoryToGoodCommand : IRequest
     {
         public Guid GoodId { get; set; }
 

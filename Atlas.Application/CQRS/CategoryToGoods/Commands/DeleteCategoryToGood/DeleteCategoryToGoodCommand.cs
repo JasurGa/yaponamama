@@ -5,6 +5,8 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Commands.DeleteCategoryToGood
 {
     public class DeleteCategoryToGoodCommand : IRequest
     {
-        public Guid Id { get; set; }
+        public Guid CategoryId { get; set; }
+
+        public Guid GoodId { get; set; }
     }
 }
