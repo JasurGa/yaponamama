@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Helpers;
@@ -12,6 +14,13 @@ using Neo4j.Driver;
 
 namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
 {
+    public class ChildToParent
+    {
+        public Guid ChildId { get; set; }
+
+        public Guid ParentId { get; set; }
+    }
+
     public class GetCategoryListQueryHandler : IRequestHandler<GetCategoryListQuery,
         CategoryListVm>
     {
@@ -31,11 +40,34 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
             {
                 var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $IsDeleted}) RETURN c", new
                 {
-                    IsDeleted = request.ShowDeleted.ToString().ToLower()
+                    IsDeleted = request.ShowDeleted
                 });
 
                 categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>(
                     await cursor.ConvertManyAsync<Category>());
+
+                cursor = await session.RunAsync("MATCH (p:Category{IsDeleted: $IsDeleted})<-[:BELONGS_TO]-(c:Category{IsDeleted: $IsDeleted}) RETURN p.Id AS ParentId, c.Id As ChildId", new
+                {
+                    IsDeleted = request.ShowDeleted
+                });
+
+                var records = await cursor.ToListAsync();
+
+                var childrenToCategories = new List<ChildToParent>();
+                foreach (var record in records)
+                {
+                    childrenToCategories.Add(new ChildToParent
+                    {
+                        ParentId = Guid.Parse(record[0].As<string>()),
+                        ChildId  = Guid.Parse(record[1].As<string>())
+                    });
+                }
+
+                categories.ForEach((e) =>
+                {
+                    e.Children = childrenToCategories.Where(x => x.ParentId == e.Id)
+                        .Select(x => x.ChildId).ToList();
+                });
             }
             finally
             {

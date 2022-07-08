@@ -34,17 +34,17 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted}) RETURN COUNT(c)", new
+                var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted, IsMainCategory: True}) RETURN COUNT(c)", new
                 {
-                    ShowDeleted = request.ShowDeleted.ToString().ToLower()
+                    ShowDeleted = request.ShowDeleted
                 });
 
                 var record = await cursor.SingleAsync();
                 categoriesCount = record[0].As<int>();
 
-                cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted}) RETURN c SKIP $Skip LIMIT $Limit", new
+                cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted, IsMainCategory: True}) RETURN c ORDER BY c.Name SKIP $Skip LIMIT $Limit", new
                 {
-                    ShowDeleted = request.ShowDeleted.ToString().ToLower(),
+                    ShowDeleted = request.ShowDeleted,
                     Skip        = request.PageIndex * request.PageSize,
                     Limit       = request.PageSize
                 });

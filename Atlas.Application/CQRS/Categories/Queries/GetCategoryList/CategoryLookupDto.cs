@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Atlas.Application.Common.Mappings;
 using Atlas.Domain;
 using AutoMapper;
@@ -12,6 +13,8 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
         public string Name { get; set; }
 
         public bool IsMainCategory { get; set; }
+
+        public List<Guid> Children { get; set; }
 
         public void Mapping(Profile profile)
         {
