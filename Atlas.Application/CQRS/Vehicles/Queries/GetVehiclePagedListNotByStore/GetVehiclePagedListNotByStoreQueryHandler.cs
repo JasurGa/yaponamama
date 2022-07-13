@@ -10,27 +10,27 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListByStore
+namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListNotByStore
 {
-    public class GetVehiclePagedListByStoreQueryHandler : IRequestHandler<GetVehiclePagedListByStoreQuery,
+    public class GetVehiclePagedListNotByStoreQueryHandler : IRequestHandler<GetVehiclePagedListNotByStoreQuery,
         PageDto<VehicleLookupDto>>
     {
         private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
-        public GetVehiclePagedListByStoreQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
+        public GetVehiclePagedListNotByStoreQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<PageDto<VehicleLookupDto>> Handle(GetVehiclePagedListByStoreQuery request,
+        public async Task<PageDto<VehicleLookupDto>> Handle(GetVehiclePagedListNotByStoreQuery request,
             CancellationToken cancellationToken)
         {
             var vehiclesCount = await _dbContext.Vehicles.CountAsync(x =>
-                x.StoreId == request.StoreId &&
+                x.StoreId != request.StoreId &&
                 x.IsDeleted == request.ShowDeleted,
                 cancellationToken);
 
             var vehicles = await _dbContext.Vehicles
-                .Where(x => x.StoreId == request.StoreId &&
+                .Where(x => x.StoreId != request.StoreId &&
                     x.IsDeleted == request.ShowDeleted)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)

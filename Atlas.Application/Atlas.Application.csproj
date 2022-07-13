@@ -112,6 +112,11 @@
     <Folder Include="CQRS\Categories\Commands\RemoveCategoryParent\" />
     <Folder Include="CQRS\Categories\Queries\GetCategoryChildren\" />
     <Folder Include="CQRS\Categories\Queries\GetCategoryParents\" />
+    <Folder Include="CQRS\Couriers\Queries\GetCourierByVehicleId\" />
+    <Folder Include="CQRS\Goods\Queries\GetGoodListByProvider\" />
+    <Folder Include="CQRS\Vehicles\Queries\GetVehiclePagedListNotByStore\" />
+    <Folder Include="CQRS\Couriers\Queries\GetCourierPagedListNotByStoreId\" />
+    <Folder Include="CQRS\SupplyManagers\Queries\GetSupplyManagerPagedListNotByStoreId\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -219,5 +224,10 @@
     <None Remove="CQRS\Categories\Commands\RemoveCategoryParent\" />
     <None Remove="CQRS\Categories\Queries\GetCategoryChildren\" />
     <None Remove="CQRS\Categories\Queries\GetCategoryParents\" />
+    <None Remove="CQRS\Couriers\Queries\GetCourierByVehicleId\" />
+    <None Remove="CQRS\Goods\Queries\GetGoodListByProvider\" />
+    <None Remove="CQRS\Vehicles\Queries\GetVehiclePagedListNotByStore\" />
+    <None Remove="CQRS\Couriers\Queries\GetCourierPagedListNotByStoreId\" />
+    <None Remove="CQRS\SupplyManagers\Queries\GetSupplyManagerPagedListNotByStoreId\" />
   </ItemGroup>
 </Project>

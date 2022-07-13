@@ -3,9 +3,9 @@ using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList;
 using Atlas.Application.Models;
 using MediatR;
 
-namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListByStore
+namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListNotByStore
 {
-    public class GetVehiclePagedListByStoreQuery : IRequest<PageDto<VehicleLookupDto>>
+    public class GetVehiclePagedListNotByStoreQuery : IRequest<PageDto<VehicleLookupDto>>
     {
         public Guid StoreId { get; set; }
 

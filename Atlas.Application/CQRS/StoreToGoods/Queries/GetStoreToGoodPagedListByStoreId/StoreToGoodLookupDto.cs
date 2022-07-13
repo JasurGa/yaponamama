@@ -9,6 +9,8 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
     {
         public Guid Id { get; set; }
 
+        public Guid GoodId { get; set; }
+
         public long Count { get; set; }
 
         public string Name { get; set; }
@@ -26,6 +28,8 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
             profile.CreateMap<StoreToGood, StoreToGoodLookupDto>()
                 .ForMember(x => x.Id, opt =>
                     opt.MapFrom(x => x.Id))
+                .ForMember(x => x.GoodId, opt =>
+                    opt.MapFrom(x => x.GoodId))
                 .ForMember(x => x.Count, opt =>
                     opt.MapFrom(x => x.Count))
                 .ForMember(x => x.Name, opt =>
