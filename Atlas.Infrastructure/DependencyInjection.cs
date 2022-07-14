@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Atlas.Application.Interfaces;
 using Neo4j.Driver;
 using Microsoft.Extensions.Configuration;
+using Atlas.Application.Services;
 
 namespace Atlas.Persistence
 {
@@ -38,6 +39,9 @@ namespace Atlas.Persistence
                     options.SetPostgresVersion(new Version(9, 6));
                 });
             });
+
+            services.AddScoped<IAtlasInfluxDbService>(provider =>
+                provider.GetService<AtlasInfluxDbService>());
 
             services.AddScoped<IAtlasDbContext>(provider =>
                 provider.GetService<AtlasDbContext>());

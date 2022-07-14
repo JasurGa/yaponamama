@@ -117,6 +117,7 @@
     <Folder Include="CQRS\Vehicles\Queries\GetVehiclePagedListNotByStore\" />
     <Folder Include="CQRS\Couriers\Queries\GetCourierPagedListNotByStoreId\" />
     <Folder Include="CQRS\SupplyManagers\Queries\GetSupplyManagerPagedListNotByStoreId\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -128,6 +129,7 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="Neo4j.Driver" Version="4.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="InfluxDB.Client" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Atlas.Domain\Atlas.Domain.csproj" />
@@ -229,5 +231,7 @@
     <None Remove="CQRS\Vehicles\Queries\GetVehiclePagedListNotByStore\" />
     <None Remove="CQRS\Couriers\Queries\GetCourierPagedListNotByStoreId\" />
     <None Remove="CQRS\SupplyManagers\Queries\GetSupplyManagerPagedListNotByStoreId\" />
+    <None Remove="Services\" />
+    <None Remove="InfluxDB.Client" />
   </ItemGroup>
 </Project>

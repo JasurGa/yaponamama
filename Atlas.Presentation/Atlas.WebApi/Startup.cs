@@ -101,7 +101,6 @@ namespace Atlas.WebApi
                     "AtlasWebApi");
             });
 
-
             app.UseOptionsMiddleware();
             app.UseCustomExceptionHandler();
             app.UseCors("AllowAll");

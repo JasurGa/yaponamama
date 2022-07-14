@@ -12,6 +12,7 @@
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
     <PackageReference Include="Neo4j.Driver" Version="4.4.0" />
+    <PackageReference Include="InfluxDB.Client" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EntityTypeConfigurations\" />
@@ -22,5 +23,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Neo4j.Driver" />
+    <None Remove="InfluxDB.Client" />
   </ItemGroup>
 </Project>
