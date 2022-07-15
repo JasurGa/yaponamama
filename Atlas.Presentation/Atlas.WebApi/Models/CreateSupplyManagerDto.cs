@@ -18,6 +18,8 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateSupplyManagerDto, CreateSupplyManagerCommand>()
+                .ForMember(x => x.User, opt =>
+                    opt.MapFrom(x => x.User))
                 .ForMember(x => x.StoreId, opt =>
                     opt.MapFrom(x => x.StoreId))
                 .ForMember(x => x.PhoneNumber, opt =>

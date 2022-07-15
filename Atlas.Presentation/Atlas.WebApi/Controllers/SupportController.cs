@@ -106,17 +106,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateSupportDto createSupport)
         {
-            var userId = await Mediator.Send(_mapper.Map<CreateUserDto,
-                CreateUserCommand>(createSupport.User));
-
             var supportId = await Mediator.Send(_mapper.Map<CreateSupportDto,
-                CreateSupportCommand>(createSupport, opt =>
-                {
-                    opt.AfterMap((src, dst) =>
-                    {
-                        dst.UserId = userId;
-                    });
-                }));
+                CreateSupportCommand>(createSupport));
 
             return Ok(supportId);
         }

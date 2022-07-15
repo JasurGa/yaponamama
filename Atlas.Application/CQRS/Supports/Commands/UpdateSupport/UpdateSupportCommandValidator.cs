@@ -10,9 +10,6 @@ namespace Atlas.Application.CQRS.Supports.Commands.UpdateSupport
             RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(x => x.UserId)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.InternalPhoneNumber)
                 .NotEmpty();
 

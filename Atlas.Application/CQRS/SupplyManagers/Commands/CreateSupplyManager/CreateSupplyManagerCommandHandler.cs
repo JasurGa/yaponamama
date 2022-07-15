@@ -11,20 +11,15 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager
 {
     public class CreateSupplyManagerCommandHandler : IRequestHandler<CreateSupplyManagerCommand, Guid>
     {
+        private readonly IMediator       _mediator;
         private readonly IAtlasDbContext _dbContext;
 
-        public CreateSupplyManagerCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public CreateSupplyManagerCommandHandler(IMediator mediator, IAtlasDbContext dbContext) =>
+            (_mediator, _dbContext) = (mediator, dbContext);
 
         public async Task<Guid> Handle(CreateSupplyManagerCommand request, CancellationToken cancellationToken)
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x => 
-                x.Id == request.UserId, cancellationToken);
-
-            if (user == null)
-            {
-                throw new NotFoundException(nameof(User), request.UserId);
-            }
+            var userId = await _mediator.Send(request.User);
 
             var store = await _dbContext.Stores.FirstOrDefaultAsync(x =>
                 x.Id == request.StoreId, cancellationToken);
@@ -37,7 +32,7 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager
             var supplyManager = new SupplyManager
             {
                 Id                = Guid.NewGuid(),
-                UserId            = user.Id,
+                UserId            = userId,
                 StoreId           = request.StoreId,
                 PhoneNumber       = request.PhoneNumber,
                 PassportPhotoPath = request.PassportPhotoPath,

@@ -53,17 +53,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateAdminDto createAdminDto)
         {
-            var userId = await Mediator.Send(_mapper.Map<CreateUserDto,
-                CreateUserCommand>(createAdminDto.User));
-
             var vm = await Mediator.Send(_mapper.Map<CreateAdminDto,
-                CreateAdminCommand>(createAdminDto, opt =>
-                {
-                    opt.AfterMap((src, dst) =>
-                    {
-                        dst.UserId = userId;
-                    });
-                }));
+                CreateAdminCommand>(createAdminDto));
 
             return Ok(vm);
         }

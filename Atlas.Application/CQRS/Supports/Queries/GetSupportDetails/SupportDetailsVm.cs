@@ -1,4 +1,5 @@
 ﻿using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.Users.Queries.GetUserDetails;
 using Atlas.Domain;
 using AutoMapper;
 using System;
@@ -9,7 +10,7 @@ namespace Atlas.Application.CQRS.Supports.Queries.GetSupportDetails
     {
         public Guid Id { get; set; }
 
-        public Guid UserId { get; set; }
+        public UserDetailsVm User { get; set; }
 
         public string FirstName { get; set; }
 
@@ -28,8 +29,8 @@ namespace Atlas.Application.CQRS.Supports.Queries.GetSupportDetails
             profile.CreateMap<Support, SupportDetailsVm>()
                 .ForMember(x => x.Id, opt =>
                     opt.MapFrom(x => x.Id))
-                .ForMember(x => x.UserId, opt =>
-                    opt.MapFrom(x => x.UserId))
+                .ForMember(x => x.User, opt =>
+                    opt.MapFrom(x => x.User))
                 .ForMember(x => x.FirstName, opt =>
                     opt.MapFrom(x => x.User.FirstName))
                 .ForMember(x => x.LastName, opt =>

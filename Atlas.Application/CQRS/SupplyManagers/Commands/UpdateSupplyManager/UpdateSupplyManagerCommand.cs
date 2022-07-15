@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Atlas.Application.CQRS.Users.Commands.UpdateUser;
+using MediatR;
 using System;
 
 namespace Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager
@@ -7,7 +8,7 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager
     {
         public Guid Id { get; set; }
 
-        public Guid UserId { get; set; }
+        public UpdateUserCommand User { get; set; }
 
         public Guid StoreId { get; set; }
 

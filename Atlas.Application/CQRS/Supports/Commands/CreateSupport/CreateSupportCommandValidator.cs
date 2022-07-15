@@ -7,9 +7,6 @@ namespace Atlas.Application.CQRS.Supports.Commands.CreateSupport
     {
         public CreateSupportCommandValidator()
         {
-            RuleFor(x => x.UserId)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.InternalPhoneNumber)
                 .NotEmpty();
 

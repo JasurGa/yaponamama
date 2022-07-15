@@ -7,9 +7,6 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager
     {
         public CreateSupplyManagerCommandValidator()
         {
-            RuleFor(x => x.UserId)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.StoreId)
                 .NotEqual(Guid.Empty);
 

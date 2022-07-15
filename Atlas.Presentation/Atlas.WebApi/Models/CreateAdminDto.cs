@@ -18,6 +18,8 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateAdminDto, CreateAdminCommand>()
+                .ForMember(dst => dst.User, opt =>
+                    opt.MapFrom(src => src.User))
                 .ForMember(dst => dst.StartOfWorkingHours, opt =>
                     opt.MapFrom(src => src.StartOfWorkingHours))
                 .ForMember(dst => dst.WorkingDayDuration, opt =>

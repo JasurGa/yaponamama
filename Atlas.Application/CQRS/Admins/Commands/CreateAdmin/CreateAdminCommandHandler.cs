@@ -11,20 +11,15 @@ namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
 {
     public class CreateAdminCommandHandler : IRequestHandler<CreateAdminCommand, Guid>
     {
+        private readonly IMediator       _mediator;
         private readonly IAtlasDbContext _dbContext;
 
-        public CreateAdminCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public CreateAdminCommandHandler(IMediator mediator, IAtlasDbContext dbContext) =>
+            (_mediator, _dbContext) = (mediator, dbContext);
 
         public async Task<Guid> Handle(CreateAdminCommand request, CancellationToken cancellationToken)
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
-                x.Id == request.UserId, cancellationToken);
-
-            if (user == null || user.IsDeleted)
-            {
-                throw new NotFoundException(nameof(User), request.UserId);
-            }
+            var userId = await _mediator.Send(request.User);
 
             var officialRole = await _dbContext.OfficialRoles.FirstOrDefaultAsync(x =>
                 x.Id == request.OfficialRoleId, cancellationToken);
@@ -38,7 +33,7 @@ namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
             {
                 Id                  = Guid.NewGuid(),
                 KPI                 = 0,
-                UserId              = request.UserId,
+                UserId              = userId,
                 OfficialRoleId      = request.OfficialRoleId,
                 StartOfWorkingHours = request.StartOfWorkingHours,
                 WorkingDayDuration  = request.WorkingDayDuration,

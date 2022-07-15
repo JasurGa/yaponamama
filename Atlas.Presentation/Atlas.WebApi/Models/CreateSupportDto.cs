@@ -16,6 +16,8 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateSupportDto, CreateSupportCommand>()
+                .ForMember(x => x.User, opt =>
+                    opt.MapFrom(x => x.User))
                 .ForMember(x => x.InternalPhoneNumber, opt =>
                     opt.MapFrom(x => x.InternalPhoneNumber))
                 .ForMember(x => x.PassportPhotoPath, opt =>
