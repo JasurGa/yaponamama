@@ -93,6 +93,8 @@ namespace Atlas.WebApi
             services.AddScoped<DiagnosticObserver>();
             services.AddTransient<UptimeService>();
             services.AddScheduler();
+
+            services.AddHealthChecks();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
@@ -131,6 +133,8 @@ namespace Atlas.WebApi
                     .Schedule<UptimeService>()
                     .EveryFiveSeconds();
             });
+
+            app.UseHealthChecks("/health");
         }
     }
 }
