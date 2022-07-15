@@ -208,17 +208,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateCourierDto createCourier)
         {
-            var userId = await Mediator.Send(_mapper.Map<CreateUserDto,
-                CreateUserCommand>(createCourier.User));
-
             var courierId = await Mediator.Send(_mapper.Map<CreateCourierDto,
-                CreateCourierCommand>(createCourier, opt =>
-                {
-                    opt.AfterMap((src, dst) =>
-                    {
-                        dst.UserId = userId;
-                    });
-                }));
+                CreateCourierCommand>(createCourier));
 
             return Ok(courierId);
         }

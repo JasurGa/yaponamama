@@ -9,6 +9,8 @@ namespace Atlas.WebApi.Models
     {
         public Guid Id { get; set; }
 
+        public UpdateUserDto User { get; set; }
+
         public string PhoneNumber { get; set; }
 
         public string PassportPhotoPath { get; set; }
@@ -22,6 +24,8 @@ namespace Atlas.WebApi.Models
             profile.CreateMap<UpdateCourierDto, UpdateCourierCommand>()
                 .ForMember(x => x.Id, opt =>
                     opt.MapFrom(src => src.Id))
+                .ForMember(x => x.User, opt =>
+                    opt.MapFrom(src => src.User))
                 .ForMember(x => x.PhoneNumber, opt =>
                     opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(x => x.PassportPhotoPath, opt =>

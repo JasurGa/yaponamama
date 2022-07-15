@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using Atlas.Application.CQRS.Users.Commands.CreateUser;
+using MediatR;
 using System;
 
 namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
 {
     public class CreateCourierCommand : IRequest<Guid>
     {
-        public Guid UserId { get; set; }
+        public CreateUserCommand User { get; set; }
 
         public string PhoneNumber { get; set; }
 

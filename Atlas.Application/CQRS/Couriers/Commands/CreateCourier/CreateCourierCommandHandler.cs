@@ -11,21 +11,14 @@ namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
 {
     public class CreateCourierCommandHandler : IRequestHandler<CreateCourierCommand, Guid>
     {
+        private readonly IMediator       _mediator;
         private readonly IAtlasDbContext _dbContext;
 
-        public CreateCourierCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public CreateCourierCommandHandler(IMediator mediator, IAtlasDbContext dbContext) =>
+            (_mediator, _dbContext) = (mediator, dbContext);
 
         public async Task<Guid> Handle(CreateCourierCommand request, CancellationToken cancellationToken)
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
-                x.Id == request.UserId, cancellationToken);
-
-            if (user == null)
-            {
-                throw new NotFoundException(nameof(User), request.UserId);
-            }
-
             if (request.VehicleId != null)
             {
                 var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(x =>
@@ -37,10 +30,12 @@ namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
                 }
             }
 
+            var userId = await _mediator.Send(request.User);
+
             var courier = new Courier
             {
                 Id                = Guid.NewGuid(),
-                UserId            = user.Id,
+                UserId            = userId,
                 PhoneNumber       = request.PhoneNumber,
                 PassportPhotoPath = request.PassportPhotoPath,
                 DriverLicensePath = request.DriverLicensePath,

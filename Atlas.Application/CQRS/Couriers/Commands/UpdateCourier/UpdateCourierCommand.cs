@@ -1,4 +1,5 @@
 ﻿using System;
+using Atlas.Application.CQRS.Users.Commands.UpdateUser;
 using MediatR;
 
 namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
@@ -7,7 +8,7 @@ namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
     {
         public Guid Id { get; set; }
 
-        public Guid UserId { get; set; }
+        public UpdateUserCommand User { get; set; }
 
         public string PhoneNumber { get; set; }
 

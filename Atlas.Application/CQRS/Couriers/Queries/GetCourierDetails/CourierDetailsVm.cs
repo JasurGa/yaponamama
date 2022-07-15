@@ -1,5 +1,6 @@
 ﻿using System;
 using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.Users.Queries.GetUserDetails;
 using Atlas.Domain;
 using AutoMapper;
 
@@ -9,11 +10,7 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
     {
         public Guid Id { get; set; }
 
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public string AvatarPhotoPath { get; set; }
+        public UserDetailsVm User { get; set; }
 
         public string PhoneNumber { get; set; }
 
@@ -32,14 +29,10 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
             profile.CreateMap<Courier, CourierDetailsVm>()
                 .ForMember(x => x.Id,
                     opt => opt.MapFrom(src => src.Id))
+                .ForMember(x => x.User,
+                    opt => opt.MapFrom(src => src.User))
                 .ForMember(x => x.PhoneNumber,
                     opt => opt.MapFrom(src => src.PhoneNumber))
-                .ForMember(x => x.FirstName,
-                    opt => opt.MapFrom(src => src.User.FirstName))
-                .ForMember(x => x.LastName,
-                    opt => opt.MapFrom(src => src.User.LastName))
-                .ForMember(x => x.AvatarPhotoPath,
-                    opt => opt.MapFrom(src => src.User.AvatarPhotoPath))
                 .ForMember(x => x.PassportPhotoPath,
                     opt => opt.MapFrom(src => src.PassportPhotoPath))
                 .ForMember(x => x.DriverLicensePath,
