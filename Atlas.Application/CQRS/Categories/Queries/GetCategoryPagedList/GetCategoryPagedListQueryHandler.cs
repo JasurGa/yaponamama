@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
-using Atlas.Application.Helpers;
+using Atlas.Application.Common.Helpers;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using Atlas.Domain;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Atlas.Application.Helpers;
+using Atlas.Application.Common.Helpers;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using AutoMapper;

@@ -5,7 +5,7 @@ using Neo4j.Driver;
 using Newtonsoft.Json;
 using System.Linq;
 
-namespace Atlas.Application.Helpers
+namespace Atlas.Application.Common.Helpers
 {
     public static class Neo4jHelper
     {

@@ -107,7 +107,6 @@
     <Folder Include="CQRS\Goods\Queries\GetGoodPagedList\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodCounts\" />
     <Folder Include="CQRS\Users\Commands\CreateUser\" />
-    <Folder Include="Helpers\" />
     <Folder Include="CQRS\Categories\Commands\AddCategoryParent\" />
     <Folder Include="CQRS\Categories\Commands\RemoveCategoryParent\" />
     <Folder Include="CQRS\Categories\Queries\GetCategoryChildren\" />
@@ -220,7 +219,6 @@
     <None Remove="CQRS\Goods\Queries\GetGoodCounts\" />
     <None Remove="CQRS\Users\Commands\CreateUser\" />
     <None Remove="Neo4j.Driver" />
-    <None Remove="Helpers\" />
     <None Remove="Newtonsoft.Json" />
     <None Remove="CQRS\Categories\Commands\AddCategoryParent\" />
     <None Remove="CQRS\Categories\Commands\RemoveCategoryParent\" />

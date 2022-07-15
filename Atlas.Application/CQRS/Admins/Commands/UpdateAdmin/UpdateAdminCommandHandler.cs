@@ -11,10 +11,11 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
 {
     public class UpdateAdminCommandHandler : IRequestHandler<UpdateAdminCommand>
     {
+        private readonly IMediator       _mediator;
         private readonly IAtlasDbContext _dbContext;
 
-        public UpdateAdminCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public UpdateAdminCommandHandler(IMediator mediator, IAtlasDbContext dbContext) =>
+            (_mediator, _dbContext) = (mediator, dbContext);
 
         public async Task<Unit> Handle(UpdateAdminCommand request, CancellationToken cancellationToken)
         {
@@ -26,13 +27,8 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
                 throw new NotFoundException(nameof(Admin), admin.Id);
             }
 
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
-                x.Id == request.UserId, cancellationToken);
-
-            if (user == null || user.IsDeleted)
-            {
-                throw new NotFoundException(nameof(User), request.UserId);
-            }
+            request.User.Id = admin.UserId;
+            await _mediator.Send(request.User);
 
             var officialRole = await _dbContext.OfficialRoles.FirstOrDefaultAsync(x =>
                 x.Id == request.OfficialRoleId, cancellationToken);
@@ -43,7 +39,6 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
             }
 
             admin.KPI                 = request.KPI;
-            admin.UserId              = request.UserId;
             admin.OfficialRoleId      = request.OfficialRoleId;
             admin.WorkingDayDuration  = request.WorkingDayDuration;
             admin.StartOfWorkingHours = request.StartOfWorkingHours;

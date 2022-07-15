@@ -1,6 +1,6 @@
 ﻿using Atlas.Domain;
 using Atlas.Identity.Models;
-using Atlas.Identity.Helpers;
+using Atlas.Application.Common.Helpers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Atlas.Identity.Services;

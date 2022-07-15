@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Neo4j.Driver;
-using Atlas.Application.Helpers;
 
 namespace Atlas.Application.CQRS.Categories.Commands.CreateCategory
 {

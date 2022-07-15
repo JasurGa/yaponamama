@@ -1,13 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Atlas.Application.Common.Exceptions;
-using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Neo4j.Driver;
-using Atlas.Application.Helpers;
+using Atlas.Application.Common.Helpers;
 
 namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails
 {

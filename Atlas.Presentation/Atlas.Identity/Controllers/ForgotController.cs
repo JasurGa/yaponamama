@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
-using Atlas.Identity.Helpers;
+using Atlas.Application.Common.Helpers;
 using Atlas.Identity.Models;
 using Atlas.Identity.Services;
 using AutoMapper;

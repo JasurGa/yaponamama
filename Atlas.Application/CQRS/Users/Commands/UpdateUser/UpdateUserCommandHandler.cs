@@ -5,6 +5,7 @@ using Atlas.Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Atlas.Domain;
+using Atlas.Application.Common.Helpers;
 
 namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
 {
@@ -25,10 +26,14 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
                 throw new NotFoundException(nameof(User), request.Id);
             }
 
+            user.Login           = request.Login;
             user.FirstName       = request.FirstName;
             user.LastName        = request.LastName;
             user.Birthday        = request.Birthday;
             user.AvatarPhotoPath = request.AvatarPhotoPath;
+
+            if (request.Password != null)
+                user.PasswordHash = Sha256Crypto.GetHash(user.Salt + request.Password);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

@@ -9,6 +9,10 @@ namespace Atlas.WebApi.Models
     {
         public Guid Id { get; set; }
 
+        public string Login { get; set; }
+
+        public string Password { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -22,6 +26,10 @@ namespace Atlas.WebApi.Models
             profile.CreateMap<UpdateUserDto, UpdateUserCommand>()
                 .ForMember(x => x.Id, opt =>
                     opt.MapFrom(src => src.Id))
+                .ForMember(x => x.Login, opt =>
+                    opt.MapFrom(src => src.Login))
+                .ForMember(x => x.Password, opt =>
+                    opt.MapFrom(src => src.Password))
                 .ForMember(x => x.FirstName, opt => 
                     opt.MapFrom(src => src.FirstName))
                 .ForMember(x => x.LastName, opt => 

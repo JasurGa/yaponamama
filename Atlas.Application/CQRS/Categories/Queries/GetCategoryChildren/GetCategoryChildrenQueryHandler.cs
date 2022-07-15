@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
-using Atlas.Application.Helpers;
+using Atlas.Application.Common.Helpers;
 using Atlas.Domain;
 using AutoMapper;
 using MediatR;
