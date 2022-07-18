@@ -7,9 +7,6 @@ namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
     {
         public CreateCourierCommandValidator()
         {
-            RuleFor(x => x.UserId)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.PhoneNumber)
                 .NotEmpty();
 

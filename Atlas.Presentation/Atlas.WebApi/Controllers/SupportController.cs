@@ -4,6 +4,7 @@ using Atlas.Application.CQRS.Supports.Commands.RestoreSupport;
 using Atlas.Application.CQRS.Supports.Commands.UpdateSupport;
 using Atlas.Application.CQRS.Supports.Queries.GetSupportDetails;
 using Atlas.Application.CQRS.Supports.Queries.GetSupportPagedList;
+using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
 using Atlas.WebApi.Models;
 using AutoMapper;

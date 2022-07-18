@@ -11,7 +11,7 @@ namespace Atlas.Application.CQRS.Supports.Queries.GetSupportDetails
 {
     public class GetSupportDetailsQueryHandler : IRequestHandler<GetSupportDetailsQuery, SupportDetailsVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetSupportDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -19,8 +19,8 @@ namespace Atlas.Application.CQRS.Supports.Queries.GetSupportDetails
 
         public async Task<SupportDetailsVm> Handle(GetSupportDetailsQuery request, CancellationToken cancellationToken)
         {
-            var support = await _dbContext.Supports.FirstOrDefaultAsync(x =>
-                x.Id == request.Id, cancellationToken);
+            var support = await _dbContext.Supports.Include(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (support == null)
             {

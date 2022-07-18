@@ -1,4 +1,5 @@
 ﻿using System;
+using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using MediatR;
 
 namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
@@ -11,6 +12,6 @@ namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
 
         public Guid OfficialRoleId { get; set; }
 
-        public Guid UserId { get; set; }
+        public CreateUserCommand User { get; set; }
     }
 }

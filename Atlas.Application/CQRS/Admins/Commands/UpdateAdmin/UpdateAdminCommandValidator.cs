@@ -10,9 +10,6 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
             RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(x => x.UserId)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.OfficialRoleId)
                 .NotEqual(Guid.Empty);
         }

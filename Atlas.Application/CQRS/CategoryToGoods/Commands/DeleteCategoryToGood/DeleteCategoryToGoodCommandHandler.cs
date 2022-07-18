@@ -5,28 +5,32 @@ using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Neo4j.Driver;
 
 namespace Atlas.Application.CQRS.CategoryToGoods.Commands.DeleteCategoryToGood
 {
     public class DeleteCategoryToGoodCommandHandler : IRequestHandler<DeleteCategoryToGoodCommand>
     {
-        private readonly IAtlasDbContext _dbContext;
+        private readonly IDriver _driver;
 
-        public DeleteCategoryToGoodCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public DeleteCategoryToGoodCommandHandler(IDriver driver) =>
+            _driver = driver;
 
         public async Task<Unit> Handle(DeleteCategoryToGoodCommand request, CancellationToken cancellationToken)
         {
-            var categoryToGood = await _dbContext.CategoryToGoods
-                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-
-            if (categoryToGood == null)
+            var session = _driver.AsyncSession();
+            try
             {
-                throw new NotFoundException(nameof(CategoryToGood), request.Id);
+                var cursor = await session.RunAsync("MATCH (g:Good{Id: $GoodId})-[r:BELONGS_TO]->(c:Category{Id: $CategoryId}) DELETE r", new
+                {
+                    GoodId     = request.GoodId.ToString(),
+                    CategoryId = request.CategoryId.ToString(),
+                });
             }
-
-            _dbContext.CategoryToGoods.Remove(categoryToGood);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            finally
+            {
+                await session.CloseAsync();
+            }
 
             return Unit.Value;
         }

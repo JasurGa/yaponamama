@@ -8,11 +8,15 @@ namespace Atlas.WebApi.Models
     {
         public string Name { get; set; }
 
+        public bool IsMainCategory { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateCategoryDto, CreateCategoryCommand>()
                 .ForMember(p => p.Name, opt =>
-                    opt.MapFrom(p => p.Name));
+                    opt.MapFrom(p => p.Name))
+                .ForMember(p => p.IsMainCategory, opt =>
+                    opt.MapFrom(p => IsMainCategory));
         }
     }
 }

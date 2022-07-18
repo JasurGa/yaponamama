@@ -1,11 +1,12 @@
 ﻿using System;
+using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using MediatR;
 
 namespace Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager
 {
     public class CreateSupplyManagerCommand : IRequest<Guid>
     {
-        public Guid UserId { get; set; }
+        public CreateUserCommand User { get; set; }
 
         public Guid StoreId { get; set; }
 

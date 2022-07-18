@@ -14,10 +14,6 @@ namespace Atlas.Persistence
 
         public DbSet<CardInfoToClient> CardInfoToClients { get; set; }
 
-        public DbSet<Category> Categories { get; set; }
-
-        public DbSet<CategoryToGood> CategoryToGoods { get; set; }
-
         public DbSet<Client> Clients { get; set; }
 
         public DbSet<Consignment> Consignments { get; set; }
@@ -94,8 +90,6 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new AdminConfiguration());
             modelBuilder.ApplyConfiguration(new AddressToClientConfiguration());
             modelBuilder.ApplyConfiguration(new CardInfoToClientConfiguration());
-            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
-            modelBuilder.ApplyConfiguration(new CategoryToGoodConfiguration());
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new ConsignmentConfiguration());
             modelBuilder.ApplyConfiguration(new CourierConfiguration());

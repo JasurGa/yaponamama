@@ -10,10 +10,11 @@ namespace Atlas.Application.CQRS.Supports.Commands.UpdateSupport
 {
     public class UpdateSupportCommandHandler : IRequestHandler<UpdateSupportCommand>
     {
+        private readonly IMediator       _mediator;
         private readonly IAtlasDbContext _dbContext;
 
-        public UpdateSupportCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public UpdateSupportCommandHandler(IMediator mediator, IAtlasDbContext dbContext) =>
+            (_mediator, _dbContext) = (mediator, dbContext);
 
         public async Task<Unit> Handle(UpdateSupportCommand request, CancellationToken cancellationToken)
         {
@@ -25,16 +26,10 @@ namespace Atlas.Application.CQRS.Supports.Commands.UpdateSupport
                 throw new NotFoundException(nameof(Support), request.Id);
             }
 
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
-                x.Id == request.UserId, cancellationToken);
+            request.User.Id = support.UserId;
+            await _mediator.Send(request.User);
 
-            if (user == null)
-            {
-                throw new NotFoundException(nameof(User), request.UserId);
-            }
-
-            support.UserId = user.Id;
-            support.PassportPhotoPath = request.PassportPhotoPath;
+            support.PassportPhotoPath   = request.PassportPhotoPath;
             support.InternalPhoneNumber = request.InternalPhoneNumber;
 
             await _dbContext.SaveChangesAsync(cancellationToken);

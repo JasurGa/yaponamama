@@ -1,4 +1,5 @@
 ﻿using System;
+using Atlas.Application.CQRS.Users.Commands.UpdateUser;
 using MediatR;
 
 namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
@@ -15,6 +16,6 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
 
         public Guid OfficialRoleId { get; set; }
 
-        public Guid UserId { get; set; }
+        public UpdateUserCommand User { get; set; }
     }
 }

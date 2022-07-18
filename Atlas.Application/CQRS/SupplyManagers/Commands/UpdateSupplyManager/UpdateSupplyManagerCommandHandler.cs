@@ -10,10 +10,11 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager
 {
     public class UpdateSupplyManagerCommandHandler : IRequestHandler<UpdateSupplyManagerCommand>
     {
+        private readonly IMediator       _mediator;
         private readonly IAtlasDbContext _dbContext;
 
-        public UpdateSupplyManagerCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public UpdateSupplyManagerCommandHandler(IMediator mediator, IAtlasDbContext dbContext) =>
+            (_mediator, _dbContext) = (mediator, dbContext);
 
         public async Task<Unit> Handle(UpdateSupplyManagerCommand request, CancellationToken cancellationToken)
         {
@@ -25,13 +26,8 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager
                 throw new NotFoundException(nameof(SupplyManager), request.Id);
             }
 
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
-                x.Id == request.UserId, cancellationToken);
-
-            if (user == null)
-            {
-                throw new NotFoundException(nameof(User), request.UserId);
-            }
+            request.User.Id = supplyManager.UserId;
+            await _mediator.Send(request.User);
 
             var store = await _dbContext.Stores.FirstOrDefaultAsync(x =>
                 x.Id == request.StoreId, cancellationToken);
@@ -41,7 +37,6 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager
                 throw new NotFoundException(nameof(Store), request.StoreId);
             }
 
-            supplyManager.UserId            = user.Id;
             supplyManager.StoreId           = store.Id;
             supplyManager.PhoneNumber       = request.PhoneNumber;
             supplyManager.PassportPhotoPath = request.PassportPhotoPath;

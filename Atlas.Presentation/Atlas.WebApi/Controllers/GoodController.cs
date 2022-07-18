@@ -1,5 +1,12 @@
 ﻿using System;
+using AutoMapper;
+using Atlas.WebApi.Models;
+using Atlas.WebApi.Filters;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Atlas.Application.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Goods.Commands.CreateGood;
 using Atlas.Application.CQRS.Goods.Commands.DeleteGood;
@@ -8,16 +15,10 @@ using Atlas.Application.CQRS.Goods.Commands.UpdateGood;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodCounts;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodDetails;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodListByProvider;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList;
-using Atlas.Application.Models;
-using Atlas.WebApi.Filters;
-using Atlas.WebApi.Models;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -75,6 +76,30 @@ namespace Atlas.WebApi.Controllers
             {
                 ShowDeleted = showDeleted,
                 CategoryId  = categoryId
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the list of good by provider id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/good/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=true
+        /// </remarks>
+        /// <param name="providerId">Provider id (guid)</param>
+        /// <returns>Returns GoodListVm</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("provider/{providerId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<GoodListVm>> GetGoodsByProviderIdAsync(
+            [FromRoute] Guid providerId, [FromQuery] bool showDeleted = false)
+        {
+            var vm = await Mediator.Send(new GetGoodListByProviderQuery
+            {
+                ShowDeleted = showDeleted,
+                ProviderId  = providerId
             });
 
             return Ok(vm);
@@ -207,17 +232,15 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// 
-        ///     POST /api/1.0/good
-        ///     {
-        ///         "name": "Sample name",
-        ///         "description": "Sample description",
-        ///         "photoPath": "/main/dir",
-        ///         "sellingPrice": 100,
-        ///         "purchasePrice": 99,
-        ///         "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     }
-        ///     
+        /// POST /api/1.0/good
+        /// {
+        ///     "name": "Sample name",
+        ///     "description": "Sample description",
+        ///     "photoPath": "/main/dir",
+        ///     "sellingPrice": 100,
+        ///     "purchasePrice": 99,
+        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        /// }
         /// </remarks>
         /// <param name="createGood">CreateGoodDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -241,18 +264,16 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// 
-        ///     PUT /api/1.0/good
-        ///     {
-        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "name": "Sample name",
-        ///         "description": "Sample description",
-        ///         "photoPath": "/main/dir",
-        ///         "sellingPrice": 100,
-        ///         "purchasePrice": 99,
-        ///         "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     }
-        /// 
+        /// PUT /api/1.0/good
+        /// {
+        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "name": "Sample name",
+        ///     "description": "Sample description",
+        ///     "photoPath": "/main/dir",
+        ///     "sellingPrice": 100,
+        ///     "purchasePrice": 99,
+        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        /// }
         /// </remarks>
         /// <param name="updateGood">UpdateGoodDto object</param>
         /// <returns>Returns id (guid)</returns> 

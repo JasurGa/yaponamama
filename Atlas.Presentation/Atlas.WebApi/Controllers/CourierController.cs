@@ -4,9 +4,12 @@ using Atlas.Application.CQRS.Couriers.Commands.DeleteCourier;
 using Atlas.Application.CQRS.Couriers.Commands.RestoreCourier;
 using Atlas.Application.CQRS.Couriers.Commands.UpdateCourier;
 using Atlas.Application.CQRS.Couriers.Commands.UpdateCouriersStoreId;
+using Atlas.Application.CQRS.Couriers.Queries.GetCourierByVehicleId;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedListByStoreId;
+using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedListNotByStoreId;
+using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -15,6 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Atlas.WebApi.Controllers
@@ -59,6 +63,35 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
+        /// Gets the list of couriers by vehicle ids
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/courier/vehicle/a3eb7b4a-9f4e-4c71-8619-398655c563b8?&amp;showDeleted=false
+        /// </remarks>
+        /// <param name="showDeleted">Show deleted</param>
+        /// <returns>Returns the list of CouierDetailsVm</returns>
+        /// <response code="404">NotFound</response>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("vehicle/{vehicleId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<List<CourierDetailsVm>>> GetByVehicleAsync([FromRoute] Guid vehicleId,
+            [FromQuery] bool showDeleted = false)
+        {
+            var vm = await Mediator.Send(new GetCourierByVehicleIdQuery
+            {
+                VehicleId   = vehicleId,
+                ShowDeleted = showDeleted
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
         /// Gets the paged list of couriers by store id
         /// </summary>
         /// <remarks>
@@ -79,6 +112,39 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<PageDto<CourierLookupDto>>> GetAllPagedAsync([FromRoute] Guid storeId, [FromQuery] bool showDeleted = false, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             var vm = await Mediator.Send(new GetCourierPagedListByStoreIdQuery
+            {
+                StoreId     = storeId,
+                ShowDeleted = showDeleted,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the paged list of all couriers except couriers which contains store id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/courier/except/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?&amp;showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        /// </remarks>
+        /// <param name="showDeleted">Show deleted</param>
+        /// <param name="storeId">Store id (guid)</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>Returns PageDto CourierLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("except/store/{storeId}/paged")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<CourierLookupDto>>> GetNotByStoreIdPagedAsync(
+            [FromRoute] Guid storeId, [FromQuery] bool showDeleted = false,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetCourierPagedListNotByStoreIdQuery
             {
                 StoreId     = storeId,
                 ShowDeleted = showDeleted,

@@ -9,7 +9,7 @@ namespace Atlas.WebApi.Models
     {
         public Guid Id { get; set; }
 
-        public Guid UserId { get; set; }
+        public UpdateUserDto User { get; set; }
 
         public string InternalPhoneNumber { get; set; }
 
@@ -20,8 +20,8 @@ namespace Atlas.WebApi.Models
             profile.CreateMap<UpdateSupportDto, UpdateSupportCommand>()
                 .ForMember(x => x.Id, opt =>
                     opt.MapFrom(x => x.Id))
-                .ForMember(x => x.UserId, opt =>
-                    opt.MapFrom(x => x.UserId))
+                .ForMember(x => x.User, opt =>
+                    opt.MapFrom(x => x.User))
                 .ForMember(x => x.InternalPhoneNumber, opt =>
                     opt.MapFrom(x => x.InternalPhoneNumber))
                 .ForMember(x => x.PassportPhotoPath, opt =>

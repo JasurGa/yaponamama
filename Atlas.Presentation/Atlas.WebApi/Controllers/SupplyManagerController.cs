@@ -7,6 +7,8 @@ using Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManagersStoreId
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerDetails;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedList;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedListByStoreId;
+using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedListNotByStoreId;
+using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -79,6 +81,39 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<PageDto<SupplyManagerLookupDto>>> GetAllPagedAsync([FromRoute] Guid storeId, [FromQuery] bool showDeleted = false, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             var vm = await Mediator.Send(new GetSupplyManagerPagedListByStoreIdQuery
+            {
+                StoreId     = storeId,
+                ShowDeleted = showDeleted,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the paged list of all supply managers except supply managers which contains store id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/supplymanager/except/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?&amp;showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        /// </remarks>
+        /// <param name="showDeleted">Show deleted</param>
+        /// <param name="storeId">Store id (guid)</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>Returns PageDto SupplyManagerLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("except/store/{storeId}/paged")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<SupplyManagerLookupDto>>> GetNotByStoreIdPagedAsync(
+            [FromRoute] Guid storeId, [FromQuery] bool showDeleted = false,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetSupplyManagerPagedListNotByStoreIdQuery
             {
                 StoreId     = storeId,
                 ShowDeleted = showDeleted,

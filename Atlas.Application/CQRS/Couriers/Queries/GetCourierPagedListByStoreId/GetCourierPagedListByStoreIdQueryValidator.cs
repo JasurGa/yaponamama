@@ -3,7 +3,8 @@ using System;
 
 namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedListByStoreId
 {
-    public class GetCourierPagedListByStoreIdQueryValidator : AbstractValidator<GetCourierPagedListByStoreIdQuery>
+    public class GetCourierPagedListByStoreIdQueryValidator :
+        AbstractValidator<GetCourierPagedListByStoreIdQuery>
     {
         public GetCourierPagedListByStoreIdQueryValidator()
         {

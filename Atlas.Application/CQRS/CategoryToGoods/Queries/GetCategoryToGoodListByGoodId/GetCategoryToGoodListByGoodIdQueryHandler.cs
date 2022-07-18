@@ -1,30 +1,47 @@
-﻿using Atlas.Application.Interfaces;
+﻿using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
+using Atlas.Application.Common.Helpers;
+using Atlas.Domain;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using Neo4j.Driver;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Atlas.Application.CQRS.CategoryToGoods.Queries.GetCategoryToGoodListByGoodId
 {
-    public class GetCategoryToGoodListByGoodIdQueryHandler : IRequestHandler<GetCategoryToGoodListByGoodIdQuery, CategoryToGoodListVm>
+    public class GetCategoryToGoodListByGoodIdQueryHandler : IRequestHandler
+        <GetCategoryToGoodListByGoodIdQuery, CategoryListVm>
     {
-        private readonly IMapper         _mapper;
-        private readonly IAtlasDbContext _dbContext;
+        private readonly IMapper _mapper;
+        private readonly IDriver _driver;
 
-        public GetCategoryToGoodListByGoodIdQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
-            (_mapper, _dbContext) = (mapper, dbContext);
+        public GetCategoryToGoodListByGoodIdQueryHandler(IMapper mapper, IDriver driver) =>
+            (_mapper, _driver) = (mapper, driver);
 
-        public async Task<CategoryToGoodListVm> Handle(GetCategoryToGoodListByGoodIdQuery request, CancellationToken cancellationToken)
+        public async Task<CategoryListVm> Handle(GetCategoryToGoodListByGoodIdQuery request,
+            CancellationToken cancellationToken)
         {
-            var categoryToGoods = await _dbContext.CategoryToGoods
-                .Where(x => x.GoodId == request.GoodId)
-                .ProjectTo<CategoryToGoodLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync(cancellationToken);
+            var categories = new List<CategoryLookupDto>();
 
-            return new CategoryToGoodListVm { CategoryToGoods = categoryToGoods };
+            var session = _driver.AsyncSession();
+            try
+            {
+                var cursor = await session.RunAsync("MATCH (g:Good{Id: $Id})-[:BELONGS_TO]->(c:Category{IsDeleted: $IsDeleted}) RETURN c", new
+                {
+                    Id          = request.GoodId.ToString(),
+                    ShowDeleted = request.ShowDeleted
+                });
+
+                categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>(
+                    await cursor.ConvertManyAsync<Category>());
+            }
+            finally
+            {
+                await session.CloseAsync();
+            }
+
+            return new CategoryListVm { Categories = categories };
         }
     }
 }

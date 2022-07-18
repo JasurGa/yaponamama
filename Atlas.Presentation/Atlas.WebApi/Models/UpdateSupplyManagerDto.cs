@@ -9,7 +9,7 @@ namespace Atlas.WebApi.Models
     {
         public Guid Id { get; set; }
 
-        public Guid UserId { get; set; }
+        public UpdateUserDto User { get; set; }
 
         public Guid StoreId { get; set; }
 
@@ -22,8 +22,8 @@ namespace Atlas.WebApi.Models
             profile.CreateMap<UpdateSupplyManagerDto, UpdateSupplyManagerCommand>()
                 .ForMember(x => x.Id, opt =>
                     opt.MapFrom(src => src.Id))
-                .ForMember(x => x.UserId, opt =>
-                    opt.MapFrom(src => src.UserId))
+                .ForMember(x => x.User, opt =>
+                    opt.MapFrom(src => src.User))
                 .ForMember(x => x.StoreId, opt =>
                     opt.MapFrom(src => src.StoreId))
                 .ForMember(x => x.PhoneNumber, opt =>

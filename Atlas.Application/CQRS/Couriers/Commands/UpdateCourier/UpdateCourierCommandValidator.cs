@@ -10,9 +10,6 @@ namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
             RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(x => x.UserId)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.PhoneNumber)
                 .NotEmpty();
 

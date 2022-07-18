@@ -7,6 +7,7 @@ using Atlas.Application.CQRS.Admins.Commands.RestoreAdmin;
 using Atlas.Application.CQRS.Admins.Commands.UpdateAdmin;
 using Atlas.Application.CQRS.Admins.Queries.GetAdminDetails;
 using Atlas.Application.CQRS.Admins.Queries.GetAdminPagedList;
+using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;

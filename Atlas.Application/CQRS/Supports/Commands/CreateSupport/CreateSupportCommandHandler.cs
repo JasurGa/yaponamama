@@ -11,25 +11,20 @@ namespace Atlas.Application.CQRS.Supports.Commands.CreateSupport
 {
     public class CreateSupportCommandHandler : IRequestHandler<CreateSupportCommand, Guid>
     {
+        private readonly IMediator       _mediator;
         private readonly IAtlasDbContext _dbContext;
 
-        public CreateSupportCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public CreateSupportCommandHandler(IMediator mediator, IAtlasDbContext dbContext) =>
+            (_mediator, _dbContext) = (mediator, dbContext);
 
         public async Task<Guid> Handle(CreateSupportCommand request, CancellationToken cancellationToken)
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
-                x.Id == request.UserId, cancellationToken);
-
-            if (user == null)
-            {
-                throw new NotFoundException(nameof(User), request.UserId);
-            }
+            var userId = await _mediator.Send(request.User);
 
             var support = new Support
             {
                 Id                  = Guid.NewGuid(),
-                UserId              = user.Id,
+                UserId              = userId,
                 InternalPhoneNumber = request.InternalPhoneNumber,
                 PassportPhotoPath   = request.PassportPhotoPath,
                 IsDeleted           = false

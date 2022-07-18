@@ -12,5 +12,7 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListByStore
         public int PageSize { get; set; }
 
         public int PageIndex { get; set; }
+
+        public bool ShowDeleted { get; set; }
     }
 }

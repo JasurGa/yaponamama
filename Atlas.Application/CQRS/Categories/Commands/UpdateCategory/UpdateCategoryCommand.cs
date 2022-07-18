@@ -8,5 +8,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.UpdateCategory
         public Guid Id { get; set; }
         
         public string Name { get; set; }
+
+        public bool IsMainCategory { get; set; }
     }
 }

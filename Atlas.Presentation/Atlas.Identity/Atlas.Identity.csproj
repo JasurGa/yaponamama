@@ -28,6 +28,8 @@
     <Folder Include="Settings\" />
     <Folder Include="Services\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Observers\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
@@ -36,6 +38,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.16" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
     <PackageReference Include="Twilio" Version="5.74.0" />
+    <PackageReference Include="Coravel" Version="4.1.2" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Microsoft.EntityFrameworkCore" />
@@ -43,6 +46,9 @@
     <None Remove="Swashbuckle.AspNetCore" />
     <None Remove="Twilio" />
     <None Remove="Extensions\" />
+    <None Remove="Observers\" />
+    <None Remove="Services\" />
+    <None Remove="Coravel" />
   </ItemGroup>
 <PropertyGroup>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>

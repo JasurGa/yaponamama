@@ -13,19 +13,19 @@ namespace Atlas.WebApi.Models
 
         public Guid OfficialRoleId { get; set; }
 
-        public Guid UserId { get; set; }
+        public CreateUserDto User { get; set; }
 
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateAdminDto, CreateAdminCommand>()
+                .ForMember(dst => dst.User, opt =>
+                    opt.MapFrom(src => src.User))
                 .ForMember(dst => dst.StartOfWorkingHours, opt =>
                     opt.MapFrom(src => src.StartOfWorkingHours))
                 .ForMember(dst => dst.WorkingDayDuration, opt =>
                     opt.MapFrom(src => src.WorkingDayDuration))
                 .ForMember(dst => dst.OfficialRoleId, opt =>
-                    opt.MapFrom(src => src.OfficialRoleId))
-                .ForMember(dst => dst.UserId, opt =>
-                    opt.MapFrom(src => src.UserId));
+                    opt.MapFrom(src => src.OfficialRoleId));
         }
     }
 }

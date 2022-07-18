@@ -14,7 +14,7 @@ namespace Atlas.Identity.Extensions
         {
             var settings = Configuration.GetSection("TokenGenerationSettings");
 
-            var tokenType = settings.GetValue<string>("TokenType");
+            var tokenType   = settings.GetValue<string>("TokenType");
             var tokenHeader = settings.GetValue<string>("TokenHeader");
 
             services.AddRouting(config =>

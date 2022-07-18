@@ -17,7 +17,7 @@ namespace Atlas.WebApi.Models
 
         public Guid OfficialRoleId { get; set; }
 
-        public Guid UserId { get; set; }
+        public UpdateUserDto User { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -32,8 +32,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.WorkingDayDuration))
                 .ForMember(dst => dst.OfficialRoleId, opt =>
                     opt.MapFrom(src => src.OfficialRoleId))
-                .ForMember(dst => dst.UserId, opt =>
-                    opt.MapFrom(src => src.UserId));
+                .ForMember(dst => dst.User, opt =>
+                    opt.MapFrom(src => src.User));
         }
 
     }

@@ -5,30 +5,34 @@ using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Neo4j.Driver;
 
 namespace Atlas.Application.CQRS.Categories.Commands.UpdateCategory
 {
     public class UpdateCategoryCommandHandler : IRequestHandler<UpdateCategoryCommand>
     {
-        private readonly IAtlasDbContext _dbContext;
+        private readonly IDriver _driver;
 
-        public UpdateCategoryCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public UpdateCategoryCommandHandler(IDriver driver) =>
+            _driver = driver;
 
         public async Task<Unit> Handle(UpdateCategoryCommand request,
             CancellationToken cancellationToken)
         {
-            var category = await _dbContext.Categories.FirstOrDefaultAsync(x =>
-                x.Id == request.Id, cancellationToken);
-
-            if (category == null)
+            var session = _driver.AsyncSession();
+            try
             {
-                throw new NotFoundException(nameof(Category), request.Id);
+                await session.RunAsync("MATCH (c:Category{Id: $Id}) SET c.Name = $Name, c.IsMainCategory = $IsMainCategory", new
+                {
+                    Id             = request.Id,
+                    Name           = request.Name,
+                    IsMainCategory = request.IsMainCategory
+                });
             }
-
-            category.Name = request.Name;
-
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            finally
+            {
+                await session.CloseAsync();
+            }
 
             return Unit.Value;
         }

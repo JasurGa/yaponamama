@@ -8,6 +8,7 @@ using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleListByStore;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedList;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListByStore;
+using Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListNotByStore;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -113,6 +114,7 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
+        /// <param name="showDeleted">Show deleted (bool)</param>
         /// <returns>Returns PageDto VehicleLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -121,12 +123,14 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<VehicleLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<VehicleLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 10, [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetVehiclePagedListQuery
             {
-                PageIndex = pageIndex,
-                PageSize = pageSize
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
+                ShowDeleted = showDeleted,
             });
 
             return Ok(vm);
@@ -142,6 +146,7 @@ namespace Atlas.WebApi.Controllers
         /// <param name="storeId">Store id (guid)</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
+        /// <param name="showDeleted">Show deleted</param>
         /// <returns>Returns PageDto VehicleLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -150,13 +155,52 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<VehicleLookupDto>>> GetAllPagedByStoreIdAsync(Guid storeId, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<VehicleLookupDto>>> GetAllPagedByStoreIdAsync(Guid storeId,
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetVehiclePagedListByStoreQuery
             {
-                StoreId   = storeId,
-                PageIndex = pageIndex,
-                PageSize  = pageSize
+                StoreId     = storeId,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
+                ShowDeleted = showDeleted,
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get the paged list of all vehicles except vehicles which contains store id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/vehicle/except/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?pageIndex=0&amp;pageSize=10
+        /// </remarks>
+        /// <param name="storeId">Store id (guid)</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="showDeleted">Show deleted</param>
+        /// <returns>Returns PageDto VehicleLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("except/store/{storeId}/paged")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<VehicleLookupDto>>> GetAllPagedNotByStoreIdAsync(Guid storeId,
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] bool showDeleted = false)
+        {
+            var vm = await Mediator.Send(new GetVehiclePagedListNotByStoreQuery
+            {
+                StoreId     = storeId,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
+                ShowDeleted = showDeleted,
             });
 
             return Ok(vm);

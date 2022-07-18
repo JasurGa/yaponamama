@@ -19,8 +19,8 @@ namespace Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerDetails
 
         public async Task<SupplyManagerDetailsVm> Handle(GetSupplyManagerDetailsQuery request, CancellationToken cancellationToken)
         {
-            var supplyManager = await _dbContext.SupplyManagers.FirstOrDefaultAsync(x =>
-                x.Id == request.Id, cancellationToken);
+            var supplyManager = await _dbContext.SupplyManagers.Include(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (supplyManager == null)
             {

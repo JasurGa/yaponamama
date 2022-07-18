@@ -14,6 +14,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
+using Atlas.WebApi.Observers;
+using Coravel;
+using Atlas.WebApi.Services;
 
 namespace Atlas.WebApi
 {
@@ -85,10 +89,19 @@ namespace Atlas.WebApi
                           .AllowAnyOrigin();
                 });
             });
+
+            services.AddScoped<DiagnosticObserver>();
+            services.AddTransient<UptimeService>();
+            services.AddScheduler();
+
+            services.AddHealthChecks();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            DiagnosticListener diagnosticListenerSource, DiagnosticObserver diagnosticObserver)
         {
+            diagnosticListenerSource.Subscribe(diagnosticObserver);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -100,7 +113,6 @@ namespace Atlas.WebApi
                 op.SwaggerEndpoint("/swagger/v1/swagger.json",
                     "AtlasWebApi");
             });
-
 
             app.UseOptionsMiddleware();
             app.UseCustomExceptionHandler();
@@ -114,6 +126,15 @@ namespace Atlas.WebApi
             {
                 endpoints.MapControllers();
             });
+
+            app.ApplicationServices.UseScheduler(scheduler =>
+            {
+                scheduler
+                    .Schedule<UptimeService>()
+                    .EveryFiveSeconds();
+            });
+
+            app.UseHealthChecks("/health");
         }
     }
 }

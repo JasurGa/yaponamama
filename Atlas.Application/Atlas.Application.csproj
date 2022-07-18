@@ -64,7 +64,6 @@
     <Folder Include="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
     <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
     <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
-    <Folder Include="CQRS\Categories\Queries\GetCategoriesByGeneralCategory\" />
     <Folder Include="CQRS\PaymentTypes\" />
     <Folder Include="CQRS\PaymentTypes\Queries\" />
     <Folder Include="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
@@ -105,6 +104,17 @@
     <Folder Include="CQRS\Couriers\Commands\UpdateCouriersStoreId\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodPagedList\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodCounts\" />
+    <Folder Include="CQRS\Users\Commands\CreateUser\" />
+    <Folder Include="CQRS\Categories\Commands\AddCategoryParent\" />
+    <Folder Include="CQRS\Categories\Commands\RemoveCategoryParent\" />
+    <Folder Include="CQRS\Categories\Queries\GetCategoryChildren\" />
+    <Folder Include="CQRS\Categories\Queries\GetCategoryParents\" />
+    <Folder Include="CQRS\Couriers\Queries\GetCourierByVehicleId\" />
+    <Folder Include="CQRS\Goods\Queries\GetGoodListByProvider\" />
+    <Folder Include="CQRS\Vehicles\Queries\GetVehiclePagedListNotByStore\" />
+    <Folder Include="CQRS\Couriers\Queries\GetCourierPagedListNotByStoreId\" />
+    <Folder Include="CQRS\SupplyManagers\Queries\GetSupplyManagerPagedListNotByStoreId\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -114,6 +124,9 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.4.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Neo4j.Driver" Version="4.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="InfluxDB.Client" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Atlas.Domain\Atlas.Domain.csproj" />
@@ -162,7 +175,6 @@
     <None Remove="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
     <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
     <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
-    <None Remove="CQRS\Categories\Queries\GetCategoriesByGeneralCategory\" />
     <None Remove="CQRS\PaymentTypes\" />
     <None Remove="CQRS\PaymentTypes\Queries\" />
     <None Remove="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
@@ -203,5 +215,19 @@
     <None Remove="CQRS\Couriers\Commands\UpdateCouriersStoreId\" />
     <None Remove="CQRS\Goods\Queries\GetGoodPagedList\" />
     <None Remove="CQRS\Goods\Queries\GetGoodCounts\" />
+    <None Remove="CQRS\Users\Commands\CreateUser\" />
+    <None Remove="Neo4j.Driver" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="CQRS\Categories\Commands\AddCategoryParent\" />
+    <None Remove="CQRS\Categories\Commands\RemoveCategoryParent\" />
+    <None Remove="CQRS\Categories\Queries\GetCategoryChildren\" />
+    <None Remove="CQRS\Categories\Queries\GetCategoryParents\" />
+    <None Remove="CQRS\Couriers\Queries\GetCourierByVehicleId\" />
+    <None Remove="CQRS\Goods\Queries\GetGoodListByProvider\" />
+    <None Remove="CQRS\Vehicles\Queries\GetVehiclePagedListNotByStore\" />
+    <None Remove="CQRS\Couriers\Queries\GetCourierPagedListNotByStoreId\" />
+    <None Remove="CQRS\SupplyManagers\Queries\GetSupplyManagerPagedListNotByStoreId\" />
+    <None Remove="Services\" />
+    <None Remove="InfluxDB.Client" />
   </ItemGroup>
 </Project>

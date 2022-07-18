@@ -7,7 +7,7 @@ namespace Atlas.WebApi.Models
 {
     public class CreateCourierDto : IMapWith<CreateCourierCommand>
     {
-        public Guid UserId { get; set; }
+        public CreateUserDto User { get; set; }
 
         public string PhoneNumber { get; set; }
 
@@ -20,8 +20,8 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateCourierDto, CreateCourierCommand>()
-                .ForMember(x => x.UserId, opt =>
-                    opt.MapFrom(x => x.UserId))
+                .ForMember(x => x.User, opt =>
+                    opt.MapFrom(x => x.User))
                 .ForMember(x => x.PhoneNumber, opt =>
                     opt.MapFrom(x => x.PhoneNumber))
                 .ForMember(x => x.PassportPhotoPath, opt =>

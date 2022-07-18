@@ -7,7 +7,7 @@ namespace Atlas.WebApi.Models
 {
     public class CreateSupportDto : IMapWith<CreateSupportCommand>
     {
-        public Guid UserId { get; set; }
+        public CreateUserDto User { get; set; }
 
         public string InternalPhoneNumber { get; set; }
 
@@ -16,8 +16,8 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateSupportDto, CreateSupportCommand>()
-                .ForMember(x => x.UserId, opt =>
-                    opt.MapFrom(x => x.UserId))
+                .ForMember(x => x.User, opt =>
+                    opt.MapFrom(x => x.User))
                 .ForMember(x => x.InternalPhoneNumber, opt =>
                     opt.MapFrom(x => x.InternalPhoneNumber))
                 .ForMember(x => x.PassportPhotoPath, opt =>

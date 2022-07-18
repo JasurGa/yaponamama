@@ -1,4 +1,5 @@
 ﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoryToGood;
 using Atlas.Application.CQRS.CategoryToGoods.Commands.DeleteCategoryToGood;
 using Atlas.Application.CQRS.CategoryToGoods.Queries.GetCategoryToGoodListByGoodId;
@@ -28,7 +29,7 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/categorytogood/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// GET /api/1.0/categorytogood/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=false
         /// </remarks>
         /// <returns>Returns CategoryToGoodListVm object</returns>
         /// <response code="200">Success</response>
@@ -38,11 +39,13 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<CategoryToGoodListVm>> GetByGoodIdAsync([FromRoute] Guid goodId)
+        public async Task<ActionResult<CategoryListVm>> GetByGoodIdAsync([FromRoute] Guid goodId,
+            [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetCategoryToGoodListByGoodIdQuery 
             { 
-                GoodId = goodId,
+                GoodId      = goodId,
+                ShowDeleted = showDeleted
             });
 
             return Ok(vm);
@@ -61,19 +64,19 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <param name="createCategoryToGood">CreateCategoryToGoodDto object</param>
         /// <returns>Returns id (guid)</returns> 
-        /// <response code="200">Success</response>
+        /// <response code="204">Success</response>
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateCategoryToGoodDto createCategoryToGood)
+        public async Task<ActionResult> CreateAsync([FromBody] CreateCategoryToGoodDto createCategoryToGood)
         {
-            var categoryToGoodId = await Mediator.Send(_mapper
-                .Map<CreateCategoryToGoodCommand>(createCategoryToGood));
+            await Mediator.Send(_mapper.Map<CreateCategoryToGoodDto,
+                CreateCategoryToGoodCommand>(createCategoryToGood));
 
-            return Ok(categoryToGoodId);
+            return NoContent();
         }
 
         /// <summary>
@@ -81,7 +84,11 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/categorytogood/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// DELETE /api/1.0/categorytogood
+        /// {
+        ///     "GoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "CategoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        /// }
         /// </remarks>
         /// <param name="id">CategoryToGood id</param>
         /// <returns>Returns NoContent</returns>
@@ -89,17 +96,15 @@ namespace Atlas.WebApi.Controllers
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteAsync([FromBody] DeleteCategoryToGoodDto deleteCategoryToGood)
         {
-            await Mediator.Send(new DeleteCategoryToGoodCommand
-            {
-                Id = id
-            });
+            await Mediator.Send(_mapper.Map<DeleteCategoryToGoodDto,
+                DeleteCategoryToGoodCommand>(deleteCategoryToGood));
 
             return NoContent();
         }

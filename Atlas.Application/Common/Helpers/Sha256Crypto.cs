@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Security.Cryptography;
 
-namespace Atlas.Identity.Helpers
+namespace Atlas.Application.Common.Helpers
 {
     public static class Sha256Crypto
     {
