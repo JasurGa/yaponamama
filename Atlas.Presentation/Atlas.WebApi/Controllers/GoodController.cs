@@ -11,7 +11,6 @@ using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList;
-using Atlas.Application.Enums;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -126,17 +125,19 @@ namespace Atlas.WebApi.Controllers
         /// <param name="showDeleted">Show deleted records</param>
         /// <param name="sortable">Field to order the records by</param>
         /// <param name="ascending">Type of ordering records ("Ascending" || "Descending")</param>
+        /// <param name="search">Search string</param>
         /// <param name="pageIndex">Page index</param>
         /// <returns>Returns PageDto GoodLookupDto object</returns>
         /// <response code="200">Success</response>
         [HttpGet("paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> GetAllAsync(
-            [FromQuery] int pageIndex = 0, 
-            [FromQuery] int pageSize = 10,
+            [FromQuery] int pageIndex    = 0, 
+            [FromQuery] int pageSize     = 10,
             [FromQuery] bool showDeleted = false,
-            [FromQuery] string sortable = "Name",
-            [FromQuery] bool ascending = true)
+            [FromQuery] string sortable  = "Name",
+            [FromQuery] bool ascending   = true,
+            [FromQuery] string search    = "")
         {
             var vm = await Mediator.Send(new GetGoodPagedListQuery
             {
@@ -145,6 +146,7 @@ namespace Atlas.WebApi.Controllers
                 ShowDeleted = showDeleted,
                 Sortable    = sortable,
                 Ascending   = ascending,
+                Search      = search,
             });
 
             return Ok(vm);

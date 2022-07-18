@@ -1,5 +1,4 @@
-﻿using System;
-using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
+﻿using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.Models;
 using MediatR;
 
@@ -16,5 +15,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList
         public bool ShowDeleted { get; set; }
 
         public bool Ascending { get; set; }
+
+        public string Search { get; set; }
     }
 }

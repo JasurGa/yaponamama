@@ -18,7 +18,6 @@
     <Folder Include="CQRS\AddressToClients\Queries\GetAddressToClientDetails\" />
     <Folder Include="CQRS\AddressToClients\Queries\GetAddressToClientList\" />
     <Folder Include="Common\Behaviors\" />
-    <Folder Include="Common\Constants\" />
     <Folder Include="CQRS\CardInfoToClients\" />
     <Folder Include="CQRS\CardInfoToClients\Commands\" />
     <Folder Include="CQRS\CardInfoToClients\Queries\" />
@@ -49,7 +48,6 @@
     <Folder Include="CQRS\Clients\" />
     <Folder Include="CQRS\Clients\Queries\" />
     <Folder Include="CQRS\Clients\Queries\GetClientDetails\" />
-    <Folder Include="Enums\" />
     <Folder Include="CQRS\Notifications\Commands\CreateNotification\" />
     <Folder Include="CQRS\Notifications\Commands\AttachNotificationToRole\" />
     <Folder Include="CQRS\Notifications\Commands\AttachNotificationToUser\" />

@@ -63,6 +63,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             CancellationToken cancellationToken, Promo promo)
         {
             var calculatedPrice = 0.0f;
+
             foreach (var createGoodToOrder in request.GoodToOrders)
             {
                 var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
