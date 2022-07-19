@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager
             }
 
             request.User.Id = supplyManager.UserId;
-            await _mediator.Send(request.User);
+            await _mediator.Send(request.User, cancellationToken);
 
             var store = await _dbContext.Stores.FirstOrDefaultAsync(x =>
                 x.Id == request.StoreId, cancellationToken);
@@ -37,10 +37,12 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager
                 throw new NotFoundException(nameof(Store), request.StoreId);
             }
 
-            supplyManager.StoreId           = store.Id;
-            supplyManager.PhoneNumber       = request.PhoneNumber;
-            supplyManager.PassportPhotoPath = request.PassportPhotoPath;
-            supplyManager.Salary            = request.Salary;
+            supplyManager.StoreId             = store.Id;
+            supplyManager.PhoneNumber         = request.PhoneNumber;
+            supplyManager.PassportPhotoPath   = request.PassportPhotoPath;
+            supplyManager.StartOfWorkingHours = request.StartOfWorkingHours;
+            supplyManager.WorkingDayDuration  = request.WorkingDayDuration;
+            supplyManager.Salary              = request.Salary;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

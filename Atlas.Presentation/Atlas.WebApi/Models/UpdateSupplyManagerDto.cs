@@ -17,6 +17,10 @@ namespace Atlas.WebApi.Models
 
         public string PassportPhotoPath { get; set; }
 
+        public DateTime StartOfWorkingHours { get; set; }
+
+        public long WorkingDayDuration { get; set; }
+
         public int Salary { get; set; }
 
         public void Mapping(Profile profile)
@@ -32,6 +36,10 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(x => x.PassportPhotoPath, opt =>
                     opt.MapFrom(src => src.PassportPhotoPath))
+                .ForMember(x => x.StartOfWorkingHours, opt =>
+                    opt.MapFrom(src => src.StartOfWorkingHours))
+                .ForMember(x => x.WorkingDayDuration, opt =>
+                    opt.MapFrom(src => src.WorkingDayDuration))
                 .ForMember(x => x.Salary, opt =>
                     opt.MapFrom(src => src.Salary));
         }

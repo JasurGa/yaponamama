@@ -10,6 +10,10 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager
 
         public Guid StoreId { get; set; }
 
+        public long WorkingDayDuration { get; set; }
+
+        public DateTime StartOfWorkingHours { get; set; }
+
         public int Salary { get; set; }
 
         public string PhoneNumber { get; set; }

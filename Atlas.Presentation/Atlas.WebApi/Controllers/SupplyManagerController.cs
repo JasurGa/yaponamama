@@ -162,6 +162,8 @@ namespace Atlas.WebApi.Controllers
         ///     "phoneNumber": "+998901234567"
         ///     "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
         ///     "salary": 1000000,
+        ///     "startOfWorkingHours": "01-01-1901T10:00:00",
+        ///     "workingDayDuration": 8,
         /// }
         /// </remarks>
         /// <param name="createSupplyManager">CreateSupplyManagerDto object</param>
@@ -228,6 +230,8 @@ namespace Atlas.WebApi.Controllers
         ///     "phoneNumber": "+998901234567"
         ///     "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
         ///     "salary": 1000000,
+        ///     "startOfWorkingHours": "01-01-1901T10:00:00",
+        ///     "workingDayDuration": 8,
         /// }
         /// </remarks>
         /// <param name="updateSupplyManager">UpdateSupplyManagerDto object</param>
