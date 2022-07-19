@@ -92,6 +92,7 @@ namespace Atlas.Identity.Controllers
         ///         "phoneNumber": "+998901234567",
         ///         "firstName": "John",
         ///         "lastName": "Doe",
+        ///         "middleName": "O'Brian",
         ///         "sex": 1,
         ///         "password": "password",
         ///         "birthday": "2022-05-14T14:12:02.953Z",

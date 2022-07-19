@@ -57,6 +57,7 @@ namespace Atlas.Application.CQRS.Users.Commands.CreateUser
                 PasswordHash    = GetHash(salt + request.Password),
                 FirstName       = request.FirstName,
                 LastName        = request.LastName,
+                MiddleName      = request.MiddleName,
                 Birthday        = request.Birthday,
                 AvatarPhotoPath = request.AvatarPhotoPath,
                 IsDeleted       = false,
