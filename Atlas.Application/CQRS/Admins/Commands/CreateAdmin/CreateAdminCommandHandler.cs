@@ -19,7 +19,7 @@ namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
 
         public async Task<Guid> Handle(CreateAdminCommand request, CancellationToken cancellationToken)
         {
-            var userId = await _mediator.Send(request.User);
+            var userId = await _mediator.Send(request.User, cancellationToken);
 
             var officialRole = await _dbContext.OfficialRoles.FirstOrDefaultAsync(x =>
                 x.Id == request.OfficialRoleId, cancellationToken);

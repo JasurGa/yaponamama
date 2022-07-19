@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
             }
 
             request.User.Id = admin.UserId;
-            await _mediator.Send(request.User);
+            await _mediator.Send(request.User, cancellationToken);
 
             var officialRole = await _dbContext.OfficialRoles.FirstOrDefaultAsync(x =>
                 x.Id == request.OfficialRoleId, cancellationToken);
