@@ -36,6 +36,7 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager
                 StoreId           = request.StoreId,
                 PhoneNumber       = request.PhoneNumber,
                 PassportPhotoPath = request.PassportPhotoPath,
+                Salary            = request.Salary,
                 IsDeleted         = false,
             };
 

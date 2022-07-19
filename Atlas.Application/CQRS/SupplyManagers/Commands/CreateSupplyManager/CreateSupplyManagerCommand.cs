@@ -10,6 +10,8 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager
 
         public Guid StoreId { get; set; }
 
+        public int Salary { get; set; }
+
         public string PhoneNumber { get; set; }
 
         public string PassportPhotoPath { get; set; }

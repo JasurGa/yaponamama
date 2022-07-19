@@ -40,6 +40,7 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager
             supplyManager.StoreId           = store.Id;
             supplyManager.PhoneNumber       = request.PhoneNumber;
             supplyManager.PassportPhotoPath = request.PassportPhotoPath;
+            supplyManager.Salary            = request.Salary;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

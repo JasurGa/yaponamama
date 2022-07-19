@@ -17,6 +17,8 @@ namespace Atlas.WebApi.Models
 
         public string PassportPhotoPath { get; set; }
 
+        public int Salary { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateSupplyManagerDto, UpdateSupplyManagerCommand>()
@@ -29,7 +31,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(x => x.PhoneNumber, opt =>
                     opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(x => x.PassportPhotoPath, opt =>
-                    opt.MapFrom(src => src.PassportPhotoPath));
+                    opt.MapFrom(src => src.PassportPhotoPath))
+                .ForMember(x => x.Salary, opt =>
+                    opt.MapFrom(src => src.Salary));
         }
     }
 }

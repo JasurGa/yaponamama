@@ -15,5 +15,7 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager
         public string PhoneNumber { get; set; }
 
         public string PassportPhotoPath { get; set; }
+
+        public int Salary { get; set; }
     }
 }
