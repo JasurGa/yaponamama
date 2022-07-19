@@ -30,8 +30,6 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList
 
             var goods = await _dbContext.Goods
                 .Where(x => x.IsDeleted == request.ShowDeleted)
-                .Search("Name", request.Search)
-                //.Where(x => x.Name.ToLower().Contains(request.Search.Trim().ToLower()))
                 .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)

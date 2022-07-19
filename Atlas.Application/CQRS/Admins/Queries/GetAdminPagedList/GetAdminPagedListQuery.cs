@@ -1,5 +1,4 @@
-﻿using System;
-using Atlas.Application.Models;
+﻿using Atlas.Application.Models;
 using MediatR;
 
 namespace Atlas.Application.CQRS.Admins.Queries.GetAdminPagedList
@@ -11,5 +10,9 @@ namespace Atlas.Application.CQRS.Admins.Queries.GetAdminPagedList
         public int PageSize { get; set; }
 
         public bool ShowDeleted { get; set; }
+
+        public string Sortable { get; set; }
+
+        public bool Ascending { get; set; } 
     }
 }

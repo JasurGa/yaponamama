@@ -57,6 +57,8 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
         /// <returns>Returns PageDto PromoLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -65,12 +67,18 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<PromoLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10) 
+        public async Task<ActionResult<PageDto<PromoLookupDto>>> GetAllPagedAsync(
+            [FromQuery] int pageIndex = 0, 
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string sortable = "Name",
+            [FromQuery] bool ascending = true) 
         {
             var vm = await Mediator.Send(new GetPromoPagedListQuery 
             { 
                 PageIndex = pageIndex,
                 PageSize  = pageSize,
+                Sortable  = sortable,
+                Ascending = ascending,
             });
 
             return Ok(vm);

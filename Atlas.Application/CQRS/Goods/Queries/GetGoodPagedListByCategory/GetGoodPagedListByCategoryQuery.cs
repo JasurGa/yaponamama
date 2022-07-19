@@ -14,5 +14,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory
         public int PageSize { get; set; }
 
         public int PageIndex { get; set; }
+
+        public string Sortable { get; set; }
+
+        public bool Ascending { get; set; }
     }
 }

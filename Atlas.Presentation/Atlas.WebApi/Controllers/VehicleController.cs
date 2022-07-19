@@ -115,6 +115,8 @@ namespace Atlas.WebApi.Controllers
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="showDeleted">Show deleted (bool)</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
         /// <returns>Returns PageDto VehicleLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -123,14 +125,20 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<VehicleLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0,
-            [FromQuery] int pageSize = 10, [FromQuery] bool showDeleted = false)
+        public async Task<ActionResult<PageDto<VehicleLookupDto>>> GetAllPagedAsync(
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 10, 
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] string sortable = "Name",
+            [FromQuery] bool ascending = true)
         {
             var vm = await Mediator.Send(new GetVehiclePagedListQuery
             {
                 PageIndex   = pageIndex,
                 PageSize    = pageSize,
                 ShowDeleted = showDeleted,
+                Sortable    = sortable,
+                Ascending   = ascending,
             });
 
             return Ok(vm);

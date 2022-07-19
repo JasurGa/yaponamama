@@ -136,6 +136,8 @@ namespace Atlas.WebApi.Controllers
         /// <param name="showDeleted">Show deleted list</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
+        /// <param name="sortable">Property to sort</param>
+        /// <param name="ascending">Sorting order: Ascending (true) || Descending (false)</param>
         /// <returns>Returns PageDto CategoryLookupDto object</returns>
         /// <response code="200">Success</response>
         [HttpGet("paged")]
@@ -144,13 +146,17 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<PageDto<CategoryLookupDto>>> GetAllPagedAsync(
             [FromQuery] bool showDeleted = false,
             [FromQuery] int  pageIndex   = 0,
-            [FromQuery] int  pageSize    = 10)
+            [FromQuery] int  pageSize    = 10,
+            [FromQuery] string sortable  = "Name",
+            [FromQuery] bool ascending   = true)
         {
             var vm = await Mediator.Send(new GetCategoryPagedListQuery
             {
                 ShowDeleted = showDeleted,
                 PageIndex   = pageIndex,
-                PageSize    = pageSize
+                PageSize    = pageSize,
+                Sortable    = sortable,
+                Ascending   = ascending,
             });
 
             return Ok(vm);
