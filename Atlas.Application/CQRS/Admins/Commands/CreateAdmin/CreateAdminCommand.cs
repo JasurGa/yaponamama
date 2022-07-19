@@ -12,6 +12,8 @@ namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
 
         public long WorkingDayDuration { get; set; }
 
+        public int Salary { get; set; }
+
         public Guid OfficialRoleId { get; set; }
 
         public CreateUserCommand User { get; set; }

@@ -17,6 +17,8 @@ namespace Atlas.WebApi.Models
 
         public long WorkingDayDuration { get; set; }
 
+        public int Salary { get; set; }
+
         public Guid OfficialRoleId { get; set; }
 
         public UpdateUserDto User { get; set; }
@@ -34,6 +36,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.StartOfWorkingHours))
                 .ForMember(dst => dst.WorkingDayDuration, opt =>
                     opt.MapFrom(src => src.WorkingDayDuration))
+                .ForMember(dst => dst.Salary, opt =>
+                    opt.MapFrom(src => src.Salary))
                 .ForMember(dst => dst.OfficialRoleId, opt =>
                     opt.MapFrom(src => src.OfficialRoleId))
                 .ForMember(dst => dst.User, opt =>

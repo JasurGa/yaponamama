@@ -18,6 +18,8 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
 
         public Guid OfficialRoleId { get; set; }
 
+        public int Salary { get; set; }
+
         public UpdateUserCommand User { get; set; }
     }
 }

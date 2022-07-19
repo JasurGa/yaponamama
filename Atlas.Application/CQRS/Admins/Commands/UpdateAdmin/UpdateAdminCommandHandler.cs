@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -43,6 +42,7 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
             admin.OfficialRoleId      = request.OfficialRoleId;
             admin.WorkingDayDuration  = request.WorkingDayDuration;
             admin.StartOfWorkingHours = request.StartOfWorkingHours;
+            admin.Salary              = request.Salary;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

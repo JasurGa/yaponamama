@@ -38,6 +38,7 @@ namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
                 OfficialRoleId      = request.OfficialRoleId,
                 StartOfWorkingHours = request.StartOfWorkingHours,
                 WorkingDayDuration  = request.WorkingDayDuration,
+                Salary              = request.Salary,
                 IsDeleted           = false
             };
 

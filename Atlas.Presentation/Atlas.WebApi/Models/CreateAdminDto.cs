@@ -15,6 +15,8 @@ namespace Atlas.WebApi.Models
 
         public Guid OfficialRoleId { get; set; }
 
+        public int Salary { get; set; }
+
         public CreateUserDto User { get; set; }
 
         public void Mapping(Profile profile)
@@ -28,6 +30,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.StartOfWorkingHours))
                 .ForMember(dst => dst.WorkingDayDuration, opt =>
                     opt.MapFrom(src => src.WorkingDayDuration))
+                .ForMember(dst => dst.Salary, opt =>
+                    opt.MapFrom(src => src.Salary))
                 .ForMember(dst => dst.OfficialRoleId, opt =>
                     opt.MapFrom(src => src.OfficialRoleId));
         }

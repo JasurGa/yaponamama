@@ -18,6 +18,8 @@ namespace Atlas.Application.CQRS.Admins.Queries.GetAdminDetails
 
         public long WorkingDayDuration { get; set; }
 
+        public int Salary { get; set; }
+
         public Guid OfficialRoleId { get; set; }
 
         public string OfficialRole { get; set; }
@@ -35,6 +37,8 @@ namespace Atlas.Application.CQRS.Admins.Queries.GetAdminDetails
                     opt => opt.MapFrom(src => src.StartOfWorkingHours))
                 .ForMember(x => x.WorkingDayDuration,
                     opt => opt.MapFrom(src => src.WorkingDayDuration))
+                .ForMember(x => x.Salary,
+                    opt => opt.MapFrom(src => src.Salary))
                 .ForMember(x => x.OfficialRoleId,
                     opt => opt.MapFrom(src => src.OfficialRoleId))
                 .ForMember(x => x.OfficialRole,

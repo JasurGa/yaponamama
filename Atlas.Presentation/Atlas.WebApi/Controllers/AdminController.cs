@@ -36,6 +36,7 @@ namespace Atlas.WebApi.Controllers
         ///     "phoneNumber": "+998901234567",
         ///     "startOfWorkingHours": "01-01-1901T10:00:00",
         ///     "workingDayDuration: 8,
+        ///     "salary": 10000000,
         ///     "officialRoleId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
         /// }
@@ -136,6 +137,7 @@ namespace Atlas.WebApi.Controllers
         ///     "phoneNumber": "+998901234567",
         ///     "startOfWorkingHours": "01-01-1901T10:00:00",
         ///     "workingDayDuration: 8,
+        ///     "salary": 1000000,
         ///     "officialRoleId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
         /// }

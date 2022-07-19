@@ -9,6 +9,8 @@ namespace Atlas.Domain
 
         public long WorkingDayDuration { get; set; }
 
+        public int Salary { get; set; }
+
         public long KPI { get; set; }
 
         public string PhoneNumber { get; set; }
