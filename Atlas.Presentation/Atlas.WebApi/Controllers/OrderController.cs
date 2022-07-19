@@ -35,6 +35,7 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         /// POST /api/1.0/order
         /// {
+        ///     "comment": "Please, don't break the glass bottles",
         ///     "toLongitude": 0.0,
         ///     "toLatitude": 0.0,
         ///     "isPickup": false,

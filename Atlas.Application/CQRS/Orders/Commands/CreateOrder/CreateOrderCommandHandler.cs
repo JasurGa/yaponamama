@@ -60,7 +60,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
         }
 
         private async Task<float> GetSellingPriceAsync(CreateOrderCommand request,
-            CancellationToken cancellationToken, Promo promo)
+            CancellationToken cancellationToken, Promo promo)   
         {
             var calculatedPrice = 0.0f;
 
@@ -165,12 +165,13 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
             var foundPromo      = await GetPromoAsync(request, cancellationToken);
             var sellingPrice    = await GetSellingPriceAsync(request, cancellationToken, foundPromo);
-            var purchasePrice   = await GetPurchasePriceAsync(request, cancellationToken) ;
+            var purchasePrice   = await GetPurchasePriceAsync(request, cancellationToken);
 
             var order = new Order
             {
                 Id            = Guid.NewGuid(),
                 Status        = (int)OrderStatus.Created,
+                Comment       = request.Comment,
                 ToLatitude    = request.ToLatitude,
                 ToLongitude   = request.ToLongitude,
                 ClientId      = request.ClientId,
@@ -193,7 +194,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             {
                 createGoodToOrder.OrderId = order.Id;
                 createGoodToOrder.StoreId = foundStore.Id;
-                await _mediator.Send(createGoodToOrder);
+                await _mediator.Send(createGoodToOrder, cancellationToken);
             }
 
             return order.Id;

@@ -8,6 +8,8 @@ namespace Atlas.WebApi.Models
 {
     public class CreateOrderDto : IMapWith<CreateOrderCommand>
     {
+        public string Comment { get; set; }
+
         public float ToLongitude { get; set; }
 
         public float ToLatitude { get; set; }
@@ -23,6 +25,8 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateOrderDto, CreateOrderCommand>()
+                .ForMember(dst => dst.Comment, opt =>
+                    opt.MapFrom(src => src.Comment))
                 .ForMember(dst => dst.ToLongitude, opt =>
                     opt.MapFrom(src => src.ToLongitude))
                 .ForMember(dst => dst.ToLatitude, opt =>

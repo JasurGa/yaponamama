@@ -13,6 +13,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public Guid ClientId { get; set; }
 
+        public string Comment { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public DateTime FinishedAt { get; set; }
@@ -36,6 +38,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                     opt.MapFrom(src => src.CourierId))
                 .ForMember(dst => dst.ClientId, opt =>
                     opt.MapFrom(src => src.ClientId))
+                .ForMember(dst => dst.Comment, opt =>
+                    opt.MapFrom(src => src.Comment))
                 .ForMember(dst => dst.CreatedAt, opt =>
                     opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dst => dst.FinishedAt, opt =>

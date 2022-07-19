@@ -9,6 +9,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
         {
             RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
+
             RuleFor(x => x.ClientId)
                 .NotEqual(Guid.Empty);
         }

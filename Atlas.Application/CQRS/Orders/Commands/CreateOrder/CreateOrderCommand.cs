@@ -8,6 +8,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
     public class CreateOrderCommand : IRequest<Guid>
     {
         public Guid ClientId { get; set; }
+
+        public string Comment { get; set; }
         
         public float ToLongitude { get; set; }
 

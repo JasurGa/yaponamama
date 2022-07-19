@@ -13,6 +13,8 @@ namespace Atlas.Domain
 
         public Guid ClientId { get; set; }
 
+        public string Comment { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public DateTime? FinishedAt { get; set; }
