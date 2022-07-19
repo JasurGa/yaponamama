@@ -11,6 +11,8 @@ namespace Atlas.WebApi.Models
 
         public long KPI { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public DateTime StartOfWorkingHours { get; set; }
 
         public long WorkingDayDuration { get; set; }
@@ -26,6 +28,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.KPI, opt =>
                     opt.MapFrom(src => src.KPI))
+                .ForMember(dst => dst.PhoneNumber, opt =>
+                    opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(dst => dst.StartOfWorkingHours, opt =>
                     opt.MapFrom(src => src.StartOfWorkingHours))
                 .ForMember(dst => dst.WorkingDayDuration, opt =>

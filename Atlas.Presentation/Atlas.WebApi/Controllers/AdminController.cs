@@ -33,13 +33,14 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// POST /api/1.0/admin
         /// {
+        ///     "phoneNumber": "+998901234567",
         ///     "startOfWorkingHours": "01-01-1901T10:00:00",
         ///     "workingDayDuration: 8,
         ///     "officialRoleId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
         /// }
         /// </remarks>
-        /// <param name="createAdminDto">CreateAdminDto object</param>
+        /// <param name="createAdmin">CreateAdminDto object</param>
         /// <returns>Returns id (Guid)</returns>
         /// <response code="200">Success</response>
         /// <response code="404">NotFound</response>
@@ -50,10 +51,10 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateAdminDto createAdminDto)
+        public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateAdminDto createAdmin)
         {
             var vm = await Mediator.Send(_mapper.Map<CreateAdminDto,
-                CreateAdminCommand>(createAdminDto));
+                CreateAdminCommand>(createAdmin));
 
             return Ok(vm);
         }
@@ -132,13 +133,14 @@ namespace Atlas.WebApi.Controllers
         /// PUT /api/1.0/admin
         /// {
         ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "phoneNumber": "+998901234567",
         ///     "startOfWorkingHours": "01-01-1901T10:00:00",
         ///     "workingDayDuration: 8,
         ///     "officialRoleId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
         /// }
         /// </remarks>
-        /// <param name="updateAdminDto">UpdateAdminDto object</param>
+        /// <param name="updateAdmin">UpdateAdminDto object</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         /// <response code="404">NotFound</response>

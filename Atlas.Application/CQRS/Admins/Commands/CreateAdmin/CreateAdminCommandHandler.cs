@@ -34,6 +34,7 @@ namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
                 Id                  = Guid.NewGuid(),
                 KPI                 = 0,
                 UserId              = userId,
+                PhoneNumber         = request.PhoneNumber,
                 OfficialRoleId      = request.OfficialRoleId,
                 StartOfWorkingHours = request.StartOfWorkingHours,
                 WorkingDayDuration  = request.WorkingDayDuration,

@@ -15,6 +15,10 @@ namespace Atlas.Domain
 
         public string LastName { get; set; }
 
+        public string MiddleName { get; set; }
+
+        public int Sex { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public DateTime? Birthday { get; set; }

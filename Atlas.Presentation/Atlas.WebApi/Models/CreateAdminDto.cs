@@ -7,6 +7,8 @@ namespace Atlas.WebApi.Models
 {
     public class CreateAdminDto : IMapWith<CreateAdminCommand>
     {
+        public string PhoneNumber { get; set; }
+
         public DateTime StartOfWorkingHours { get; set; }
 
         public long WorkingDayDuration { get; set; }
@@ -20,6 +22,8 @@ namespace Atlas.WebApi.Models
             profile.CreateMap<CreateAdminDto, CreateAdminCommand>()
                 .ForMember(dst => dst.User, opt =>
                     opt.MapFrom(src => src.User))
+                .ForMember(dst => dst.PhoneNumber, opt =>
+                    opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(dst => dst.StartOfWorkingHours, opt =>
                     opt.MapFrom(src => src.StartOfWorkingHours))
                 .ForMember(dst => dst.WorkingDayDuration, opt =>

@@ -48,6 +48,7 @@ namespace Atlas.Application.CQRS.Users.Commands.CreateUser
         public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var salt = GenerateSalt();
+
             var user = new User
             {
                 Id              = Guid.NewGuid(),

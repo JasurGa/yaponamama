@@ -38,6 +38,7 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
                 throw new NotFoundException(nameof(OfficialRole), request.OfficialRoleId);
             }
 
+            admin.PhoneNumber         = request.PhoneNumber;
             admin.KPI                 = request.KPI;
             admin.OfficialRoleId      = request.OfficialRoleId;
             admin.WorkingDayDuration  = request.WorkingDayDuration;

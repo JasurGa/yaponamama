@@ -15,6 +15,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using Microsoft.AspNetCore.Authorization;
+using Atlas.Application.Enums;
 
 namespace Atlas.Identity.Controllers
 {
@@ -91,6 +92,7 @@ namespace Atlas.Identity.Controllers
         ///         "phoneNumber": "+998901234567",
         ///         "firstName": "John",
         ///         "lastName": "Doe",
+        ///         "sex": 1,
         ///         "password": "password",
         ///         "birthday": "2022-05-14T14:12:02.953Z",
         ///     }
@@ -123,6 +125,11 @@ namespace Atlas.Identity.Controllers
                 return BadRequest();
             }
 
+            if (!Enum.IsDefined(typeof(UserSex), registerDto.Sex))
+            {
+                throw new NotFoundException(nameof(UserSex), registerDto.Sex);
+            }
+
             var userId   = Guid.NewGuid();
             var clientId = Guid.NewGuid();
             var salt     = GenerateSalt();
@@ -133,6 +140,7 @@ namespace Atlas.Identity.Controllers
                 Login           = registerDto.PhoneNumber,
                 FirstName       = registerDto.FirstName,
                 LastName        = registerDto.LastName,
+                Sex             = registerDto.Sex,
                 Birthday        = registerDto.Birthday,
                 CreatedAt       = DateTime.UtcNow,
                 AvatarPhotoPath = "",

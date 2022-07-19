@@ -12,6 +12,8 @@ namespace Atlas.Identity.Models
 
         public string LastName { get; set; }
 
+        public int Sex { get; set; }
+
         public DateTime Birthday { get; set; }
     }
 }
