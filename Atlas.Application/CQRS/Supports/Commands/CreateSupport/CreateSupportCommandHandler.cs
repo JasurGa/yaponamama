@@ -25,6 +25,10 @@ namespace Atlas.Application.CQRS.Supports.Commands.CreateSupport
             {
                 Id                  = Guid.NewGuid(),
                 UserId              = userId,
+                StartOfWorkingHours = request.StartOfWorkingHours,
+                WorkingDayDuration  = request.WorkingDayDuration,
+                Salary              = request.Salary,
+                KPI                 = 0,
                 InternalPhoneNumber = request.InternalPhoneNumber,
                 PassportPhotoPath   = request.PassportPhotoPath,
                 IsDeleted           = false

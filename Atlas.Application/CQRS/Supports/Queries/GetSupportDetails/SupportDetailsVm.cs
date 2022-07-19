@@ -18,6 +18,14 @@ namespace Atlas.Application.CQRS.Supports.Queries.GetSupportDetails
 
         public string AvatarPhotoPath { get; set; }
 
+        public DateTime StartOfWorkingHours { get; set; }
+
+        public long WorkingDayDuration { get; set; }
+
+        public int Salary { get; set; }
+
+        public long KPI { get; set; }
+
         public string InternalPhoneNumber { get; set; }
 
         public string PassportPhotoPath { get; set; }
@@ -37,6 +45,14 @@ namespace Atlas.Application.CQRS.Supports.Queries.GetSupportDetails
                     opt.MapFrom(x => x.User.LastName))
                 .ForMember(x => x.AvatarPhotoPath, opt =>
                     opt.MapFrom(x => x.User.AvatarPhotoPath))
+                .ForMember(x => x.StartOfWorkingHours, opt =>
+                    opt.MapFrom(x => x.StartOfWorkingHours))
+                .ForMember(x => x.WorkingDayDuration, opt =>
+                    opt.MapFrom(x => x.WorkingDayDuration))
+                .ForMember(x => x.Salary, opt =>
+                    opt.MapFrom(x => x.Salary))
+                .ForMember(x => x.KPI, opt =>
+                    opt.MapFrom(x => x.KPI))
                 .ForMember(x => x.InternalPhoneNumber, opt =>
                     opt.MapFrom(x => x.InternalPhoneNumber))
                 .ForMember(x => x.PassportPhotoPath, opt =>

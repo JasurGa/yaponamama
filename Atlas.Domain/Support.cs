@@ -7,6 +7,14 @@ namespace Atlas.Domain
 
         public Guid UserId { get; set; }
 
+        public DateTime StartOfWorkingHours { get; set; }
+
+        public long WorkingDayDuration { get; set; }
+
+        public int Salary { get; set; }
+
+        public long KPI { get; set; }
+
         public string InternalPhoneNumber { get; set; }
 
         public string PassportPhotoPath { get; set; }
