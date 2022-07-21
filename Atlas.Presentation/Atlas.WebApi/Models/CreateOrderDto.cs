@@ -12,6 +12,12 @@ namespace Atlas.WebApi.Models
 
         public bool DontCallWhenDelivered { get; set; }
 
+        public int DestinationType { get; set; }
+
+        public int Floor { get; set; }
+
+        public int Entrance { get; set; }
+
         public float ToLongitude { get; set; }
 
         public float ToLatitude { get; set; }
@@ -31,6 +37,12 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.Comment))
                 .ForMember(dst => dst.DontCallWhenDelivered, opt =>
                     opt.MapFrom(src => src.DontCallWhenDelivered))
+                .ForMember(dst => dst.DestinationType, opt =>
+                    opt.MapFrom(src => src.DestinationType))
+                .ForMember(dst => dst.Floor, opt =>
+                    opt.MapFrom(src => src.Floor))
+                .ForMember(dst => dst.Entrance, opt =>
+                    opt.MapFrom(src => src.Entrance))
                 .ForMember(dst => dst.ToLongitude, opt =>
                     opt.MapFrom(src => src.ToLongitude))
                 .ForMember(dst => dst.ToLatitude, opt =>

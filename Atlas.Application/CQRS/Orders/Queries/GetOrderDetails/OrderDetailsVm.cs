@@ -17,6 +17,12 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public bool DontCallWhenDelivered { get; set; }
 
+        public int DestinationType { get; set; }
+
+        public int Floor { get; set; }
+
+        public int Entrance { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public DateTime FinishedAt { get; set; }
