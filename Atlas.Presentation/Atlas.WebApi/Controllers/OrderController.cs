@@ -36,6 +36,7 @@ namespace Atlas.WebApi.Controllers
         /// POST /api/1.0/order
         /// {
         ///     "comment": "Please, don't break the glass bottles",
+        ///     "dontCallWhenDelivered": false,
         ///     "toLongitude": 0.0,
         ///     "toLatitude": 0.0,
         ///     "isPickup": false,

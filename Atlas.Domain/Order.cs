@@ -15,6 +15,8 @@ namespace Atlas.Domain
 
         public string? Comment { get; set; }
 
+        public bool DontCallWhenDelivered { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public DateTime? FinishedAt { get; set; }

@@ -10,6 +10,8 @@ namespace Atlas.WebApi.Models
     {
         public string? Comment { get; set; }
 
+        public bool DontCallWhenDelivered { get; set; }
+
         public float ToLongitude { get; set; }
 
         public float ToLatitude { get; set; }
@@ -27,6 +29,8 @@ namespace Atlas.WebApi.Models
             profile.CreateMap<CreateOrderDto, CreateOrderCommand>()
                 .ForMember(dst => dst.Comment, opt =>
                     opt.MapFrom(src => src.Comment))
+                .ForMember(dst => dst.DontCallWhenDelivered, opt =>
+                    opt.MapFrom(src => src.DontCallWhenDelivered))
                 .ForMember(dst => dst.ToLongitude, opt =>
                     opt.MapFrom(src => src.ToLongitude))
                 .ForMember(dst => dst.ToLatitude, opt =>
