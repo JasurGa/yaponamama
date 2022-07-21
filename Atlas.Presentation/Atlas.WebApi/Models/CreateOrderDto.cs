@@ -8,7 +8,7 @@ namespace Atlas.WebApi.Models
 {
     public class CreateOrderDto : IMapWith<CreateOrderCommand>
     {
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
 
         public float ToLongitude { get; set; }
 

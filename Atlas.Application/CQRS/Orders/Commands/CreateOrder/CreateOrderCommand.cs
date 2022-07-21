@@ -9,7 +9,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
     {
         public Guid ClientId { get; set; }
 
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
         
         public float ToLongitude { get; set; }
 
