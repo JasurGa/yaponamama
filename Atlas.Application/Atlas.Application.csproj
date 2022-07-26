@@ -117,6 +117,9 @@
     <Folder Include="CQRS\Couriers\Queries\GetCourierPagedListNotByStoreId\" />
     <Folder Include="CQRS\SupplyManagers\Queries\GetSupplyManagerPagedListNotByStoreId\" />
     <Folder Include="Services\" />
+    <Folder Include="CQRS\Orders\Queries\GetOrderDetailsForAdmin\" />
+    <Folder Include="CQRS\Orders\Queries\GetLastOrdersPagedListByAdmin\" />
+    <Folder Include="CQRS\Orders\Queries\GetLastOrdersPagedListByStore\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -231,5 +234,8 @@
     <None Remove="CQRS\SupplyManagers\Queries\GetSupplyManagerPagedListNotByStoreId\" />
     <None Remove="Services\" />
     <None Remove="InfluxDB.Client" />
+    <None Remove="CQRS\Orders\Queries\GetOrderDetailsForAdmin\" />
+    <None Remove="CQRS\Orders\Queries\GetLastOrdersPagedListByAdmin\" />
+    <None Remove="CQRS\Orders\Queries\GetLastOrdersPagedListByStore\" />
   </ItemGroup>
 </Project>

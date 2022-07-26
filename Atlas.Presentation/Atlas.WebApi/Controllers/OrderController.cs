@@ -5,6 +5,7 @@ using Atlas.Application.CQRS.Orders.Commands.FinishOrder;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetails;
+using Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForAdmin;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForCourier;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
@@ -87,16 +88,105 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpGet("{id}")]
-        [AuthRoleFilter(Roles.Client)]
+        [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<OrderDetailsVm>> GetByIdAsync([FromRoute] Guid id)
         {
+            var vm = await Mediator.Send(new GetOrderDetailsForAdminQuery
+            {
+                Id = id
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get the order details for client
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/order/client/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// </remarks>
+        /// <param name="id">Client id (guid)</param>
+        /// <returns>Returns PageDto OrderLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("client/{id}")]
+        [AuthRoleFilter(Roles.Admin)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllForClientAsync([FromRoute] Guid id)
+        {
+            var vm = await Mediator.Send(new GetLastOrdersPagedListByClientQuery
+            {
+                ClientId = id
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get orders for client
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/client
+        /// </remarks>
+        /// <param name="id">Order id (guid)</param>
+        /// <returns>Returns OrderDetailsVm object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("{id}/client")]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<OrderDetailsVm>> GetByIdForClientAsync([FromRoute] Guid id)
+        {
             var vm = await Mediator.Send(new GetOrderDetailsQuery
             {
                 Id       = id,
                 ClientId = ClientId
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get orders for courier
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/order/courier/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// </remarks>
+        /// <param name="id">Courier id (guid)</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>Returns PageDto OrderLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("courier/{id}")]
+        [AuthRoleFilter(Roles.Admin)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllByForCourierAsync([FromRoute] Guid id,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetLastOrdersPagedListByCourierQuery
+            {
+                PageSize  = pageSize,
+                PageIndex = pageIndex,
+                CourierId = id
             });
 
             return Ok(vm);
@@ -114,8 +204,8 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("{id}/courier")]
         [Authorize]
+        [HttpGet("{id}/courier")]
         [AuthRoleFilter(Roles.Courier)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -132,7 +222,38 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get the list of last orders by client id
+        /// Get orders for store
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/order/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// </remarks>
+        /// <param name="id">Store id (guid)</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>/// 
+        /// <returns>Returns PageDto OrderLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("store/{id}")]
+        [AuthRoleFilter(Roles.Admin)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllByForStoreAsync([FromRoute] Guid id,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetLastOrdersPagedListByStoreQuery
+            {
+                StoreId = id
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get the list of last orders for admin
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -143,7 +264,35 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto OrderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("last/paged")]
+        [Authorize]
+        [HttpGet("admin/last/paged")]
+        [AuthRoleFilter(Roles.Admin)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetLastOrdersForAdminAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetLastOrdersPagedListByClientQuery
+            {
+                PageIndex = pageIndex,
+                PageSize  = pageSize
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get the list of last orders for client
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/order/client/last/paged?pageIndex=0&amp;pageSize=10
+        /// </remarks>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>Returns PageDto OrderLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("client/last/paged")]
         [Authorize]
         [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -161,7 +310,7 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get the list of last orders by courier id
+        /// Get the list of last orders for courier
         /// </summary>
         /// <remarks>
         /// Sample request:
