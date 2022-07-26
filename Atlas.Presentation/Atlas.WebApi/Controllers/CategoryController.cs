@@ -226,6 +226,7 @@ namespace Atlas.WebApi.Controllers
         /// POST /api/1.0/category
         /// {
         ///     "name": "Sample name of category",
+        ///     "isMainCategory": true,
         /// }
         /// </remarks>
         /// <param name="createCategory">CreateCategoryDto object</param>

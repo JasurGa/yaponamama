@@ -13,10 +13,10 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateCategoryDto, CreateCategoryCommand>()
-                .ForMember(p => p.Name, opt =>
-                    opt.MapFrom(p => p.Name))
-                .ForMember(p => p.IsMainCategory, opt =>
-                    opt.MapFrom(p => IsMainCategory));
+                .ForMember(x => x.Name, opt =>
+                    opt.MapFrom(x => x.Name))
+                .ForMember(x => x.IsMainCategory, opt =>
+                    opt.MapFrom(x => x.IsMainCategory));
         }
     }
 }
