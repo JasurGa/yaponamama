@@ -132,7 +132,7 @@ namespace Atlas.WebApi.Controllers
         ///     "address": "Sample address",
         ///     "latitude": 0,
         ///     "longitude": 0,
-        ///     "LogotypePath": "/default/path"
+        ///     "logotypePath": "/default/path"
         /// }
         /// </remarks>
         /// <param name="createProviderDto">CreateProviderDto object</param>

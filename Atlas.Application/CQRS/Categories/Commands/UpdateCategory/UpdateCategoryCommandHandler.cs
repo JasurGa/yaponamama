@@ -24,7 +24,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.UpdateCategory
             {
                 await session.RunAsync("MATCH (c:Category{Id: $Id}) SET c.Name = $Name, c.IsMainCategory = $IsMainCategory", new
                 {
-                    Id             = request.Id,
+                    Id             = request.Id.ToString(),
                     Name           = request.Name,
                     IsMainCategory = request.IsMainCategory
                 });
