@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Queries.GetCategoryToGoodListBy
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (g:Good{Id: $Id})-[:BELONGS_TO]->(c:Category{IsDeleted: $IsDeleted}) RETURN c", new
+                var cursor = await session.RunAsync("MATCH (g:Good{Id: $Id})-[:BELONGS_TO]->(c:Category{IsDeleted: $ShowDeleted}) RETURN c", new
                 {
                     Id          = request.GoodId.ToString(),
                     ShowDeleted = request.ShowDeleted

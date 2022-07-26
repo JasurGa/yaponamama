@@ -12,7 +12,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoListByClientId
 {
     public class GetPromoListByClientIdQueryHandler : IRequestHandler<GetPromoListByClientIdQuery, PromoListVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetPromoListByClientIdQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -20,12 +20,13 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoListByClientId
 
         public async Task<PromoListVm> Handle(GetPromoListByClientIdQuery request, CancellationToken cancellationToken)
         {
-            var promos = await _dbContext.Promos
-                .Where(x => x.ClientId == request.ClientId)
-                .ProjectTo<PromoLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync(cancellationToken);
+            //var promos = await _dbContext.Promos
+            //    .Where(x => x.ClientId == request.ClientId)
+            //    .ProjectTo<PromoLookupDto>(_mapper.ConfigurationProvider)
+            //    .ToListAsync(cancellationToken);
 
-            return new PromoListVm { Promos = promos }; 
+            //return new PromoListVm { Promos = promos };
+            return new PromoListVm { Promos = null };
         }
     }
 }

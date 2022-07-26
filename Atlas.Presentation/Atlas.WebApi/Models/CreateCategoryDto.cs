@@ -18,9 +18,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(p => p.Name, opt =>
                     opt.MapFrom(p => p.Name))
                 .ForMember(p => p.ImageUrl, opt =>
-                    opt.MapFrom(p => ImageUrl))
+                    opt.MapFrom(p => p.ImageUrl))
                 .ForMember(p => p.IsMainCategory, opt =>
-                    opt.MapFrom(p => IsMainCategory));
+                    opt.MapFrom(p => p.IsMainCategory));
         }
     }
 }
