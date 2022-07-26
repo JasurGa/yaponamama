@@ -8,6 +8,8 @@ namespace Atlas.Domain
 
         public string Name { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public bool IsMainCategory { get; set; }
 
         public bool IsDeleted { get; set; }

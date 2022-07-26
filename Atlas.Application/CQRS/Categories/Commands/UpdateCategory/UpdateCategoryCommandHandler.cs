@@ -22,10 +22,11 @@ namespace Atlas.Application.CQRS.Categories.Commands.UpdateCategory
             var session = _driver.AsyncSession();
             try
             {
-                await session.RunAsync("MATCH (c:Category{Id: $Id}) SET c.Name = $Name, c.IsMainCategory = $IsMainCategory", new
+                await session.RunAsync("MATCH (c:Category{Id: $Id}) SET c.Name = $Name, c.ImageUrl = $ImageUrl, c.IsMainCategory = $IsMainCategory", new
                 {
                     Id             = request.Id,
                     Name           = request.Name,
+                    ImageUrl       = request.ImageUrl,
                     IsMainCategory = request.IsMainCategory
                 });
             }
