@@ -43,7 +43,10 @@ namespace Atlas.WebApi.Controllers
         [HttpGet("paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<SupportLookupDto>>> GetAllPagedAsync([FromQuery] bool showDeleted = false, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<SupportLookupDto>>> GetAllPagedAsync(
+            [FromQuery] bool showDeleted = false, 
+            [FromQuery] int pageIndex = 0, 
+            [FromQuery] int pageSize = 10)
         {
             var vm = await Mediator.Send(new GetSupportPagedListQuery
             {

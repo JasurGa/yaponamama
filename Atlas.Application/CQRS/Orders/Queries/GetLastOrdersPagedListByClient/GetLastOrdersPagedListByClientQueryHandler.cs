@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Extensions;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -26,11 +27,11 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                 cancellationToken);
 
             var orders = await _dbContext.Orders
-                  .Where(x => x.ClientId == request.ClientId)
-                  .Skip(request.PageIndex * request.PageSize)
-                  .Take(request.PageSize)
-                  .ProjectTo<OrderLookupDto>(_mapper.ConfigurationProvider)
-                  .ToListAsync(cancellationToken);
+                .Where(x => x.ClientId == request.ClientId)
+                .Skip(request.PageIndex * request.PageSize)
+                .Take(request.PageSize)
+                .ProjectTo<OrderLookupDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
 
             return new PageDto<OrderLookupDto>
             {

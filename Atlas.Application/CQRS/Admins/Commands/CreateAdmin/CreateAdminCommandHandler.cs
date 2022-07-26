@@ -19,7 +19,7 @@ namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
 
         public async Task<Guid> Handle(CreateAdminCommand request, CancellationToken cancellationToken)
         {
-            var userId = await _mediator.Send(request.User);
+            var userId = await _mediator.Send(request.User, cancellationToken);
 
             var officialRole = await _dbContext.OfficialRoles.FirstOrDefaultAsync(x =>
                 x.Id == request.OfficialRoleId, cancellationToken);
@@ -34,9 +34,11 @@ namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
                 Id                  = Guid.NewGuid(),
                 KPI                 = 0,
                 UserId              = userId,
+                PhoneNumber         = request.PhoneNumber,
                 OfficialRoleId      = request.OfficialRoleId,
                 StartOfWorkingHours = request.StartOfWorkingHours,
                 WorkingDayDuration  = request.WorkingDayDuration,
+                Salary              = request.Salary,
                 IsDeleted           = false
             };
 

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.Supports.Commands.CreateSupport
 {
@@ -19,12 +17,16 @@ namespace Atlas.Application.CQRS.Supports.Commands.CreateSupport
 
         public async Task<Guid> Handle(CreateSupportCommand request, CancellationToken cancellationToken)
         {
-            var userId = await _mediator.Send(request.User);
+            var userId = await _mediator.Send(request.User, cancellationToken);
 
             var support = new Support
             {
                 Id                  = Guid.NewGuid(),
                 UserId              = userId,
+                StartOfWorkingHours = request.StartOfWorkingHours,
+                WorkingDayDuration  = request.WorkingDayDuration,
+                Salary              = request.Salary,
+                KPI                 = 0,
                 InternalPhoneNumber = request.InternalPhoneNumber,
                 PassportPhotoPath   = request.PassportPhotoPath,
                 IsDeleted           = false

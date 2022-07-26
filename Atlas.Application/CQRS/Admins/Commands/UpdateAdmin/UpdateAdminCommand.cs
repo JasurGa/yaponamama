@@ -8,6 +8,8 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
     {
         public Guid Id { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public long KPI { get; set; }
 
         public DateTime StartOfWorkingHours { get; set; }
@@ -15,6 +17,8 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
         public long WorkingDayDuration { get; set; }
 
         public Guid OfficialRoleId { get; set; }
+
+        public int Salary { get; set; }
 
         public UpdateUserCommand User { get; set; }
     }

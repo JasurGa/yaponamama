@@ -116,6 +116,8 @@ namespace Atlas.WebApi.Controllers
         /// <param name="pageSize">Page size</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="showDeleted">Show deleted list</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
         /// <returns>Returns PageDto GoodLookupDto object</returns>
         /// <response code="200">Success</response>
         [HttpGet("paged/category/{categoryId}")]
@@ -124,42 +126,58 @@ namespace Atlas.WebApi.Controllers
             [FromRoute] Guid categoryId,
             [FromQuery] int pageIndex = 0,
             [FromQuery] int pageSize = 10,
-            [FromQuery] bool showDeleted = false)
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] string sortable = "Name",
+            [FromQuery] bool ascending = true)
         {
             var vm = await Mediator.Send(new GetGoodPagedListByCategoryQuery
             {
-                CategoryId = categoryId,
-                PageIndex = pageIndex,
-                PageSize = pageSize,
-                ShowDeleted = showDeleted
+                CategoryId  = categoryId,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
+                ShowDeleted = showDeleted,
+                Sortable    = sortable,
+                Ascending   = ascending,
             });
 
             return Ok(vm);
         }
 
         /// <summary>
-        /// Gets the paged list of good which has discount
+        /// Gets the paged list of good
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/discounted/paged?pageSize=10&amp;pageIndex=0&amp;showDeleted=false
+        /// 
+        ///     GET /api/1.0/good/paged?pageSize=10&amp;pageIndex=0&amp;showDeleted=false&amp;sortable=Name&amp;ascending=true
+        /// 
         /// </remarks>
         /// <param name="pageSize">Page size</param>
+        /// <param name="showDeleted">Show deleted records</param>
+        /// <param name="sortable">Field to order the records by</param>
+        /// <param name="ascending">Type of ordering records ("Ascending" || "Descending")</param>
+        /// <param name="search">Search string</param>
         /// <param name="pageIndex">Page index</param>
         /// <returns>Returns PageDto GoodLookupDto object</returns>
         /// <response code="200">Success</response>
         [HttpGet("paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> GetAllAsync(
-            [FromQuery] int pageIndex = 0,
-            [FromQuery] int pageSize = 10,
-            [FromQuery] bool showDeleted = false)
+            [FromQuery] int pageIndex    = 0, 
+            [FromQuery] int pageSize     = 10,
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] string sortable  = "Name",
+            [FromQuery] bool ascending   = true,
+            [FromQuery] string search    = "")
         {
             var vm = await Mediator.Send(new GetGoodPagedListQuery
             {
                 PageIndex   = pageIndex,
                 PageSize    = pageSize,
-                ShowDeleted = showDeleted
+                ShowDeleted = showDeleted,
+                Sortable    = sortable,
+                Ascending   = ascending,
+                Search      = search,
             });
 
             return Ok(vm);
@@ -174,18 +192,27 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <param name="pageSize">Page size</param>
         /// <param name="pageIndex">Page index</param>
+        /// <param name="showDeleted">Show whether deleted or not deleted records</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
         /// <returns>Returns PageDto GoodLookupDto object</returns>
         /// <response code="200">Success</response>
         [HttpGet("discounted/paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> GetGoodsWithDiscountAsync(
             [FromQuery] int pageIndex = 0,
-            [FromQuery] int pageSize = 10)
+            [FromQuery] int pageSize = 10,
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] string sortable = "Name",
+            [FromQuery] bool ascending = true)
         {
             var vm = await Mediator.Send(new GetGoodWithDiscountPagedListQuery
             {
-                PageIndex = pageIndex,
-                PageSize = pageSize,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
+                ShowDeleted = showDeleted,
+                Sortable    = sortable,
+                Ascending   = ascending
             });
 
             return Ok(vm);

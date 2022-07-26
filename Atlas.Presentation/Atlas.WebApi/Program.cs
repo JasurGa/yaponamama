@@ -1,6 +1,5 @@
 using System;
 using Atlas.Persistence;
-using Atlas.WebApi.Observers;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;

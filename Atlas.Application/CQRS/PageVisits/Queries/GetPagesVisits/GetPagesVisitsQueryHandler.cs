@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Interfaces;
@@ -23,7 +22,7 @@ namespace Atlas.Application.CQRS.PageVisits.Queries.GetPagesVisits
             foreach (var page in request.Pages)
             {
                 var pageVisit = await _dbContext.PageVisits.FirstOrDefaultAsync(x =>
-                    x.Path == page);
+                    x.Path == page, cancellationToken);
 
                 result.Add(pageVisit != null ? pageVisit.VisitedCount : 0);
             }

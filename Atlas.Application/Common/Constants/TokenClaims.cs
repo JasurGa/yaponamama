@@ -1,5 +1,4 @@
-﻿using System;
-namespace Atlas.Application.Common.Constants
+﻿namespace Atlas.Application.Common.Constants
 {
     public static class TokenClaims
     {

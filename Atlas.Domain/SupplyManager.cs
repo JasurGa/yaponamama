@@ -9,6 +9,12 @@ namespace Atlas.Domain
 
         public string PhoneNumber { get; set; }
 
+        public DateTime StartOfWorkingHours { get; set; }
+
+        public long WorkingDayDuration { get; set; }
+
+        public int Salary { get; set; }
+
         public string PassportPhotoPath { get; set; }
 
         public Guid StoreId { get; set; }

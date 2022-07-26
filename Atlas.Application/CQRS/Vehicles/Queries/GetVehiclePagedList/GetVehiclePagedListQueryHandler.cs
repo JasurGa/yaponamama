@@ -1,4 +1,5 @@
-﻿using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList;
+﻿using Atlas.Application.Common.Extensions;
+using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -29,6 +30,7 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedList
 
             var vehicles = await _dbContext.Vehicles
                 .Where(x => x.IsDeleted == request.ShowDeleted)
+                .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<VehicleLookupDto>(_mapper.ConfigurationProvider)

@@ -1,4 +1,5 @@
-﻿using Atlas.Application.CQRS.Promos.Queries.GetPromoList;
+﻿using Atlas.Application.Common.Extensions;
+using Atlas.Application.CQRS.Promos.Queries.GetPromoList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -25,6 +26,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList
             var promosCount = await _dbContext.Promos.CountAsync(cancellationToken);
             
             var promos = await _dbContext.Promos
+                .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<PromoLookupDto>(_mapper.ConfigurationProvider)

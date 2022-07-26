@@ -1,4 +1,5 @@
-﻿using Atlas.Application.CQRS.Providers.Queries.GetProviderList;
+﻿using Atlas.Application.Common.Extensions;
+using Atlas.Application.CQRS.Providers.Queries.GetProviderList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -26,11 +27,12 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderPagedList
             var providersCount = await _dbContext.Providers.CountAsync(cancellationToken);
 
             var providers = await _dbContext.Providers
-                .Skip(request.PageIndex * request.PageSize)
-                .Take(request.PageSize)
-                .Where(x => 
+                .Where(x =>
                     x.Name.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()) ||
                     x.Address.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()))
+                .OrderByDynamic(request.Sortable, request.Ascending)
+                .Skip(request.PageIndex * request.PageSize)
+                .Take(request.PageSize)
                 .ProjectTo<ProviderLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

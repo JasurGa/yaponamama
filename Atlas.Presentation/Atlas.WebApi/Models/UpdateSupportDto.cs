@@ -9,6 +9,12 @@ namespace Atlas.WebApi.Models
     {
         public Guid Id { get; set; }
 
+        public DateTime StartOfWorkingHours { get; set; }
+
+        public long WorkingDayDuration { get; set; }
+
+        public int Salary { get; set; }
+
         public UpdateUserDto User { get; set; }
 
         public string InternalPhoneNumber { get; set; }
@@ -22,6 +28,12 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(x => x.Id))
                 .ForMember(x => x.User, opt =>
                     opt.MapFrom(x => x.User))
+                .ForMember(x => x.StartOfWorkingHours, opt =>
+                    opt.MapFrom(x => x.StartOfWorkingHours))
+                .ForMember(x => x.WorkingDayDuration, opt =>
+                    opt.MapFrom(x => x.WorkingDayDuration))
+                .ForMember(x => x.Salary, opt =>
+                    opt.MapFrom(x => x.Salary))
                 .ForMember(x => x.InternalPhoneNumber, opt =>
                     opt.MapFrom(x => x.InternalPhoneNumber))
                 .ForMember(x => x.PassportPhotoPath, opt =>

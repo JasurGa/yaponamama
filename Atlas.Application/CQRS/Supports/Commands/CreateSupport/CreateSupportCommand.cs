@@ -8,6 +8,12 @@ namespace Atlas.Application.CQRS.Supports.Commands.CreateSupport
     {
         public CreateUserCommand User { get; set; }
 
+        public DateTime StartOfWorkingHours { get; set; }
+
+        public long WorkingDayDuration { get; set; }
+
+        public int Salary { get; set; }
+
         public string InternalPhoneNumber { get; set; }
 
         public string PassportPhotoPath { get; set; }

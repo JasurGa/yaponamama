@@ -11,7 +11,11 @@ namespace Atlas.Application.CQRS.Users.Commands.CreateUser
 
         public string FirstName { get; set; }
 
+        public string? MiddleName { get; set; }
+
         public string LastName { get; set; }
+
+        public int Sex { get; set; }
 
         public DateTime? Birthday { get; set; }
 

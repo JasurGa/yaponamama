@@ -27,8 +27,11 @@ namespace Atlas.Application.CQRS.Supports.Commands.UpdateSupport
             }
 
             request.User.Id = support.UserId;
-            await _mediator.Send(request.User);
+            await _mediator.Send(request.User, cancellationToken);
 
+            support.StartOfWorkingHours = request.StartOfWorkingHours;
+            support.WorkingDayDuration  = request.WorkingDayDuration;
+            support.Salary              = request.Salary;
             support.PassportPhotoPath   = request.PassportPhotoPath;
             support.InternalPhoneNumber = request.InternalPhoneNumber;
 

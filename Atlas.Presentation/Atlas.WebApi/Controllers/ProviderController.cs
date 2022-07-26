@@ -32,11 +32,13 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/provider/paged?pageIndex=0&amp;pageSize=10
+        /// GET /api/1.0/provider/paged?pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
         /// </remarks>
         /// <param name="search">Search string</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
         /// <returns>Returns PageDto ProviderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -45,13 +47,20 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<ProviderLookupDto>>> GetAllPagedAsync([FromQuery] string search = "", [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<ProviderLookupDto>>> GetAllPagedAsync(
+            [FromQuery] string search = "", 
+            [FromQuery] int pageIndex = 0, 
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string sortable = "Name",
+            [FromQuery] bool ascending = true)
         {
             var vm = await Mediator.Send(new GetProviderPagedListQuery
             {
                 Search    = search,
                 PageIndex = pageIndex,
-                PageSize  = pageSize
+                PageSize  = pageSize,
+                Sortable  = sortable,
+                Ascending = ascending,
             });
 
             return Ok(vm);

@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Atlas.Persistence.Migrations
 {
     [DbContext(typeof(AtlasDbContext))]
-    [Migration("20220624111030_StorePhoneNumberMigration")]
-    partial class StorePhoneNumberMigration
+    [Migration("20220706093731_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

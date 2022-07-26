@@ -9,6 +9,9 @@ namespace Atlas.Application.CQRS.Admins.Commands.CreateAdmin
         {
             RuleFor(x => x.OfficialRoleId)
                 .NotEqual(Guid.Empty);
+
+            RuleFor(x => x.PhoneNumber)
+                .NotEmpty();
         }
     }
 }

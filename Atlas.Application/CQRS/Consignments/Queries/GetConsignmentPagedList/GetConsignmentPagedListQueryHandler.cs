@@ -1,4 +1,5 @@
-﻿using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
+﻿using Atlas.Application.Common.Extensions;
+using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -25,6 +26,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
             var consignmentsCount = await _dbContext.Consignments.CountAsync(cancellationToken);
 
             var consignments = await _dbContext.Consignments
+                .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<ConsignmentLookupDto>(_mapper.ConfigurationProvider)

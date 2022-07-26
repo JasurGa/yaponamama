@@ -30,7 +30,7 @@ namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
                 }
             }
 
-            var userId = await _mediator.Send(request.User);
+            var userId = await _mediator.Send(request.User, cancellationToken);
 
             var courier = new Courier
             {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Atlas.Persistence.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -255,7 +255,8 @@ namespace Atlas.Persistence.Migrations
                     ClientId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     FinishedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    Price = table.Column<float>(type: "real", nullable: false),
+                    PurchasePrice = table.Column<float>(type: "real", nullable: false),
+                    SellingPrice = table.Column<float>(type: "real", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     ToLongitude = table.Column<float>(type: "real", nullable: false),
                     ToLatitude = table.Column<float>(type: "real", nullable: false),
@@ -345,6 +346,7 @@ namespace Atlas.Persistence.Migrations
                     Latitude = table.Column<float>(type: "real", nullable: false),
                     Longitude = table.Column<float>(type: "real", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>

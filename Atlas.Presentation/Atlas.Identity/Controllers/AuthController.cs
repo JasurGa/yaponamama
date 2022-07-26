@@ -15,6 +15,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using Microsoft.AspNetCore.Authorization;
+using Atlas.Application.Enums;
 
 namespace Atlas.Identity.Controllers
 {
@@ -39,8 +40,24 @@ namespace Atlas.Identity.Controllers
         }
 
         /// <summary>
-        /// Change password (for all authorized)
+        /// Change password
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PUT /api/1.0/auth/password
+        ///     {
+        ///         "oldPassword": "password",
+        ///         "newPassword": "password123",
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="changePassword">ChangePasswordDto object</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Returns token (AuthorizationToken)</returns>
+        /// <response code="204">No content</response>
+        /// <response code="400">Bad request</response>
+        /// <response code="401">Unauthorized</response>
         [HttpPut("password")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -65,8 +82,28 @@ namespace Atlas.Identity.Controllers
         }
 
         /// <summary>
-        /// Register client (for all)
+        /// Register client
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/1.0/auth/register
+        ///     {
+        ///         "phoneNumber": "+998901234567",
+        ///         "firstName": "John",
+        ///         "lastName": "Doe",
+        ///         "middleName": "O'Brian",
+        ///         "sex": 1,
+        ///         "password": "password",
+        ///         "birthday": "2022-05-14T14:12:02.953Z",
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="registerDto">RegisterDto object</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Returns token (AuthorizationToken)</returns>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad request</response>
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -89,6 +126,11 @@ namespace Atlas.Identity.Controllers
                 return BadRequest();
             }
 
+            if (!Enum.IsDefined(typeof(UserSex), registerDto.Sex))
+            {
+                throw new NotFoundException(nameof(UserSex), registerDto.Sex);
+            }
+
             var userId   = Guid.NewGuid();
             var clientId = Guid.NewGuid();
             var salt     = GenerateSalt();
@@ -99,6 +141,7 @@ namespace Atlas.Identity.Controllers
                 Login           = registerDto.PhoneNumber,
                 FirstName       = registerDto.FirstName,
                 LastName        = registerDto.LastName,
+                Sex             = registerDto.Sex,
                 Birthday        = registerDto.Birthday,
                 CreatedAt       = DateTime.UtcNow,
                 AvatarPhotoPath = "",
@@ -131,8 +174,22 @@ namespace Atlas.Identity.Controllers
         }
 
         /// <summary>
-        /// Auth user (for all)
+        /// Login user
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/1.0/auth
+        ///     {
+        ///         "login" : "+998901234567",
+        ///         "password" : "password",
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="signIn">SignInDto object</param>
+        /// <returns>Returns token (AuthorizationToken)</returns>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad request</response>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<AuthToken>> SignInAsync([FromBody] SignInDto signIn)

@@ -1,10 +1,9 @@
-﻿using System;
-namespace Atlas.Identity.Constants
+﻿namespace Atlas.Identity.Constants
 {
     public static class TokenInfo
     {
-        public static string TokenType = "Bearer";
+        public const string TokenType = "Bearer";
 
-        public static string TokenHeader = "Authorization";
+        public const string TokenHeader = "Authorization";
     }
 }

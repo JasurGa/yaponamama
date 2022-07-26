@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -28,7 +27,7 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
             }
 
             request.User.Id = admin.UserId;
-            await _mediator.Send(request.User);
+            await _mediator.Send(request.User, cancellationToken);
 
             var officialRole = await _dbContext.OfficialRoles.FirstOrDefaultAsync(x =>
                 x.Id == request.OfficialRoleId, cancellationToken);
@@ -38,10 +37,12 @@ namespace Atlas.Application.CQRS.Admins.Commands.UpdateAdmin
                 throw new NotFoundException(nameof(OfficialRole), request.OfficialRoleId);
             }
 
+            admin.PhoneNumber         = request.PhoneNumber;
             admin.KPI                 = request.KPI;
             admin.OfficialRoleId      = request.OfficialRoleId;
             admin.WorkingDayDuration  = request.WorkingDayDuration;
             admin.StartOfWorkingHours = request.StartOfWorkingHours;
+            admin.Salary              = request.Salary;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

@@ -19,7 +19,7 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager
 
         public async Task<Guid> Handle(CreateSupplyManagerCommand request, CancellationToken cancellationToken)
         {
-            var userId = await _mediator.Send(request.User);
+            var userId = await _mediator.Send(request.User, cancellationToken);
 
             var store = await _dbContext.Stores.FirstOrDefaultAsync(x =>
                 x.Id == request.StoreId, cancellationToken);
@@ -31,12 +31,15 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.CreateSupplyManager
 
             var supplyManager = new SupplyManager
             {
-                Id                = Guid.NewGuid(),
-                UserId            = userId,
-                StoreId           = request.StoreId,
-                PhoneNumber       = request.PhoneNumber,
-                PassportPhotoPath = request.PassportPhotoPath,
-                IsDeleted         = false,
+                Id                  = Guid.NewGuid(),
+                UserId              = userId,
+                StoreId             = request.StoreId,
+                PhoneNumber         = request.PhoneNumber,
+                PassportPhotoPath   = request.PassportPhotoPath,
+                StartOfWorkingHours = request.StartOfWorkingHours,
+                WorkingDayDuration  = request.WorkingDayDuration,
+                Salary              = request.Salary,
+                IsDeleted           = false,
             };
 
             await _dbContext.SupplyManagers.AddAsync(supplyManager, cancellationToken);

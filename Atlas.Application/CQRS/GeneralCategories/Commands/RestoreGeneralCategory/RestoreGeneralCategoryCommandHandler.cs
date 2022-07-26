@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -31,6 +30,7 @@ namespace Atlas.Application.CQRS.GeneralCategories.Commands.RestoreGeneralCatego
             category.IsDeleted = false;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
+
             return Unit.Value;
         }
     }

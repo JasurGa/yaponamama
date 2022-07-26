@@ -96,6 +96,8 @@ namespace Atlas.WebApi.Controllers
         ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "firstName": "John",
         ///     "lastName": "Doe",
+        ///     "middleName": "O'Brien",
+        ///     "sex": 1,
         ///     "birthday": "1900-01-01T10:00:00",
         ///     "avatarPhotoPath": "/main/dir,
         /// }

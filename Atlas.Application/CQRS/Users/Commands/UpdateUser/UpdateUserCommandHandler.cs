@@ -29,6 +29,7 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
             user.Login           = request.Login;
             user.FirstName       = request.FirstName;
             user.LastName        = request.LastName;
+            user.MiddleName      = request.MiddleName;
             user.Birthday        = request.Birthday;
             user.AvatarPhotoPath = request.AvatarPhotoPath;
 

@@ -58,11 +58,13 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/store/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        /// GET /api/1.0/store/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
         /// </remarks>
         /// <param name="showDeleted">Show deleted list</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
         /// <returns>Returns PageDto ProviderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -74,13 +76,17 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<PageDto<StoreLookupDto>>> GetAllPagedAsync(
             [FromQuery] bool showDeleted = false,
             [FromQuery] int pageIndex = 0,
-            [FromQuery] int pageSize = 10)
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string sortable = "Name",
+            [FromQuery] bool ascending = true)
         {
             var vm = await Mediator.Send(new GetStorePagedListQuery
             {
                 ShowDeleted = showDeleted,
                 PageIndex   = pageIndex,
-                PageSize    = pageSize
+                PageSize    = pageSize,
+                Sortable    = sortable,
+                Ascending   = ascending,
             });
 
             return Ok(vm);

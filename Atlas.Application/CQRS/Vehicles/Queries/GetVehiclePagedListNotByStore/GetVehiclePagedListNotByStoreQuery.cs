@@ -14,5 +14,9 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListNotByStore
         public int PageIndex { get; set; }
 
         public bool ShowDeleted { get; set; }
+
+        public string Sortable { get; set; }
+
+        public bool Ascending { get; set; }
     }
 }

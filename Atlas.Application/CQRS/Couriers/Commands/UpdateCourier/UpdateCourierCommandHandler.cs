@@ -22,13 +22,13 @@ namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
             var courier = await _dbContext.Couriers.FirstOrDefaultAsync(x =>
                 x.Id == request.Id, cancellationToken);
 
-            if(courier == null)
+            if (courier == null)
             {
                 throw new NotFoundException(nameof(Courier), request.Id);
             }
 
             request.User.Id = courier.UserId;
-            await _mediator.Send(request.User);
+            await _mediator.Send(request.User, cancellationToken);
 
             if (request.VehicleId != null)
             {

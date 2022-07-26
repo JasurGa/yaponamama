@@ -9,5 +9,11 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
+
+        public bool ShowDeleted { get; set; }
+
+        public string Sortable { get; set; }
+
+        public bool Ascending { get; set; }
     }
 }

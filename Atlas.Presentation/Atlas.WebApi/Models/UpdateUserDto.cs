@@ -17,6 +17,10 @@ namespace Atlas.WebApi.Models
 
         public string LastName { get; set; }
 
+        public string MiddleName { get; set; }
+
+        public int Sex { get; set; }
+
         public DateTime Birthday { get; set; }
         
         public string AvatarPhotoPath { get; set; }
@@ -34,6 +38,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.FirstName))
                 .ForMember(x => x.LastName, opt => 
                     opt.MapFrom(src => src.LastName))
+                .ForMember(x => x.Sex, opt =>
+                    opt.MapFrom(src => src.Sex))
                 .ForMember(x => x.Birthday, opt => 
                     opt.MapFrom(src => src.Birthday))
                 .ForMember(x => x.AvatarPhotoPath, opt =>

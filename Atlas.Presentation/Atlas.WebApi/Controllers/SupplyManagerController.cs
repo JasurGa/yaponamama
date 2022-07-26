@@ -8,7 +8,6 @@ using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerDetails;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedList;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedListByStoreId;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedListNotByStoreId;
-using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -162,6 +161,9 @@ namespace Atlas.WebApi.Controllers
         ///     "storeId": "j3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "phoneNumber": "+998901234567"
         ///     "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
+        ///     "salary": 1000000,
+        ///     "startOfWorkingHours": "01-01-1901T10:00:00",
+        ///     "workingDayDuration": 8,
         /// }
         /// </remarks>
         /// <param name="createSupplyManager">CreateSupplyManagerDto object</param>
@@ -226,7 +228,10 @@ namespace Atlas.WebApi.Controllers
         ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "storeId": "j3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///     "phoneNumber": "+998901234567"
-        ///     "PassportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
+        ///     "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
+        ///     "salary": 1000000,
+        ///     "startOfWorkingHours": "01-01-1901T10:00:00",
+        ///     "workingDayDuration": 8,
         /// }
         /// </remarks>
         /// <param name="updateSupplyManager">UpdateSupplyManagerDto object</param>

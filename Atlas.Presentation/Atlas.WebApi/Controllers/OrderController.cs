@@ -4,6 +4,7 @@ using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
 using Atlas.Application.CQRS.Orders.Commands.FinishOrder;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
+using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByStore;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetails;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForAdmin;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForCourier;
@@ -246,7 +247,9 @@ namespace Atlas.WebApi.Controllers
         {
             var vm = await Mediator.Send(new GetLastOrdersPagedListByStoreQuery
             {
-                StoreId = id
+                StoreId   = id,
+                PageSize  = pageSize,
+                PageIndex = pageIndex,
             });
 
             return Ok(vm);

@@ -48,6 +48,7 @@ namespace Atlas.Application.CQRS.Users.Commands.CreateUser
         public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var salt = GenerateSalt();
+
             var user = new User
             {
                 Id              = Guid.NewGuid(),
@@ -56,6 +57,7 @@ namespace Atlas.Application.CQRS.Users.Commands.CreateUser
                 PasswordHash    = GetHash(salt + request.Password),
                 FirstName       = request.FirstName,
                 LastName        = request.LastName,
+                MiddleName      = request.MiddleName,
                 Birthday        = request.Birthday,
                 AvatarPhotoPath = request.AvatarPhotoPath,
                 IsDeleted       = false,

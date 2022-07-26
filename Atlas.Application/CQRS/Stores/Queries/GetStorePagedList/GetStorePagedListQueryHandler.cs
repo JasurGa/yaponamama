@@ -1,4 +1,5 @@
-﻿using Atlas.Application.CQRS.Stores.Queries.GetStoreList;
+﻿using Atlas.Application.Common.Extensions;
+using Atlas.Application.CQRS.Stores.Queries.GetStoreList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -27,6 +28,7 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStorePagedList
                 
             var stores = await _dbContext.Stores
                 .Where(x => x.IsDeleted == request.ShowDeleted)
+                .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<StoreLookupDto>(_mapper.ConfigurationProvider)

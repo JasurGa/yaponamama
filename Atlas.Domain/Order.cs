@@ -13,6 +13,16 @@ namespace Atlas.Domain
 
         public Guid ClientId { get; set; }
 
+        public string? Comment { get; set; }
+
+        public bool DontCallWhenDelivered { get; set; }
+
+        public int DestinationType { get; set; }
+
+        public int Floor { get; set; }
+
+        public int Entrance { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public DateTime? FinishedAt { get; set; }
