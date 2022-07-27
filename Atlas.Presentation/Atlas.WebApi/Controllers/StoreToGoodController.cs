@@ -61,9 +61,14 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/storetogood/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged
+        ///     GET /api/1.0/storetogood/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
         ///     
         /// </remarks>
+        /// <param name="storeId">Store id (guid)</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
         /// <returns>Returns PageDto StoreToGoodLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
@@ -73,13 +78,20 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<StoreToGoodLookupDto>>> GetAllPagedByStoreIdAsync([FromRoute] Guid storeId, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<StoreToGoodLookupDto>>> GetAllPagedByStoreIdAsync(
+            [FromRoute] Guid storeId, 
+            [FromQuery] int pageIndex = 0, 
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string sortable = "Id",
+            [FromQuery] bool ascending = true)
         {
             var vm = await Mediator.Send(new GetStoreToGoodPagedListByStoreIdQuery
             {
                 StoreId     = storeId,
                 PageIndex   = pageIndex,
                 PageSize    = pageSize,
+                Sortable    = sortable,
+                Ascending   = ascending
             });
 
             return Ok(vm);

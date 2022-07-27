@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Extensions;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -26,6 +27,7 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
 
             var storeToGoods = await _dbContext.StoreToGoods
                 .Where(x => x.StoreId == request.StoreId)
+                .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<StoreToGoodLookupDto>(_mapper.ConfigurationProvider)
