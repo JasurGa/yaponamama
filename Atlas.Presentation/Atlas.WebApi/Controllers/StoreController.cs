@@ -33,7 +33,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/store?showDeleted=true
+        /// 
+        ///     GET /api/1.0/store?showDeleted=true
+        ///     
         /// </remarks>
         /// <returns>Returns StoreListVm object</returns>
         /// <response code="200">Success</response>
@@ -58,14 +60,16 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/store/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        /// 
+        ///     GET /api/1.0/store/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted list</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="sortable">Property to sort by</param>
         /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
-        /// <returns>Returns PageDto ProviderLookupDto object</returns>
+        /// <returns>Returns PageDto StoreLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
@@ -97,7 +101,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     GET /api/1.0/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Store id (guid)</param>
         /// <returns>Returns StoreDetailsVm object</returns>
@@ -125,7 +131,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     DELETE /api/1.0/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Store id (guid)</param>
         /// <returns>Returns NoContent</returns>
@@ -153,13 +161,16 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/store
-        /// {
-        ///     "name": "Sample name",
-        ///     "address": "Sample address",
-        ///     "longitude": 0,
-        ///     "longitude": 0
-        /// }
+        /// 
+        ///     POST /api/1.0/store
+        ///     {
+        ///         "name": "Чиланзарский склад",
+        ///         "address": "Ташкент, Чиланзарский район, улица им.Мукими, 12А",
+        ///         "phoneNumber": "+998901234567",
+        ///         "longitude": 41.657,
+        ///         "longitude": -12.654
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createStore">CreateStoreDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -183,14 +194,17 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/store
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "name": "Sample name",
-        ///     "address": "Sample address",
-        ///     "longitude": 0,
-        ///     "longitude": 0,
-        /// }
+        /// 
+        ///     PUT /api/1.0/store
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "name": "Чиланзарский склад",
+        ///         "address": "Ташкент, Чиланзарский район, улица им.Низами, 12Б",
+        ///         "phoneNumber": "+998901234567",
+        ///         "longitude": 32.123,
+        ///         "longitude": -12.9878,
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateStore">UpdateStoreDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -215,7 +229,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PATCH /api/1.0/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     PATCH /api/1.0/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Store id (guid)</param>
         /// <returns>Returns NoContent</returns>
