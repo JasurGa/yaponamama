@@ -19,6 +19,8 @@ namespace Atlas.Domain
 
         public string LogotypePath { get; set; }
 
+        public ICollection<Good> Goods { get; set; }
+
         public ICollection<ProviderPhoneNumber> ProviderPhoneNumbers { get; set; }
     }
 }

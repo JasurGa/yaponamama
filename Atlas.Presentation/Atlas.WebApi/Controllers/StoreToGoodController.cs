@@ -31,7 +31,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/storetogood/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     GET /api/1.0/storetogood/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <returns>Returns StoreToGoodVm object</returns>
         /// <response code="200">Success</response>
@@ -58,7 +60,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/storetogood/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged
+        /// 
+        ///     GET /api/1.0/storetogood/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged
+        ///     
         /// </remarks>
         /// <returns>Returns PageDto StoreToGoodLookupDto object</returns>
         /// <response code="200">Success</response>
@@ -66,8 +70,8 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpGet("store/{storeId}/paged")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<StoreToGoodLookupDto>>> GetAllPagedByStoreIdAsync([FromRoute] Guid storeId, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
@@ -86,16 +90,19 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/storetogood
-        /// {
-        ///     "GoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "Store":  "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "Count":  10,
-        /// }
+        /// 
+        ///     POST /api/1.0/storetogood
+        ///     {
+        ///         "GoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "Store":  "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "Count":  100,
+        ///     }
+        /// 
         /// </remarks>
         /// <param name="createStoreToGood">CreateStoreToGoodDto object</param>
         /// <returns>Returns id (guid)</returns> 
         /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
@@ -115,11 +122,13 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/storetogood
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        ///     "count": 10,
-        /// }
+        /// 
+        ///     PUT /api/1.0/storetogood
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         "count": 10,
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateStoreToGoodDto">UpdateStoreToGoodDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -146,7 +155,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/storeToGood/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     DELETE /api/1.0/storeToGood/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">StoreToGood id</param>
         /// <returns>Returns NoContent</returns>

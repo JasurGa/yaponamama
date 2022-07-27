@@ -14,6 +14,10 @@ namespace Atlas.Persistence.EntityTypeConfigurations
             builder
                 .HasMany(x => x.ProviderPhoneNumbers)
                 .WithOne(y => y.Provider);
+
+            builder
+                .HasMany(x => x.Goods)
+                .WithOne(y => y.Provider);
         }
     }
 }

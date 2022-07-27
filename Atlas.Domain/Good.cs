@@ -19,12 +19,14 @@ namespace Atlas.Domain
 
         public Guid ProviderId { get; set; }
 
-        public StoreToGood StoreToGood { get; set; }
-
         public float Volume { get; set; }
 
         public float Mass { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public StoreToGood StoreToGood { get; set; }
+
+        public Provider Provider { get; set; }
     }
 }
