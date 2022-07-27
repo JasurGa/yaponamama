@@ -1,7 +1,9 @@
-﻿using Atlas.Application.Common.Extensions;
+﻿using Atlas.Application.Common.Exceptions;
+using Atlas.Application.Common.Extensions;
 using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
+using Atlas.Domain;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
@@ -25,6 +27,14 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListNotByStore
         public async Task<PageDto<VehicleLookupDto>> Handle(GetVehiclePagedListNotByStoreQuery request,
             CancellationToken cancellationToken)
         {
+            var store = await _dbContext.Stores.FirstOrDefaultAsync(x =>
+                x.Id == request.StoreId, cancellationToken);
+
+            if (store == null)
+            {
+                throw new NotFoundException(nameof(Store), request.StoreId);
+            }
+
             var vehiclesCount = await _dbContext.Vehicles.CountAsync(x =>
                 x.StoreId != request.StoreId &&
                 x.IsDeleted == request.ShowDeleted,

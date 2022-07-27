@@ -1058,6 +1058,9 @@ namespace Atlas.Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<string>("RegistrationCertificateNumber")
+                        .HasColumnType("text");
+
                     b.Property<string>("RegistrationCertificatePhotoPath")
                         .HasColumnType("text");
 

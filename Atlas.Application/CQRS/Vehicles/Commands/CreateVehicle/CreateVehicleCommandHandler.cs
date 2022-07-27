@@ -39,6 +39,7 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.CreateVehicle
                 Id                               = Guid.NewGuid(),
                 Name                             = request.Name,
                 RegistrationCertificatePhotoPath = request.RegistrationCertificatePhotoPath,
+                RegistrationCertificateNumber    = request.RegistrationCertificateNumber,
                 RegistrationNumber               = request.RegistrationNumber,
                 VehicleTypeId                    = request.VehicleTypeId,
                 StoreId                          = request.StoreId,

@@ -26,10 +26,9 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehiclePagedListByStore
             CancellationToken cancellationToken)
         {
             var vehiclesCount = await _dbContext.Vehicles.CountAsync(x =>
-                x.StoreId == request.StoreId &&
-                x.IsDeleted == request.ShowDeleted,
-                cancellationToken);
-
+                x.StoreId == request.StoreId && x.IsDeleted == request.ShowDeleted,
+                    cancellationToken);
+            
             var vehicles = await _dbContext.Vehicles
                 .Where(x => x.StoreId == request.StoreId &&
                     x.IsDeleted == request.ShowDeleted)

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Atlas.Persistence.Migrations
 {
     [DbContext(typeof(AtlasDbContext))]
-    [Migration("20220726133416_Initial")]
+    [Migration("20220727072933_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1058,6 +1058,9 @@ namespace Atlas.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RegistrationCertificateNumber")
                         .HasColumnType("text");
 
                     b.Property<string>("RegistrationCertificatePhotoPath")

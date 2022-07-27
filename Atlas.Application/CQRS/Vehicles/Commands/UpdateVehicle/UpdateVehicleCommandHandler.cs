@@ -43,6 +43,7 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.UpdateVehicle
 
             vehicle.Name                             = request.Name;
             vehicle.RegistrationCertificatePhotoPath = request.RegistrationCertificatePhotoPath;
+            vehicle.RegistrationCertificateNumber    = request.RegistrationCertificateNumber;
             vehicle.RegistrationNumber               = request.RegistrationNumber;
             vehicle.StoreId                          = request.StoreId;
             vehicle.VehicleTypeId                    = request.VehicleTypeId;

@@ -12,6 +12,9 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.CreateVehicle
             RuleFor(x => x.RegistrationCertificatePhotoPath)
                 .NotEmpty();
 
+            RuleFor(x => x.RegistrationCertificateNumber)
+                .NotEmpty();
+
             RuleFor(x => x.RegistrationNumber)
                 .NotEmpty();
 

@@ -409,6 +409,7 @@ namespace Atlas.Persistence.Migrations
                     Name = table.Column<string>(type: "text", nullable: true),
                     RegistrationCertificatePhotoPath = table.Column<string>(type: "text", nullable: true),
                     RegistrationNumber = table.Column<string>(type: "text", nullable: true),
+                    RegistrationCertificateNumber = table.Column<string>(type: "text", nullable: true),
                     VehicleTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     StoreId = table.Column<Guid>(type: "uuid", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)

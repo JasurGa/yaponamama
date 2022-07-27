@@ -18,6 +18,9 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.UpdateVehicle
 
             RuleFor(x => x.RegistrationNumber)
                 .NotEmpty();
+            
+            RuleFor(x => x.RegistrationCertificateNumber)
+                .NotEmpty();
 
             RuleFor(x => x.VehicleTypeId)
                 .NotEmpty();

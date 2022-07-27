@@ -11,6 +11,8 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.UpdateVehicle
 
         public string RegistrationCertificatePhotoPath { get; set; }
 
+        public string RegistrationCertificateNumber { get; set; }
+
         public string RegistrationNumber { get; set; }
 
         public Guid VehicleTypeId { get; set; }
