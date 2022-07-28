@@ -5,6 +5,8 @@ namespace Atlas.Domain
     {
         public Guid Id { get; set; }
 
+        public Guid ProviderId { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -16,8 +18,6 @@ namespace Atlas.Domain
         public long PurchasePrice { get; set; }
 
         public float Discount { get; set; }
-
-        public Guid ProviderId { get; set; }
 
         public float Volume { get; set; }
 

@@ -19,7 +19,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
 
         public long SellingPrice { get; set; }
 
-        public int Discount { get; set; }
+        public float Discount { get; set; }
 
         public void Mapping(Profile profile)
         {

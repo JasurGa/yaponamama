@@ -1,5 +1,4 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 using AutoMapper;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +32,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByProvider
                 throw new NotFoundException(nameof(Provider), request.ProviderId);
             }
 
-            var goods = await _dbContext.Goods.Where(x => x.ProviderId == request.ProviderId)
+            var goods = await _dbContext.Goods
+                .Where(x => x.ProviderId == request.ProviderId)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

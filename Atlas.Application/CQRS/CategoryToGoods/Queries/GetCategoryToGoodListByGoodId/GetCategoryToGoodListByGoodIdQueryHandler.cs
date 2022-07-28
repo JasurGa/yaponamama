@@ -30,7 +30,7 @@ namespace Atlas.Application.CQRS.CategoryToGoods.Queries.GetCategoryToGoodListBy
                 var cursor = await session.RunAsync("MATCH (g:Good{Id: $Id})-[:BELONGS_TO]->(c:Category{IsDeleted: $IsDeleted}) RETURN c", new
                 {
                     Id          = request.GoodId.ToString(),
-                    ShowDeleted = request.ShowDeleted
+                    IsDeleted   = request.ShowDeleted
                 });
 
                 categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>(
