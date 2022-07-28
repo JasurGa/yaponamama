@@ -28,7 +28,7 @@ namespace Atlas.WebApi.Models
 
         public string Promo { get; set; }
 
-        public IList<CreateGoodToOrderDto> GoodToOrders { get; set; }
+        public IEnumerable<CreateGoodToOrderDto> GoodToOrders { get; set; }
 
         public void Mapping(Profile profile)
         {

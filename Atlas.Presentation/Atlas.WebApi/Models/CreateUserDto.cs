@@ -25,7 +25,7 @@ namespace Atlas.WebApi.Models
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateUserCommand, CreateUserDto>()
+            profile.CreateMap<CreateUserDto, CreateUserCommand>()
                 .ForMember(dst => dst.Login, opt => opt.MapFrom(src =>
                     src.Login))
                 .ForMember(dst => dst.Password, opt => opt.MapFrom(src =>

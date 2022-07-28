@@ -1,4 +1,5 @@
 ﻿using Atlas.Application.CQRS.ProviderPhoneNumbers.Commands.CreateProviderPhoneNumber;
+using Atlas.Application.CQRS.ProviderPhoneNumbers.Commands.CreateProviderPhoneNumbers;
 using Atlas.Application.CQRS.ProviderPhoneNumbers.Commands.DeleteProviderPhoneNumber;
 using Atlas.Application.CQRS.ProviderPhoneNumbers.Commands.UpdateProviderPhoneNumber;
 using Atlas.Application.CQRS.ProviderPhoneNumbers.Queries.GetProviderPhoneNumberDetails;
@@ -104,6 +105,40 @@ namespace Atlas.WebApi.Controllers
             });
 
             return Ok(vm);
+        }
+
+        /// <summary>
+        /// Creates new phone numbers of provider
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// POST /api/1.0/providerphonenumber
+        /// {
+        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "phoneNumber": [
+        ///         "+998901234560",
+        ///         "+998901234561",
+        ///         "+998901234562",
+        ///         "+998901234563",
+        ///     ]
+        /// }
+        /// </remarks>
+        /// <param name="createProviderPhoneNumbers">CreateProviderPhoneNumbersDto object</param>
+        /// <returns>Returns id (guid)</returns> 
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPost("many")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateProviderPhoneNumbersDto createProviderPhoneNumbers)
+        {
+            var providerPhoneNumberId = await Mediator.Send(_mapper.Map<CreateProviderPhoneNumbersDto,
+                CreateProviderPhoneNumbersCommand>(createProviderPhoneNumbers));
+
+            return Ok(providerPhoneNumberId);
         }
 
         /// <summary>

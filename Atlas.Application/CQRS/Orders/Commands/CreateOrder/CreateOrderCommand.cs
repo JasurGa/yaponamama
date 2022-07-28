@@ -29,6 +29,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
         public string Promo { get; set; }
 
-        public IList<CreateGoodToOrderCommand> GoodToOrders { get; set; }
+        public IEnumerable<CreateGoodToOrderCommand> GoodToOrders { get; set; }
     }
 }

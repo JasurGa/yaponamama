@@ -118,6 +118,7 @@
     <Folder Include="CQRS\Orders\Queries\GetOrderDetailsForAdmin\" />
     <Folder Include="CQRS\Orders\Queries\GetLastOrdersPagedListByAdmin\" />
     <Folder Include="CQRS\Orders\Queries\GetLastOrdersPagedListByStore\" />
+    <Folder Include="CQRS\ProviderPhoneNumbers\Commands\CreateProviderPhoneNumbers\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -235,5 +236,6 @@
     <None Remove="CQRS\Orders\Queries\GetOrderDetailsForAdmin\" />
     <None Remove="CQRS\Orders\Queries\GetLastOrdersPagedListByAdmin\" />
     <None Remove="CQRS\Orders\Queries\GetLastOrdersPagedListByStore\" />
+    <None Remove="CQRS\ProviderPhoneNumbers\Commands\CreateProviderPhoneNumbers\" />
   </ItemGroup>
 </Project>
