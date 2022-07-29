@@ -131,7 +131,7 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/category/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        /// GET /api/1.0/category/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
         /// </remarks>
         /// <param name="showDeleted">Show deleted list</param>
         /// <param name="pageIndex">Page index</param>

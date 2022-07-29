@@ -12,6 +12,8 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList
         public string Name { get; set; }
 
         public string RegistrationNumber { get; set; }
+        
+        public string RegistrationCertificateNumber { get; set; }
 
         public Guid VehicleTypeId { get; set; }
 
@@ -26,6 +28,8 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList
                     opt.MapFrom(src => src.Name))
                 .ForMember(dst => dst.RegistrationNumber, opt =>
                     opt.MapFrom(src => src.RegistrationNumber))
+                .ForMember(dst => dst.RegistrationCertificateNumber, opt =>
+                    opt.MapFrom(src => src.RegistrationCertificateNumber))
                 .ForMember(dst => dst.VehicleTypeId, opt =>
                     opt.MapFrom(src => src.VehicleTypeId))
                 .ForMember(dst => dst.StoreId, opt =>

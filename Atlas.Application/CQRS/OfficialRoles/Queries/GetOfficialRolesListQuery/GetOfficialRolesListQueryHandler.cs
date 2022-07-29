@@ -24,7 +24,7 @@ namespace Atlas.Application.CQRS.OfficialRoles.Queries.GetOfficialRolesListQuery
             CancellationToken cancellationToken)
         {
             var officialRoles = await _dbContext.OfficialRoles
-                .ProjectTo<OfficialRole>(_mapper.ConfigurationProvider)
+                .ProjectTo<OfficialRoleLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
             return new OfficialRolesListVm

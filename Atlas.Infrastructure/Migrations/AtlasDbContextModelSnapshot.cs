@@ -63,6 +63,12 @@ namespace Atlas.Persistence.Migrations
                     b.Property<Guid>("OfficialRoleId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("StartOfWorkingHours")
                         .HasColumnType("timestamp without time zone");
 
@@ -127,10 +133,13 @@ namespace Atlas.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("GeneralCategoryId")
+                    b.Property<Guid?>("GeneralCategoryId")
                         .HasColumnType("uuid");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsMainCategory")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
@@ -140,30 +149,7 @@ namespace Atlas.Persistence.Migrations
 
                     b.HasIndex("GeneralCategoryId");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("Atlas.Domain.CategoryToGood", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("GoodId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.ToTable("CategoryToGoods");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("Atlas.Domain.Client", b =>
@@ -536,14 +522,29 @@ namespace Atlas.Persistence.Migrations
                     b.Property<Guid>("ClientId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Comment")
+                        .HasColumnType("text");
+
                     b.Property<Guid?>("CourierId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("DestinationType")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("DontCallWhenDelivered")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Entrance")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("FinishedAt")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Floor")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsPickup")
                         .HasColumnType("boolean");
@@ -870,11 +871,20 @@ namespace Atlas.Persistence.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
 
+                    b.Property<int>("Salary")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("StartOfWorkingHours")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<Guid>("StoreId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
+
+                    b.Property<long>("WorkingDayDuration")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -899,11 +909,23 @@ namespace Atlas.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<long>("KPI")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("PassportPhotoPath")
                         .HasColumnType("text");
 
+                    b.Property<int>("Salary")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("StartOfWorkingHours")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
+
+                    b.Property<long>("WorkingDayDuration")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -1004,11 +1026,17 @@ namespace Atlas.Persistence.Migrations
                     b.Property<string>("Login")
                         .HasColumnType("text");
 
+                    b.Property<string>("MiddleName")
+                        .HasColumnType("text");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
 
                     b.Property<string>("Salt")
                         .HasColumnType("text");
+
+                    b.Property<int>("Sex")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -1028,6 +1056,9 @@ namespace Atlas.Persistence.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RegistrationCertificateNumber")
                         .HasColumnType("text");
 
                     b.Property<string>("RegistrationCertificatePhotoPath")
@@ -1114,13 +1145,9 @@ namespace Atlas.Persistence.Migrations
 
             modelBuilder.Entity("Atlas.Domain.Category", b =>
                 {
-                    b.HasOne("Atlas.Domain.GeneralCategory", "GeneralCategory")
+                    b.HasOne("Atlas.Domain.GeneralCategory", null)
                         .WithMany("Categories")
-                        .HasForeignKey("GeneralCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GeneralCategory");
+                        .HasForeignKey("GeneralCategoryId");
                 });
 
             modelBuilder.Entity("Atlas.Domain.Courier", b =>

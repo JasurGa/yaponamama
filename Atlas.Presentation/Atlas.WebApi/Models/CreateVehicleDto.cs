@@ -14,6 +14,8 @@ namespace Atlas.WebApi.Models
 
         public string RegistrationCertificatePhotoPath { get; set; }
 
+        public string RegistrationCertificateNumber { get; set; }
+
         public string RegistrationNumber { get; set; }
 
         public Guid VehicleTypeId { get; set; }
@@ -29,6 +31,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(p => p.RegistrationCertificatePhotoPath))
                 .ForMember(p => p.RegistrationNumber, opt =>
                     opt.MapFrom(p => p.RegistrationNumber))
+                .ForMember(p => p.RegistrationCertificateNumber, opt =>
+                    opt.MapFrom(p => p.RegistrationCertificateNumber))
                 .ForMember(p => p.VehicleTypeId, opt =>
                     opt.MapFrom(p => p.VehicleTypeId))
                 .ForMember(p => p.StoreId, opt =>

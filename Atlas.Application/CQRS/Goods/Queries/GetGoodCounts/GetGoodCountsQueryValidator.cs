@@ -7,7 +7,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodCounts
     {
         public GetGoodCountsQueryValidator()
         {
-            RuleFor(x => x.CategoryId);
+            RuleFor(x => x.CategoryId)
+                .NotEqual(Guid.Empty);
         }
     }
 }

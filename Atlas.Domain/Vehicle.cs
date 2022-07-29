@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Atlas.Domain
 {
     public class Vehicle
@@ -10,6 +11,8 @@ namespace Atlas.Domain
         public string RegistrationCertificatePhotoPath { get; set; }
 
         public string RegistrationNumber { get; set; }
+
+        public string RegistrationCertificateNumber { get; set; }
 
         public Guid VehicleTypeId { get; set; }
 

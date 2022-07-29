@@ -37,7 +37,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/count/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     GET /api/1.0/good/count/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="categoryId">Category id (guid)</param>
         /// <returns>Returns int</returns>
@@ -58,19 +60,23 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets the list of good by category id
+        /// Gets the list of goods by category id
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=true
+        ///     
+        ///     GET /api/1.0/good/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=true
+        ///     
         /// </remarks>
         /// <param name="categoryId">Category id (guid)</param>
+        /// <param name="showDeleted">Show deleted list of goods (bool)</param>
         /// <returns>Returns GoodListVm</returns>
         /// <response code="200">Success</response>
         [HttpGet("category/{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<GoodListVm>> GetGoodsByCategoryIdAsync([FromRoute]
-            Guid categoryId, [FromQuery] bool showDeleted = false)
+        public async Task<ActionResult<GoodListVm>> GetGoodsByCategoryIdAsync(
+            [FromRoute] Guid categoryId, 
+            [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetGoodListByCategoryQuery
             {
@@ -82,19 +88,23 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets the list of good by provider id
+        /// Gets the list of goods by provider id
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=true
+        /// 
+        ///     GET /api/1.0/good/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=true
+        ///     
         /// </remarks>
         /// <param name="providerId">Provider id (guid)</param>
+        /// <param name="showDeleted">Show deleted list of goods (bool)</param>
         /// <returns>Returns GoodListVm</returns>
         /// <response code="200">Success</response>
         [HttpGet("provider/{providerId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<GoodListVm>> GetGoodsByProviderIdAsync(
-            [FromRoute] Guid providerId, [FromQuery] bool showDeleted = false)
+            [FromRoute] Guid providerId, 
+            [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetGoodListByProviderQuery
             {
@@ -106,11 +116,13 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets the paged list of good by category id
+        /// Gets the paged list of goods by category id
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/paged/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8?pageSize=10&amp;pageIndex=0&amp;showDelete=false
+        /// 
+        ///     GET /api/1.0/good/paged/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8?pageSize=10&amp;pageIndex=0&amp;showDeleted=false&amp;sortable=Name&amp;ascending=true
+        ///     
         /// </remarks>
         /// <param name="categoryId">Category id (guid)</param>
         /// <param name="pageSize">Page size</param>
@@ -144,7 +156,7 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets the paged list of good
+        /// Gets the paged list of goods
         /// </summary>
         /// <remarks>
         /// Sample request:
@@ -188,7 +200,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/discounted/paged?pageSize=10&amp;pageIndex=0
+        /// 
+        ///     GET /api/1.0/good/discounted/paged?pageSize=10&amp;pageIndex=0&amp;showDeleted=true&amp;sortable=Name&amp;ascending=true
+        ///     
         /// </remarks>
         /// <param name="pageSize">Page size</param>
         /// <param name="pageIndex">Page index</param>
@@ -223,7 +237,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     GET /api/1.0/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Good id (guid)</param>
         /// <returns>Returns GoodDetailsVm object</returns>
@@ -247,24 +263,31 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/good
-        /// {
-        ///     "name": "Sample name",
-        ///     "description": "Sample description",
-        ///     "photoPath": "/main/dir",
-        ///     "sellingPrice": 100,
-        ///     "purchasePrice": 99,
-        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        /// }
+        /// 
+        ///     POST /api/1.0/good
+        ///     {
+        ///         "name": "Маленькая бутылка Pepsi",
+        ///         "description": "Абсолютно такая же как и кола",
+        ///         "photoPath": "/storage/goods/small-pepsi/img.jpg",
+        ///         "sellingPrice": 6000,
+        ///         "purchasePrice": 4000,
+        ///         "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "discount": 1000,
+        ///         "mass": 0,
+        ///         "volume": 0.5,
+        ///     }
+        /// 
         /// </remarks>
         /// <param name="createGood">CreateGoodDto object</param>
         /// <returns>Returns id (guid)</returns> 
         /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateGoodDto createGood)
         {
@@ -279,16 +302,21 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/good
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "name": "Sample name",
-        ///     "description": "Sample description",
-        ///     "photoPath": "/main/dir",
-        ///     "sellingPrice": 100,
-        ///     "purchasePrice": 99,
-        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        /// }
+        /// 
+        ///     PUT /api/1.0/good
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "name": "Маленькая бутылка Coca-cola",
+        ///         "description": "Абсолютно такая же как и пепси",
+        ///         "photoPath": "/storage/goods/small-coca-cola/img.jpg",
+        ///         "sellingPrice": 6000,
+        ///         "purchasePrice": 3500,
+        ///         "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "mass": 0,
+        ///         "volume": 0.5,
+        ///         "discount": 1000
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateGood">UpdateGoodDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -314,7 +342,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     DELETE /api/1.0/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Good id</param>
         /// <returns>Returns NoContent</returns>
@@ -342,7 +372,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PATCH /api/1.0/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     PATCH /api/1.0/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Good id</param>
         /// <returns>Returns NoContent</returns>

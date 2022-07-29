@@ -5,6 +5,8 @@ namespace Atlas.Domain
     {
         public Guid Id { get; set; }
 
+        public Guid ProviderId { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -17,14 +19,14 @@ namespace Atlas.Domain
 
         public float Discount { get; set; }
 
-        public Guid ProviderId { get; set; }
-
-        public StoreToGood StoreToGood { get; set; }
-
         public float Volume { get; set; }
 
         public float Mass { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public StoreToGood StoreToGood { get; set; }
+
+        public Provider Provider { get; set; }
     }
 }

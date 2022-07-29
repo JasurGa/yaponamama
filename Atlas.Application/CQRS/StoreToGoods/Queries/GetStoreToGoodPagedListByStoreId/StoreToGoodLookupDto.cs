@@ -23,6 +23,8 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
 
         public Guid ProviderId { get; set; }
 
+        public string ProviderName { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<StoreToGood, StoreToGoodLookupDto>()
@@ -41,7 +43,9 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
                 .ForMember(x => x.PurchasePrice, opt =>
                     opt.MapFrom(x => x.Good.PurchasePrice))
                 .ForMember(x => x.ProviderId, opt =>
-                    opt.MapFrom(x => x.Good.ProviderId));
+                    opt.MapFrom(x => x.Good.Provider.Id))
+                .ForMember(x => x.ProviderName, opt =>
+                    opt.MapFrom(x => x.Good.Provider.Name));
         }
     }
 }

@@ -9,6 +9,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
     {
         public Guid Id { get; set; }
 
+        public Guid ProviderId { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -25,7 +27,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public int Discount { get; set; }
 
-        public Guid ProviderId { get; set; }
+        public bool IsDeleted { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -49,7 +51,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 .ForMember(dest => dest.ProviderId, opt =>
                     opt.MapFrom(src => src.ProviderId))
                 .ForMember(dest => dest.Discount, opt =>
-                    opt.MapFrom(src => src.Discount));
+                    opt.MapFrom(src => src.Discount))
+                .ForMember(dest => dest.IsDeleted, opt =>
+                    opt.MapFrom(src => src.IsDeleted));
         }
     }
 }
