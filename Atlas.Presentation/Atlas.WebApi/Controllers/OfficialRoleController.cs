@@ -1,31 +1,32 @@
-﻿using Atlas.Application.CQRS.Languages.Queries;
+﻿using System;
+using System.Threading.Tasks;
+using Atlas.Application.CQRS.OfficialRoles.Queries.GetOfficialRolesListQuery;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Atlas.WebApi.Controllers
 {
     [ApiVersion("1.0")]
     [Produces("application/json")]
     [Route("/api/{version:apiVersion}/[controller]")]
-    public class LanguageController : BaseController
+    public class OfficialRoleController : BaseController
     {
         /// <summary>
-        /// Gets the list of languages
+        /// Gets the list of official roles
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/language
+        /// GET /api/1.0/officialrole
         /// </remarks>
-        /// <returns>Returns LanguageListVm object</returns>
+        /// <returns>Returns OfficialRoleListVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<LanguageListVm>> GetAllAsync()
+        public async Task<ActionResult<OfficialRolesListVm>> GetAllAsync()
         {
-            var vm = await Mediator.Send(new GetLanguageListQuery());
+            var vm = await Mediator.Send(new GetOfficialRolesListQuery());
             return Ok(vm);
         }
     }

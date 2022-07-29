@@ -135,10 +135,10 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateProviderPhoneNumbersDto createProviderPhoneNumbers)
         {
-            var providerPhoneNumberId = await Mediator.Send(_mapper.Map<CreateProviderPhoneNumbersDto,
+            var providerPhoneNumberIds = await Mediator.Send(_mapper.Map<CreateProviderPhoneNumbersDto,
                 CreateProviderPhoneNumbersCommand>(createProviderPhoneNumbers));
 
-            return Ok(providerPhoneNumberId);
+            return Ok(providerPhoneNumberIds);
         }
 
         /// <summary>
