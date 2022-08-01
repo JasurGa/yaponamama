@@ -15,7 +15,9 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserDetails
 
         public string LastName { get; set; }
 
-        public string? MiddleName { get; set; }
+        public string MiddleName { get; set; }
+
+        public int Sex { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
@@ -36,6 +38,8 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserDetails
                     opt.MapFrom(src => src.LastName))
                 .ForMember(dest => dest.MiddleName, opt =>
                     opt.MapFrom(src => src.MiddleName))
+                .ForMember(dest => dest.Sex, opt =>
+                    opt.MapFrom(src => src.Sex))
                 .ForMember(dest => dest.CreatedAt, opt =>
                     opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dest => dest.Birthday, opt =>

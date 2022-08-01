@@ -122,6 +122,8 @@
     <Folder Include="CQRS\OfficialRoles\" />
     <Folder Include="CQRS\OfficialRoles\Queries\" />
     <Folder Include="CQRS\OfficialRoles\Queries\GetOfficialRolesListQuery\" />
+    <Folder Include="CQRS\Goods\Queries\GetTopGoods\" />
+    <Folder Include="CQRS\Goods\Queries\GetGoodsForMainCategories\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -243,5 +245,7 @@
     <None Remove="CQRS\OfficialRoles\" />
     <None Remove="CQRS\OfficialRoles\Queries\" />
     <None Remove="CQRS\OfficialRoles\Queries\GetOfficialRolesListQuery\" />
+    <None Remove="CQRS\Goods\Queries\GetTopGoods\" />
+    <None Remove="CQRS\Goods\Queries\GetGoodsForMainCategories\" />
   </ItemGroup>
 </Project>

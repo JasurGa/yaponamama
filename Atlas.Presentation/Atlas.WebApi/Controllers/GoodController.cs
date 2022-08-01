@@ -19,6 +19,8 @@ using Atlas.Application.CQRS.Goods.Queries.GetGoodListByProvider;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList;
+using Atlas.Application.CQRS.Goods.Queries.GetTopGoods;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodsForMainCategories;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -33,13 +35,55 @@ namespace Atlas.WebApi.Controllers
             _mapper = mapper;
 
         /// <summary>
+        /// Get random goods by main category id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/good/random/main
+        /// </remarks>
+        /// <returns>Returns TopGoodListVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("random/main")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<TopGoodListVm>> GetRandomGoodsAsync()
+        {
+            var vm = await Mediator.Send(new GetGoodsForMainCategoriesQuery());
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get random goods by main category id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/good/random/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// </remarks>
+        /// <param name="categoryId">Category id (guid)</param>
+        /// <returns>Returns TopGoodListVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("random/category/{categoryId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<TopGoodListVm>> GetRandomGoodsAsync(
+            [FromRoute] Guid categoryId)
+        {
+            var vm = await Mediator.Send(new GetTopGoodsQuery
+            {
+                CategoryId = categoryId
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
         /// Get goods count by category id
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// 
-        ///     GET /api/1.0/good/count/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
-        ///     
+        /// GET /api/1.0/good/count/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
         /// </remarks>
         /// <param name="categoryId">Category id (guid)</param>
         /// <returns>Returns int</returns>
