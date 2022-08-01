@@ -1,4 +1,5 @@
 ﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Statistics.Queries.GetGoodsCountStatistics;
 using Atlas.Application.CQRS.Statistics.Queries.GetNumberOfRegistrationsOfUsers;
 using Atlas.Application.CQRS.Statistics.Queries.GetOverallBalanceOfClients;
 using Atlas.Application.Interfaces;
@@ -19,6 +20,25 @@ namespace Atlas.WebApi.Controllers
     [Route("/api/{version:apiVersion}/[controller]")]
     public class StatisticsController : BaseController
     {
+        /// <summary>
+        /// Get category goods count
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// GET /api/1.0/statistics/good/count
+        /// </remarks>
+        /// <returns>Returns GoodsCountStatisticsVm</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("good/count")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<GoodsCountStatisticsVm>> GetGoodsCountAsync()
+        {
+            var vm = await Mediator.Send(new GetGoodsCountStatisticsQuery());
+            return Ok(vm);
+        }
+
         /// <summary>
         /// Get overall balance from all clients
         /// </summary>

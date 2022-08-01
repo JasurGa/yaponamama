@@ -50,7 +50,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetTopGoods
                     var records = await cursor.ToListAsync();
                     foreach (var record in records)
                     {
-                        goodIds.Add(Guid.Parse(record[0].As<string>()));
+                        goodIds.Add(Guid.Parse(record[1].As<string>()));
                     }
 
                     var goods = await _dbContext.Goods
@@ -61,10 +61,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetTopGoods
                     result.Add(new TopGoodDetailsVm
                     {
                         Category = c,
-                        Goods = new GoodListVm
-                        {
-                            Goods = goods
-                        }
+                        Goods = goods
                     });
                 }
             }
