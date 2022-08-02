@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Helpers;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
-using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using AutoMapper;
 using MediatR;
