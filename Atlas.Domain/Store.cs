@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Atlas.Domain
 {
     public class Store
@@ -16,5 +18,7 @@ namespace Atlas.Domain
         public string PhoneNumber { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public ICollection<StoreToGood> StoreToGoods { get; set; }
     }
 }

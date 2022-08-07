@@ -12,5 +12,9 @@ namespace Atlas.Domain
         public long Count { get; set; }
 
         public Good Good { get; set; }
+
+        public Consignment Consignment { get; set; }
+
+        public Store Store { get; set; }
     }
 }
