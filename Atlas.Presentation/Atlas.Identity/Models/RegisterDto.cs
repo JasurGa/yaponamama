@@ -15,5 +15,7 @@ namespace Atlas.Identity.Models
         public int Sex { get; set; }
 
         public DateTime Birthday { get; set; }
+
+        public string AvatarPhotoPath { get; set; }
     }
 }

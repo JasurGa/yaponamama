@@ -96,6 +96,7 @@ namespace Atlas.Identity.Controllers
         ///         "sex": 1,
         ///         "password": "password",
         ///         "birthday": "2022-05-14T14:12:02.953Z",
+        ///         "avatarPhotoPath": "a1i20894h80n3.jpg"
         ///     }
         ///     
         /// </remarks>
@@ -110,13 +111,13 @@ namespace Atlas.Identity.Controllers
         public async Task<ActionResult<AuthToken>> RegisterAsync([FromBody] RegisterDto registerDto,
             CancellationToken cancellationToken)
         {
-            //var verification = await _dbContext.VerifyCodes.FirstOrDefaultAsync(x =>
-            //    x.PhoneNumber == registerDto.PhoneNumber, cancellationToken);
+            var verification = await _dbContext.VerifyCodes.FirstOrDefaultAsync(x =>
+                x.PhoneNumber == registerDto.PhoneNumber, cancellationToken);
 
-            //if (verification == null || !verification.IsVerified)
-            //{
-            //    throw new NotFoundException(nameof(VerifyCode), registerDto.PhoneNumber);
-            //}
+            if (verification == null || !verification.IsVerified)
+            {
+                throw new NotFoundException(nameof(VerifyCode), registerDto.PhoneNumber);
+            }
 
             var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
                 x.Login == registerDto.PhoneNumber, cancellationToken);
@@ -144,7 +145,7 @@ namespace Atlas.Identity.Controllers
                 Sex             = registerDto.Sex,
                 Birthday        = registerDto.Birthday,
                 CreatedAt       = DateTime.UtcNow,
-                AvatarPhotoPath = "",
+                AvatarPhotoPath = registerDto.AvatarPhotoPath ?? "",
                 IsDeleted       = false,
                 Salt            = salt,
                 PasswordHash    = Sha256Crypto.GetHash(salt + registerDto.Password)
@@ -239,6 +240,9 @@ namespace Atlas.Identity.Controllers
 
             if (recruiter != null)
                 claims.Add(new Claim(TokenClaims.HeadRecruiterId, recruiter.Id.ToString()));
+
+            if (user != null)
+                claims.Add(new Claim(TokenClaims.UserId, user.Id.ToString()));
 
             var token = _tokenService.GenerateToken(claims.ToArray());
             return Ok(token);
