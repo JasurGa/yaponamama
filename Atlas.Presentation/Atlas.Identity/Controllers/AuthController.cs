@@ -96,6 +96,7 @@ namespace Atlas.Identity.Controllers
         ///         "sex": 1,
         ///         "password": "password",
         ///         "birthday": "2022-05-14T14:12:02.953Z",
+        ///         "avatarPhotoPath": "a1i20894h80n3.jpg"
         ///     }
         ///     
         /// </remarks>
@@ -144,7 +145,7 @@ namespace Atlas.Identity.Controllers
                 Sex             = registerDto.Sex,
                 Birthday        = registerDto.Birthday,
                 CreatedAt       = DateTime.UtcNow,
-                AvatarPhotoPath = "",
+                AvatarPhotoPath = registerDto.AvatarPhotoPath ?? "",
                 IsDeleted       = false,
                 Salt            = salt,
                 PasswordHash    = Sha256Crypto.GetHash(salt + registerDto.Password)
