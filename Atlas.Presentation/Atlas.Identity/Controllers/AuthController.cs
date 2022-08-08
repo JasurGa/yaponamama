@@ -110,13 +110,13 @@ namespace Atlas.Identity.Controllers
         public async Task<ActionResult<AuthToken>> RegisterAsync([FromBody] RegisterDto registerDto,
             CancellationToken cancellationToken)
         {
-            //var verification = await _dbContext.VerifyCodes.FirstOrDefaultAsync(x =>
-            //    x.PhoneNumber == registerDto.PhoneNumber, cancellationToken);
+            var verification = await _dbContext.VerifyCodes.FirstOrDefaultAsync(x =>
+                x.PhoneNumber == registerDto.PhoneNumber, cancellationToken);
 
-            //if (verification == null || !verification.IsVerified)
-            //{
-            //    throw new NotFoundException(nameof(VerifyCode), registerDto.PhoneNumber);
-            //}
+            if (verification == null || !verification.IsVerified)
+            {
+                throw new NotFoundException(nameof(VerifyCode), registerDto.PhoneNumber);
+            }
 
             var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
                 x.Login == registerDto.PhoneNumber, cancellationToken);
@@ -239,6 +239,9 @@ namespace Atlas.Identity.Controllers
 
             if (recruiter != null)
                 claims.Add(new Claim(TokenClaims.HeadRecruiterId, recruiter.Id.ToString()));
+
+            if (user != null)
+                claims.Add(new Claim(TokenClaims.UserId, user.Id.ToString()));
 
             var token = _tokenService.GenerateToken(claims.ToArray());
             return Ok(token);

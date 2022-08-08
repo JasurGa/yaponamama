@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Clients.Commands.UpdateClient;
