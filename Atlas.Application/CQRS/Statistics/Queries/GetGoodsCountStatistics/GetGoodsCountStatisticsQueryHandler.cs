@@ -46,13 +46,19 @@ namespace Atlas.Application.CQRS.Statistics.Queries.GetGoodsCountStatistics
 
                 foreach (var c in categories)
                 {
-                    var goodCount = categoryCounts.Find(x => x.CategoryId == c.Id);
-
-                    result.Add(new GoodsCountLookupDto
+                    try
                     {
-                        Category  = c,
-                        GoodCount = goodCount == null ? goodCount.Count : 0
-                    });
+                        var goodCount = categoryCounts.Find(x => x.CategoryId == c.Id);
+                        result.Add(new GoodsCountLookupDto
+                        {
+                            Category = c,
+                            GoodCount = goodCount == null ? goodCount.Count : 0
+                        });
+                    }
+                    catch (ArgumentException)
+                    {
+                        continue;
+                    }
                 }
             }
             finally
