@@ -21,6 +21,8 @@ namespace Atlas.Application.CQRS.Admins.Queries.GetAdminPagedList
 
         public string OfficialRole { get; set; }
 
+        public DateTime Birthday { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Admin, AdminLookupDto>()
@@ -37,7 +39,9 @@ namespace Atlas.Application.CQRS.Admins.Queries.GetAdminPagedList
                 .ForMember(x => x.KPI,
                     opt => opt.MapFrom(src => src.KPI))
                 .ForMember(x => x.OfficialRole,
-                    opt => opt.MapFrom(src => src.OfficialRole.Name));
+                    opt => opt.MapFrom(src => src.OfficialRole.Name))
+                .ForMember(x => x.Birthday,
+                    opt => opt.MapFrom(src => src.User.Birthday));
         }
     }
 }
