@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.CreateFavoriteGood;
+using Atlas.Application.CQRS.FavoriteGoods.Commands.CreateManyFavoriteGoods;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteFavoriteGood;
 using Atlas.Application.CQRS.FavoriteGoods.Queries.GetFavoritesByClientId;
 using Atlas.WebApi.Filters;
@@ -58,6 +59,46 @@ namespace Atlas.WebApi.Controllers
             return Ok(vm);
         }
 
+        /// <summary>
+        /// Creates many favorite goods
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /api/1.0/favoritegood/many
+        ///     {
+        ///         "goodIds": [
+        ///             a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         ]
+        ///     }
+        ///
+        /// </remarks>
+        /// <returns>Returns ids (guid)</returns>
+        /// <param name="createFavoriteGoods">CreateFavoriteGoodsDto object</param>
+        /// <response code="202">Success</response>
+        /// <response code="404">NotFound</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpPost("many")]
+        [Authorize]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> CreateManyAsync([FromBody] CreateFavoriteGoodsDto createFavoriteGoods)
+        {
+            var vm = await Mediator.Send(_mapper.Map<CreateFavoriteGoodsDto,
+                CreateFavoriteGoodsCommand>(createFavoriteGoods, opt =>
+                {
+                    opt.AfterMap((src, dst) =>
+                    {
+                        dst.ClientId = ClientId;
+                    });
+                }));
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Deletes favorite good
