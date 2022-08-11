@@ -125,6 +125,12 @@
     <Folder Include="CQRS\Goods\Queries\GetTopGoods\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodsForMainCategories\" />
     <Folder Include="CQRS\Statistics\Queries\GetGoodsCountStatistics\" />
+    <Folder Include="CQRS\ChatMessages\" />
+    <Folder Include="CQRS\ChatMessages\Commands\" />
+    <Folder Include="CQRS\ChatMessages\Queries\" />
+    <Folder Include="CQRS\ChatMessages\Commands\CreateChatMessage\" />
+    <Folder Include="CQRS\ChatMessages\Queries\GetChatUsers\" />
+    <Folder Include="CQRS\ChatMessages\Queries\GetChatMessagesForUser\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -249,5 +255,11 @@
     <None Remove="CQRS\Goods\Queries\GetTopGoods\" />
     <None Remove="CQRS\Goods\Queries\GetGoodsForMainCategories\" />
     <None Remove="CQRS\Statistics\Queries\GetGoodsCountStatistics\" />
+    <None Remove="CQRS\ChatMessages\" />
+    <None Remove="CQRS\ChatMessages\Commands\" />
+    <None Remove="CQRS\ChatMessages\Queries\" />
+    <None Remove="CQRS\ChatMessages\Commands\CreateChatMessage\" />
+    <None Remove="CQRS\ChatMessages\Queries\GetChatUsers\" />
+    <None Remove="CQRS\ChatMessages\Queries\GetChatMessagesForUser\" />
   </ItemGroup>
 </Project>

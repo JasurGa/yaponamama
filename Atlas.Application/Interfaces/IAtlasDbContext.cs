@@ -14,6 +14,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<CardInfoToClient> CardInfoToClients { get; set; }
 
+        DbSet<ChatMessage> ChatMessages { get; set; }
+
         DbSet<Client> Clients { get; set; }
 
         DbSet<Consignment> Consignments { get; set; }

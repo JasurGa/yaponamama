@@ -40,6 +40,7 @@ namespace Atlas.WebApi.Extensions
                     }
                 });
 
+                op.AddSignalRSwaggerGen();
                 op.IgnoreObsoleteActions();
                 op.IgnoreObsoleteProperties();
 

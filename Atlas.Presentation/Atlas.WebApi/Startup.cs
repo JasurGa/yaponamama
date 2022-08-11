@@ -18,6 +18,7 @@ using System.Diagnostics;
 using Atlas.WebApi.Observers;
 using Coravel;
 using Atlas.WebApi.Services;
+using Atlas.WebApi.Hubs;
 
 namespace Atlas.WebApi
 {
@@ -95,6 +96,8 @@ namespace Atlas.WebApi
             services.AddScheduler();
 
             services.AddHealthChecks();
+
+            services.AddSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
@@ -125,6 +128,7 @@ namespace Atlas.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/api/chathub");
             });
 
             app.ApplicationServices.UseScheduler(scheduler =>
