@@ -83,7 +83,6 @@ namespace Atlas.Application.Interfaces
         DbSet<VehicleType> VehicleTypes { get; set; }
 
         DbSet<VerifyCode> VerifyCodes { get; set; }
-        Task AddAsync { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

@@ -19,6 +19,7 @@ using Atlas.Application.CQRS.Goods.Queries.GetGoodListByProvider;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodList;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -151,6 +152,26 @@ namespace Atlas.WebApi.Controllers
                 Sortable    = sortable,
                 Ascending   = ascending,
             });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the list of goods
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/1.0/good
+        ///     
+        /// </remarks>
+        /// <returns>Returns GoodListVm object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<GoodListVm>> GetGoodsAsync()
+        {
+            var vm = await Mediator.Send(new GetGoodListQuery());
 
             return Ok(vm);
         }
