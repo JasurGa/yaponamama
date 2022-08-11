@@ -29,11 +29,13 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/goottocart
-        /// {
-        ///     "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        ///     "count": 10,
-        /// }
+        /// 
+        ///     POST /api/1.0/goottocart
+        ///     {
+        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         "count": 10,
+        ///     }
+        ///     
         /// </remarks>
         /// <returns>Returns id (guid)</returns>
         /// <param name="createGoodToCart">CreateGoodToCartDto object</param>
@@ -84,7 +86,8 @@ namespace Atlas.WebApi.Controllers
         {
             await Mediator.Send(new DeleteGoodToCartCommand
             {
-                Id = id
+                Id = id,
+                ClientId = ClientId,
             });
 
             return NoContent();
@@ -134,7 +137,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/goodtocart
+        /// 
+        ///     GET /api/1.0/goodtocart
+        ///     
         /// </remarks>
         /// <returns>Returns GoodToCartListVm</returns>
         /// <response code="202">Success</response>

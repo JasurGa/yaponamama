@@ -13,7 +13,7 @@ namespace Atlas.WebApi.Models
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateGoodToOrderDto, CreateGoodToCartCommand>()
+            profile.CreateMap<CreateGoodToCartDto, CreateGoodToCartCommand>()
                 .ForMember(dst => dst.GoodId, opt =>
                     opt.MapFrom(src => src.GoodId))
                 .ForMember(dst => dst.Count, opt =>

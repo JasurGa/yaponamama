@@ -11,5 +11,7 @@ namespace Atlas.Domain
         public Guid ClientId { get; set; }
         
         public int Count { get; set; } 
+
+        public Good Good { get; set; }
     }
 }

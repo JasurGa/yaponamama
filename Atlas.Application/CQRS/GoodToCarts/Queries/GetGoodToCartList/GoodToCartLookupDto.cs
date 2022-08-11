@@ -11,6 +11,14 @@ namespace Atlas.Application.CQRS.GoodToCarts.Queries.GetGoodToCartList
 
         public Guid GoodId { get; set; }
 
+        public string GoodName { get; set; }
+
+        public string GoodPhotoPath { get; set; }
+
+        public long GoodPrice { get; set; }
+
+        public float GoodDiscount { get; set; }
+
         public Guid ClientId { get; set; }
 
         public int Count { get; set; }
@@ -24,6 +32,14 @@ namespace Atlas.Application.CQRS.GoodToCarts.Queries.GetGoodToCartList
                     opt.MapFrom(src => src.ClientId))
                 .ForMember(dst => dst.GoodId, opt =>
                     opt.MapFrom(src => src.GoodId))
+                .ForMember(dst => dst.GoodName, opt =>
+                    opt.MapFrom(src => src.Good.Name))
+                .ForMember(dst => dst.GoodPhotoPath, opt =>
+                    opt.MapFrom(src => src.Good.PhotoPath))
+                .ForMember(dst => dst.GoodPrice, opt =>
+                    opt.MapFrom(src => src.Good.SellingPrice))
+                .ForMember(dst => dst.GoodDiscount, opt =>
+                    opt.MapFrom(src => src.Good.Discount))
                 .ForMember(dst => dst.Count, opt =>
                     opt.MapFrom(src => src.Count));
         }
