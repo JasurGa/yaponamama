@@ -14,7 +14,7 @@ namespace Atlas.WebApi.Controllers
 {
     [ApiVersion("1.0")]
     [Produces("application/json")]
-    [Route("/api/{version:apiVerison}/[controller]")]
+    [Route("/api/{version:apiVersion}/[controller]")]
     public class ChatController : BaseController
     {
         private readonly IMapper _mapper;
