@@ -10,6 +10,8 @@ namespace Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerDetails
     {
         public Guid Id { get; set; }
 
+        public Guid StoreId { get; set; }
+
         public UserDetailsVm User { get; set; }
 
         public string PhoneNumber { get; set; }
@@ -29,6 +31,8 @@ namespace Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerDetails
             profile.CreateMap<SupplyManager, SupplyManagerDetailsVm>()
                 .ForMember(x => x.Id, opt =>
                     opt.MapFrom(x => x.Id))
+                .ForMember(x => x.StoreId, opt =>
+                    opt.MapFrom(x => x.StoreId))
                 .ForMember(x => x.User, opt =>
                     opt.MapFrom(x => x.User))
                 .ForMember(x => x.PhoneNumber, opt =>
