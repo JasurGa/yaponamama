@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
 {
@@ -7,9 +6,6 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
     {
         public CreateConsignmentCommandValidator()
         {
-            RuleFor(x => x.StoreToGoodId)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.PurchasedAt)
                 .NotEmpty();
 

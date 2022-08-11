@@ -9,21 +9,21 @@ namespace Atlas.WebApi.Models
     {
         public Guid Id { get; set; }
 
-        public Guid StoreToGoodId { get; set; }
-
         public DateTime PurchasedAt { get; set; }
 
         public DateTime ExpirateAt { get; set; }
 
         public string ShelfLocation { get; set; }
 
+        public UpdateStoreToGoodDto StoreToGood { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateConsignmentDto, UpdateConsignmentCommand>()
                 .ForMember(p => p.Id, opt =>
                     opt.MapFrom(p => p.Id))
-                .ForMember(p => p.StoreToGoodId, opt =>
-                    opt.MapFrom(p => p.StoreToGoodId))
+                .ForMember(p => p.StoreToGood, opt =>
+                    opt.MapFrom(p => p.StoreToGood))
                 .ForMember(p => p.PurchasedAt, opt =>
                     opt.MapFrom(p => p.PurchasedAt))
                 .ForMember(p => p.ExpirateAt, opt =>

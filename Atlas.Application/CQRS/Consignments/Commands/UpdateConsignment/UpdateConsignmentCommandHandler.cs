@@ -11,9 +11,10 @@ namespace Atlas.Application.CQRS.Consignments.Commands.UpdateConsignment
     public class UpdateConsignmentCommandHandler : IRequestHandler<UpdateConsignmentCommand>
     {
         private readonly IAtlasDbContext _dbContext;
+        private readonly IMediator _mediator;
 
-        public UpdateConsignmentCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public UpdateConsignmentCommandHandler(IAtlasDbContext dbContext, IMediator mediator) =>
+           (_dbContext, _mediator) = (dbContext, mediator);
 
         public async Task<Unit> Handle(UpdateConsignmentCommand request,
             CancellationToken cancellationToken)
@@ -26,9 +27,12 @@ namespace Atlas.Application.CQRS.Consignments.Commands.UpdateConsignment
                 throw new NotFoundException(nameof(Consignment), request.Id);
             }
 
+            request.StoreToGood.Id = consigment.StoreToGoodId;
+            await _mediator.Send(request.StoreToGood, cancellationToken);
+
             consigment.ExpirateAt    = request.ExpirateAt;
             consigment.PurchasedAt   = request.PurchasedAt;
-            consigment.StoreToGoodId = request.StoreToGoodId;
+            consigment.StoreToGoodId = request.StoreToGood.Id;
             consigment.ShelfLocation = request.ShelfLocation;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
