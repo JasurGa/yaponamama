@@ -41,6 +41,18 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
                 IsDeleted     = false,
             };
 
+            var stores = await _dbContext.Stores.ToListAsync();
+            foreach (var store in stores)
+            {
+                await _dbContext.StoreToGoods.AddAsync(new StoreToGood
+                {
+                    Id      = Guid.NewGuid(),
+                    GoodId  = good.Id,
+                    StoreId = store.Id,
+                    Count   = 0,
+                });
+            }
+
             await _dbContext.Goods.AddAsync(good, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
