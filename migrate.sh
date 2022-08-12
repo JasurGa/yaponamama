@@ -1,4 +1,5 @@
-echo "Applying migrations..."
+#!/bin/sh
+echo "[*] Applying migrations..."
 
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <migration_name>"
