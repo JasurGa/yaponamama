@@ -30,6 +30,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<Good> Goods { get; set; }
 
+        DbSet<GoodToCart> GoodToCarts { get; set; }
+
         DbSet<GoodToOrder> GoodToOrders { get; set; }
 
         DbSet<HeadRecruiter> HeadRecruiters { get; set; }

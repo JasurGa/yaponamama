@@ -30,6 +30,8 @@ namespace Atlas.Persistence
 
         public DbSet<Good> Goods { get; set; }
 
+        public DbSet<GoodToCart> GoodToCarts { get; set; }
+
         public DbSet<GoodToOrder> GoodToOrders { get; set; }
 
         public DbSet<HeadRecruiter> HeadRecruiters { get; set; }
@@ -99,6 +101,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new ForgotPasswordCodeConfiguration());
             modelBuilder.ApplyConfiguration(new GeneralCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new GoodConfiguration());
+            modelBuilder.ApplyConfiguration(new GoodToCartConfiguration());
             modelBuilder.ApplyConfiguration(new GoodToOrderConfiguration());
             modelBuilder.ApplyConfiguration(new HeadRecruiterConfiguration());
             modelBuilder.ApplyConfiguration(new LanguageConfiguration());
