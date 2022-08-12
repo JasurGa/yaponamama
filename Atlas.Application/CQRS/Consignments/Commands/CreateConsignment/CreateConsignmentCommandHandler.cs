@@ -41,7 +41,6 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
 
             await _dbContext.Consignments.AddAsync(consignment,
                 cancellationToken);
-
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return consignment.Id;

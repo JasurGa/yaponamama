@@ -26,6 +26,14 @@ namespace Atlas.Application.CQRS.Consignments.Commands.UpdateConsignment
                 throw new NotFoundException(nameof(Consignment), request.Id);
             }
 
+            var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x =>
+                x.Id == request.StoreToGoodId, cancellationToken);
+
+            if (storeToGood == null)
+            {
+                throw new NotFoundException(nameof(StoreToGood), request.StoreToGoodId);
+            }
+
             consigment.ExpirateAt    = request.ExpirateAt;
             consigment.PurchasedAt   = request.PurchasedAt;
             consigment.StoreToGoodId = request.StoreToGoodId;

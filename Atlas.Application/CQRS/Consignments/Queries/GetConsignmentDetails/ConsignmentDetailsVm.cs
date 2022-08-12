@@ -11,6 +11,10 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails
 
         public Guid StoreToGoodId { get; set; }
 
+        public Guid StoreId { get; set; }
+
+        public string StoreName { get; set; }
+
         public DateTime PurchasedAt { get; set; }
 
         public DateTime ExpirateAt { get; set; }
@@ -26,6 +30,10 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails
                     opt.MapFrom(x => x.Id))
                 .ForMember(x => x.StoreToGoodId, opt =>
                     opt.MapFrom(x => x.StoreToGoodId))
+                .ForMember(x => x.StoreId, opt =>
+                    opt.MapFrom(x => x.StoreToGood.Store.Id))
+                .ForMember(x => x.StoreName, opt =>
+                    opt.MapFrom(x => x.StoreToGood.Store.Name))
                 .ForMember(x => x.PurchasedAt, opt =>
                     opt.MapFrom(x => x.PurchasedAt))
                 .ForMember(x => x.ExpirateAt, opt =>

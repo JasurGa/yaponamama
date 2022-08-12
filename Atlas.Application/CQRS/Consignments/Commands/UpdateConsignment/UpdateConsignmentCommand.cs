@@ -14,5 +14,6 @@ namespace Atlas.Application.CQRS.Consignments.Commands.UpdateConsignment
         public DateTime ExpirateAt { get; set; }
 
         public string ShelfLocation { get; set; }
+
     }
 }
