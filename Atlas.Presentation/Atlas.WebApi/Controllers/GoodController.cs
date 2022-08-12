@@ -20,6 +20,7 @@ using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodWithDiscountPagedList;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodList;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByProvider;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -111,6 +112,42 @@ namespace Atlas.WebApi.Controllers
             {
                 ShowDeleted = showDeleted,
                 ProviderId  = providerId
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the paged list of goods by provider id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/1.0/good/paged/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8?pageSize=10&amp;pageIndex=0&amp;showDeleted=false
+        ///     
+        /// </remarks>
+        /// <param name="providerId">Provider id (guid)</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="showDeleted">Show deleted list</param>
+        /// <returns>Returns PageDto GoodLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        [HttpGet("paged/provider/{providerId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<GoodLookupDto>>> GetPagedGoodsByProviderIdAsync(
+            [FromRoute] Guid providerId,
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] bool showDeleted = false)
+        {
+            var vm = await Mediator.Send(new GetGoodPagedListByProviderQuery
+            {
+                ProviderId  = providerId,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
+                ShowDeleted = showDeleted,
             });
 
             return Ok(vm);
