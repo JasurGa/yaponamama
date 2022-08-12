@@ -1,12 +1,11 @@
-﻿using Atlas.Application.CQRS.StoreToGoods.Commands.CreateStoreToGood;
-using MediatR;
+﻿using MediatR;
 using System;
 
 namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
 {
     public class CreateConsignmentCommand : IRequest<Guid>
     {
-        public CreateStoreToGoodCommand StoreToGood { get; set; }
+        public Guid StoreToGoodId { get; set; }
 
         public DateTime PurchasedAt { get; set; }
 

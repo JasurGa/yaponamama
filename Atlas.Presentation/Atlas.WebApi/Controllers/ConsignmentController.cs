@@ -32,7 +32,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/consigment
+        /// 
+        ///     GET /api/1.0/consigment
+        /// 
         /// </remarks>
         /// <returns>Returns ConsignmentListVm object</returns>
         /// <response code="200">Success</response>
@@ -124,14 +126,10 @@ namespace Atlas.WebApi.Controllers
         /// 
         ///     POST /api/1.0/consignment
         ///     {
+        ///         "storeToGood": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
         ///         "purchasedAt":   "2022-05-14T14:12:02.953Z",
         ///         "expirateAt":    "2022-05-14T14:12:02.953Z",
         ///         "shelfLocation": "1st shelf, 2nd box",
-        ///         "storeToGood": {
-        ///             "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///             "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///             "count": 0
-        ///         },
         ///     }
         ///     
         /// </remarks>
@@ -161,13 +159,10 @@ namespace Atlas.WebApi.Controllers
         ///     PUT /api/1.0/consignment
         ///     {
         ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         "storeToGoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "purchasedAt": "2022-05-14T14:12:02.953Z",
         ///         "expirateAt": "2022-05-14T14:12:02.953Z",
-        ///         "shelfLocation": "1st shelf, 2nd box",
-        ///         "storeToGoodId": {
-        ///             "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///             "count": 0
-        ///         },
+        ///         "shelfLocation": "1st shelf, 2nd box"
         ///     }
         ///     
         /// </remarks>
