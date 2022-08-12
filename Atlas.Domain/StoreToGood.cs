@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Atlas.Domain
 {
     public class StoreToGood
@@ -13,7 +15,7 @@ namespace Atlas.Domain
 
         public Good Good { get; set; }
 
-        public Consignment Consignment { get; set; }
+        public List<Consignment> Consignments { get; set; }
 
         public Store Store { get; set; }
     }
