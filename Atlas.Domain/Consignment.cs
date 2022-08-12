@@ -11,6 +11,8 @@ namespace Atlas.Domain
 
         public DateTime ExpirateAt { get; set; }
 
+        public int Count { get; set; }
+
         public string ShelfLocation { get; set; }
 
         public StoreToGood StoreToGood { get; set; }

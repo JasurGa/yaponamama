@@ -1,6 +1,8 @@
-﻿using Atlas.Application.Interfaces;
+﻿using Atlas.Application.Common.Exceptions;
+using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,6 +19,14 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
         public async Task<Guid> Handle(CreateConsignmentCommand request,
             CancellationToken cancellationToken)
         {
+            var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x =>
+                x.Id == request.StoreToGoodId, cancellationToken);
+
+            if (storeToGood == null)
+            {
+                throw new NotFoundException(nameof(StoreToGood), request.StoreToGoodId);
+            }
+
             var consignment = new Consignment
             {
                 Id              = Guid.NewGuid(),
@@ -24,7 +34,10 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
                 PurchasedAt     = request.PurchasedAt,
                 ShelfLocation   = request.ShelfLocation,
                 StoreToGoodId   = request.StoreToGoodId,
+                Count           = request.Count
             };
+
+            storeToGood.Count += request.Count;
 
             await _dbContext.Consignments.AddAsync(consignment,
                 cancellationToken);

@@ -17,6 +17,8 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails
 
         public string ShelfLocation { get; set; }
 
+        public int Count { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Consignment, ConsignmentDetailsVm>()
@@ -29,7 +31,9 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails
                 .ForMember(x => x.ExpirateAt, opt =>
                     opt.MapFrom(x => x.ExpirateAt))
                 .ForMember(x => x.ShelfLocation, opt =>
-                    opt.MapFrom(x => x.ShelfLocation));
+                    opt.MapFrom(x => x.ShelfLocation))
+                .ForMember(x => x.Count, opt =>
+                    opt.MapFrom(x => x.Count));
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Atlas.WebApi.Models
 
         public string ShelfLocation { get; set; }
 
+        public int Count { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateConsignmentDto, CreateConsignmentCommand>()
@@ -25,7 +27,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(x => x.ExpirateAt, opt =>
                     opt.MapFrom(x => x.ExpirateAt))
                 .ForMember(x => x.ShelfLocation, opt =>
-                    opt.MapFrom(x => x.ShelfLocation));
+                    opt.MapFrom(x => x.ShelfLocation))
+                .ForMember(x => x.Count, opt =>
+                    opt.MapFrom(x => x.Count));
         }
     }
 }
