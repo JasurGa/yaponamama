@@ -119,9 +119,10 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         /// POST /api/1.0/consignment
         /// {
-        ///     "storeToGoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "purchasedAt":   "2022-05-14T14:12:02.953Z",
-        ///     "expirateAt":    "2022-05-14T14:12:02.953Z",
+        ///     "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///     "purchasedAt": "2022-05-14T14:12:02.953Z",
+        ///     "expirateAt": "2022-05-14T14:12:02.953Z",
         ///     "shelfLocation": "1st shelf, 2nd box",
         /// }
         /// </remarks>
@@ -136,8 +137,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateConsignmentDto createConsignment)
         {
-            var consignmentId = await Mediator.Send(_mapper
-                .Map<CreateConsignmentCommand>(createConsignment));
+            var consignmentId = await Mediator.Send(_mapper.Map<CreateConsignmentDto,
+                CreateConsignmentCommand>(createConsignment));
 
             return Ok(consignmentId);
         }

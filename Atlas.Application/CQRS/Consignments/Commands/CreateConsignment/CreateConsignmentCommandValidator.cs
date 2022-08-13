@@ -7,7 +7,10 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
     {
         public CreateConsignmentCommandValidator()
         {
-            RuleFor(x => x.StoreToGoodId)
+            RuleFor(x => x.StoreId)
+                .NotEqual(Guid.Empty);
+
+            RuleFor(x => x.GoodId)
                 .NotEqual(Guid.Empty);
 
             RuleFor(x => x.PurchasedAt)

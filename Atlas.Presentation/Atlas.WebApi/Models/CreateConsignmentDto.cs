@@ -7,7 +7,9 @@ namespace Atlas.WebApi.Models
 {
     public class CreateConsignmentDto : IMapWith<CreateConsignmentCommand>
     {
-        public Guid StoreToGoodId { get; set; }
+        public Guid GoodId { get; set; }
+
+        public Guid StoreId { get; set; }
 
         public DateTime PurchasedAt { get; set; }
 
@@ -20,8 +22,10 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateConsignmentDto, CreateConsignmentCommand>()
-                .ForMember(x => x.StoreToGoodId, opt =>
-                    opt.MapFrom(x => x.StoreToGoodId))
+                .ForMember(x => x.GoodId, opt =>
+                    opt.MapFrom(x => x.GoodId))
+                .ForMember(x => x.StoreId, opt =>
+                    opt.MapFrom(x => x.StoreId))
                 .ForMember(x => x.PurchasedAt, opt =>
                     opt.MapFrom(x => x.PurchasedAt))
                 .ForMember(x => x.ExpirateAt, opt =>

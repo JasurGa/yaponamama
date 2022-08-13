@@ -20,11 +20,23 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
             CancellationToken cancellationToken)
         {
             var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x =>
-                x.Id == request.StoreToGoodId, cancellationToken);
+                x.StoreId == request.StoreId && x.GoodId == request.GoodId, cancellationToken);
 
             if (storeToGood == null)
             {
-                throw new NotFoundException(nameof(StoreToGood), request.StoreToGoodId);
+                storeToGood = new StoreToGood
+                {
+                    Id      = Guid.NewGuid(),
+                    GoodId  = request.GoodId,
+                    StoreId = request.StoreId,
+                    Count   = request.Count,
+                };
+
+                await _dbContext.StoreToGoods.AddAsync(storeToGood);
+            }
+            else
+            {
+                storeToGood.Count += request.Count;
             }
 
             var consignment = new Consignment
@@ -33,11 +45,9 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
                 ExpirateAt      = request.ExpirateAt,
                 PurchasedAt     = request.PurchasedAt,
                 ShelfLocation   = request.ShelfLocation,
-                StoreToGoodId   = request.StoreToGoodId,
+                StoreToGoodId   = storeToGood.Id,
                 Count           = request.Count
             };
-
-            storeToGood.Count += request.Count;
 
             await _dbContext.Consignments.AddAsync(consignment,
                 cancellationToken);

@@ -5,7 +5,9 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
 {
     public class CreateConsignmentCommand : IRequest<Guid>
     {
-        public Guid StoreToGoodId { get; set; }
+        public Guid StoreId { get; set; }
+
+        public Guid GoodId { get; set; }
 
         public DateTime PurchasedAt { get; set; }
 
