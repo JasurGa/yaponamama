@@ -24,6 +24,7 @@ using Atlas.Application.CQRS.Goods.Queries.GetGoodsForMainCategories;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodList;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByProvider;
 using Atlas.Application.CQRS.Goods.Queries.GetDiscountedGoodListByCategory;
+using Atlas.Application.CQRS.Goods.Queries.GetDiscountedGoodList;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -332,6 +333,25 @@ namespace Atlas.WebApi.Controllers
                 Ascending   = ascending
             });
 
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the list of discounted goods for main screen
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/1.0/good/discounted
+        ///     
+        /// </remarks>
+        /// <returns>Returns GoodListVm GoodLookupDto object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("discounted")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<GoodListVm>> GetDiscountedGoodsAsync()
+        {
+            var vm = await Mediator.Send(new GetDiscountedGoodListQuery());
             return Ok(vm);
         }
 
