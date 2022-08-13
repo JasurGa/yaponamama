@@ -23,6 +23,6 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
         
         public float Volume { get; set; }
 
-        public int Discount { get; set; }
+        public float Discount { get; set; }
     }
 }

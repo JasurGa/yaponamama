@@ -21,6 +21,6 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
 
         public float Mass { get; set; }
 
-        public int Discount { get; set; }
+        public float Discount { get; set; }
     }
 }
