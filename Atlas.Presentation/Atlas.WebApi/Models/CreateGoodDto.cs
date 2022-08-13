@@ -23,7 +23,7 @@ namespace Atlas.WebApi.Models
 
         public float Volume { get; set; }
 
-        public int Discount { get; set; }
+        public float Discount { get; set; }
 
         public void Mapping(Profile profile)
         {
