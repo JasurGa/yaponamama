@@ -32,7 +32,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/consigment
+        /// 
+        ///     GET /api/1.0/consigment
+        /// 
         /// </remarks>
         /// <returns>Returns ConsignmentListVm object</returns>
         /// <response code="200">Success</response>
@@ -53,7 +55,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/consigment/paged?pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        /// 
+        ///     GET /api/1.0/consigment/paged?pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        /// 
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
@@ -89,7 +93,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/consignment/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     GET /api/1.0/consignment/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
         /// </remarks>
         /// <param name="id">Consignment id (guid)</param>
         /// <returns>Returns ConsignmentDetailsVm object</returns>
@@ -148,14 +154,16 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/consignment
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        ///     "storeToGoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "purchasedAt": "2022-05-14T14:12:02.953Z",
-        ///     "expirateAt": "2022-05-14T14:12:02.953Z",
-        ///     "shelfLocation": "1st shelf, 2nd box",
-        /// }
+        /// 
+        ///     PUT /api/1.0/consignment
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         "storeToGoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "purchasedAt": "2022-05-14T14:12:02.953Z",
+        ///         "expirateAt": "2022-05-14T14:12:02.953Z",
+        ///         "shelfLocation": "1st shelf, 2nd box"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateConsignment">UpdateConsignmentDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -181,7 +189,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/consignment/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     DELETE /api/1.0/consignment/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
         /// </remarks>
         /// <param name="id">Consignment id</param>
         /// <returns>Returns NoContent</returns>
