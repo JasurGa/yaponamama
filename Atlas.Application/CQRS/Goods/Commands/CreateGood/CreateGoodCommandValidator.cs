@@ -32,7 +32,7 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
                 .GreaterThanOrEqualTo(0);
 
             RuleFor(x => x.Discount)
-                .GreaterThanOrEqualTo(0);
+                .InclusiveBetween(0, 1);
         }
     }
 }
