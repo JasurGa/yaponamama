@@ -44,7 +44,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                     opt.MapFrom(src => src.Discount))
                 .ForMember(dest => dest.ProviderId, opt =>
                     opt.MapFrom(src => src.Provider.Id))
-                .ForMember(dest => dest.Discount, opt =>
+                .ForMember(dest => dest.ProviderName, opt =>
                     opt.MapFrom(src => src.Provider.Name));
         }
     }
