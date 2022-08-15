@@ -11,6 +11,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public Guid ProviderId { get; set; }
 
+        public string ProviderName { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -49,7 +51,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 .ForMember(dest => dest.Volume, opt =>
                     opt.MapFrom(src => src.Volume))
                 .ForMember(dest => dest.ProviderId, opt =>
-                    opt.MapFrom(src => src.ProviderId))
+                    opt.MapFrom(src => src.Provider.Id))
+                .ForMember(dest => dest.ProviderName, opt =>
+                    opt.MapFrom(src => src.Provider.Name))
                 .ForMember(dest => dest.Discount, opt =>
                     opt.MapFrom(src => src.Discount))
                 .ForMember(dest => dest.IsDeleted, opt =>
