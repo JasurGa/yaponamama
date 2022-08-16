@@ -189,7 +189,7 @@ namespace Atlas.Identity.Controllers
         [Authorize]
         [HttpGet("refresh")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<AuthToken>> RefreshTokenAsync([FromBody] SignInDto signIn)
+        public async Task<ActionResult<AuthToken>> RefreshTokenAsync()
         {
             var claims = User.Claims.ToList();
             var token = _tokenService.GenerateToken(claims.ToArray());
