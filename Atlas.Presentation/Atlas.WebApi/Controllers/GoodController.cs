@@ -42,7 +42,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/random/main
+        ///     
+        ///     GET /api/1.0/good/random/main
+        ///     
         /// </remarks>
         /// <returns>Returns TopGoodListVm</returns>
         /// <response code="200">Success</response>
@@ -61,7 +63,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/random/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     GET /api/1.0/good/random/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="categoryId">Category id (guid)</param>
         /// <returns>Returns TopGoodListVm</returns>
@@ -86,7 +90,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/good/count/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/good/count/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="categoryId">Category id (guid)</param>
         /// <returns>Returns int</returns>
@@ -183,8 +189,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> GetPagedGoodsByProviderIdAsync(
             [FromRoute] Guid providerId,
-            [FromQuery] int pageIndex = 0,
-            [FromQuery] int pageSize = 10,
+            [FromQuery] int  pageIndex   = 0,
+            [FromQuery] int  pageSize    = 10,
             [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetGoodPagedListByProviderQuery
@@ -218,12 +224,12 @@ namespace Atlas.WebApi.Controllers
         [HttpGet("paged/category/{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> GetGoodsByCategoryIdAsync(
-            [FromRoute] Guid categoryId,
-            [FromQuery] int pageIndex = 0,
-            [FromQuery] int pageSize = 10,
-            [FromQuery] bool showDeleted = false,
-            [FromQuery] string sortable = "Name",
-            [FromQuery] bool ascending = true)
+            [FromRoute] Guid   categoryId,
+            [FromQuery] int    pageIndex   = 0,
+            [FromQuery] int    pageSize    = 10,
+            [FromQuery] bool   showDeleted = false,
+            [FromQuery] string sortable    = "Name",
+            [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetGoodPagedListByCategoryQuery
             {
@@ -278,12 +284,12 @@ namespace Atlas.WebApi.Controllers
         [HttpGet("paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> GetAllAsync(
-            [FromQuery] int pageIndex    = 0, 
-            [FromQuery] int pageSize     = 10,
-            [FromQuery] bool showDeleted = false,
-            [FromQuery] string sortable  = "Name",
-            [FromQuery] bool ascending   = true,
-            [FromQuery] string search    = "")
+            [FromQuery] int    pageIndex   = 0, 
+            [FromQuery] int    pageSize    = 10,
+            [FromQuery] bool   showDeleted = false,
+            [FromQuery] string sortable    = "Name",
+            [FromQuery] bool   ascending   = true,
+            [FromQuery] string search      = "")
         {
             var vm = await Mediator.Send(new GetGoodPagedListQuery
             {
@@ -317,11 +323,11 @@ namespace Atlas.WebApi.Controllers
         [HttpGet("discounted/paged")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> GetGoodsWithDiscountAsync(
-            [FromQuery] int pageIndex = 0,
-            [FromQuery] int pageSize = 10,
-            [FromQuery] bool showDeleted = false,
-            [FromQuery] string sortable = "Name",
-            [FromQuery] bool ascending = true)
+            [FromQuery] int    pageIndex   = 0,
+            [FromQuery] int    pageSize    = 10,
+            [FromQuery] bool   showDeleted = false,
+            [FromQuery] string sortable    = "Name",
+            [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetGoodWithDiscountPagedListQuery
             {
@@ -393,7 +399,13 @@ namespace Atlas.WebApi.Controllers
         ///     POST /api/1.0/good
         ///     {
         ///         "name": "Маленькая бутылка Pepsi",
+        ///         "nameRu": "Маленькая бутылка Pepsi",
+        ///         "nameEn": "Маленькая бутылка Pepsi",
+        ///         "nameUz": "Маленькая бутылка Pepsi",
         ///         "description": "Абсолютно такая же как и кола",
+        ///         "descriptionRu": "Абсолютно такая же как и кола",
+        ///         "descriptionEn": "Абсолютно такая же как и кола",
+        ///         "descriptionUz": "Абсолютно такая же как и кола",
         ///         "photoPath": "/storage/goods/small-pepsi/img.jpg",
         ///         "sellingPrice": 6000,
         ///         "purchasePrice": 4000,
@@ -432,8 +444,14 @@ namespace Atlas.WebApi.Controllers
         ///     PUT /api/1.0/good
         ///     {
         ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "name": "Маленькая бутылка Coca-cola",
-        ///         "description": "Абсолютно такая же как и пепси",
+        ///         "name": "Маленькая бутылка Pepsi",
+        ///         "nameRu": "Маленькая бутылка Pepsi",
+        ///         "nameEn": "Маленькая бутылка Pepsi",
+        ///         "nameUz": "Маленькая бутылка Pepsi",
+        ///         "description": "Абсолютно такая же как и кола",
+        ///         "descriptionRu": "Абсолютно такая же как и кола",
+        ///         "descriptionEn": "Абсолютно такая же как и кола",
+        ///         "descriptionUz": "Абсолютно такая же как и кола",
         ///         "photoPath": "/storage/goods/small-coca-cola/img.jpg",
         ///         "sellingPrice": 6000,
         ///         "purchasePrice": 3500,

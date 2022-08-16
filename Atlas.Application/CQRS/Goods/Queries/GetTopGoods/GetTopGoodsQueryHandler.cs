@@ -61,7 +61,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetTopGoods
                     result.Add(new TopGoodDetailsVm
                     {
                         Category = c,
-                        Goods = goods
+                        Goods    = goods
                     });
                 }
             }

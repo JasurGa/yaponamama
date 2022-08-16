@@ -16,7 +16,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByProvider
 {
     public class GetGoodPagedListByProviderQueryHandler : IRequestHandler<GetGoodPagedListByProviderQuery, PageDto<GoodLookupDto>>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetGoodPagedListByProviderQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>

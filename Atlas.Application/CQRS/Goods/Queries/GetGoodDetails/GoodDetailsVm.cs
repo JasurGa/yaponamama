@@ -13,7 +13,19 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public string Name { get; set; }
 
+        public string NameRu { get; set; }
+
+        public string NameEn { get; set; }
+
+        public string NameUz { get; set; }
+
         public string Description { get; set; }
+
+        public string DescriptionRu { get; set; }
+
+        public string DescriptionEn { get; set; }
+
+        public string DescriptionUz { get; set; }
 
         public string PhotoPath { get; set; }
 
@@ -36,8 +48,20 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                     opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt =>
                     opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.NameRu, opt =>
+                    opt.MapFrom(src => src.NameRu))
+                .ForMember(dest => dest.NameEn, opt =>
+                    opt.MapFrom(src => src.NameEn))
+                .ForMember(dest => dest.NameUz, opt =>
+                    opt.MapFrom(src => src.NameUz))
                 .ForMember(dest => dest.Description, opt =>
                     opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.DescriptionRu, opt =>
+                    opt.MapFrom(src => src.DescriptionRu))
+                .ForMember(dest => dest.DescriptionEn, opt =>
+                    opt.MapFrom(src => src.DescriptionEn))
+                .ForMember(dest => dest.DescriptionUz, opt =>
+                    opt.MapFrom(src => src.DescriptionUz))
                 .ForMember(dest => dest.PhotoPath, opt =>
                     opt.MapFrom(src => src.PhotoPath))
                 .ForMember(dest => dest.PurchasePrice, opt =>
