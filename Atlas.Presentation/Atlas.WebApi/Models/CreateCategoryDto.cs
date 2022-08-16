@@ -8,6 +8,12 @@ namespace Atlas.WebApi.Models
     {
         public string Name { get; set; }
 
+        public string NameRu { get; set; }
+
+        public string NameEn { get; set; }
+
+        public string NameUz { get; set; }
+
         public string ImageUrl { get; set; }
 
         public bool IsMainCategory { get; set; }
@@ -17,6 +23,12 @@ namespace Atlas.WebApi.Models
             profile.CreateMap<CreateCategoryDto, CreateCategoryCommand>()
                 .ForMember(p => p.Name, opt =>
                     opt.MapFrom(p => p.Name))
+                .ForMember(p => p.NameRu, opt =>
+                    opt.MapFrom(p => p.NameRu))
+                .ForMember(p => p.NameEn, opt =>
+                    opt.MapFrom(p => p.NameEn))
+                .ForMember(p => p.NameUz, opt =>
+                    opt.MapFrom(p => p.NameUz))
                 .ForMember(p => p.ImageUrl, opt =>
                     opt.MapFrom(p => p.ImageUrl))
                 .ForMember(p => p.IsMainCategory, opt =>

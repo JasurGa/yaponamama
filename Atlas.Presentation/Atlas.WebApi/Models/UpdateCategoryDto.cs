@@ -11,6 +11,12 @@ namespace Atlas.WebApi.Models
 
         public string Name { get; set; }
 
+        public string NameRu { get; set; }
+
+        public string NameEn { get; set; }
+
+        public string NameUz { get; set; }
+
         public string ImageUrl { get; set; }
 
         public bool IsMainCategory { get; set; }
@@ -22,6 +28,12 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(x => x.Id))
                 .ForMember(x => x.Name, opt =>
                     opt.MapFrom(x => x.Name))
+                .ForMember(x => x.NameRu, opt =>
+                    opt.MapFrom(x => x.NameRu))
+                .ForMember(x => x.NameEn, opt =>
+                    opt.MapFrom(x => x.NameEn))
+                .ForMember(x => x.NameUz, opt =>
+                    opt.MapFrom(x => x.NameUz))
                 .ForMember(x => x.ImageUrl, opt =>
                     opt.MapFrom(x => x.ImageUrl))
                 .ForMember(x => x.IsMainCategory, opt =>
