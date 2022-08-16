@@ -31,7 +31,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/support/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/support/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
         /// <param name="pageIndex">Page index</param>
@@ -63,7 +65,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/support/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/support/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Support id (guid)</param>
         /// <returns>Returns SupportDetailsVm object</returns>
@@ -90,12 +94,26 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/support
-        /// {
-        ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "internalPhoneNumber": "+998901234567"
-        ///     "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
-        /// }
+        ///     
+        ///     POST /api/1.0/support
+        ///     {
+        ///         "user": {
+        ///             "login": "admin",
+        ///             "password": "admin",
+        ///             "firstName": "Ivan",
+        ///             "lastName": "Ivan",
+        ///             "middleName": "Ivanovich",
+        ///             "sex": 0,
+        ///             "birthday": "1990-01-01T10:00:00",
+        ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png"
+        ///         },
+        ///         "internalPhoneNumber": "+998901234567"
+        ///         "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
+        ///         "salary": 1000000,
+        ///         "startOfWorkingHours": "01-01-1901T10:00:00",
+        ///         "workingDayDuration": 8,
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createSupport">CreateSupportDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -120,13 +138,28 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/support
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "internalPhoneNumber": "+998901234567"
-        ///     "PassportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
-        /// }
+        ///     
+        ///     PUT /api/1.0/support
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "user": {
+        ///             "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "login": "admin",
+        ///             "password": "admin",
+        ///             "firstName": "Ivan",
+        ///             "lastName": "Ivan",
+        ///             "middleName": "Ivanovich",
+        ///             "sex": 0,
+        ///             "birthday": "1990-01-01T10:00:00",
+        ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png"
+        ///         },
+        ///         "internalPhoneNumber": "+998901234567"
+        ///         "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
+        ///         "salary": 1000000,
+        ///         "startOfWorkingHours": "01-01-1901T10:00:00",
+        ///         "workingDayDuration": 8,
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateSupport">UpdateSupportDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -151,7 +184,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/support/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/support/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Support id (guid)</param>
         /// <returns>Returns NoContent</returns>
@@ -178,7 +213,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PATCH /api/1.0/support/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     PATCH /api/1.0/support/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Support id (guid)</param>
         /// <returns>Returns NoContent</returns>

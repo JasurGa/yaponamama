@@ -34,7 +34,13 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
             }
 
             good.Name           = request.Name;
+            good.NameRu         = request.NameRu;
+            good.NameEn         = request.NameEn;
+            good.NameUz         = request.NameUz;
             good.Description    = request.Description;
+            good.DescriptionRu  = request.DescriptionRu;
+            good.DescriptionEn  = request.DescriptionEn;
+            good.DescriptionUz  = request.DescriptionUz;
             good.PhotoPath      = request.PhotoPath;
             good.SellingPrice   = request.SellingPrice;
             good.PurchasePrice  = request.PurchasePrice;

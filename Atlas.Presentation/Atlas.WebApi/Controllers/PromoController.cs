@@ -32,7 +32,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/promo
+        ///     
+        ///     GET /api/1.0/promo
+        ///     
         /// </remarks>
         /// <returns>Returns PromoListVm object</returns>
         /// <response code="200">Success</response>
@@ -53,7 +55,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/promo/paged?pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/promo/paged?pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
@@ -68,10 +72,10 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<PromoLookupDto>>> GetAllPagedAsync(
-            [FromQuery] int pageIndex = 0, 
-            [FromQuery] int pageSize = 10,
-            [FromQuery] string sortable = "Name",
-            [FromQuery] bool ascending = true) 
+            [FromQuery] int    pageIndex = 0, 
+            [FromQuery] int    pageSize  = 10,
+            [FromQuery] string sortable  = "Name",
+            [FromQuery] bool   ascending = true) 
         {
             var vm = await Mediator.Send(new GetPromoPagedListQuery 
             { 
@@ -89,7 +93,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/promo/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/promo/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Promo id (guid)</param>
         /// <returns>Returns PromoDetailsVm object</returns>
@@ -117,14 +123,16 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/promo
-        /// {
-        ///     "name": "Sample name",
-        ///     "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "discountPrice": 1000,
-        ///     "discountPercent": 10,
-        ///     "expiresAt": "1900-01-01T01:01:01"
-        /// }
+        ///     
+        ///     POST /api/1.0/promo
+        ///     {
+        ///         "name": "Sample name",
+        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "discountPrice": 1000,
+        ///         "discountPercent": 10,
+        ///         "expiresAt": "1900-01-01T01:01:01"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createPromoDto">CreatePromoDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -148,15 +156,17 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/promo
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "name": "Sample name",
-        ///     "discountPrice": 1000,
-        ///     "discountPercent": 10,
-        ///     "expiresAt": "1900-01-01T01:01:01"
-        /// }
+        ///     
+        ///     PUT /api/1.0/promo
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "name": "Sample name",
+        ///         "discountPrice": 1000,
+        ///         "discountPercent": 10,
+        ///         "expiresAt": "1900-01-01T01:01:01"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updatePromoDto">UpdatePromoDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -182,7 +192,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/promo/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/promo/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Promo id</param>
         /// <returns>Returns NoContent</returns>

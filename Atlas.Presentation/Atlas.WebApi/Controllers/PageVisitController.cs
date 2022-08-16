@@ -17,8 +17,10 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PATCH /api/pagevisit/increment
-        /// "/good/1"
+        ///     
+        ///     PATCH /api/pagevisit/increment
+        ///     "/good/1"
+        ///     
         /// </remarks>
         /// <returns>Returns current visit count (int)</returns>
         /// <param name="path">Path to the page</param>
@@ -39,13 +41,16 @@ namespace Atlas.WebApi.Controllers
         /// Gets visit count for pages
         /// </summary>
         /// <remarks>
-        /// POST /api/pagevisit
-        /// [
-        ///     "/good/1",
-        ///     "/good/2",
-        ///     "/good/3",
-        ///     "..."
-        /// ]
+        /// Sample request:
+        ///     
+        ///     POST /api/pagevisit
+        ///     [
+        ///         "/good/1",
+        ///         "/good/2",
+        ///         "/good/3",
+        ///         "..."
+        ///     ]
+        ///     
         /// </remarks>
         /// <returns>Returns visit counts (list of ints)</returns>
         /// <param name="pages">Paths to the pages</param>

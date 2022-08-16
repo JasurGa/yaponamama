@@ -31,7 +31,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/user/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/user/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="search">Search string</param>
         /// <param name="showDeleted">Show deleted list</param>
@@ -63,7 +65,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">User id (guid)</param>
         /// <returns>Returns UserDetailsVm object</returns>
@@ -91,16 +95,18 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/user
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "firstName": "John",
-        ///     "lastName": "Doe",
-        ///     "middleName": "O'Brien",
-        ///     "sex": 1,
-        ///     "birthday": "1900-01-01T10:00:00",
-        ///     "avatarPhotoPath": "/main/dir,
-        /// }
+        ///     
+        ///     PUT /api/1.0/user
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "firstName": "John",
+        ///         "lastName": "Doe",
+        ///         "middleName": "O'Brien",
+        ///         "sex": 0,
+        ///         "birthday": "1900-01-01T10:00:00",
+        ///         "avatarPhotoPath": "/main/dir,
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateUser">UpdateUserDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -126,7 +132,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">User id</param>
         /// <returns>Returns NoContent</returns>
@@ -154,7 +162,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PATCH /api/1.0/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     PATCH /api/1.0/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">User id</param>
         /// <returns>Returns NoContent</returns>

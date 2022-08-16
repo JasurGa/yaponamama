@@ -30,7 +30,13 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
             {
                 Id            = Guid.NewGuid(),
                 Name          = request.Name,
+                NameRu        = request.NameRu,
+                NameEn        = request.NameEn,
+                NameUz        = request.NameUz,
                 Description   = request.Description,
+                DescriptionRu = request.DescriptionRu,
+                DescriptionEn = request.DescriptionEn,
+                DescriptionUz = request.DescriptionUz,
                 PhotoPath     = request.PhotoPath,
                 SellingPrice  = request.SellingPrice,
                 PurchasePrice = request.PurchasePrice,

@@ -15,8 +15,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetDiscountedGoodListByCategory
 {
     public class GetDiscountedGoodListByCategoryQueryHandler : IRequestHandler<GetDiscountedGoodListByCategoryQuery, GoodListVm>
     {
-        private readonly IMapper _mapper;
-        private readonly IDriver _driver;
+        private readonly IMapper         _mapper;
+        private readonly IDriver         _driver;
         private readonly IAtlasDbContext _dbContext;
 
         public GetDiscountedGoodListByCategoryQueryHandler(IMapper mapper, IDriver driver, IAtlasDbContext dbContext) =>

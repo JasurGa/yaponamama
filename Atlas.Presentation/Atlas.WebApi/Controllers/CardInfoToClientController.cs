@@ -34,11 +34,11 @@ namespace Atlas.WebApi.Controllers
         ///     POST /api/1.0/cardinfotoclient
         ///     {
         ///         "name": "123",
-        ///         "cardNumber": "123",
+        ///         "cardNumber": "4795 5900 9003 4390",
         ///         "dateOfIssue": "1900-01-01T10:00:00",
         ///         "cvc": "123",
         ///         "cvc2": "123",
-        ///         "cardHolder": "123"
+        ///         "cardHolder": "IVAN IVANOV"
         ///     }
         ///     
         /// </remarks>
@@ -65,7 +65,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/cardinfotoclient
+        ///     
+        ///     GET /api/1.0/cardinfotoclient
+        ///     
         /// </remarks>
         /// <returns>Returns CardInfoToClientListVm object</returns>
         /// <response code="200">Success</response>
@@ -90,7 +92,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/cardinfotoclient/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/cardinfotoclient/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">CardInfoToClient id (guid)</param>
         /// <returns>Returns CardInfoToClientDetailsVm object</returns>
@@ -119,16 +123,18 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/cardinfotoclient
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "name": "123",
-        ///     "cardNumber": "123",
-        ///     "dateOfIssue": "1900-01-01T10:00:00",
-        ///     "cvc": "123",
-        ///     "cvc2": "123",
-        ///     "cardHolder": "123"
-        /// }
+        ///     
+        ///     PUT /api/1.0/cardinfotoclient
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "name": "123",
+        ///         "cardNumber": "4796 4900 4332 3445",
+        ///         "dateOfIssue": "1900-01-01T10:00:00",
+        ///         "cvc": "123",
+        ///         "cvc2": "123",
+        ///         "cardHolder": "IVAN IVANOV"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateCardInfoToClient">UpdateCardInfoToClientDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -155,7 +161,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/cardinfotoclient/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/cardinfotoclient/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">CardInfoToClient id</param>
         /// <returns>Returns NoContent</returns>

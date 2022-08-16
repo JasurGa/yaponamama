@@ -20,17 +20,24 @@ namespace Atlas.Application.CQRS.Categories.Commands.CreateCategory
             {
                 Id             = Guid.NewGuid(),
                 Name           = request.Name,
+                NameRu         = request.NameRu,
+                NameEn         = request.NameEn,
+                NameUz         = request.NameUz,
                 ImageUrl       = request.ImageUrl,
                 IsMainCategory = request.IsMainCategory,
+                IsDeleted      = false,
             };
 
             IAsyncSession session = _driver.AsyncSession();
             try
             {
-                await session.RunAsync("CREATE (c:Category{Id: $Id, Name: $Name, ImageUrl: $ImageUrl, IsMainCategory: $IsMainCategory, IsDeleted: False})", new
+                await session.RunAsync("CREATE (c:Category{Id: $Id, Name: $Name, NameRu: $NameRu, NameEn: $NameEn, NameUz: $NameUz, ImageUrl: $ImageUrl, IsMainCategory: $IsMainCategory, IsDeleted: False})", new
                 {
                     Id             = category.Id.ToString(),
                     Name           = category.Name,
+                    NameRu         = category.NameRu,
+                    NameEn         = category.NameEn,
+                    NameUz         = category.NameUz,
                     ImageUrl       = category.ImageUrl,
                     IsMainCategory = category.IsMainCategory
                 });

@@ -35,20 +35,22 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/order
-        /// {
-        ///     "toLongitude": 0.0,
-        ///     "toLatitude": 0.0,
-        ///     "isPickup": false,
-        ///     "paymentTypeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "promo": "00000",
-        ///     "goodToOrders": [
-        ///         {
-        ///             "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///             "count": 10
-        ///         }
-        ///     ]
-        /// }
+        ///     
+        ///     POST /api/1.0/order
+        ///     {
+        ///         "toLongitude": 0.0,
+        ///         "toLatitude": 0.0,
+        ///         "isPickup": false,
+        ///         "paymentTypeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "promo": "00000",
+        ///         "goodToOrders": [
+        ///             {
+        ///                 "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///                 "count": 10
+        ///             }
+        ///         ]
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createOrderDto">CreateOrderDto object</param>
         /// <returns>Returns id (guid)</returns>
@@ -80,7 +82,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Order id (guid)</param>
         /// <returns>Returns OrderDetailsVm object</returns>
@@ -108,7 +112,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/order/client/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/order/client/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Client id (guid)</param>
         /// <returns>Returns PageDto OrderLookupDto object</returns>
@@ -136,7 +142,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/client
+        ///     
+        ///     GET /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/client
+        ///     
         /// </remarks>
         /// <param name="id">Order id (guid)</param>
         /// <returns>Returns OrderDetailsVm object</returns>
@@ -165,7 +173,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/order/courier/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/order/courier/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Courier id (guid)</param>
         /// <param name="pageIndex">Page index</param>
@@ -198,7 +208,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/courier
+        ///     
+        ///     GET /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/courier
+        ///     
         /// </remarks>
         /// <param name="id">Order id (guid)</param>
         /// <returns>Returns OrderDetailsVm object</returns>
@@ -227,7 +239,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/order/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/order/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Store id (guid)</param>
         /// <param name="pageIndex">Page index</param>
@@ -260,7 +274,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/order/last/paged?pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/order/last/paged?pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
@@ -288,7 +304,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/order/client/last/paged?pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/order/client/last/paged?pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
@@ -317,7 +335,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/order/courier/last/paged?pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/order/courier/last/paged?pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
@@ -346,7 +366,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/finish
+        ///     
+        ///     DELETE /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/finish
+        ///     
         /// </remarks>
         /// <param name="id">Order id</param>
         /// <returns>Returns NoContent</returns>
@@ -375,7 +397,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/cancel
+        ///     
+        ///     DELETE /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/cancel
+        ///         
         /// </remarks>
         /// <param name="id">Order id</param>
         /// <returns>Returns NoContent</returns>

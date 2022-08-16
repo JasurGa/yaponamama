@@ -35,7 +35,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/supplymanager/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/supplymanager/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
         /// <param name="pageIndex">Page index</param>
@@ -64,7 +66,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/supplymanager/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?&amp;showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/supplymanager/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?&amp;showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
         /// <param name="storeId">Store id (guid)</param>
@@ -95,7 +99,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/supplymanager/except/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?&amp;showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/supplymanager/except/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?&amp;showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
         /// <param name="storeId">Store id (guid)</param>
@@ -109,8 +115,10 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<SupplyManagerLookupDto>>> GetNotByStoreIdPagedAsync(
-            [FromRoute] Guid storeId, [FromQuery] bool showDeleted = false,
-            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+            [FromRoute] Guid storeId,
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] int pageIndex    = 0,
+            [FromQuery] int pageSize     = 10)
         {
             var vm = await Mediator.Send(new GetSupplyManagerPagedListNotByStoreIdQuery
             {
@@ -128,7 +136,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/supplymanager/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/supplymanager/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">SupplyManager id (guid)</param>
         /// <returns>Returns SupplyManagerDetailsVm object</returns>
@@ -155,16 +165,27 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/supplymanager
-        /// {
-        ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "storeId": "j3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "phoneNumber": "+998901234567"
-        ///     "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
-        ///     "salary": 1000000,
-        ///     "startOfWorkingHours": "01-01-1901T10:00:00",
-        ///     "workingDayDuration": 8,
-        /// }
+        ///     
+        ///     POST /api/1.0/supplymanager
+        ///     {
+        ///         "user": {
+        ///             "login": "admin",
+        ///             "password": "admin",
+        ///             "firstName": "Ivan",
+        ///             "lastName": "Ivan",
+        ///             "middleName": "Ivanovich",
+        ///             "sex": 0,
+        ///             "birthday": "1990-01-01T10:00:00",
+        ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png"
+        ///         },
+        ///         "storeId": "j3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "phoneNumber": "+998901234567"
+        ///         "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
+        ///         "salary": 1000000,
+        ///         "startOfWorkingHours": "01-01-1901T10:00:00",
+        ///         "workingDayDuration": 8,
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createSupplyManager">CreateSupplyManagerDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -189,15 +210,17 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/supplymanager/store
-        /// {
-        ///     "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "supplyManagerIds": [
-        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        ///     ]
-        /// }
+        ///     
+        ///     PUT /api/1.0/supplymanager/store
+        ///     {
+        ///         "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "supplyManagerIds": [
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         ]
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateSupplyManagersStoreIdDto">UpdateSupplyManagersStoreIdDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -222,17 +245,29 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/supplymanager
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "storeId": "j3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "phoneNumber": "+998901234567"
-        ///     "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
-        ///     "salary": 1000000,
-        ///     "startOfWorkingHours": "01-01-1901T10:00:00",
-        ///     "workingDayDuration": 8,
-        /// }
+        /// 
+        ///     PUT /api/1.0/supplymanager
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "user": {
+        ///             "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "login": "admin",
+        ///             "password": "admin",
+        ///             "firstName": "Ivan",
+        ///             "lastName": "Ivan",
+        ///             "middleName": "Ivanovich",
+        ///             "sex": 0,
+        ///             "birthday": "1990-01-01T10:00:00",
+        ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png"
+        ///         }
+        ///         "storeId": "j3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "phoneNumber": "+998901234567"
+        ///         "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
+        ///         "salary": 1000000,
+        ///         "startOfWorkingHours": "01-01-1901T10:00:00",
+        ///         "workingDayDuration": 8,
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateSupplyManager">UpdateSupplyManagerDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -257,7 +292,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/supplymanager/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/supplymanager/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">SupplyManager id (guid)</param>
         /// <returns>Returns NoContent</returns>
@@ -284,7 +321,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PATCH /api/1.0/supplymanager/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     PATCH /api/1.0/supplymanager/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">SupplyManager id (guid)</param>
         /// <returns>Returns NoContent</returns>

@@ -17,7 +17,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/officialrole
+        ///     
+        ///     GET /api/1.0/officialrole
+        ///     
         /// </remarks>
         /// <returns>Returns OfficialRoleListVm object</returns>
         /// <response code="200">Success</response>

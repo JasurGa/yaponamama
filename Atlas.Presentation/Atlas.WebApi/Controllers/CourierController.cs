@@ -38,7 +38,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/courier/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/courier/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
         /// <param name="pageIndex">Page index</param>
@@ -67,7 +69,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/courier/vehicle/a3eb7b4a-9f4e-4c71-8619-398655c563b8?&amp;showDeleted=false
+        ///     
+        ///     GET /api/1.0/courier/vehicle/a3eb7b4a-9f4e-4c71-8619-398655c563b8?&amp;showDeleted=false
+        ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
         /// <returns>Returns the list of CouierDetailsVm</returns>
@@ -96,7 +100,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/courier/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?&amp;showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        /// 
+        ///     GET /api/1.0/courier/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?&amp;showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
         /// <param name="storeId">Store id (guid)</param>
@@ -127,7 +133,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/courier/except/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?&amp;showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/courier/except/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/paged?&amp;showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
         /// <param name="storeId">Store id (guid)</param>
@@ -141,8 +149,10 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<CourierLookupDto>>> GetNotByStoreIdPagedAsync(
-            [FromRoute] Guid storeId, [FromQuery] bool showDeleted = false,
-            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+            [FromRoute] Guid storeId,
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] int  pageIndex   = 0,
+            [FromQuery] int  pageSize    = 10)
         {
             var vm = await Mediator.Send(new GetCourierPagedListNotByStoreIdQuery
             {
@@ -160,7 +170,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/courier/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/courier/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Courier id (guid)</param>
         /// <returns>Returns CourierDetailsVm object</returns>
@@ -187,14 +199,25 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/courier
-        /// {
-        ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "phoneNumber": "+998901234567"
-        ///     "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
-        ///     "driverLicensePath": "/storage/driverLicensePath/dlp123.pdf",
-        ///     "vehicleId": "y2u4h5j6-9f4e-4c71-8619-398655c563b8",
-        /// }
+        ///     
+        ///     POST /api/1.0/courier
+        ///     {
+        ///         "user": {
+        ///             "login": "admin",
+        ///             "password": "admin",
+        ///             "firstName": "Ivan",
+        ///             "lastName": "Ivan",
+        ///             "middleName": "Ivanovich",
+        ///             "sex": 0,
+        ///             "birthday": "1990-01-01T10:00:00",
+        ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png",
+        ///         },
+        ///         "phoneNumber": "+998901234567"
+        ///         "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
+        ///         "driverLicensePath": "/storage/driverLicensePath/dlp123.pdf",
+        ///         "vehicleId": "y2u4h5j6-9f4e-4c71-8619-398655c563b8",
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createCourier">CreateCourierDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -219,15 +242,17 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/courier/store
-        /// {
-        ///     "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "courierIds": [
-        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        ///     ]
-        /// }
+        ///     
+        ///     PUT /api/1.0/courier/store
+        ///     {
+        ///         "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "courierIds": [
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         ]
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateCouriersStoreIdDto">UpdateCouriersStoreIdDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -252,15 +277,27 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/courier
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "phoneNumber": "+998901234567"
-        ///     "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
-        ///     "driverLicensePath": "/storage/driverLicensePath/dlp123.pdf",
-        ///     "vehicleId": "y2u4h5j6-9f4e-4c71-8619-398655c563b8",
-        /// }
+        ///     
+        ///     PUT /api/1.0/courier
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "user": {
+        ///             "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "login": "admin",
+        ///             "password": "admin",
+        ///             "firstName": "Ivan",
+        ///             "lastName": "Ivan",
+        ///             "middleName": "Ivanovich",
+        ///             "sex": 0,
+        ///             "birthday": "1990-01-01T10:00:00",
+        ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png",
+        ///         },
+        ///         "phoneNumber": "+998901234567"
+        ///         "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
+        ///         "driverLicensePath": "/storage/driverLicensePath/dlp123.pdf",
+        ///         "vehicleId": "y2u4h5j6-9f4e-4c71-8619-398655c563b8",
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateCourier">UpdateCourierDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -285,7 +322,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/courier/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/courier/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Courier id (guid)</param>
         /// <returns>Returns NoContent</returns>
@@ -312,7 +351,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PATCH /api/1.0/courier/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     PATCH /api/1.0/courier/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Courier id (guid)</param>
         /// <returns>Returns NoContent</returns>

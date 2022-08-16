@@ -30,7 +30,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/profile
+        ///     
+        ///     GET /api/1.0/profile
+        ///     
         /// </remarks>
         /// <returns>Returns UserDetailsVm object</returns>
         /// <response code="200">Success</response>
@@ -54,7 +56,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/profile/client
+        ///     
+        ///     GET /api/1.0/profile/client
+        ///     
         /// </remarks>
         /// <returns>Returns ClientDetailsVm object</returns>
         /// <response code="200">Success</response>
@@ -79,7 +83,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/profile/courier
+        ///     
+        ///     GET /api/1.0/profile/courier
+        ///     
         /// </remarks>
         /// <returns>Returns CourierDetailsVm object</returns>
         /// <response code="200">Success</response>
@@ -104,13 +110,19 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/profile
-        /// {
-        ///     "firstname": "John",
-        ///     "lastname": "Doe",
-        ///     "birthDay": "1900-01-01T10:00:00",
-        ///     "avatarPhotoPath": ""
-        /// }
+        ///     
+        ///     PUT /api/1.0/profile
+        ///     {
+        ///         "login": "john_doe",
+        ///         "password": "pass123",
+        ///         "firstName": "John",
+        ///         "lastName": "Doe",
+        ///         "middleName": "",
+        ///         "sex": 0,
+        ///         "birthday": "1900-01-01T10:00:00",
+        ///         "avatarPhotoPath": ""
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateUser">UpdateUserDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -141,11 +153,13 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/profile/client
-        /// {
-        ///     "passportPhotoPath": "test",
-        ///     "selfieWithPassportPhotoPath": "test"
-        /// }
+        ///     
+        ///     PUT /api/1.0/profile/client
+        ///     {
+        ///         "passportPhotoPath": "test",
+        ///         "selfieWithPassportPhotoPath": "test"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateClient">UpdateClientDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -178,11 +192,25 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/profile/courier
-        /// {
-        ///     "passportPhotoPath": "test",
-        ///     "driverLicensePath": "test"
-        /// }
+        ///     
+        ///     PUT /api/1.0/profile/courier
+        ///     {
+        ///         "phoneNumber": "+998901234567",
+        ///         "passportPhotoPath": "test",
+        ///         "driverLicensePath": "test",
+        ///         "vehicleId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "user": {
+        ///             "login": "admin",
+        ///             "password": "admin",
+        ///             "firstName": "Ivan",
+        ///             "lastName": "Ivan",
+        ///             "middleName": "Ivanovich",
+        ///             "sex": 0,
+        ///             "birthday": "1990-01-01T10:00:00",
+        ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png"
+        ///         }
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateCourier">UpdateCourierDto object</param>
         /// <returns>Returns NoContent</returns>

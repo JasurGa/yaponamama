@@ -38,6 +38,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.FirstName))
                 .ForMember(x => x.LastName, opt => 
                     opt.MapFrom(src => src.LastName))
+                .ForMember(x => x.MiddleName, opt =>
+                    opt.MapFrom(src => src.MiddleName))
                 .ForMember(x => x.Sex, opt =>
                     opt.MapFrom(src => src.Sex))
                 .ForMember(x => x.Birthday, opt => 

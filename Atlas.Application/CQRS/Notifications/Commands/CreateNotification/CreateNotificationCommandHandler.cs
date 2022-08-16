@@ -32,7 +32,13 @@ namespace Atlas.Application.CQRS.Notifications.Commands.CreateNotification
             {
                 Id                 = Guid.NewGuid(),
                 Subject            = request.Subject,
+                SubjectRu          = request.SubjectRu,
+                SubjectEn          = request.SubjectEn,
+                SubjectUz          = request.SubjectUz,
                 Body               = request.Body,
+                BodyRu             = request.BodyRu,
+                BodyEn             = request.BodyEn,
+                BodyUz             = request.BodyUz,
                 Priority           = request.Priority,
                 NotificationTypeId = request.NotificationTypeId
             };

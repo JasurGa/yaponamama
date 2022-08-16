@@ -11,8 +11,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodList
 {
     public class GetGoodListQueryHandler : IRequestHandler<GetGoodListQuery, GoodListVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
+
         public GetGoodListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 

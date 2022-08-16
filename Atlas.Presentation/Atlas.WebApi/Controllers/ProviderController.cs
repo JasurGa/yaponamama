@@ -32,7 +32,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/provider/paged?pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        ///     
+        ///     GET /api/1.0/provider/paged?pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        ///     
         /// </remarks>
         /// <param name="search">Search string</param>
         /// <param name="pageIndex">Page index</param>
@@ -71,7 +73,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/provider
+        ///     
+        ///     GET /api/1.0/provider
+        ///     
         /// </remarks>
         /// <param name="search">Search string</param>
         /// <returns>Returns ProviderListVm object</returns>
@@ -97,7 +101,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Provider id (guid)</param>
         /// <returns>Returns ProviderDetailsVm object</returns>
@@ -125,15 +131,17 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/provider
-        /// {
-        ///     "name": "Sample name",
-        ///     "description": "Sample description"
-        ///     "address": "Sample address",
-        ///     "latitude": 0,
-        ///     "longitude": 0,
-        ///     "logotypePath": "/default/path"
-        /// }
+        ///     
+        ///     POST /api/1.0/provider
+        ///     {
+        ///         "name": "Sample name",
+        ///         "description": "Sample description"
+        ///         "address": "Sample address",
+        ///         "latitude": 0,
+        ///         "longitude": 0,
+        ///         "logotypePath": "/default/path"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createProviderDto">CreateProviderDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -158,16 +166,18 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/provider
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        ///     "name": "Sample name",
-        ///     "description": "Sample description"
-        ///     "address": "Sample address",
-        ///     "latitude": 0,
-        ///     "longitude": 0,
-        ///     "LogotypePath": "/default/path"
-        /// }
+        ///     
+        ///     PUT /api/1.0/provider
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         "name": "Sample name",
+        ///         "description": "Sample description"
+        ///         "address": "Sample address",
+        ///         "latitude": 0,
+        ///         "longitude": 0,
+        ///         "logotypePath": "/default/path"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateProviderDto">UpdateProviderDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -193,7 +203,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Provider id</param>
         /// <returns>Returns NoContent</returns>

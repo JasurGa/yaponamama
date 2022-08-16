@@ -33,7 +33,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/providerphonenumber/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/providerphonenumber/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="providerId">Provider id (guid)</param>
         /// <returns>Returns ProviderPhoneNumberListVm object</returns>
@@ -61,7 +63,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/providerphonenumber/paged?pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/providerphonenumber/paged?pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
@@ -89,7 +93,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/providerphonenumber/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/providerphonenumber/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">ProviderPhoneNumber id (guid)</param>
         /// <returns>Returns ProviderPhoneNumberDetailsVm object</returns>
@@ -117,16 +123,18 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/providerphonenumber
-        /// {
-        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "phoneNumber": [
-        ///         "+998901234560",
-        ///         "+998901234561",
-        ///         "+998901234562",
-        ///         "+998901234563",
-        ///     ]
-        /// }
+        ///     
+        ///     POST /api/1.0/providerphonenumber
+        ///     {
+        ///         "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "phoneNumber": [
+        ///             "+998901234560",
+        ///             "+998901234561",
+        ///             "+998901234562",
+        ///             "+998901234563",
+        ///         ]
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createProviderPhoneNumbers">CreateProviderPhoneNumbersDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -151,11 +159,13 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/providerphonenumber
-        /// {
-        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "phoneNumber": "+998901234567"
-        /// }
+        ///     
+        ///     POST /api/1.0/providerphonenumber
+        ///     {
+        ///         "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "phoneNumber": "+998901234567"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createProviderPhoneNumber">CreateProviderPhoneNumberDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -181,12 +191,14 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/providerphonenumber
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "phoneNumber": "+998901234567",
-        /// }
+        ///     
+        ///     PUT /api/1.0/providerphonenumber
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "phoneNumber": "+998901234567",
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateProviderPhoneNumber">UpdateProviderPhoneNumberDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -212,15 +224,17 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/providerphonenumber/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/providerphonenumber/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">ProviderPhoneNumber id</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpDelete("{id}")]
         [Authorize]
+        [HttpDelete("{id}")]
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

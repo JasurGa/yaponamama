@@ -175,6 +175,28 @@ namespace Atlas.Identity.Controllers
         }
 
         /// <summary>
+        /// Refresh token
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/1.0/refresh
+        ///     
+        /// </remarks>
+        /// <returns>Returns token (AuthorizationToken)</returns>
+        /// <response code="200">Success</response>
+        /// <response code="400">Bad request</response>
+        [Authorize]
+        [HttpGet("refresh")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<AuthToken>> RefreshTokenAsync([FromBody] SignInDto signIn)
+        {
+            var claims = User.Claims.ToList();
+            var token = _tokenService.GenerateToken(claims.ToArray());
+            return Ok(token);
+        }
+
+        /// <summary>
         /// Login user
         /// </summary>
         /// <remarks>

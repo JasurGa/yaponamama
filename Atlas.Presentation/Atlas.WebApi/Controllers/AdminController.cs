@@ -31,15 +31,27 @@ namespace Atlas.WebApi.Controllers
         /// Creates a new admin
         /// </summary>
         /// <remarks>
-        /// POST /api/1.0/admin
-        /// {
-        ///     "phoneNumber": "+998901234567",
-        ///     "startOfWorkingHours": "01-01-1901T10:00:00",
-        ///     "workingDayDuration: 8,
-        ///     "salary": 10000000,
-        ///     "officialRoleId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        /// }
+        /// Sample request:
+        ///     
+        ///     POST /api/1.0/admin
+        ///     {
+        ///         "phoneNumber": "+998901234567",
+        ///         "startOfWorkingHours": "01-01-1901T10:00:00",
+        ///         "workingDayDuration: 8,
+        ///         "salary": 10000000,
+        ///         "officialRoleId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "user": {
+        ///             "login": "admin",
+        ///             "password": "admin",
+        ///             "firstName": "Ivan",
+        ///             "lastName": "Ivan",
+        ///             "middleName": "Ivanovich",
+        ///             "sex": 0,
+        ///             "birthday": "1990-01-01T10:00:00",
+        ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png"
+        ///         }
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createAdmin">CreateAdminDto object</param>
         /// <returns>Returns id (Guid)</returns>
@@ -64,7 +76,10 @@ namespace Atlas.WebApi.Controllers
         /// Gets the admin details
         /// </summary>
         /// <remarks>
-        /// GET /api/1.0/admin/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/admin/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Admin id (guid)</param>
         /// <returns>Returns AdminDetailsVm</returns>
@@ -91,7 +106,10 @@ namespace Atlas.WebApi.Controllers
         /// Gets the list of admins
         /// </summary>
         /// <remarks>
-        /// GET /api/1.0/admin/paged?showDeleted=true&pageSize=10&pageIndex=0
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/admin/paged?showDeleted=true&amp;pageSize=10&amp;pageIndex=0
+        ///     
         /// </remarks>
         /// <param name="showDeleted">ShowDeleted (bool)</param>
         /// <param name="pageSize">Size of the page</param>
@@ -109,11 +127,11 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<AdminLookupDto>>> GetAllAsync(
-            [FromQuery] bool showDeleted = false,
-            [FromQuery] int pageSize = 10, 
-            [FromQuery] int pageIndex = 0,
-            [FromQuery] string sortable = "Name",
-            [FromQuery] bool ascending = true)
+            [FromQuery] bool   showDeleted = false,
+            [FromQuery] int    pageSize    = 10, 
+            [FromQuery] int    pageIndex   = 0,
+            [FromQuery] string sortable    = "Name",
+            [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetAdminPagedListQuery
             {
@@ -131,16 +149,29 @@ namespace Atlas.WebApi.Controllers
         /// Updates the admin
         /// </summary>
         /// <remarks>
-        /// PUT /api/1.0/admin
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "phoneNumber": "+998901234567",
-        ///     "startOfWorkingHours": "01-01-1901T10:00:00",
-        ///     "workingDayDuration: 8,
-        ///     "salary": 1000000,
-        ///     "officialRoleId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "userId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        /// }
+        /// Sample request:
+        ///     
+        ///     PUT /api/1.0/admin
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "phoneNumber": "+998901234567",
+        ///         "startOfWorkingHours": "1900-01-01T10:00:00",
+        ///         "workingDayDuration: 8,
+        ///         "salary": 1000000,
+        ///         "officialRoleId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "user": {
+        ///             "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "login": "admin",
+        ///             "password": "admin",
+        ///             "firstName": "Ivan",
+        ///             "lastName": "Ivan",
+        ///             "middleName": "Ivanovich",
+        ///             "sex": 0,
+        ///             "birthday": "1990-01-01T10:00:00",
+        ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png"
+        ///         }
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateAdmin">UpdateAdminDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -165,7 +196,10 @@ namespace Atlas.WebApi.Controllers
         /// Deletes the admin
         /// </summary>
         /// <remarks>
-        /// DELETE /api/1.0/admin/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// Sample request:
+        ///     
+        ///     DELETE /api/1.0/admin/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Admin id (guid)</param>
         /// <returns>Returns NoContent</returns>
@@ -192,7 +226,10 @@ namespace Atlas.WebApi.Controllers
         /// Restores the admin
         /// </summary>
         /// <remarks>
-        /// PATCH /api/1.0/admin/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// Sample request:
+        ///     
+        ///     PATCH /api/1.0/admin/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Admin id (guid)</param>
         /// <returns>Returns NoContent</returns>
