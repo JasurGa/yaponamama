@@ -172,7 +172,13 @@ namespace Atlas.WebApi.Controllers
         ///     {
         ///         "notificationTypeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "subject": "Sample subject",
+        ///         "subjectRu": "Sample subject",
+        ///         "subjectEn": "Sample subject",
+        ///         "subjectUz": "Sample subject",
         ///         "body": "Sample body",
+        ///         "bodyRu": "Sample body",
+        ///         "bodyEn": "Sample body",
+        ///         "bodyUz": "Sample body",
         ///         "priority": 0
         ///     }
         ///     
@@ -207,7 +213,13 @@ namespace Atlas.WebApi.Controllers
         ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "notificationTypeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "subject": "Sample subject",
+        ///         "subjectRu": "Sample subject",
+        ///         "subjectEn": "Sample subject",
+        ///         "subjectUz": "Sample subject",
         ///         "body": "Sample body",
+        ///         "bodyRu": "Sample body",
+        ///         "bodyEn": "Sample body",
+        ///         "bodyUz": "Sample body",
         ///         "priority": 0
         ///     }
         ///     
@@ -309,7 +321,9 @@ namespace Atlas.WebApi.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<NotificationLookupDto>>> GetPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<NotificationLookupDto>>> GetPagedAsync(
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize  = 10)
         {
             var vm = await Mediator.Send(new GetNotificationsPagedListQuery
             {

@@ -37,7 +37,13 @@ namespace Atlas.Application.CQRS.Notifications.Commands.UpdateNotification
             }
 
             notification.Subject            = request.Subject;
+            notification.SubjectRu          = request.SubjectRu;
+            notification.SubjectEn          = request.SubjectEn;
+            notification.SubjectUz          = request.SubjectUz;
             notification.Body               = request.Body;
+            notification.BodyRu             = request.BodyRu;
+            notification.BodyEn             = request.BodyEn;
+            notification.BodyUz             = request.BodyUz;
             notification.Priority           = request.Priority;
             notification.NotificationTypeId = request.NotificationTypeId;
 
