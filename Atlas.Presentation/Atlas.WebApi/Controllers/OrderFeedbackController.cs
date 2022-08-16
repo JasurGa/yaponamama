@@ -27,7 +27,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/orderfeedback/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/orderfeedback/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">OrderFeedback id (guid)</param>
         /// <returns>Returns OrderFeedbackDetailsVm object</returns>
@@ -54,12 +56,14 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/orderfeedback
-        /// {
-        ///     "orderId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "rating": "Good",
-        ///     "text": "Overaill, it was great!",
-        /// }
+        ///     
+        ///     POST /api/1.0/orderfeedback
+        ///     {
+        ///         "orderId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "rating": "Good",
+        ///         "text": "Overaill, it was great!",
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createOrderFeedback">CreateOrderFeedbackDto object</param>
         /// <returns>Returns id (guid)</returns> 

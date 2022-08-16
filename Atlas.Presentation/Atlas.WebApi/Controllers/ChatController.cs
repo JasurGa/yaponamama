@@ -27,13 +27,15 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/chat
-        /// {
-        ///     "body": "Hello, world!",
-        ///     "optional": "",
-        ///     "messageType": 0,
-        ///     "toUserId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        /// }
+        ///     
+        ///     POST /api/1.0/chat
+        ///     {
+        ///         "body": "Hello, world!",
+        ///         "optional": "",
+        ///         "messageType": 0,
+        ///         "toUserId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createChatMessageDto">CreateChatMessageDto createChatMessageDto object</param>
         /// <returns>Returns id (Guid)</returns>
@@ -63,7 +65,10 @@ namespace Atlas.WebApi.Controllers
         /// Get chat users for user
         /// </summary>
         /// <remarks>
-        /// GET /api/1.0/chat/users
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/chat/users
+        ///     
         /// </remarks>
         /// <returns>Returns ChatUsersListVm</returns>
         /// <response code="200">Success</response>
@@ -86,7 +91,10 @@ namespace Atlas.WebApi.Controllers
         /// Get chat messages for chat
         /// </summary>
         /// <remarks>
-        /// GET /api/1.0/chat/a3eb7b4a-9f4e-4c71-8619-398655c563b8?pageIndex=0&amp;pageSize=20
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/chat/a3eb7b4a-9f4e-4c71-8619-398655c563b8?pageIndex=0&amp;pageSize=20
+        ///     
         /// </remarks>
         /// <returns>Returns PageDto ChatMessageLookupDto</returns>
         /// <response code="200">Success</response>

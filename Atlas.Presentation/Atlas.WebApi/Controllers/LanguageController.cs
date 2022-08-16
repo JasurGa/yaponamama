@@ -16,7 +16,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/language
+        ///     
+        ///     GET /api/1.0/language
+        ///     
         /// </remarks>
         /// <returns>Returns LanguageListVm object</returns>
         /// <response code="200">Success</response>

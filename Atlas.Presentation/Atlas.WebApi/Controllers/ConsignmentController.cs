@@ -72,10 +72,10 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<ConsignmentLookupDto>>> GetAllPagedAsync(
-            [FromQuery] int pageIndex = 0, 
-            [FromQuery] int pageSize = 10,
-            [FromQuery] string sortable = "ShelfLocation",
-            [FromQuery] bool ascending = true)
+            [FromQuery] int    pageIndex = 0, 
+            [FromQuery] int    pageSize  = 10,
+            [FromQuery] string sortable  = "ShelfLocation",
+            [FromQuery] bool   ascending = true)
         {
             var vm = await Mediator.Send(new GetConsignmentPagedListQuery
             {
@@ -123,14 +123,17 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/consignment
-        /// {
-        ///     "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "purchasedAt": "2022-05-14T14:12:02.953Z",
-        ///     "expirateAt": "2022-05-14T14:12:02.953Z",
-        ///     "shelfLocation": "1st shelf, 2nd box",
-        /// }
+        ///     
+        ///     POST /api/1.0/consignment
+        ///     {
+        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "purchasedAt": "2022-05-14T14:12:02.953Z",
+        ///         "expirateAt": "2022-05-14T14:12:02.953Z",
+        ///         "shelfLocation": "1st shelf, 2nd box",
+        ///         "count": 10
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createConsignment">CreateConsignmentDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -158,10 +161,12 @@ namespace Atlas.WebApi.Controllers
         ///     PUT /api/1.0/consignment
         ///     {
         ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        ///         "storeToGoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "purchasedAt": "2022-05-14T14:12:02.953Z",
         ///         "expirateAt": "2022-05-14T14:12:02.953Z",
         ///         "shelfLocation": "1st shelf, 2nd box"
+        ///         "count": 10
         ///     }
         ///     
         /// </remarks>

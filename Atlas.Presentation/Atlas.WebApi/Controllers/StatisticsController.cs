@@ -2,15 +2,11 @@
 using Atlas.Application.CQRS.Statistics.Queries.GetGoodsCountStatistics;
 using Atlas.Application.CQRS.Statistics.Queries.GetNumberOfRegistrationsOfUsers;
 using Atlas.Application.CQRS.Statistics.Queries.GetOverallBalanceOfClients;
-using Atlas.Application.Interfaces;
 using Atlas.WebApi.Filters;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Atlas.WebApi.Controllers
@@ -25,7 +21,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/statistics/good/count
+        ///     
+        ///     GET /api/1.0/statistics/good/count
+        ///     
         /// </remarks>
         /// <returns>Returns GoodsCountStatisticsVm</returns>
         /// <response code="200">Success</response>
@@ -44,7 +42,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/statistics/client/balances
+        ///     
+        ///     GET /api/1.0/statistics/client/balances
+        ///     
         /// </remarks>
         /// <returns>Returns (long) balance</returns>
         /// <response code="200">Success</response>
@@ -65,7 +65,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/statistics/user/registrations?startDate=1900-01-01T10:00:00&amp;endDate=1900-01-04T10:00:00
+        ///     
+        ///     GET /api/1.0/statistics/user/registrations?startDate=1900-01-01T10:00:00&amp;endDate=1900-01-04T10:00:00
+        ///     
         /// </remarks>
         /// <param name="startDate">Starting date of the period</param>
         /// <param name="endDate">Ending date of the period</param>

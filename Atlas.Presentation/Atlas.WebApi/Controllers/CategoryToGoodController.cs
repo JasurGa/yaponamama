@@ -29,7 +29,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/categorytogood/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=false
+        ///     
+        ///     GET /api/1.0/categorytogood/good/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=false
+        ///     
         /// </remarks>
         /// <returns>Returns CategoryToGoodListVm object</returns>
         /// <response code="200">Success</response>
@@ -56,11 +58,13 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/categorytogood
-        /// {
-        ///     "GoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "CategoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        /// }
+        ///     
+        ///     POST /api/1.0/categorytogood
+        ///     {
+        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "categoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createCategoryToGood">CreateCategoryToGoodDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -84,11 +88,13 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/categorytogood
-        /// {
-        ///     "GoodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "CategoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        /// }
+        ///     
+        ///     DELETE /api/1.0/categorytogood
+        ///     {
+        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "categoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="id">CategoryToGood id</param>
         /// <returns>Returns NoContent</returns>

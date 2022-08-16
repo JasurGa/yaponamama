@@ -36,7 +36,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Category id (guid)</param>
         /// <returns>Returns CategoryDetailsVm object</returns>
@@ -60,7 +62,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/category?showDeleted=false
+        ///     
+        ///     GET /api/1.0/category?showDeleted=false
+        ///     
         /// </remarks>
         /// <returns>Returns CategoryListVm object</returns>
         /// <response code="200">Success</response>
@@ -83,7 +87,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/children?showDeleted=false
+        ///     
+        ///     GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/children?showDeleted=false
+        ///     
         /// </remarks>
         /// <returns>Returns CategoryListVm object</returns>
         /// <response code="200">Success</response>
@@ -107,7 +113,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/parent?showDeleted=false
+        ///     
+        ///     GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/parent?showDeleted=false
+        ///     
         /// </remarks>
         /// <returns>Returns CategoryListVm object</returns>
         /// <response code="200">Success</response>
@@ -131,7 +139,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/category/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        ///     
+        ///     GET /api/1.0/category/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted list</param>
         /// <param name="pageIndex">Page index</param>
@@ -144,11 +154,11 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<CategoryLookupDto>>> GetAllPagedAsync(
-            [FromQuery] bool showDeleted = false,
-            [FromQuery] int  pageIndex   = 0,
-            [FromQuery] int  pageSize    = 10,
-            [FromQuery] string sortable  = "Name",
-            [FromQuery] bool ascending   = true)
+            [FromQuery] bool   showDeleted = false,
+            [FromQuery] int    pageIndex   = 0,
+            [FromQuery] int    pageSize    = 10,
+            [FromQuery] string sortable    = "Name",
+            [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetCategoryPagedListQuery
             {
@@ -167,11 +177,13 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/category/parent
-        /// {
-        ///     "CategoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "ParentId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        /// }
+        ///     
+        ///     POST /api/1.0/category/parent
+        ///     {
+        ///         "categoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "parentId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="addCategoryParent">AddCategoryParentDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -195,11 +207,13 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/category/parent
-        /// {
-        ///     "CategoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "ParentId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        /// }
+        ///     
+        ///     DELETE /api/1.0/category/parent
+        ///     {
+        ///         "categoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "parentId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="removeCategoryParent">RemoveCategoryParentDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -223,11 +237,17 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/category
-        /// {
-        ///     "name": "Sample name of category",
-        ///     "isMainCategory": true,
-        /// }
+        ///     
+        ///     POST /api/1.0/category
+        ///     {
+        ///         "name": "Sample name of category",
+        ///         "nameRu": "Sample name of category",
+        ///         "nameEn": "Sample name of category",
+        ///         "nameUz": "Sample name of category",
+        ///         "imageUrl": "/0123456789abcdef0123456789abcdef.png",
+        ///         "isMainCategory": true,
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createCategory">CreateCategoryDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -251,11 +271,16 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/category
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "name": "Sample category name",
-        /// }
+        /// 
+        ///     PUT /api/1.0/category
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "nameRu": "Sample name of category",
+        ///         "nameEn": "Sample name of category",
+        ///         "nameUz": "Sample name of category",
+        ///         "imageUrl": "/0123456789abcdef0123456789abcdef.png",
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateCategory">UpdateCategoryDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -281,7 +306,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     DELETE /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Category id</param>
         /// <returns>Returns NoContent</returns>
@@ -309,7 +336,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PATCH /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     PATCH /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Category id</param>
         /// <returns>Returns NoContent</returns>

@@ -29,10 +29,12 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/favoritegood
-        /// {
-        ///     "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
-        /// }
+        ///     
+        ///     POST /api/1.0/favoritegood
+        ///     {
+        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     }
+        ///     
         /// </remarks>
         /// <returns>Returns id (guid)</returns>
         /// <param name="createFavoriteGood">CreateFavoriteGoodDto object</param>
@@ -105,7 +107,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/favoritegood/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/favoritegood/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <returns>Returns NoContent</returns>
         /// <param name="id">FavoriteGoodId (Guid)</param>
@@ -134,7 +138,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/favoritegood
+        ///     
+        ///     GET /api/1.0/favoritegood
+        ///     
         /// </remarks>
         /// <returns>Returns FavoriteGoodListVm</returns>
         /// <response code="202">Success</response>

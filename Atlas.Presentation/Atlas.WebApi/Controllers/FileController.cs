@@ -63,7 +63,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/file/download/0123456789abcdef0123456789abcdef.png
+        ///     
+        ///     GET /api/1.0/file/download/0123456789abcdef0123456789abcdef.png
+        ///     
         /// </remarks>
         /// <param name="fileName">File name</param>
         /// <returns>Returns file content</returns>
@@ -94,8 +96,10 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/file/upload
-        /// === File ===
+        ///     
+        ///     POST /api/1.0/file/upload
+        ///     === File ===
+        ///     
         /// </remarks>
         /// <param name="formFile">File</param>
         /// <returns>Returns filename (string)</returns>

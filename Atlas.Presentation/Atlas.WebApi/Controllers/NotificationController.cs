@@ -35,7 +35,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     POST /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="notificationId">Notification id (guid)</param>
         /// <param name="userId">User id (guid)</param>
@@ -66,7 +68,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8/user/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="notificationId">Notification id (guid)</param>
         /// <param name="userId">User id (guid)</param>
@@ -97,7 +101,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8/role/Admin
+        ///     
+        ///     POST /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8/role/Admin
+        ///     
         /// </remarks>
         /// <param name="notificationId">Notification id (guid)</param>
         /// <param name="role">Role (string)</param>
@@ -128,7 +134,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8/role/Admin
+        ///     
+        ///     DELETE /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8/role/Admin
+        ///     
         /// </remarks>
         /// <param name="notificationId">Notification id (guid)</param>
         /// <param name="role">Role (string)</param>
@@ -159,13 +167,15 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/notification
-        /// {
-        ///     "notificationTypeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "subject": "Sample subject",
-        ///     "body": "Sample body",
-        ///     "priority": 0
-        /// }
+        ///     
+        ///     POST /api/1.0/notification
+        ///     {
+        ///         "notificationTypeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "subject": "Sample subject",
+        ///         "body": "Sample body",
+        ///         "priority": 0
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createNotificationDto">CreateNotificationDto object</param>
         /// <returns>Returns Guid</returns>
@@ -191,14 +201,16 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/notification
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "notificationTypeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "subject": "Sample subject",
-        ///     "body": "Sample body",
-        ///     "priority": 0
-        /// }
+        ///     
+        ///     PUT /api/1.0/notification
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "notificationTypeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "subject": "Sample subject",
+        ///         "body": "Sample body",
+        ///         "priority": 0
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateNotificationDto">UpdateNotificationDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -224,7 +236,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELTE /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        ///     DELTE /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Notification id (guid)</param>
         /// <returns>Returns NoContent</returns>
@@ -252,7 +266,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/notification/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">Notification id (guid)</param>
         /// <returns>Returns NotificationDetailsVm object</returns>
@@ -280,7 +296,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/notification/paged?pageIndex=0&amp;pageSize=10
+        ///     
+        ///     GET /api/1.0/notification/paged?pageIndex=0&amp;pageSize=10
+        ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>

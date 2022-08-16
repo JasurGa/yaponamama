@@ -30,12 +30,14 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// POST /api/1.0/addresstoclient
-        /// {
-        ///     "address": "Sample address",
-        ///     "latitude": 0,
-        ///     "longitude": 0
-        /// }
+        ///     
+        ///     POST /api/1.0/addresstoclient
+        ///     {
+        ///         "address": "Sample address",
+        ///         "latitude": 0,
+        ///         "longitude": 0
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="createAddressToClient">CreateAddressToClientDto object</param>
         /// <returns>Returns id (guid)</returns> 
@@ -60,7 +62,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/addresstoclient
+        ///     
+        ///     GET /api/1.0/addresstoclient
+        ///     
         /// </remarks>
         /// <returns>Returns AddressToClientListVm object</returns>
         /// <response code="200">Success</response>
@@ -85,7 +89,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// GET /api/1.0/addresstoclient/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     GET /api/1.0/addresstoclient/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">AddressToClient id (guid)</param>
         /// <returns>Returns AddressToClientDetailsVm object</returns>
@@ -114,13 +120,15 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// PUT /api/1.0/addresstoclient
-        /// {
-        ///     "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///     "address": "Sample address",
-        ///     "latitude": 0,
-        ///     "longitude": 0
-        /// }
+        ///     
+        ///     PUT /api/1.0/addresstoclient
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "address": "Sample address",
+        ///         "latitude": 0,
+        ///         "longitude": 0
+        ///     }
+        ///     
         /// </remarks>
         /// <param name="updateAddressToClient">UpdateAddressToClientDto object</param>
         /// <returns>Returns NoContent</returns>
@@ -152,7 +160,9 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// DELETE /api/1.0/addresstoclient/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        ///     DELETE /api/1.0/addresstoclient/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
         /// </remarks>
         /// <param name="id">AddressToClient id</param>
         /// <returns>Returns NoContent</returns>
