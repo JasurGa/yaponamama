@@ -64,6 +64,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<RecommendationType> RecommendationTypes { get; set; }
 
+        DbSet<RefreshToken> RefreshTokens { get; set; }
+
         DbSet<Store> Stores { get; set; }
 
         DbSet<StoreToGood> StoreToGoods { get; set; }
@@ -83,6 +85,8 @@ namespace Atlas.Application.Interfaces
         DbSet<VehicleType> VehicleTypes { get; set; }
 
         DbSet<VerifyCode> VerifyCodes { get; set; }
+
+        int SaveChanges();
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

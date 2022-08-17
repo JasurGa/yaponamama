@@ -64,6 +64,8 @@ namespace Atlas.Persistence
 
         public DbSet<RecommendationType> RecommendationTypes { get; set; }
 
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
         public DbSet<Store> Stores { get; set; }
 
         public DbSet<StoreToGood> StoreToGoods { get; set; }
@@ -116,6 +118,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new ProviderPhoneNumberConfiguration());
             modelBuilder.ApplyConfiguration(new RecommendationConfiguration());
             modelBuilder.ApplyConfiguration(new RecommendationTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
             modelBuilder.ApplyConfiguration(new StoreConfiguration());
             modelBuilder.ApplyConfiguration(new StoreToGoodConfiguration());
             modelBuilder.ApplyConfiguration(new SupplyManagerConfiguration());

@@ -165,7 +165,9 @@ namespace Atlas.Identity.Controllers
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            var token = _tokenService.GenerateToken(new Claim[]
+            var refreshToken = _tokenService.GenerateRefreshToken(userId);
+
+            var token = _tokenService.GenerateToken(refreshToken, new Claim[]
             {
                 new Claim(TokenClaims.UserId, userId.ToString()),
                 new Claim(TokenClaims.ClientId, clientId.ToString())
@@ -180,19 +182,32 @@ namespace Atlas.Identity.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/refresh
+        ///     POST /api/1.0/refresh
+        ///     "some_refresh_token"
         ///     
         /// </remarks>
         /// <returns>Returns token (AuthorizationToken)</returns>
         /// <response code="200">Success</response>
         /// <response code="400">Bad request</response>
-        [Authorize]
-        [HttpGet("refresh")]
+        [HttpPost("refresh")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<AuthToken>> RefreshTokenAsync()
+        public async Task<ActionResult<AuthToken>> RefreshTokenAsync([FromBody] string refresh)
         {
-            var claims = User.Claims.ToList();
-            var token = _tokenService.GenerateToken(claims.ToArray());
+            var refreshToken = await _dbContext.RefreshTokens.FirstOrDefaultAsync(x => x.Refresh == refresh);
+            if (refreshToken == null)
+            {
+                return BadRequest();
+            }
+
+            _dbContext.RefreshTokens.Remove(refreshToken);
+            _dbContext.SaveChanges();
+
+            if (DateTime.UtcNow > refreshToken.ExpiresAt)
+            {
+                return BadRequest();
+            }
+
+            var token = _tokenService.GetTokenByUserIdAsync(refreshToken.UserId);
             return Ok(token);
         }
 
@@ -225,48 +240,7 @@ namespace Atlas.Identity.Controllers
                 throw new NotFoundException(nameof(User), signIn.Login);
             }
 
-            var claims = new List<Claim>();
-
-            var client = await _dbContext.Clients.FirstOrDefaultAsync(x =>
-                x.UserId == user.Id);
-
-            var courier = await _dbContext.Couriers.FirstOrDefaultAsync(x =>
-                x.UserId == user.Id);
-
-            var support = await _dbContext.Supports.FirstOrDefaultAsync(x =>
-                x.UserId == user.Id);
-
-            var supplyManager = await _dbContext.SupplyManagers.FirstOrDefaultAsync(x =>
-                x.UserId == user.Id);
-
-            var admin = await _dbContext.Admins.FirstOrDefaultAsync(x =>
-                x.UserId == user.Id);
-
-            var recruiter = await _dbContext.HeadRecruiters.FirstOrDefaultAsync(x =>
-                x.UserId == user.Id);
-
-            if (client != null)
-                claims.Add(new Claim(TokenClaims.ClientId, client.Id.ToString()));
-
-            if (courier != null)
-                claims.Add(new Claim(TokenClaims.CourierId, courier.Id.ToString()));
-
-            if (support != null)
-                claims.Add(new Claim(TokenClaims.SupportId, support.Id.ToString()));
-
-            if (supplyManager != null)
-                claims.Add(new Claim(TokenClaims.SupplyManagerId, support.Id.ToString()));
-
-            if (admin != null)
-                claims.Add(new Claim(TokenClaims.AdminId, admin.Id.ToString()));
-
-            if (recruiter != null)
-                claims.Add(new Claim(TokenClaims.HeadRecruiterId, recruiter.Id.ToString()));
-
-            if (user != null)
-                claims.Add(new Claim(TokenClaims.UserId, user.Id.ToString()));
-
-            var token = _tokenService.GenerateToken(claims.ToArray());
+            var token = _tokenService.GetTokenByUserIdAsync(user.Id);
             return Ok(token);
         }
 
