@@ -131,6 +131,9 @@
     <Folder Include="CQRS\ChatMessages\Commands\CreateChatMessage\" />
     <Folder Include="CQRS\ChatMessages\Queries\GetChatUsers\" />
     <Folder Include="CQRS\ChatMessages\Queries\GetChatMessagesForUser\" />
+    <Folder Include="CQRS\NotificationTypes\" />
+    <Folder Include="CQRS\NotificationTypes\Queries\" />
+    <Folder Include="CQRS\NotificationTypes\Queries\GetNotificationTypes\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -261,5 +264,8 @@
     <None Remove="CQRS\ChatMessages\Commands\CreateChatMessage\" />
     <None Remove="CQRS\ChatMessages\Queries\GetChatUsers\" />
     <None Remove="CQRS\ChatMessages\Queries\GetChatMessagesForUser\" />
+    <None Remove="CQRS\NotificationTypes\" />
+    <None Remove="CQRS\NotificationTypes\Queries\" />
+    <None Remove="CQRS\NotificationTypes\Queries\GetNotificationTypes\" />
   </ItemGroup>
 </Project>
