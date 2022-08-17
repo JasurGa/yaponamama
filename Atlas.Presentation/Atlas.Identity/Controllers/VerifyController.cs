@@ -36,10 +36,10 @@ namespace Atlas.Identity.Controllers
 
             if (oldVerificationCode != null)
             {
-                if (oldVerificationCode.IsVerified)
-                {
-                    return Accepted();
-                }
+                // if (oldVerificationCode.IsVerified)
+                // {
+                //     return Accepted();
+                // }
 
                 _dbContext.VerifyCodes.Remove(oldVerificationCode);
             }
