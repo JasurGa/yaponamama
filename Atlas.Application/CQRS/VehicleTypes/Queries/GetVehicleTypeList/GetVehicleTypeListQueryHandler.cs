@@ -10,7 +10,7 @@ namespace Atlas.Application.CQRS.VehicleTypes.Queries.GetVehicleTypeList
 {
     public class GetVehicleTypeListQueryHandler : IRequestHandler<GetVehicleTypeListQuery, VehicleTypeListVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetVehicleTypeListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
