@@ -20,7 +20,13 @@ namespace Atlas.Application.CQRS.Stores.Commands.CreateStore
             {
                 Id          = Guid.NewGuid(),
                 Name        = request.Name,
+                NameRu      = request.NameRu,
+                NameEn      = request.NameEn,
+                NameUz      = request.NameUz,
                 Address     = request.Address,
+                AddressRu   = request.AddressRu,
+                AddressEn   = request.AddressEn,
+                AddressUz   = request.AddressUz,
                 PhoneNumber = request.PhoneNumber,
                 Latitude    = request.Latitude,
                 Longitude   = request.Longitude,

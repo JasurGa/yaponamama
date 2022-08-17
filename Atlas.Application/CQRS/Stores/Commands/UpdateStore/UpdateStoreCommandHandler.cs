@@ -26,7 +26,13 @@ namespace Atlas.Application.CQRS.Stores.Commands.UpdateStore
             }
 
             store.Name        = request.Name;
+            store.NameRu      = request.NameRu;
+            store.NameEn      = request.NameEn;
+            store.NameUz      = request.NameUz;
             store.Address     = request.Address;
+            store.AddressRu   = request.AddressRu;
+            store.AddressEn   = request.AddressEn;
+            store.AddressUz   = request.AddressUz;
             store.Latitude    = request.Latitude;
             store.Longitude   = request.Longitude;
             store.PhoneNumber = request.PhoneNumber;
