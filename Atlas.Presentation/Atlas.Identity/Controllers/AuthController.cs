@@ -207,7 +207,7 @@ namespace Atlas.Identity.Controllers
                 return BadRequest();
             }
 
-            var token = _tokenService.GetTokenByUserIdAsync(refreshToken.UserId);
+            var token = await _tokenService.GetTokenByUserIdAsync(refreshToken.UserId);
             return Ok(token);
         }
 
@@ -240,7 +240,7 @@ namespace Atlas.Identity.Controllers
                 throw new NotFoundException(nameof(User), signIn.Login);
             }
 
-            var token = _tokenService.GetTokenByUserIdAsync(user.Id);
+            var token = await _tokenService.GetTokenByUserIdAsync(user.Id);
             return Ok(token);
         }
 
