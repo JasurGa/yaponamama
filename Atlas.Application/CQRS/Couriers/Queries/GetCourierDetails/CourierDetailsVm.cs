@@ -23,7 +23,7 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
         public long KPI { get; set; }
 
         public Guid? VehicleId { get; set; }
-        
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Courier, CourierDetailsVm>()

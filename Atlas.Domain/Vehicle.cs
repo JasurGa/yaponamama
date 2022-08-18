@@ -21,5 +21,7 @@ namespace Atlas.Domain
         public bool IsDeleted { get; set; }
 
         public Courier Courier { get; set; }
+
+        public VehicleType VehicleType { get; set; }
     }
 }

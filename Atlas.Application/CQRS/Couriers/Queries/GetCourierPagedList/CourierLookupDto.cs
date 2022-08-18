@@ -21,6 +21,10 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList
 
         public Guid VehicleId { get; set; }
 
+        public string VehicleName { get; set; }
+
+        public string VehicleTypeName { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Courier, CourierLookupDto>()
@@ -37,7 +41,11 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList
                 .ForMember(x => x.KPI, opt =>
                     opt.MapFrom(x => x.KPI))
                 .ForMember(x => x.VehicleId, opt =>
-                    opt.MapFrom(x => x.VehicleId));
+                    opt.MapFrom(x => x.VehicleId))
+                .ForMember(x => x.VehicleName, opt =>
+                    opt.MapFrom(x => x.Vehicle.Name))
+                .ForMember(x => x.VehicleTypeName, opt =>
+                    opt.MapFrom(x => x.Vehicle.VehicleType.Name));
         }
     }
 }
