@@ -8,6 +8,7 @@ using Atlas.Application.CQRS.Categories.Commands.RemoveCategoryParent;
 using Atlas.Application.CQRS.Categories.Commands.RestoreCategory;
 using Atlas.Application.CQRS.Categories.Commands.UpdateCategory;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryChildren;
+using Atlas.Application.CQRS.Categories.Queries.GetCategoryChildrenPagedList;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList;
@@ -97,6 +98,41 @@ namespace Atlas.WebApi.Controllers
             {
                 Id          = id,
                 ShowDeleted = showDeleted
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the paged list of children categories of category
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/children/paged?showDeleted=false&amp;pageSize=10&amp;pageIndex=0
+        /// 
+        /// </remarks>
+        /// <param name="id">Category id (guid)</param>
+        /// <param name="showDeleted">Show deleted list or not</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>Returns PageDto CategoryLookupDto object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("{id}/children/paged")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<CategoryLookupDto>>> GetChildrenCategoriesPagedAsync(
+            [FromRoute] Guid id,
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] int pageIndex    = 0,
+            [FromQuery] int pageSize     = 10)
+        {
+            var vm = await Mediator.Send(new GetCategoryChildrenPagedListQuery
+            {
+                Id          = id,
+                ShowDeleted = showDeleted,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize
             });
 
             return Ok(vm);
