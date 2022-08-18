@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Atlas.Domain
 {
     public class VehicleType
@@ -12,5 +14,7 @@ namespace Atlas.Domain
         public string NameEn { get; set; }
 
         public string NameUz { get; set; }
+
+        public ICollection<Vehicle> Vehicles { get; set; }
     }
 }
