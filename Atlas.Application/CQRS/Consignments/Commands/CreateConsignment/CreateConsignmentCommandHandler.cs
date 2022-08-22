@@ -1,5 +1,4 @@
-﻿using Atlas.Application.Common.Exceptions;
-using Atlas.Application.Interfaces;
+﻿using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -49,7 +48,7 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
                     Count   = request.Count,
                 };
 
-                await _dbContext.StoreToGoods.AddAsync(storeToGood);
+                await _dbContext.StoreToGoods.AddAsync(storeToGood, cancellationToken);
             }
             else
             {
