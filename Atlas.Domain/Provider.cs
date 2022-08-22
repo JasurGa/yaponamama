@@ -22,5 +22,7 @@ namespace Atlas.Domain
         public ICollection<Good> Goods { get; set; }
 
         public ICollection<ProviderPhoneNumber> ProviderPhoneNumbers { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

@@ -1,21 +1,22 @@
-﻿using Atlas.Application.Common.Exceptions;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace Atlas.Application.CQRS.Providers.Commands.DeleteProvider
+namespace Atlas.Application.CQRS.Providers.Commands.RestoreProvider
 {
-    public class DeleteProviderCommandHandler : IRequestHandler<DeleteProviderCommand>
+    public class RestoreProviderCommandHandler : IRequestHandler<RestoreProviderCommand>
     {
         private readonly IAtlasDbContext _dbContext;
 
-        public DeleteProviderCommandHandler(IAtlasDbContext dbContext) =>
+        public RestoreProviderCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(DeleteProviderCommand request,
+        public async Task<Unit> Handle(RestoreProviderCommand request,
             CancellationToken cancellationToken)
         {
             var provider = await _dbContext.Providers.FirstOrDefaultAsync(x =>
@@ -26,7 +27,7 @@ namespace Atlas.Application.CQRS.Providers.Commands.DeleteProvider
                 throw new NotFoundException(nameof(Provider), request.Id);
             }
 
-            provider.IsDeleted = true;
+            provider.IsDeleted = false;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

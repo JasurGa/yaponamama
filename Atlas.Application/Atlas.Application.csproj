@@ -131,6 +131,7 @@
     <Folder Include="CQRS\NotificationTypes\" />
     <Folder Include="CQRS\NotificationTypes\Queries\" />
     <Folder Include="CQRS\NotificationTypes\Queries\GetNotificationTypes\" />
+    <Folder Include="CQRS\Providers\Commands\RestoreProvider\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -264,5 +265,6 @@
     <None Remove="CQRS\NotificationTypes\" />
     <None Remove="CQRS\NotificationTypes\Queries\" />
     <None Remove="CQRS\NotificationTypes\Queries\GetNotificationTypes\" />
+    <None Remove="CQRS\Providers\Commands\RestoreProvider\" />
   </ItemGroup>
 </Project>

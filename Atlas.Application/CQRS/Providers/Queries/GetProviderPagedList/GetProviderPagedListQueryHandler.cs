@@ -24,12 +24,17 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderPagedList
         public async Task<PageDto<ProviderLookupDto>> Handle(GetProviderPagedListQuery request,
             CancellationToken cancellationToken)
         {
-            var providersCount = await _dbContext.Providers.CountAsync(cancellationToken);
+            var providersCount = await _dbContext.Providers.CountAsync(x =>
+                x.Name.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()) ||
+                x.Address.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()) &&
+                x.IsDeleted == request.ShowDeleted,
+                cancellationToken);
 
             var providers = await _dbContext.Providers
                 .Where(x =>
                     x.Name.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()) ||
-                    x.Address.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()))
+                    x.Address.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()) &&
+                    x.IsDeleted == request.ShowDeleted)
                 .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)

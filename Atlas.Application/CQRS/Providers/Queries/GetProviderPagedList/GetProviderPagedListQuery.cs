@@ -15,5 +15,7 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderPagedList
         public string Sortable { get; set; }
 
         public bool Ascending { get; set; }
+
+        public bool ShowDeleted { get; set; }
     }
 }

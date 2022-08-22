@@ -1,6 +1,7 @@
 ﻿using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Providers.Commands.CreateProvider;
 using Atlas.Application.CQRS.Providers.Commands.DeleteProvider;
+using Atlas.Application.CQRS.Providers.Commands.RestoreProvider;
 using Atlas.Application.CQRS.Providers.Commands.UpdateProvider;
 using Atlas.Application.CQRS.Providers.Queries.GetProviderDetails;
 using Atlas.Application.CQRS.Providers.Queries.GetProviderList;
@@ -54,15 +55,17 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] int pageIndex = 0, 
             [FromQuery] int pageSize = 10,
             [FromQuery] string sortable = "Name",
-            [FromQuery] bool ascending = true)
+            [FromQuery] bool ascending = true,
+            [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetProviderPagedListQuery
             {
-                Search    = search,
-                PageIndex = pageIndex,
-                PageSize  = pageSize,
-                Sortable  = sortable,
-                Ascending = ascending,
+                Search      = search,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
+                Sortable    = sortable,
+                Ascending   = ascending,
+                ShowDeleted = showDeleted
             });
 
             return Ok(vm);
@@ -86,11 +89,13 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ProviderListVm>> GetAllAsync([FromQuery] string search = "")
+        public async Task<ActionResult<ProviderListVm>> GetAllAsync([FromQuery] string search = "",
+            [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetProviderListQuery 
             {
-                Search = search
+                Search      = search,
+                ShowDeleted = showDeleted
             });
 
             return Ok(vm);
@@ -222,6 +227,36 @@ namespace Atlas.WebApi.Controllers
         {
             await Mediator.Send(new DeleteProviderCommand 
             { 
+                Id = id,
+            });
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Restores a specific provider by id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     PATCH /api/1.0/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        /// </remarks>
+        /// <param name="id">Provider id</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPatch("{id}")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> RestoreAsync([FromRoute] Guid id)
+        {
+            await Mediator.Send(new RestoreProviderCommand
+            {
                 Id = id,
             });
 
