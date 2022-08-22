@@ -91,7 +91,7 @@ namespace Atlas.Identity.Controllers
             verificationCode.IsVerified = true;
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            if (userId != Guid.Empty)
+            if (!userId.Equals(Guid.Empty))
             {
                 return Ok(_tokenService.GetTokenByUserIdAsync(userId));
             }
