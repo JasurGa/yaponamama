@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Atlas.Identity.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using Atlas.Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Atlas.Application.Common.Constants;
@@ -58,8 +57,8 @@ namespace Atlas.Identity.Controllers
         /// <response code="204">No content</response>
         /// <response code="400">Bad request</response>
         /// <response code="401">Unauthorized</response>
-        [HttpPut("password")]
         [Authorize]
+        [HttpPut("password")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

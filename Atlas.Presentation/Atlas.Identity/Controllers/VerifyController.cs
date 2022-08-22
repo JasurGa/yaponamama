@@ -19,8 +19,10 @@ namespace Atlas.Identity.Controllers
 
         private readonly SmsService _smsService;
 
-        public VerifyController(IAtlasDbContext dbContext, SmsService smsService) =>
-            (_dbContext, _smsService) = (dbContext, smsService);
+        private readonly TokenService _tokenService;
+
+        public VerifyController(IAtlasDbContext dbContext, SmsService smsService, TokenService tokenService) =>
+            (_dbContext, _smsService, _tokenService) = (dbContext, smsService, tokenService);
 
         /// <summary>
         /// Send validation code
@@ -76,8 +78,23 @@ namespace Atlas.Identity.Controllers
                 return NotFound();
             }
 
+            var userId = Guid.Empty;
+
+            if (_dbContext.VerifyCodes.FirstOrDefault(x => x.IsVerified &&
+                x.PhoneNumber == verifyPhoneDto.PhoneNumber) == null)
+            {
+                var user = _dbContext.Users.FirstOrDefault(x => x.Login == verifyPhoneDto.PhoneNumber);
+                if (user != null)
+                    userId = user.Id;
+            }
+
             verificationCode.IsVerified = true;
             await _dbContext.SaveChangesAsync(cancellationToken);
+
+            if (userId != Guid.Empty)
+            {
+                return Ok(_tokenService.GetTokenByUserIdAsync(userId));
+            }
 
             return Ok();
         }
