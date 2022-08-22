@@ -148,6 +148,13 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             return null;
         }
 
+        private async Task<PaymentType> GetPaymentType(CreateOrderCommand request, CancellationToken cancellation)
+        {
+            return await _dbContext.PaymentTypes.FirstOrDefaultAsync(x =>
+                x.Id == request.PaymentTypeId, cancellation);
+        }
+
+
         public async Task<Guid> Handle(CreateOrderCommand request,
             CancellationToken cancellationToken)
         {
@@ -166,6 +173,12 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             var foundPromo      = await GetPromoAsync(request, cancellationToken);
             var sellingPrice    = await GetSellingPriceAsync(request, cancellationToken, foundPromo);
             var purchasePrice   = await GetPurchasePriceAsync(request, cancellationToken);
+
+            var paymentType     = await GetPaymentType(request, cancellationToken);
+            if (paymentType == null)
+            {
+                throw new NotFoundException(nameof(PaymentType), request.PaymentTypeId);
+            }
             
             // Добавить проверку paymentType 
             var order = new Order
