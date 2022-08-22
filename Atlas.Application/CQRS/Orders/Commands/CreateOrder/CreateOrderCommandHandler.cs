@@ -34,7 +34,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             var foundPromo = await _dbContext.Promos.FirstOrDefaultAsync(x =>
                 x.Name == request.Promo, cancellationToken);
 
-            if (foundPromo.ExpiresAt <= DateTime.UtcNow)
+            if (foundPromo == null || foundPromo.ExpiresAt <= DateTime.UtcNow)
             {
                 foundPromo = null;
             }
@@ -166,7 +166,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             var foundPromo      = await GetPromoAsync(request, cancellationToken);
             var sellingPrice    = await GetSellingPriceAsync(request, cancellationToken, foundPromo);
             var purchasePrice   = await GetPurchasePriceAsync(request, cancellationToken);
-
+            
+            // Добавить проверку paymentType 
             var order = new Order
             {
                 Id                    = Guid.NewGuid(),

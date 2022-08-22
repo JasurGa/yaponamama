@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Atlas.Application.Common.Extensions;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;

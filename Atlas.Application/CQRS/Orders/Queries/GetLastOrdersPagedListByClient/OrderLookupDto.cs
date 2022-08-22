@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.GoodToOrders.Queries;
 using Atlas.Domain;
 using AutoMapper;
 
@@ -27,6 +29,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public float SellingPrice { get; set; }
 
+        public IList<GoodToOrderLookupDto> GoodToOrders { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Order, OrderLookupDto>()
@@ -49,7 +53,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                 .ForMember(dst => dst.PurchasePrice, opt =>
                     opt.MapFrom(src => src.PurchasePrice))
                 .ForMember(dst => dst.SellingPrice, opt =>
-                    opt.MapFrom(src => src.SellingPrice));
+                    opt.MapFrom(src => src.SellingPrice))
+                .ForMember(dst => dst.GoodToOrders, opt =>
+                    opt.MapFrom(src => src.GoodToOrders));
         }
     }
 }
