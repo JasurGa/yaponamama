@@ -1,4 +1,5 @@
-﻿using Atlas.Application.Interfaces;
+﻿using Atlas.Application.Common.Exceptions;
+using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
