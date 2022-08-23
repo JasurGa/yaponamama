@@ -28,6 +28,8 @@ namespace Atlas.WebApi.Models
 
         public string Promo { get; set; }
 
+        public DateTime? DeliverAt { get; set; }
+
         public IEnumerable<CreateGoodToOrderDto> GoodToOrders { get; set; }
 
         public void Mapping(Profile profile)
@@ -53,6 +55,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.PaymentTypeId))
                 .ForMember(dst => dst.Promo, opt =>
                     opt.MapFrom(src => src.Promo))
+                .ForMember(dst => dst.DeliverAt, opt =>
+                    opt.MapFrom(src => src.DeliverAt))
                 .ForMember(dst => dst.GoodToOrders, opt =>
                     opt.MapFrom(src => src.GoodToOrders));
         }
