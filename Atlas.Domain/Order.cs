@@ -25,6 +25,8 @@ namespace Atlas.Domain
 
         public DateTime CreatedAt { get; set; }
 
+        public DateTime? DeliverAt { get; set; }
+
         public DateTime? FinishedAt { get; set; }
 
         public float PurchasePrice { get; set; }

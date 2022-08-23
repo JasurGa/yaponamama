@@ -154,7 +154,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 x.Id == request.PaymentTypeId, cancellation);
         }
 
-
         public async Task<Guid> Handle(CreateOrderCommand request,
             CancellationToken cancellationToken)
         {
@@ -180,7 +179,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 throw new NotFoundException(nameof(PaymentType), request.PaymentTypeId);
             }
             
-            // Добавить проверку paymentType 
             var order = new Order
             {
                 Id                    = Guid.NewGuid(),
@@ -202,6 +200,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 StoreId               = foundStore.Id,
                 CourierId             = foundCourier.Id,
                 PromoId               = foundPromo != null ? foundPromo.Id : null,
+                DeliverAt             = request.DeliverAt
             };
 
             await _dbContext.Orders.AddAsync(order,

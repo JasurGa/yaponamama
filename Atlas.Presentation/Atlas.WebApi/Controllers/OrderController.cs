@@ -42,6 +42,7 @@ namespace Atlas.WebApi.Controllers
         ///         "toLatitude": 0.0,
         ///         "isPickup": false,
         ///         "paymentTypeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "deliverAt": 1900-01-01T10:00:00",
         ///         "promo": "00000",
         ///         "goodToOrders": [
         ///             {
