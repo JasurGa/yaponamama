@@ -132,6 +132,7 @@
     <Folder Include="CQRS\NotificationTypes\Queries\" />
     <Folder Include="CQRS\NotificationTypes\Queries\GetNotificationTypes\" />
     <Folder Include="CQRS\Providers\Commands\RestoreProvider\" />
+    <Folder Include="CQRS\CategoryToGoods\Commands\CreateCategoriesToGood\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -266,5 +267,6 @@
     <None Remove="CQRS\NotificationTypes\Queries\" />
     <None Remove="CQRS\NotificationTypes\Queries\GetNotificationTypes\" />
     <None Remove="CQRS\Providers\Commands\RestoreProvider\" />
+    <None Remove="CQRS\CategoryToGoods\Commands\CreateCategoriesToGood\" />
   </ItemGroup>
 </Project>

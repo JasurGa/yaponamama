@@ -54,6 +54,40 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
+        /// Attaches categories to good
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     POST /api/1.0/categorytogood
+        ///     {
+        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "categoryIds": [
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         ]
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="createCategoryToGood">CreateCategoriesToGoodDto object</param>
+        /// <returns>Returns id (guid)</returns> 
+        /// <response code="204">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpPost]
+        [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> CreateAsync([FromBody] CreateCategoriesToGoodDto createCategoryToGood)
+        {
+            await Mediator.Send(_mapper.Map<CreateCategoryToGoodDto,
+                CreateCategoryToGoodCommand>(createCategoryToGood));
+
+            return NoContent();
+        }
+
+        /// <summary>
         /// Attaches category to good
         /// </summary>
         /// <remarks>
