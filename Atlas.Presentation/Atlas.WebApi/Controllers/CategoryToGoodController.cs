@@ -1,5 +1,6 @@
 ﻿using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
+using Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoriesToGood;
 using Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoryToGood;
 using Atlas.Application.CQRS.CategoryToGoods.Commands.DeleteCategoryToGood;
 using Atlas.Application.CQRS.CategoryToGoods.Queries.GetCategoryToGoodListByGoodId;
@@ -74,15 +75,15 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns id (guid)</returns> 
         /// <response code="204">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpPost]
         [Authorize]
+        [HttpPost("many")]
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> CreateAsync([FromBody] CreateCategoriesToGoodDto createCategoryToGood)
+        public async Task<ActionResult> CreateAsync([FromBody] CreateCategoriesToGoodDto createCategoriesToGood)
         {
-            await Mediator.Send(_mapper.Map<CreateCategoryToGoodDto,
-                CreateCategoryToGoodCommand>(createCategoryToGood));
+            await Mediator.Send(_mapper.Map<CreateCategoriesToGoodDto,
+                CreateCategoriesToGoodCommand>(createCategoriesToGood));
 
             return NoContent();
         }
