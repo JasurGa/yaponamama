@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoriesToGood;
 using AutoMapper;
 
 namespace Atlas.WebApi.Models
