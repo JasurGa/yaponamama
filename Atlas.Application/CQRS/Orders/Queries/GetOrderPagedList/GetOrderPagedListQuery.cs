@@ -1,4 +1,4 @@
-﻿using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
+﻿using Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList;
 using Atlas.Application.Models;
 using MediatR;
 
