@@ -71,7 +71,7 @@ namespace Atlas.WebApi.Controllers
         ///     }
         ///     
         /// </remarks>
-        /// <param name="createCategoryToGood">CreateCategoriesToGoodDto object</param>
+        /// <param name="createCategoriesToGood">CreateCategoriesToGoodDto object</param>
         /// <returns>Returns id (guid)</returns> 
         /// <response code="204">Success</response>
         /// <response code="401">If the user is unauthorized</response>
