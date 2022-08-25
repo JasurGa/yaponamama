@@ -17,6 +17,8 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList
 
         public int Count { get; set; }
 
+        public Guid GoodId { get; set; }
+
         public string GoodName { get; set; }
 
         public string GoodImagePath { get; set; }
@@ -38,6 +40,8 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList
                     opt.MapFrom(x => x.ShelfLocation))
                 .ForMember(x => x.Count, opt =>
                     opt.MapFrom(x => x.Count))
+                .ForMember(x => x.GoodId, opt =>
+                    opt.MapFrom(x => x.StoreToGood.Good.Id))
                 .ForMember(x => x.GoodName, opt =>
                     opt.MapFrom(x => x.StoreToGood.Good.Name))
                 .ForMember(x => x.GoodImagePath, opt =>
