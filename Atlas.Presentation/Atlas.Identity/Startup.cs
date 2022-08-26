@@ -97,7 +97,8 @@ namespace Atlas.Identity
                 {
                     policy.AllowAnyHeader()
                           .AllowAnyMethod()
-                          .AllowAnyOrigin();
+                          .AllowAnyOrigin()
+                          .AllowCredentials();
                 });
             });
 
