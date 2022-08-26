@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="CQRS\Goods\Queries\GetGoodPaged\" />
     <Folder Include="CQRS\PaymentTypes\Queries\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Common\Mappings\" />
@@ -32,7 +33,6 @@
     <Folder Include="CQRS\Goods\Queries\GetGoodListByCategory\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodPagedListByCategory\" />
     <Folder Include="Models\" />
-    <Folder Include="CQRS\Orders\" />
     <Folder Include="CQRS\Orders\Commands\" />
     <Folder Include="CQRS\Orders\Queries\GetOrderDetails\" />
     <Folder Include="CQRS\Notifications\" />
@@ -113,7 +113,6 @@
     <Folder Include="CQRS\SupplyManagers\Queries\GetSupplyManagerPagedListNotByStoreId\" />
     <Folder Include="Services\" />
     <Folder Include="CQRS\Orders\Queries\GetOrderDetailsForAdmin\" />
-    <Folder Include="CQRS\Orders\Queries\GetLastOrdersPagedListByAdmin\" />
     <Folder Include="CQRS\Orders\Queries\GetLastOrdersPagedListByStore\" />
     <Folder Include="CQRS\ProviderPhoneNumbers\Commands\CreateProviderPhoneNumbers\" />
     <Folder Include="CQRS\OfficialRoles\" />

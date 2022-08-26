@@ -30,9 +30,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (g:Good)-[:BELONGS_TO]->(c:Category{Id: $Id}) RETURN g.Id", new
+                var cursor = await session.RunAsync("MATCH (g:Good)-[:BELONGS_TO*]->(c:Category{Id: $CategoryId}) RETURN g.Id", new
                 {
-                    Id = request.CategoryId.ToString()
+                    CategoryId = request.CategoryId.ToString()
                 });
 
                 var records = await cursor.ToListAsync();
@@ -47,7 +47,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
             }
 
             var goods = await _dbContext.Goods
-                .Where(x => goodIds.Contains(x.Id))
+                .Where(x => goodIds.Contains(x.Id) && x.IsDeleted == request.ShowDeleted)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
