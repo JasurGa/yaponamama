@@ -29,7 +29,6 @@ namespace Atlas.Identity.Controllers
         /// </summary>
         [HttpPost("send")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
         public async Task<IActionResult> SendSmsAsync([FromBody] SendVerifySmsDto sendVerifySmsDto,
             CancellationToken cancellationToken)
         {
@@ -66,6 +65,7 @@ namespace Atlas.Identity.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
         public async Task<IActionResult> VerifyPhoneAsync([FromBody] VerifyPhoneDto verifyPhoneDto,
             CancellationToken cancellationToken)
         {
