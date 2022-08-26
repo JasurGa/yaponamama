@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
+using Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -12,17 +12,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin
 {
-    public class GetLastOrdersPagedListByAdminQueryHandler :
-        IRequestHandler<GetLastOrdersPagedListByAdminQuery,
-            PageDto<OrderLookupDto>>
+    public class GetOrderPagedListQueryHandler : IRequestHandler<GetOrderPagedListQuery, PageDto<OrderLookupDto>>
     {
         private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
-        public GetLastOrdersPagedListByAdminQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
+        public GetOrderPagedListQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<PageDto<OrderLookupDto>> Handle(GetLastOrdersPagedListByAdminQuery request,
+        public async Task<PageDto<OrderLookupDto>> Handle(GetOrderPagedListQuery request,
             CancellationToken cancellationToken)
         {
             var ordersCount = await _dbContext.Orders.CountAsync(cancellationToken);

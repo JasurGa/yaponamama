@@ -2,6 +2,7 @@
 using Atlas.Application.CQRS.Orders.Commands.CancelOrder;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
 using Atlas.Application.CQRS.Orders.Commands.FinishOrder;
+using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByStore;
@@ -271,12 +272,12 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// Get the list of last orders for admin
+        /// Get the paged list of orders
         /// </summary>
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/order/last/paged?pageIndex=0&amp;pageSize=10
+        ///     GET /api/1.0/order/paged?pageIndex=0&amp;pageSize=10
         ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
@@ -285,13 +286,13 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
-        [HttpGet("admin/last/paged")]
+        [HttpGet("paged")]
         [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetLastOrdersForAdminAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
-            var vm = await Mediator.Send(new GetLastOrdersPagedListByClientQuery
+            var vm = await Mediator.Send(new GetOrderPagedListQuery
             {
                 PageIndex = pageIndex,
                 PageSize  = pageSize

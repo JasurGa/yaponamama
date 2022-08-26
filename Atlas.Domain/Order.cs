@@ -45,6 +45,8 @@ namespace Atlas.Domain
 
         public Guid? PromoId { get; set; }
 
+        public Courier Courier { get; set; }
+
         public IEnumerable<GoodToOrder> GoodToOrders { get; set; } 
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Atlas.Application.Common.Mappings;
 using Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoriesToGood;
 using AutoMapper;
 
 namespace Atlas.WebApi.Models
 {
-    public class CreateCategoriesToGoodDto
+    public class CreateCategoriesToGoodDto : IMapWith<CreateCategoriesToGoodCommand>
     {
         public Guid GoodId { get; set; }
 
