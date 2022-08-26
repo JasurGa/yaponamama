@@ -85,10 +85,9 @@ namespace Atlas.WebApi
             {
                 options.AddPolicy("AllowAll", policy =>
                 {
-                    policy.AllowAnyOrigin()
-                          .AllowAnyHeader()
+                    policy.AllowAnyHeader()
                           .AllowAnyMethod()
-                          .AllowCredentials();
+                          .AllowAnyOrigin();
                 });
             });
 
