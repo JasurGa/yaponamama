@@ -1,7 +1,11 @@
 ﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.GoodToOrders.Commands.DeleteGoodToOrder;
+using Atlas.Application.CQRS.GoodToOrders.Commands.UpdateGoodToOrder;
 using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderListByOrder;
 using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrdersByOrder;
 using Atlas.WebApi.Filters;
+using Atlas.WebApi.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +19,10 @@ namespace Atlas.WebApi.Controllers
     [Route("/api/{version:apiVersion}/[controller]")]
     public class GoodToOrderController : BaseController
     {
+        private readonly IMapper _mapper;
+        public GoodToOrderController(IMapper mapper) =>
+            _mapper = mapper;
+
         /// <summary>
         /// Gets the list of goods of an order by order id
         /// </summary>
@@ -40,6 +48,68 @@ namespace Atlas.WebApi.Controllers
             });
 
             return Ok(vm);
+        }
+
+        /// <summary>
+        /// Updates the good in an order
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PUT /api/1.0/goodtoorder
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "count": 10
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="updateGoodToOrder">UpdateGoodToOrderDto object</param>
+        /// <returns>Returns id (guid)</returns> 
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpPut]
+        [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Guid>> UpdateAsync([FromBody] UpdateGoodToOrderDto updateGoodToOrder)
+        {
+            await Mediator.Send(_mapper.Map<UpdateGoodToOrderDto,
+                UpdateGoodToOrderCommand>(updateGoodToOrder));
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Deletes the good in an order
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     DELETE /api/1.0/goodtoorder/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        /// </remarks>
+        /// <param name="id">GoodToOrder id</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpDelete("{id}")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
+        {
+            await Mediator.Send(new DeleteGoodToOrderCommand
+            {
+                Id = id
+            });
+
+            return NoContent();
         }
     }
 }
