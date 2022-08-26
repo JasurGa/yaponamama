@@ -23,9 +23,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodCounts
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (g:Good)-[:BELONGS_TO]->(c:Category{Id: $Id}) RETURN COUNT(g)", new
+                var cursor = await session.RunAsync("MATCH (g:Good)-[:BELONGS_TO*]->(c:Category{Id: $CategoryId}) RETURN COUNT(g)", new
                 {
-                    Id = request.CategoryId.ToString()
+                    CategoryId = request.CategoryId.ToString()
                 });
 
                 var record = await cursor.SingleAsync();
