@@ -20,8 +20,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
         private readonly IDriver         _driver;
         private readonly IAtlasDbContext _dbContext;
 
-        public GetGoodDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
-            (_mapper, _dbContext) = (mapper, dbContext);
+        public GetGoodDetailsQueryHandler(IMapper mapper, IDriver driver, IAtlasDbContext dbContext) =>
+            (_mapper, _driver, _dbContext) = (mapper, driver, dbContext);
 
         public async Task<GoodDetailsVm> Handle(GetGoodDetailsQuery request,
             CancellationToken cancellationToken)
