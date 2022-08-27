@@ -24,6 +24,8 @@ namespace Atlas.WebApi.Hubs
 
         public override Task OnConnectedAsync()
         {
+            var id = Context.ConnectionId;
+
             var userIdClaim = Context.User.Claims.Where(x => x.Type == TokenClaims.UserId)
                 .Select(x => x.Value).FirstOrDefault();
 
@@ -37,9 +39,7 @@ namespace Atlas.WebApi.Hubs
                 return base.OnConnectedAsync();
             }
 
-            var id     = Context.ConnectionId;
             var userId = Guid.Parse(userIdClaim);
-
             if (!ConnectedUsers.Any(x => x.ConnectionId == id))
             {
                 ConnectedUsers.Add(new ConnectedUser
