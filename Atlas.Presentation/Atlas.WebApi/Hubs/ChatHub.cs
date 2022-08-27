@@ -13,6 +13,7 @@ using SignalRSwaggerGen.Attributes;
 
 namespace Atlas.WebApi.Hubs
 {
+    [Authorize]
     [SignalRHub]
     public class ChatHub : Hub
     {
