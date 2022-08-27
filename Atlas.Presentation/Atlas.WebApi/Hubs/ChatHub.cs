@@ -19,6 +19,10 @@ namespace Atlas.WebApi.Hubs
 
         private readonly IMediator _mediator;
 
+        internal Guid UserId => !Context.User.Identity.IsAuthenticated
+            ? Guid.Empty
+            : Guid.Parse(Context.User.FindFirst(TokenClaims.UserId).Value);
+
         public ChatHub(IMediator mediator) =>
             _mediator = mediator;
 
@@ -26,10 +30,8 @@ namespace Atlas.WebApi.Hubs
         {
             var id = Context.ConnectionId;
 
-            var userIdClaim = Context.User.Claims.Where(x => x.Type == TokenClaims.UserId)
-                .Select(x => x.Value).FirstOrDefault();
-
-            if (userIdClaim == null)
+            var userId = UserId;
+            if (userId.Equals(Guid.Empty))
             {
                 Clients.Caller.SendAsync("onCantConnect", new
                 {
@@ -39,7 +41,6 @@ namespace Atlas.WebApi.Hubs
                 return base.OnConnectedAsync();
             }
 
-            var userId = Guid.Parse(userIdClaim);
             if (!ConnectedUsers.Any(x => x.ConnectionId == id))
             {
                 ConnectedUsers.Add(new ConnectedUser
