@@ -109,7 +109,7 @@ namespace Atlas.WebApi.Hubs
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            var id   = Context.ConnectionId;
+            var id = Context.ConnectionId;
             var item = ConnectedUsers.FirstOrDefault(x =>
                 x.ConnectionId == id);
 

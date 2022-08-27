@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.ChatMessages.Commands.CreateChatMessage
 {
-    public class CreateChatMessageCommandHander : IRequestHandler<CreateChatMessageCommand, Guid>
+    public class CreateChatMessageCommandHandler : IRequestHandler<CreateChatMessageCommand, Guid>
     {
         private readonly IAtlasDbContext _dbContext;
 
-        public CreateChatMessageCommandHander(IAtlasDbContext dbContext) =>
+        public CreateChatMessageCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
         public async Task<Guid> Handle(CreateChatMessageCommand request, CancellationToken cancellationToken)
