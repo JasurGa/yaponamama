@@ -19,5 +19,9 @@ namespace Atlas.Domain
         public bool IsMainCategory { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public int ChildCategoriesCount { get; set; }
+
+        public int GoodsCount { get; set; }
     }
 }

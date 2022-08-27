@@ -39,7 +39,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList
                 var record = await cursor.SingleAsync();
                 categoriesCount = record[0].As<int>();  
 
-                cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted, IsMainCategory: True}) RETURN c ORDER BY c[$Property] SKIP $Skip LIMIT $Limit", new
+                cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted, IsMainCategory: true}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $ShowDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id:c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g)} AS r ORDER BY r[$Property] SKIP $Skip LIMIT $Limit", new
                 {
                     ShowDeleted = request.ShowDeleted,
                     Skip        = request.PageIndex * request.PageSize,
