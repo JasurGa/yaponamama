@@ -47,7 +47,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryChildrenPagedList
                 });
 
                 categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>
-                    (await cursor.ConvertManyAsync<Category>());
+                    (await cursor.ConvertDictManyAsync<Category>());
             }
             finally
             {

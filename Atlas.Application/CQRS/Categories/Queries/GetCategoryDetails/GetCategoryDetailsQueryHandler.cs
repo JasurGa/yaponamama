@@ -30,7 +30,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails
                     Id = request.Id.ToString()
                 });
 
-                category = await cursor.ConvertAsync<Category>();
+                category = await cursor.ConvertDictAsync<Category>();
             }
             finally
             {

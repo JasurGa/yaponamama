@@ -38,13 +38,13 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id:c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g)}", new
+                var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id: c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g)} AS r", new
                 {
                     IsDeleted = request.ShowDeleted
                 });
 
                 categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>(
-                    await cursor.ConvertManyAsync<Category>());
+                    await cursor.ConvertDictManyAsync<Category>());
 
                 cursor = await session.RunAsync("MATCH (p:Category{IsDeleted: $IsDeleted})<-[:BELONGS_TO]-(c:Category{IsDeleted: $IsDeleted}) RETURN p.Id AS ParentId, c.Id As ChildId", new
                 {

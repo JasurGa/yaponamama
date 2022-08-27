@@ -22,6 +22,10 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
 
         public bool IsMainCategory { get; set; }
 
+        public int ChildCategoriesCount { get; set; }
+
+        public int GoodsCount { get; set; }
+
         public List<Guid> Children { get; set; }
 
         public void Mapping(Profile profile)
@@ -40,7 +44,11 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
                 .ForMember(dst => dst.ImageUrl, opt =>
                     opt.MapFrom(src => src.ImageUrl))
                 .ForMember(dst => dst.IsMainCategory, opt =>
-                    opt.MapFrom(src => src.IsMainCategory));
+                    opt.MapFrom(src => src.IsMainCategory))
+                .ForMember(dst => dst.ChildCategoriesCount, opt =>
+                    opt.MapFrom(src => src.ChildCategoriesCount))
+                .ForMember(dst => dst.GoodsCount, opt =>
+                    opt.MapFrom(src => src.GoodsCount));
         }
     }
 }
