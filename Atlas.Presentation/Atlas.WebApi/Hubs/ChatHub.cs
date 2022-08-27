@@ -7,6 +7,7 @@ using Atlas.Application.CQRS.ChatMessages.Commands.CreateChatMessage;
 using Atlas.Domain;
 using Atlas.WebApi.Hubs.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using SignalRSwaggerGen.Attributes;
 
