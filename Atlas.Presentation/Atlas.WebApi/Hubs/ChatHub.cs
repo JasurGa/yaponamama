@@ -22,14 +22,14 @@ namespace Atlas.WebApi.Hubs
         public ChatHub(IMediator mediator) =>
             _mediator = mediator;
 
-        public void Connect()
+        public override Task OnConnectedAsync()
         {
             var userIdClaim = Context.User.Claims.Where(x => x.Type == TokenClaims.UserId)
                 .Select(x => x.Value).FirstOrDefault();
 
             if (userIdClaim == null)
             {
-                return;
+                return base.OnConnectedAsync();
             }
 
             var id     = Context.ConnectionId;
@@ -56,6 +56,8 @@ namespace Atlas.WebApi.Hubs
                     UserId          = userId
                 });
             }
+
+            return base.OnConnectedAsync();
         }
 
         public async Task Send(string body, string optional, int messageType, Guid userId)
