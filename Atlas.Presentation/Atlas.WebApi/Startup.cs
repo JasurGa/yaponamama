@@ -19,6 +19,8 @@ using Atlas.WebApi.Observers;
 using Coravel;
 using Atlas.WebApi.Services;
 using Atlas.WebApi.Hubs;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Threading.Tasks;
 
 namespace Atlas.WebApi
 {
@@ -78,6 +80,30 @@ namespace Atlas.WebApi
 
                         ClockSkew        = TimeSpan.Zero,
                         ValidateLifetime = false
+                    };
+
+                    op.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var path = context.HttpContext.Request.Path;
+                            if (path.StartsWithSegments("/api/chuthub"))
+                            {
+                                var accessToken = context.Request.Query["access_token"];
+                                if (!string.IsNullOrEmpty(accessToken))
+                                {
+                                    context.Token = accessToken;
+                                }
+
+                                accessToken = context.Request.Headers["Authorization"];
+                                if (!string.IsNullOrEmpty(accessToken))
+                                {
+                                    context.Token = accessToken;
+                                }
+                            }
+
+                            return Task.CompletedTask;
+                        }
                     };
                 });
 
