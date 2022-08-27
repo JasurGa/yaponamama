@@ -5,7 +5,7 @@ using Atlas.Application;
 using Atlas.Identity.Extensions;
 using Atlas.Identity.Middlewares;
 using Atlas.Identity.Observers;
-using Atlas.Identity.Services;
+чusing Atlas.Identity.Services;
 using Atlas.Identity.Settings;
 using Atlas.Persistence;
 using Coravel;
@@ -97,7 +97,8 @@ namespace Atlas.Identity
                 {
                     policy.AllowAnyHeader()
                           .AllowAnyMethod()
-                          .AllowAnyOrigin();
+                          .AllowAnyOrigin()
+                          .AllowCredentials();
                 });
             });
 
