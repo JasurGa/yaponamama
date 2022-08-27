@@ -29,6 +29,11 @@ namespace Atlas.WebApi.Hubs
 
             if (userIdClaim == null)
             {
+                Clients.Caller.SendAsync("onCantConnect", new
+                {
+                    ConnectionId = id,
+                });
+
                 return base.OnConnectedAsync();
             }
 
