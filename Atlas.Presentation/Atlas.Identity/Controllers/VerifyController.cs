@@ -93,7 +93,7 @@ namespace Atlas.Identity.Controllers
 
             if (!userId.Equals(Guid.Empty))
             {
-                return Accepted(_tokenService.GetTokenByUserIdAsync(userId));
+                return Accepted(await _tokenService.GetTokenByUserIdAsync(userId));
             }
 
             return Ok();
