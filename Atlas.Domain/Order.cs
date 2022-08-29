@@ -45,7 +45,15 @@ namespace Atlas.Domain
 
         public Guid? PromoId { get; set; }
 
+        public Client Client { get; set; }
+
         public Courier Courier { get; set; }
+
+        public Store Store { get; set; }
+
+        public Promo Promo { get; set; }
+
+        public PaymentType PaymentType { get; set; }
 
         public IEnumerable<GoodToOrder> GoodToOrders { get; set; } 
     }

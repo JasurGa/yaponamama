@@ -39,15 +39,20 @@ namespace Atlas.WebApi.Controllers
         ///     
         ///     POST /api/1.0/order
         ///     {
-        ///         "toLongitude": 0.0,
-        ///         "toLatitude": 0.0,
-        ///         "isPickup": false,
-        ///         "paymentTypeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "deliverAt": 1900-01-01T10:00:00",
-        ///         "promo": "00000",
+        ///         "comment": "Test comment",
+        ///         "dontCallWhenDelivered": false,
+        ///         "destinationType": 0,
+        ///         "floor": 0,
+        ///         "entrance": 0,
+        ///         "toLongitude": 0,
+        ///         "toLatitude": 0,
+        ///         "isPickup": true,
+        ///         "paymentTypeId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        ///         "promo": "string",
+        ///         "deliverAt": "2022-08-29T07:11:16.320Z",
         ///         "goodToOrders": [
         ///             {
-        ///                 "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///                 "goodId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         ///                 "count": 10
         ///             }
         ///         ]
