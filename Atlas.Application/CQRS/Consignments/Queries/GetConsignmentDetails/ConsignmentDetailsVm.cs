@@ -1,4 +1,6 @@
 ﻿using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
+using Atlas.Application.CQRS.Stores.Queries.GetStoreList;
 using Atlas.Domain;
 using AutoMapper;
 using System;
