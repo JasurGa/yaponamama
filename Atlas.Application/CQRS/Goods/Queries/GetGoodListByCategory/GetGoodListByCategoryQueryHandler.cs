@@ -46,7 +46,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                 await session.CloseAsync();
             }
 
-            var goods = await _dbContext.Goods
+            var goods = await _dbContext.Goods.OrderBy(x => x.NameRu)
                 .Where(x => goodIds.Contains(x.Id) && x.IsDeleted == request.ShowDeleted)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);

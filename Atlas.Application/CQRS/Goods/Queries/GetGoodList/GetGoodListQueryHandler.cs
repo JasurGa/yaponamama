@@ -4,6 +4,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodList
 
         public async Task<GoodListVm> Handle(GetGoodListQuery request, CancellationToken cancellationToken)
         {
-            var goods = await _dbContext.Goods
+            var goods = await _dbContext.Goods.OrderBy(x => x.NameRu)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
