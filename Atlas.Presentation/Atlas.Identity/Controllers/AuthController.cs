@@ -70,7 +70,7 @@ namespace Atlas.Identity.Controllers
 
             if (user == null || !IsCorrectPassword(user, changePassword.OldPassword))
             {
-                return BadRequest();
+                return BadRequest("The login or the password is incorrect!");
             }
 
             user.Salt         = GenerateSalt();
@@ -123,7 +123,7 @@ namespace Atlas.Identity.Controllers
 
             if (user != null)
             {
-                return BadRequest();
+                return BadRequest("This phone number is already registered!");
             }
 
             if (!Enum.IsDefined(typeof(UserSex), registerDto.Sex))
@@ -195,7 +195,7 @@ namespace Atlas.Identity.Controllers
             var refreshToken = await _dbContext.RefreshTokens.FirstOrDefaultAsync(x => x.Refresh == refresh);
             if (refreshToken == null)
             {
-                return BadRequest();
+                return BadRequest("The refresh token wasn't found!");
             }
 
             _dbContext.RefreshTokens.Remove(refreshToken);
@@ -203,7 +203,7 @@ namespace Atlas.Identity.Controllers
 
             if (DateTime.UtcNow > refreshToken.ExpiresAt)
             {
-                return BadRequest();
+                return BadRequest("The refresh token is expired");
             }
 
             var token = await _tokenService.GetTokenByUserIdAsync(refreshToken.UserId);
