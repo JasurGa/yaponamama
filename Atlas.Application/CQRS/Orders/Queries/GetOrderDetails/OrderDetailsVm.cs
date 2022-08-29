@@ -56,7 +56,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                 .ForMember(dst => dst.Courier, opt =>
                     opt.MapFrom(src => src.Courier))
                 .ForMember(dst => dst.Client, opt =>
-                    opt.MapFrom(src => src.ClientId))
+                    opt.MapFrom(src => src.Client))
                 .ForMember(dst => dst.Promo, opt =>
                     opt.MapFrom(src => src.Promo))
                 .ForMember(dst => dst.PaymentType, opt =>

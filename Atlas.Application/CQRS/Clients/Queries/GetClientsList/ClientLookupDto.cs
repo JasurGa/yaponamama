@@ -17,7 +17,7 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientsList
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Courier, ClientLookupDto>()
+            profile.CreateMap<Client, ClientLookupDto>()
                 .ForMember(x => x.Id, opt =>
                     opt.MapFrom(x => x.Id))
                 .ForMember(x => x.User, opt =>

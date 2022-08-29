@@ -19,5 +19,7 @@ namespace Atlas.Domain
         public long Balance { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public User User { get; set; }
     }
 }
