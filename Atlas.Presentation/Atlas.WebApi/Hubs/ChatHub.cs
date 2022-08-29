@@ -122,7 +122,7 @@ namespace Atlas.WebApi.Hubs
             if (item != null)
             {
                 ConnectedUsers.Remove(item);
-                Clients.All.SendAsync("onUserDisconnected", new
+                Clients.AllExcept(ConnectionId).SendAsync("onUserDisconnected", new
                 {
                     ConnectionId = ConnectionId,
                     UserId       = item.UserId
