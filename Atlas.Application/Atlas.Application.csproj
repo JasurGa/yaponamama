@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\Goods\Queries\GetGoodPaged\" />
     <Folder Include="CQRS\PaymentTypes\Queries\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Common\Mappings\" />
