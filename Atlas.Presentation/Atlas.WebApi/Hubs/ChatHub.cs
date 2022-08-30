@@ -7,11 +7,13 @@ using Atlas.Application.CQRS.ChatMessages.Commands.CreateChatMessage;
 using Atlas.Domain;
 using Atlas.WebApi.Hubs.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using SignalRSwaggerGen.Attributes;
 
 namespace Atlas.WebApi.Hubs
 {
+    [Authorize]
     [SignalRHub]
     public class ChatHub : Hub
     {
@@ -19,53 +21,66 @@ namespace Atlas.WebApi.Hubs
 
         private readonly IMediator _mediator;
 
+        internal Guid UserId => !Context.User.Identity.IsAuthenticated
+            ? Guid.Empty
+            : Guid.Parse(Context.User.FindFirst(TokenClaims.UserId).Value);
+
+        internal string ConnectionId => Context.ConnectionId;
+
         public ChatHub(IMediator mediator) =>
             _mediator = mediator;
 
-        public void Connect()
+        public override Task OnConnectedAsync()
         {
-            var userIdClaim = Context.User.Claims.Where(x => x.Type == TokenClaims.UserId)
-                .Select(x => x.Value).FirstOrDefault();
-
-            if (userIdClaim == null)
+            var userId = UserId;
+            if (userId.Equals(Guid.Empty))
             {
-                return;
+                Clients.Caller.SendAsync("onCantConnect", new
+                {
+                    ConnectionId = ConnectionId,
+                });
+
+                return base.OnConnectedAsync();
             }
 
-            var id     = Context.ConnectionId;
-            var userId = Guid.Parse(userIdClaim);
-
-            if (!ConnectedUsers.Any(x => x.ConnectionId == id))
+            if (!ConnectedUsers.Any(x => x.ConnectionId == ConnectionId))
             {
                 ConnectedUsers.Add(new ConnectedUser
                 {
-                    ConnectionId = id,
+                    ConnectionId = ConnectionId,
                     UserId       = userId
                 });
 
                 Clients.Caller.SendAsync("onConnected", new
                 {
-                    ConnectionId   = id,
+                    ConnectionId   = ConnectionId,
                     UserId         = userId,
                     ConnectedUsers = ConnectedUsers
                 });
 
-                Clients.AllExcept(id).SendAsync("onNewUserConnected", new
+                Clients.AllExcept(ConnectionId).SendAsync("onNewUserConnected", new
                 {
-                    ConnectectionId = id,
+                    ConnectectionId = ConnectionId,
                     UserId          = userId
                 });
             }
+
+            return base.OnConnectedAsync();
         }
 
-        public async Task Send(string body, string optional, int messageType, Guid userId)
+        public async Task<ChatMessage> Send(string body, string optional, int messageType, Guid userId)
         {
             var myUserId = ConnectedUsers.FirstOrDefault(x =>
-                x.ConnectionId == Context.ConnectionId);
+                x.ConnectionId == ConnectionId);
 
             if (myUserId == null)
             {
-                return;
+                await Clients.Caller.SendAsync("onCantSend", new
+                {
+                    ConnectionId = ConnectionId,
+                });
+
+                return null;
             }
 
             var vm = await _mediator.Send(new CreateChatMessageCommand
@@ -95,20 +110,21 @@ namespace Atlas.WebApi.Hubs
             {
                 await Clients.Client(toUserId.ConnectionId).SendAsync("onNewMessage", message);
             }
+
+            return message;
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            var id   = Context.ConnectionId;
             var item = ConnectedUsers.FirstOrDefault(x =>
-                x.ConnectionId == id);
+                x.ConnectionId == ConnectionId);
 
             if (item != null)
             {
                 ConnectedUsers.Remove(item);
-                Clients.All.SendAsync("onUserDisconnected", new
+                Clients.AllExcept(ConnectionId).SendAsync("onUserDisconnected", new
                 {
-                    ConnectionId = id,
+                    ConnectionId = ConnectionId,
                     UserId       = item.UserId
                 });
             }

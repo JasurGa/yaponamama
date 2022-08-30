@@ -1,4 +1,6 @@
 ﻿using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
+using Atlas.Application.CQRS.Stores.Queries.GetStoreList;
 using Atlas.Domain;
 using AutoMapper;
 using System;
@@ -11,13 +13,9 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails
 
         public Guid StoreToGoodId { get; set; }
 
-        public Guid StoreId { get; set; }
+        public StoreLookupDto Store { get; set; }
 
-        public string StoreName { get; set; }
-
-        public Guid GoodId { get; set; }
-
-        public string GoodName { get; set; }
+        public GoodLookupDto Good { get; set; }
 
         public DateTime PurchasedAt { get; set; }
 
@@ -34,14 +32,10 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails
                     opt.MapFrom(x => x.Id))
                 .ForMember(x => x.StoreToGoodId, opt =>
                     opt.MapFrom(x => x.StoreToGoodId))
-                .ForMember(x => x.StoreId, opt =>
-                    opt.MapFrom(x => x.StoreToGood.Store.Id))
-                .ForMember(x => x.StoreName, opt =>
-                    opt.MapFrom(x => x.StoreToGood.Store.Name))
-                .ForMember(x => x.GoodId, opt =>
-                    opt.MapFrom(x => x.StoreToGood.Good.Id))
-                .ForMember(x => x.StoreName, opt =>
-                    opt.MapFrom(x => x.StoreToGood.Good.Name))
+                .ForMember(x => x.Store, opt =>
+                    opt.MapFrom(x => x.StoreToGood.Store))
+                .ForMember(x => x.Good, opt =>
+                    opt.MapFrom(x => x.StoreToGood.Good))
                 .ForMember(x => x.PurchasedAt, opt =>
                     opt.MapFrom(x => x.PurchasedAt))
                 .ForMember(x => x.ExpirateAt, opt =>

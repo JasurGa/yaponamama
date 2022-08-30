@@ -25,12 +25,12 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (c:Category{Id: $Id}) RETURN c", new
+                var cursor = await session.RunAsync("MATCH (c:Category{Id: $Id}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: false}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id:c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g)}", new
                 {
                     Id = request.Id.ToString()
                 });
 
-                category = await cursor.ConvertAsync<Category>();
+                category = await cursor.ConvertDictAsync<Category>();
             }
             finally
             {

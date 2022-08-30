@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\Goods\Queries\GetGoodPaged\" />
     <Folder Include="CQRS\PaymentTypes\Queries\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Common\Mappings\" />
@@ -132,6 +131,8 @@
     <Folder Include="CQRS\NotificationTypes\Queries\GetNotificationTypes\" />
     <Folder Include="CQRS\Providers\Commands\RestoreProvider\" />
     <Folder Include="CQRS\CategoryToGoods\Commands\CreateCategoriesToGood\" />
+    <Folder Include="CQRS\Clients\Queries\GetClientsList\" />
+    <Folder Include="CQRS\Orders\Commands\UpdateOrder\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -267,5 +268,7 @@
     <None Remove="CQRS\NotificationTypes\Queries\GetNotificationTypes\" />
     <None Remove="CQRS\Providers\Commands\RestoreProvider\" />
     <None Remove="CQRS\CategoryToGoods\Commands\CreateCategoriesToGood\" />
+    <None Remove="CQRS\Clients\Queries\GetClientsList\" />
+    <None Remove="CQRS\Orders\Commands\UpdateOrder\" />
   </ItemGroup>
 </Project>

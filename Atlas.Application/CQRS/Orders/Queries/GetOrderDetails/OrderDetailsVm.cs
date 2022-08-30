@@ -1,5 +1,10 @@
 ﻿using System;
 using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.Clients.Queries.GetClientsList;
+using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList;
+using Atlas.Application.CQRS.PaymentTypes.Queries.GetPaymentTypeList;
+using Atlas.Application.CQRS.Promos.Queries.GetPromoList;
+using Atlas.Application.CQRS.Stores.Queries.GetStoreList;
 using Atlas.Domain;
 using AutoMapper;
 
@@ -8,10 +13,6 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
     public class OrderDetailsVm : IMapWith<Order>
     {
         public Guid Id { get; set; }
-
-        public Guid? CourierId { get; set; }
-
-        public Guid ClientId { get; set; }
 
         public string Comment { get; set; }
 
@@ -37,15 +38,31 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public float PurchasePrice { get; set; }
 
+        public CourierLookupDto Courier { get; set; }
+
+        public ClientLookupDto Client { get; set; }
+
+        public PromoLookupDto Promo { get; set; }
+
+        public PaymentTypeLookupDto PaymentType { get; set; }
+
+        public StoreLookupDto Store { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Order, OrderDetailsVm>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
-                .ForMember(dst => dst.CourierId, opt =>
-                    opt.MapFrom(src => src.CourierId))
-                .ForMember(dst => dst.ClientId, opt =>
-                    opt.MapFrom(src => src.ClientId))
+                .ForMember(dst => dst.Courier, opt =>
+                    opt.MapFrom(src => src.Courier))
+                .ForMember(dst => dst.Client, opt =>
+                    opt.MapFrom(src => src.Client))
+                .ForMember(dst => dst.Promo, opt =>
+                    opt.MapFrom(src => src.Promo))
+                .ForMember(dst => dst.PaymentType, opt =>
+                    opt.MapFrom(src => src.PaymentType))
+                .ForMember(dst => dst.Store, opt =>
+                    opt.MapFrom(src => src.Store))
                 .ForMember(dst => dst.Comment, opt =>
                     opt.MapFrom(src => src.Comment))
                 .ForMember(dst => dst.DontCallWhenDelivered, opt =>

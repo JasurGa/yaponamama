@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Domain;
 using AutoMapper;
 
@@ -42,6 +44,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
         public int Discount { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public List<CategoryLookupDto> Categories { get; set; }
 
         public void Mapping(Profile profile)
         {

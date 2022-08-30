@@ -32,5 +32,7 @@ namespace Atlas.Domain
         public SupplyManager SupplyManager { get; set; }
 
         public Support Support { get; set; }
+
+        public Client Client { get; set; }
     }
 }

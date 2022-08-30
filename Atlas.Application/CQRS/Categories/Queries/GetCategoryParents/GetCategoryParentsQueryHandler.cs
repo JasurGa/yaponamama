@@ -28,14 +28,14 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryParents
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (c:Category{Id: $Id})-[:BELONGS_TO]->(p:Category{IsDeleted: $ShowDeleted}) RETURN p", new
+                var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted})<-[:BELONGS_TO]-(p:Category{Id: $Id}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $ShowDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id:c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g)}", new
                 {
                     Id          = request.Id.ToString(),
                     ShowDeleted = request.ShowDeleted,
                 });
 
                 categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>(
-                    await cursor.ConvertManyAsync<Category>());
+                    await cursor.ConvertDictManyAsync<Category>());
             }
             finally
             {

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using MediatR;
 
-namespace Atlas.Domain
+namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
 {
-    public class Order
+    public class UpdateOrderCommand : IRequest
     {
         public Guid Id { get; set; }
 
@@ -44,17 +44,5 @@ namespace Atlas.Domain
         public bool IsPickup { get; set; }
 
         public Guid? PromoId { get; set; }
-
-        public Client Client { get; set; }
-
-        public Courier Courier { get; set; }
-
-        public Store Store { get; set; }
-
-        public Promo Promo { get; set; }
-
-        public PaymentType PaymentType { get; set; }
-
-        public IEnumerable<GoodToOrder> GoodToOrders { get; set; } 
     }
 }

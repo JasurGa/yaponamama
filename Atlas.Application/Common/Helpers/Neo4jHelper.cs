@@ -23,6 +23,13 @@ namespace Atlas.Application.Common.Helpers
             return JsonConvert.DeserializeObject<T>(nodeProps);
         }
 
+        public async static Task<T> ConvertDictAsync<T>(this IResultCursor cursor)
+        {
+            var record = await cursor.SingleAsync();
+            var nodeProps = JsonConvert.SerializeObject(record[0].As<Dictionary<string, object>>());
+            return JsonConvert.DeserializeObject<T>(nodeProps);
+        }
+
         public async static Task<List<T>> ConvertManyAsync<T>(this IResultCursor cursor)
         {
             var result = new List<T>();
@@ -31,6 +38,22 @@ namespace Atlas.Application.Common.Helpers
             foreach (var record in records)
             {
                 var nodeProps = JsonConvert.SerializeObject(record[0].As<INode>().Properties);
+                var obj       = JsonConvert.DeserializeObject<T>(nodeProps);
+
+                result.Add(obj);
+            }
+
+            return result;
+        }
+
+        public async static Task<List<T>> ConvertDictManyAsync<T>(this IResultCursor cursor)
+        {
+            var result = new List<T>();
+
+            var records = await cursor.ToListAsync();
+            foreach (var record in records)
+            {
+                var nodeProps = JsonConvert.SerializeObject(record[0].As<Dictionary<string, object>>());
                 var obj       = JsonConvert.DeserializeObject<T>(nodeProps);
 
                 result.Add(obj);

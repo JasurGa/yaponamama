@@ -32,7 +32,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByProvider
                 throw new NotFoundException(nameof(Provider), request.ProviderId);
             }
 
-            var goods = await _dbContext.Goods
+            var goods = await _dbContext.Goods.OrderBy(x => x.NameRu)
                 .Where(x => x.ProviderId == request.ProviderId)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);

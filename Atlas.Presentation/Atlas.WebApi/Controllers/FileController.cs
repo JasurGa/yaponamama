@@ -112,13 +112,13 @@ namespace Atlas.WebApi.Controllers
         {
             if (formFile == null)
             {
-                return BadRequest();
+                return BadRequest("Form file format is incorrect!");
             }
 
             var extension = Path.GetExtension(formFile.FileName);
             if (extension == null)
             {
-                return BadRequest();
+                return BadRequest("Can't get file extension!");
             }
 
             extension = extension.ToLower().Trim();

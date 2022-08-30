@@ -29,7 +29,6 @@ namespace Atlas.Identity.Controllers
         /// </summary>
         [HttpPost("send")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
         public async Task<IActionResult> SendSmsAsync([FromBody] SendVerifySmsDto sendVerifySmsDto,
             CancellationToken cancellationToken)
         {
@@ -66,6 +65,7 @@ namespace Atlas.Identity.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
         public async Task<IActionResult> VerifyPhoneAsync([FromBody] VerifyPhoneDto verifyPhoneDto,
             CancellationToken cancellationToken)
         {
@@ -93,7 +93,7 @@ namespace Atlas.Identity.Controllers
 
             if (!userId.Equals(Guid.Empty))
             {
-                return Accepted(_tokenService.GetTokenByUserIdAsync(userId));
+                return Accepted(await _tokenService.GetTokenByUserIdAsync(userId));
             }
 
             return Ok();
@@ -101,8 +101,8 @@ namespace Atlas.Identity.Controllers
 
         private static string GenerateVerificationCode()
         {
-            Random random = new Random();
-            const string chars = "0123456789";
+            var random = new Random();
+            var chars  = "0123456789";
 
             return new string(Enumerable.Repeat(chars, 6)
                 .Select(s => s[random.Next(s.Length)]).ToArray());

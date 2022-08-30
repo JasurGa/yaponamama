@@ -50,7 +50,9 @@ namespace Atlas.WebApi.Middlewares
             {
                 result = JsonSerializer.Serialize(new
                 {
-                    error = exception.Message
+                    error = exception.Message,
+                    sourceFile = exception.Source,
+                    stackTrace = exception.StackTrace
                 });
             }
 

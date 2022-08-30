@@ -22,6 +22,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentDetails
             CancellationToken cancellationToken)
         {
             var consignment = await _dbContext.Consignments
+                .Include(x => x.StoreToGood)
                 .Include(x => x.StoreToGood.Good)
                 .Include(x => x.StoreToGood.Store)
                 .FirstOrDefaultAsync(x => x.Id == request.Id, 
