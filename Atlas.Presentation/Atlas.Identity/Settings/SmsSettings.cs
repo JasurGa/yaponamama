@@ -8,5 +8,7 @@ namespace Atlas.Identity.Settings
         public string AuthToken { get; set; }
 
         public string FromPhoneNumber { get; set; }
+
+        public string MessagingServiceSid { get; set; }
     }
 }
