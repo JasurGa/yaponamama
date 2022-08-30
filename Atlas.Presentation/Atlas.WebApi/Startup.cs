@@ -123,7 +123,10 @@ namespace Atlas.WebApi
 
             services.AddHealthChecks();
 
-            services.AddSignalR();
+            services.AddSignalR(e =>
+            {
+                e.MaximumReceiveMessageSize = 102400000;
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
