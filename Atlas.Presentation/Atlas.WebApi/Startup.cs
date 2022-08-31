@@ -126,6 +126,7 @@ namespace Atlas.WebApi
             services.AddSignalR(e =>
             {
                 e.MaximumReceiveMessageSize = 102400000;
+                e.EnableDetailedErrors      = true;
             });
         }
 
