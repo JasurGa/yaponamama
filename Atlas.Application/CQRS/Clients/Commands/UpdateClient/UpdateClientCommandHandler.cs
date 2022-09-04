@@ -10,10 +10,11 @@ namespace Atlas.Application.CQRS.Clients.Commands.UpdateClient
 {
     public class UpdateClientCommandHandler : IRequestHandler<UpdateClientCommand>
     {
+        private readonly IMediator       _mediator;
         private readonly IAtlasDbContext _dbContext;
 
-        public UpdateClientCommandHandler(IAtlasDbContext dbContext) => 
-            _dbContext = dbContext;
+        public UpdateClientCommandHandler(IMediator mediator, IAtlasDbContext dbContext) =>
+            (_mediator, _dbContext) = (mediator, dbContext);
 
         public async Task<Unit> Handle(UpdateClientCommand request, CancellationToken cancellationToken)
         {
@@ -25,8 +26,13 @@ namespace Atlas.Application.CQRS.Clients.Commands.UpdateClient
                 throw new NotFoundException(nameof(Client), request.Id);
             }
 
+            request.User.Id = client.UserId;
+            await _mediator.Send(request.User, cancellationToken);
+
+            client.UserId                      = request.User.Id;
             client.PassportPhotoPath           = request.PassportPhotoPath;
             client.SelfieWithPassportPhotoPath = request.SelfieWithPassportPhotoPath;
+            client.IsPassportVerified          = request.IsPassportVerified;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

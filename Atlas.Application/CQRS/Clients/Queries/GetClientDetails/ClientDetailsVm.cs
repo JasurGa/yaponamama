@@ -1,5 +1,6 @@
 ﻿using System;
 using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.Users.Queries.GetUserDetails;
 using Atlas.Domain;
 using AutoMapper;
 
@@ -9,7 +10,7 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
     {
         public Guid Id { get; set; }
 
-        public Guid UserId { get; set; }
+        public UserDetailsVm User { get; set; }
 
         public string PhoneNumber { get; set; }
 
@@ -26,8 +27,8 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
             profile.CreateMap<Client, ClientDetailsVm>()
                 .ForMember(dest => dest.Id, opt =>
                     opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.UserId, opt =>
-                    opt.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.User, opt =>
+                    opt.MapFrom(src => src.User))
                 .ForMember(dest => dest.PhoneNumber, opt =>
                     opt.MapFrom(src => src.PhoneNumber))
                 .ForMember(dest => dest.SelfieWithPassportPhotoPath, opt =>
