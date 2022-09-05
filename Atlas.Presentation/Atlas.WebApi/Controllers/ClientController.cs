@@ -98,15 +98,21 @@ namespace Atlas.WebApi.Controllers
         ///     PUT /api/1.0/client
         ///     {
         ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "nameUz": "Маленькая бутылка Pepsi",
-        ///         "descriptionUz": "Абсолютно такая же как и кола",
-        ///         "photoPath": "/storage/goods/small-coca-cola/img.jpg",
-        ///         "sellingPrice": 6000,
-        ///         "purchasePrice": 3500,
-        ///         "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "mass": 0,
-        ///         "volume": 0.5,
-        ///         "discount": 1000
+        ///         "phoneNumber": "+998901234567",
+        ///         "passportPhotoPath": "789012389329130.pdf",
+        ///         "selfieWithPassportPhotoPath": "345678919583.jpg",
+        ///         "isPassportVerified": true,
+        ///         "user": {
+        ///             "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "login": "+998901234567",
+        ///             "password": "password",
+        ///             "firstName": "John",
+        ///             "lastName": "Doe",
+        ///             "middleName": "O'Neal",
+        ///             "sex": 1,
+        ///             "birthday": "2022-09-05T12:57:43.404Z",
+        ///             "avatarPhotoPath": "56789123729131.jpg"
+        ///         }
         ///     }
         ///     
         /// </remarks>
