@@ -1,7 +1,6 @@
 ﻿using System;
 using Atlas.Application.Common.Mappings;
 using Atlas.Application.CQRS.Users.Queries.GetUserPagedList;
-using Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList;
 using Atlas.Domain;
 using AutoMapper;
 

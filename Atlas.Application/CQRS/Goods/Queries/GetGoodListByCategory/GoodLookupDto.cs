@@ -33,6 +33,10 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
 
         public float Discount { get; set; }
 
+        public float Volume { get; set; }
+
+        public float Mass { get; set; }
+
         public Guid ProviderId { get; set; }
         
         public string ProviderName { get; set; }
@@ -66,6 +70,10 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                     opt.MapFrom(src => src.SellingPrice))
                 .ForMember(dest => dest.Discount, opt =>
                     opt.MapFrom(src => src.Discount))
+                .ForMember(dest => dest.Volume, opt =>
+                    opt.MapFrom(src => src.Volume))
+                .ForMember(dest => dest.Mass, opt =>
+                    opt.MapFrom(src => src.Mass))
                 .ForMember(dest => dest.ProviderId, opt =>
                     opt.MapFrom(src => src.Provider.Id))
                 .ForMember(dest => dest.ProviderName, opt =>
