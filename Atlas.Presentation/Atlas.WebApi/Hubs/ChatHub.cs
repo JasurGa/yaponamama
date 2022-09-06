@@ -43,6 +43,7 @@ namespace Atlas.WebApi.Hubs
                 return base.OnConnectedAsync();
             }
 
+            ConnectedUsers.RemoveAll(x => x.UserId == userId);
             if (!ConnectedUsers.Any(x => x.ConnectionId == ConnectionId))
             {
                 ConnectedUsers.Add(new ConnectedUser
@@ -121,7 +122,7 @@ namespace Atlas.WebApi.Hubs
 
             if (item != null)
             {
-                Clients.AllExcept(ConnectionId).SendAsync("onUserDisconnected", new
+                Clients.Others.SendAsync("onUserDisconnected", new
                 {
                     ConnectionId = ConnectionId,
                     UserId       = item.UserId
