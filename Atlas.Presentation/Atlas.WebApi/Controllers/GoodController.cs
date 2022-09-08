@@ -45,15 +45,21 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET /api/1.0/good/search?searchQuery=bla+bla+bla&pageSize=10&pageIndex=0&filterCategoryId=a3eb7b4a-9f4e-4c71-8619-398655c563b8&filterMinSellingPrice=0&filterMaxSellingPrice=100000
+        ///     GET /api/1.0/good/search?searchQuery=bla+bla+bla&amp;pageSize=10&amp;pageIndex=0&amp;filterCategoryId=a3eb7b4a-9f4e-4c71-8619-398655c563b8&amp;filterMinSellingPrice=0&amp;filterMaxSellingPrice=100000
         ///     
         /// </remarks>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="filterCategoryId">Filter category id (Guid)</param>
+        /// <param name="filterMaxSellingPrice">Filter Max Selling Price (int)</param>
+        /// <param name="filterMinSellingPrice">Filter Min Selling Price (int)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <param name="pageSize">Page Size (int)</param>
         /// <returns>Returns PageDto GoodLookupDto</returns>
         /// <response code="200">Success</response>
-        /// <response code="401">If the user is unauthorized</response>
+        /// <response code="404">Not found</response>
         [HttpGet("search")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> SearchAsync([FromQuery] string searchQuery,
             [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0, [FromQuery] Guid? filterCategoryId = null,
             [FromQuery] int? filterMinSellingPrice = null, [FromQuery] int? filterMaxSellingPrice = null)

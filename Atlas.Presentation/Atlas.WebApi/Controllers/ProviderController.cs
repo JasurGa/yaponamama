@@ -3,6 +3,7 @@ using Atlas.Application.CQRS.Providers.Commands.CreateProvider;
 using Atlas.Application.CQRS.Providers.Commands.DeleteProvider;
 using Atlas.Application.CQRS.Providers.Commands.RestoreProvider;
 using Atlas.Application.CQRS.Providers.Commands.UpdateProvider;
+using Atlas.Application.CQRS.Providers.Queries.FindProviderPagedList;
 using Atlas.Application.CQRS.Providers.Queries.GetProviderDetails;
 using Atlas.Application.CQRS.Providers.Queries.GetProviderList;
 using Atlas.Application.CQRS.Providers.Queries.GetProviderPagedList;
@@ -27,6 +28,36 @@ namespace Atlas.WebApi.Controllers
 
         public ProviderController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Search providers
+        /// </summary>
+        /// <remarks>
+        ///
+        ///     GET /api/1.0/provider/search?searchQuery=bla+bla+bla&amp;pageSize=0&amp;pageIndex=0
+        ///     
+        /// </remarks>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <returns>PageDto ProviderLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<ProviderLookupDto>>> SearchAsync([FromQuery] string searchQuery,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new FindProviderPagedListQuery
+            {
+                SearchQuery = searchQuery,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Get the paged list of providers
