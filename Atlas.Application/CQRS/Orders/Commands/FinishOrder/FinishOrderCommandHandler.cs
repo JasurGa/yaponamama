@@ -30,7 +30,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.FinishOrder
             }
 
             order.FinishedAt = DateTime.UtcNow;
-            order.Status     = (int)OrderStatus.Finished;
+            order.Status     = (int)OrderStatus.Success;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

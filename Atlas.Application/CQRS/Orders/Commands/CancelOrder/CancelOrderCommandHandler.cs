@@ -28,7 +28,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CancelOrder
                 throw new NotFoundException(nameof(Order), request.OrderId);
             }
 
-            order.Status     = (int)OrderStatus.Canceled;
+            order.Status     = (int)OrderStatus.CanceledByAdmin;
             order.FinishedAt = DateTime.UtcNow;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
