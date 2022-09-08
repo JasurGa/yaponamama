@@ -43,6 +43,7 @@ namespace Atlas.WebApi.Controllers
         /// Search goods
         /// </summary>
         /// <remarks>
+        /// Sample request:
         ///
         ///     GET /api/1.0/good/search?searchQuery=bla+bla+bla&pageSize=10&pageIndex=0&filterCategoryId=a3eb7b4a-9f4e-4c71-8619-398655c563b8&filterMinSellingPrice=0&filterMaxSellingPrice=100000
         ///     

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -128,24 +129,24 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
         private async Task<Courier> GetCourierAsync(CreateOrderCommand request,
             CancellationToken cancellationToken, Store store)
         {
+            var minMax = new Dictionary<Courier, int>();
+
             var couriers = await _dbContext.Couriers.Where(x => x.Vehicle.StoreId == store.Id)
                 .ToListAsync(cancellationToken);
 
             foreach (var courier in couriers)
             {
-                var order = await _dbContext.Orders.FirstOrDefaultAsync(x =>
-                    x.Status == (int)OrderStatus.Created ||
-                    x.Status == (int)OrderStatus.Delivering &&
+                var ordersCount = await _dbContext.Orders.CountAsync(x =>
+                    x.Status != (int)OrderStatus.Success &&
+                    x.Status != (int)OrderStatus.CanceledByUser &&
+                    x.Status != (int)OrderStatus.CanceledByAdmin &&
                     x.CourierId == courier.Id,
                     cancellationToken);
 
-                if (order == null)
-                {
-                    return courier;
-                }
+                minMax.Add(courier, ordersCount);
             }
 
-            return null;
+            return minMax.OrderBy(x => x.Value).FirstOrDefault().Key;
         }
 
         private async Task<PaymentType> GetPaymentType(CreateOrderCommand request, CancellationToken cancellation)
