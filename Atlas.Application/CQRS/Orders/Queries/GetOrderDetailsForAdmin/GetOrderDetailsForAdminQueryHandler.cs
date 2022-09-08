@@ -24,7 +24,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForAdmin
         {
             var order = await _dbContext.Orders
                 .Include(x => x.Courier)
+                    .ThenInclude(y => y.User)
                 .Include(x => x.Client)
+                    .ThenInclude(y => y.User)
                 .Include(x => x.PaymentType)
                 .Include(x => x.GoodToOrders)
                 .Include(x => x.Store)
