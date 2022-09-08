@@ -13,6 +13,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
     <PackageReference Include="Neo4j.Driver" Version="4.4.0" />
     <PackageReference Include="InfluxDB.Client" Version="4.3.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams" Version="5.0.10" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EntityTypeConfigurations\" />
@@ -24,5 +25,6 @@
   <ItemGroup>
     <None Remove="Neo4j.Driver" />
     <None Remove="InfluxDB.Client" />
+    <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@ using Atlas.Application.Interfaces;
 using Neo4j.Driver;
 using Microsoft.Extensions.Configuration;
 using Atlas.Application.Services;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams;
 
 namespace Atlas.Persistence
 {
@@ -37,6 +38,7 @@ namespace Atlas.Persistence
                     options.CommandTimeout(100);
                     options.EnableRetryOnFailure();
                     options.SetPostgresVersion(new Version(9, 6));
+                    options.UseTrigrams();
                 });
             });
 

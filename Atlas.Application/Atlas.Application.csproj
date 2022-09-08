@@ -133,6 +133,7 @@
     <Folder Include="CQRS\CategoryToGoods\Commands\CreateCategoriesToGood\" />
     <Folder Include="CQRS\Clients\Queries\GetClientsList\" />
     <Folder Include="CQRS\Orders\Commands\UpdateOrder\" />
+    <Folder Include="CQRS\Goods\Queries\FindGoodPagedList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -145,6 +146,7 @@
     <PackageReference Include="Neo4j.Driver" Version="4.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="InfluxDB.Client" Version="4.3.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams" Version="5.0.10" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Atlas.Domain\Atlas.Domain.csproj" />
@@ -270,5 +272,7 @@
     <None Remove="CQRS\CategoryToGoods\Commands\CreateCategoriesToGood\" />
     <None Remove="CQRS\Clients\Queries\GetClientsList\" />
     <None Remove="CQRS\Orders\Commands\UpdateOrder\" />
+    <None Remove="CQRS\Goods\Queries\FindGoodPagedList\" />
+    <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams" />
   </ItemGroup>
 </Project>
