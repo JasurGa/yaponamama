@@ -1,5 +1,6 @@
 ﻿using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.GoodToOrders.Commands.DeleteGoodToOrder;
+using Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders;
 using Atlas.Application.CQRS.GoodToOrders.Commands.UpdateGoodToOrder;
 using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderListByOrder;
 using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrdersByOrder;
@@ -51,6 +52,45 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
+        /// Rewrites the list of goods in a specific order
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/1.0/goodtoorder/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     {
+        ///         goodToOrders: [
+        ///             {
+        ///                 goodId: a3eb7b4a-9f4e-4c71-8619-398655c563b8,
+        ///                 count: 10
+        ///             }
+        ///         ]
+        ///     }
+        /// 
+        /// </remarks>
+        /// <param name="orderId">Order id (guid)</param>
+        /// <param name="recreateGoodToOrders">RecreateGoodToOrdersDto object</param>
+        /// <returns>Returns id (guid)</returns> 
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpPost("{orderId}")]
+        [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Guid>> CreateAsync([FromRoute] Guid orderId, [FromBody] RecreateGoodToOrdersDto recreateGoodToOrders)
+        {
+            var command = _mapper.Map<RecreateGoodToOrdersDto, RecreateGoodToOrdersCommand>(recreateGoodToOrders, opt => 
+                opt.AfterMap((src, dst) => dst.OrderId = orderId));
+
+            var vm = await Mediator.Send(command);
+
+            return Ok(vm);
+        }
+
+        /// <summary>
         /// Updates the good in an order
         /// </summary>
         /// <remarks>
@@ -70,7 +110,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPut]
         [Authorize]
-        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -98,7 +138,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpDelete("{id}")]
-        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

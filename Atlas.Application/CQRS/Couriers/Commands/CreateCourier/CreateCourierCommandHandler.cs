@@ -24,7 +24,7 @@ namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
                 var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(x =>
                     x.Id == request.VehicleId, cancellationToken);
 
-                if (vehicle == null)
+                if (vehicle == null && vehicle.Courier != null)
                 {
                     throw new NotFoundException(nameof(Vehicle), request.VehicleId);
                 }
