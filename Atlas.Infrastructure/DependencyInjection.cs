@@ -5,7 +5,6 @@ using Atlas.Application.Interfaces;
 using Neo4j.Driver;
 using Microsoft.Extensions.Configuration;
 using Atlas.Application.Services;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams;
 
 namespace Atlas.Persistence
 {
