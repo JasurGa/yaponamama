@@ -74,7 +74,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpPost]
+        [HttpPost("{orderId}")]
         [Authorize]
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
