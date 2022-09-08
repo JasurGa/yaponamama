@@ -1,10 +1,10 @@
 ﻿using System;
 using Atlas.Application.Common.Mappings;
-using Atlas.Application.CQRS.Clients.Queries.GetClientsList;
-using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList;
+using Atlas.Application.CQRS.Clients.Queries.GetClientDetails;
+using Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails;
 using Atlas.Application.CQRS.PaymentTypes.Queries.GetPaymentTypeList;
-using Atlas.Application.CQRS.Promos.Queries.GetPromoList;
-using Atlas.Application.CQRS.Stores.Queries.GetStoreList;
+using Atlas.Application.CQRS.Promos.Queries.GetPromoDetails;
+using Atlas.Application.CQRS.Stores.Queries.GetStoreDetails;
 using Atlas.Domain;
 using AutoMapper;
 
@@ -38,15 +38,15 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public float PurchasePrice { get; set; }
 
-        public CourierLookupDto Courier { get; set; }
+        public CourierDetailsVm Courier { get; set; }
 
-        public ClientLookupDto Client { get; set; }
+        public ClientDetailsVm Client { get; set; }
 
-        public PromoLookupDto Promo { get; set; }
+        public PromoDetailsVm Promo { get; set; }
 
         public PaymentTypeLookupDto PaymentType { get; set; }
 
-        public StoreLookupDto Store { get; set; }
+        public StoreDetailsVm Store { get; set; }
 
         public void Mapping(Profile profile)
         {
