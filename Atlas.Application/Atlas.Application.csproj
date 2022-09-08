@@ -42,7 +42,6 @@
     <Folder Include="CQRS\Users\" />
     <Folder Include="CQRS\Users\Queries\" />
     <Folder Include="CQRS\Users\Queries\GetUserDetails\" />
-    <Folder Include="CQRS\Clients\" />
     <Folder Include="CQRS\Clients\Queries\" />
     <Folder Include="CQRS\Clients\Queries\GetClientDetails\" />
     <Folder Include="CQRS\Notifications\Commands\CreateNotification\" />
@@ -82,7 +81,6 @@
     <Folder Include="CQRS\PageVisits\Queries\" />
     <Folder Include="CQRS\PageVisits\Queries\GetPagesVisits\" />
     <Folder Include="CQRS\Orders\Commands\CreateOrder\" />
-    <Folder Include="CQRS\GoodToOrders\Commands\" />
     <Folder Include="CQRS\GoodToOrders\Commands\CreateGoodToOrder\" />
     <Folder Include="Common\Helpers\" />
     <Folder Include="CQRS\Orders\Commands\FinishOrder\" />
