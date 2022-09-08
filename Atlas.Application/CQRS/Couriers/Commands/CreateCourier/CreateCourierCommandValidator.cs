@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
 {
