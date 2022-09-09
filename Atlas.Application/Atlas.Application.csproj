@@ -133,6 +133,7 @@
     <Folder Include="CQRS\Orders\Commands\UpdateOrder\" />
     <Folder Include="CQRS\Goods\Queries\FindGoodPagedList\" />
     <Folder Include="CQRS\Providers\Queries\FindProviderPagedList\" />
+    <Folder Include="CQRS\Consignments\Queries\FindConsignmentsPagedList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
