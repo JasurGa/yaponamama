@@ -20,7 +20,7 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderList
 
         public string LogotypePath { get; set; }
 
-        public IList<ProviderPhoneNumber> PhoneNumbers { get; set; }
+        public IEnumerable<ProviderPhoneNumber> PhoneNumbers { get; set; }
 
         public void Mapping(Profile profile)
         {
