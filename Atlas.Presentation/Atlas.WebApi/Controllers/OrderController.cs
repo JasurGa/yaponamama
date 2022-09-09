@@ -1,8 +1,11 @@
 ﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList;
+using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
 using Atlas.Application.CQRS.Orders.Commands.CancelOrder;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
 using Atlas.Application.CQRS.Orders.Commands.FinishOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
+using Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
@@ -31,6 +34,37 @@ namespace Atlas.WebApi.Controllers
 
         public OrderController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Search orders
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/order/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     
+        /// </remarks>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <returns>Returns PageDto OrderLookupDto</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<OrderLookupDto>>> SearchAsync([FromQuery] string searchQuery,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new FindOrderPagedListQuery
+            {
+                SearchQuery = searchQuery,
+                PageSize    = pageSize,
+                PageIndex   = pageIndex
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Creates the order

@@ -34,7 +34,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET /api/1.0/consignments/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     GET /api/1.0/consignment/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
         ///     
         /// </remarks>
         /// <param name="searchQuery">Search Query (string)</param>

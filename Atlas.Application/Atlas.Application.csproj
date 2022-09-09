@@ -134,6 +134,7 @@
     <Folder Include="CQRS\Goods\Queries\FindGoodPagedList\" />
     <Folder Include="CQRS\Providers\Queries\FindProviderPagedList\" />
     <Folder Include="CQRS\Consignments\Queries\FindConsignmentsPagedList\" />
+    <Folder Include="CQRS\Orders\Queries\FindOrderPagedList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -275,5 +276,6 @@
     <None Remove="CQRS\Goods\Queries\FindGoodPagedList\" />
     <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams" />
     <None Remove="CQRS\Providers\Queries\FindProviderPagedList\" />
+    <None Remove="CQRS\Orders\Queries\FindOrderPagedList\" />
   </ItemGroup>
 </Project>
