@@ -131,7 +131,7 @@ namespace Atlas.WebApi.Controllers
         ///     }
         ///     
         /// </remarks>
-        /// <param name="id">CategoryToGood id</param>
+        /// <param name="deleteCategoryToGood">DeleteCategoryToGoodDto object</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         /// <response code="404">Not found</response>
@@ -142,7 +142,7 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteAsync([FromBody] DeleteCategoryToGoodDto deleteCategoryToGood)
+        public async Task<IActionResult> DeleteAsync([FromRoute] DeleteCategoryToGoodDto deleteCategoryToGood)
         {
             await Mediator.Send(_mapper.Map<DeleteCategoryToGoodDto,
                 DeleteCategoryToGoodCommand>(deleteCategoryToGood));
