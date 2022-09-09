@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Atlas.Application.Common.Mappings;
 using Atlas.Domain;
 using AutoMapper;
@@ -20,7 +21,7 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderList
 
         public string LogotypePath { get; set; }
 
-        public IEnumerable<ProviderPhoneNumber> PhoneNumbers { get; set; }
+        public IList<string> PhoneNumbers { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -38,7 +39,7 @@ namespace Atlas.Application.CQRS.Providers.Queries.GetProviderList
                 .ForMember(dst => dst.LogotypePath, opt =>
                     opt.MapFrom(src => src.LogotypePath))
                 .ForMember(dst => dst.PhoneNumbers, opt =>
-                    opt.MapFrom(src => src.ProviderPhoneNumbers));
+                    opt.MapFrom(src => src.ProviderPhoneNumbers.Select(x => x.PhoneNumber)));
 
         }
     }
