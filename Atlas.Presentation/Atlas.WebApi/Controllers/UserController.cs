@@ -1,7 +1,9 @@
 ﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList;
 using Atlas.Application.CQRS.Users.Commands.DeleteUser;
 using Atlas.Application.CQRS.Users.Commands.RestoreUser;
 using Atlas.Application.CQRS.Users.Commands.UpdateUser;
+using Atlas.Application.CQRS.Users.Queries.FindUserPagedList;
 using Atlas.Application.CQRS.Users.Queries.GetUserDetails;
 using Atlas.Application.CQRS.Users.Queries.GetUserPagedList;
 using Atlas.Application.Models;
@@ -25,6 +27,37 @@ namespace Atlas.WebApi.Controllers
 
         public UserController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Search users
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/user/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     
+        /// </remarks>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <returns>Returns PageDto UserLookupDto</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<UserLookupDto>>> SearchAsync([FromQuery] string searchQuery,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new FindUserPagedListQuery
+            {
+                SearchQuery = searchQuery,
+                PageSize    = pageSize,
+                PageIndex   = pageIndex
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Get the paged list of users
