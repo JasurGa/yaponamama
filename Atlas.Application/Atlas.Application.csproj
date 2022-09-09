@@ -136,6 +136,7 @@
     <Folder Include="CQRS\Consignments\Queries\FindConsignmentsPagedList\" />
     <Folder Include="CQRS\Orders\Queries\FindOrderPagedList\" />
     <Folder Include="CQRS\Users\Queries\FindUserPagedList\" />
+    <Folder Include="CQRS\Clients\Queries\FindClientPagedList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -279,5 +280,6 @@
     <None Remove="CQRS\Providers\Queries\FindProviderPagedList\" />
     <None Remove="CQRS\Orders\Queries\FindOrderPagedList\" />
     <None Remove="CQRS\Users\Queries\FindUserPagedList\" />
+    <None Remove="CQRS\Clients\Queries\FindClientPagedList\" />
   </ItemGroup>
 </Project>

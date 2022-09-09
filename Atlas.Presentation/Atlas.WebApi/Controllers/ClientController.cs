@@ -2,9 +2,11 @@
 using Atlas.Application.CQRS.Clients.Commands.DeleteClient;
 using Atlas.Application.CQRS.Clients.Commands.RestoreClient;
 using Atlas.Application.CQRS.Clients.Commands.UpdateClient;
+using Atlas.Application.CQRS.Clients.Queries.FindClientPagedList;
 using Atlas.Application.CQRS.Clients.Queries.GetClientDetails;
 using Atlas.Application.CQRS.Clients.Queries.GetClientPagedList;
 using Atlas.Application.CQRS.Clients.Queries.GetClientsList;
+using Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -26,6 +28,37 @@ namespace Atlas.WebApi.Controllers
 
         public ClientController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Search clients
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/client/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     
+        /// </remarks>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <returns>Returns PageDto ClientLookupDto</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<ClientLookupDto>>> SearchAsync([FromQuery] string searchQuery,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new FindClientPagedListQuery
+            {
+                SearchQuery = searchQuery,
+                PageSize    = pageSize,
+                PageIndex   = pageIndex
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Gets the paged list of clients
