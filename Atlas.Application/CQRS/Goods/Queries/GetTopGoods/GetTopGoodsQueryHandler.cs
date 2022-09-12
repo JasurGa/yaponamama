@@ -42,7 +42,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetTopGoods
                 foreach (var c in childCategories.Categories)
                 {
                     var goodIds = new List<Guid>();
-                    var cursor = await session.RunAsync("MATCH (m:Category{Id: $Id})<-[:BELONGS_TO]-(g:Good) RETURN rand() as r, g.Id ORDER BY r LIMIT 10", new
+                    var cursor = await session.RunAsync("MATCH (m:Category{Id: $Id})<-[:BELONGS_TO]-(g:Good) RETURN rand() as r, g.Id ORDER BY r", new
                     {
                         Id = c.Id.ToString()
                     });
