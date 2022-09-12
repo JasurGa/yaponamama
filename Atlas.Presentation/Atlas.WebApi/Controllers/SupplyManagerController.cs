@@ -4,6 +4,7 @@ using Atlas.Application.CQRS.SupplyManagers.Commands.DeleteSupplyManager;
 using Atlas.Application.CQRS.SupplyManagers.Commands.RestoreSupplyManager;
 using Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManager;
 using Atlas.Application.CQRS.SupplyManagers.Commands.UpdateSupplyManagersStoreId;
+using Atlas.Application.CQRS.SupplyManagers.Queries.FindSupplyManagerPagedList;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerDetails;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedList;
 using Atlas.Application.CQRS.SupplyManagers.Queries.GetSupplyManagerPagedListByStoreId;
@@ -29,6 +30,37 @@ namespace Atlas.WebApi.Controllers
 
         public SupplyManagerController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Search supply managers
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/supplymanager/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     
+        /// </remarks>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <returns>Returns PageDto ClientLookupDto</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<SupplyManagerLookupDto>>> SearchAsync([FromQuery] string searchQuery,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new FindSupplyManagerPagedListQuery
+            {
+                SearchQuery = searchQuery,
+                PageSize    = pageSize,
+                PageIndex   = pageIndex
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Gets the paged list of supply managers

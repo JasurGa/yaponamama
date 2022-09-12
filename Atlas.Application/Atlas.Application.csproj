@@ -139,6 +139,7 @@
     <Folder Include="CQRS\Clients\Queries\FindClientPagedList\" />
     <Folder Include="CQRS\Couriers\Queries\FindCourierPagedList\" />
     <Folder Include="CQRS\Admins\Queries\FindAdminPagedList\" />
+    <Folder Include="CQRS\SupplyManagers\Queries\FindSupplyManagerPagedList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -285,5 +286,6 @@
     <None Remove="CQRS\Clients\Queries\FindClientPagedList\" />
     <None Remove="CQRS\Couriers\Queries\FindCourierPagedList\" />
     <None Remove="CQRS\Admins\Queries\FindAdminPagedList\" />
+    <None Remove="CQRS\SupplyManagers\Queries\FindSupplyManagerPagedList\" />
   </ItemGroup>
 </Project>
