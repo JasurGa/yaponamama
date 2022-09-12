@@ -4,12 +4,12 @@ using Atlas.Application.CQRS.Couriers.Commands.DeleteCourier;
 using Atlas.Application.CQRS.Couriers.Commands.RestoreCourier;
 using Atlas.Application.CQRS.Couriers.Commands.UpdateCourier;
 using Atlas.Application.CQRS.Couriers.Commands.UpdateCouriersStoreId;
+using Atlas.Application.CQRS.Couriers.Queries.FindCourierPagedList;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierByVehicleId;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedListByStoreId;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedListNotByStoreId;
-using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -32,6 +32,37 @@ namespace Atlas.WebApi.Controllers
 
         public CourierController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Search couriers
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/courier/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     
+        /// </remarks>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <returns>Returns PageDto ClientLookupDto</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<CourierLookupDto>>> SearchAsync([FromQuery] string searchQuery,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new FindCourierPagedListQuery
+            {
+                SearchQuery = searchQuery,
+                PageSize    = pageSize,
+                PageIndex   = pageIndex
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Gets the paged list of couriers
