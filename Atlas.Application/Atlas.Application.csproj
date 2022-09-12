@@ -144,6 +144,7 @@
     <Folder Include="CQRS\HeadRecruiters\Quieries\" />
     <Folder Include="CQRS\HeadRecruiters\Quieries\FindHeadRecruitersPagedList\" />
     <Folder Include="CQRS\Supports\Queries\FindSupportsPagedList\" />
+    <Folder Include="CQRS\Vehicles\Queries\FindVehiclesPagedList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -295,5 +296,6 @@
     <None Remove="CQRS\HeadRecruiters\Quieries\" />
     <None Remove="CQRS\HeadRecruiters\Quieries\FindHeadRecruitersPagedList\" />
     <None Remove="CQRS\Supports\Queries\FindSupportsPagedList\" />
+    <None Remove="CQRS\Vehicles\Queries\FindVehiclesPagedList\" />
   </ItemGroup>
 </Project>
