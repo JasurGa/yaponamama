@@ -142,7 +142,7 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeleteAsync([FromRoute] DeleteCategoryToGoodDto deleteCategoryToGood)
+        public async Task<IActionResult> DeleteAsync(DeleteCategoryToGoodDto deleteCategoryToGood)
         {
             await Mediator.Send(_mapper.Map<DeleteCategoryToGoodDto,
                 DeleteCategoryToGoodCommand>(deleteCategoryToGood));
