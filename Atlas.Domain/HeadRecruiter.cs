@@ -10,5 +10,7 @@ namespace Atlas.Domain
         public string PassportPhotoPath { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public User User { get; set; }
     }
 }

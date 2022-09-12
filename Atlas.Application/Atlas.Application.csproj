@@ -140,6 +140,10 @@
     <Folder Include="CQRS\Couriers\Queries\FindCourierPagedList\" />
     <Folder Include="CQRS\Admins\Queries\FindAdminPagedList\" />
     <Folder Include="CQRS\SupplyManagers\Queries\FindSupplyManagerPagedList\" />
+    <Folder Include="CQRS\HeadRecruiters\" />
+    <Folder Include="CQRS\HeadRecruiters\Quieries\" />
+    <Folder Include="CQRS\HeadRecruiters\Quieries\FindHeadRecruitersPagedList\" />
+    <Folder Include="CQRS\Supports\Queries\FindSupportsPagedList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -287,5 +291,9 @@
     <None Remove="CQRS\Couriers\Queries\FindCourierPagedList\" />
     <None Remove="CQRS\Admins\Queries\FindAdminPagedList\" />
     <None Remove="CQRS\SupplyManagers\Queries\FindSupplyManagerPagedList\" />
+    <None Remove="CQRS\HeadRecruiters\" />
+    <None Remove="CQRS\HeadRecruiters\Quieries\" />
+    <None Remove="CQRS\HeadRecruiters\Quieries\FindHeadRecruitersPagedList\" />
+    <None Remove="CQRS\Supports\Queries\FindSupportsPagedList\" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 using Atlas.Application.CQRS.Supports.Commands.DeleteSupport;
 using Atlas.Application.CQRS.Supports.Commands.RestoreSupport;
 using Atlas.Application.CQRS.Supports.Commands.UpdateSupport;
+using Atlas.Application.CQRS.Supports.Queries.FindSupportsPagedList;
 using Atlas.Application.CQRS.Supports.Queries.GetSupportDetails;
 using Atlas.Application.CQRS.Supports.Queries.GetSupportPagedList;
 using Atlas.Application.CQRS.Users.Commands.CreateUser;
@@ -25,6 +26,37 @@ namespace Atlas.WebApi.Controllers
 
         public SupportController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Search admins
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/support/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     
+        /// </remarks>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <returns>Returns PageDto ClientLookupDto</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<SupportLookupDto>>> SearchAsync([FromQuery] string searchQuery,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new FindSupportsPagedListQuery
+            {
+                SearchQuery = searchQuery,
+                PageSize    = pageSize,
+                PageIndex   = pageIndex
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Gets the paged list of supports
