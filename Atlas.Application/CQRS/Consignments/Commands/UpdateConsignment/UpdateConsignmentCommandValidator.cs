@@ -10,13 +10,19 @@ namespace Atlas.Application.CQRS.Consignments.Commands.UpdateConsignment
             RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(x => x.StoreToGoodId)
+            RuleFor(x => x.StoreId)
+                .NotEqual(Guid.Empty);
+
+            RuleFor(x => x.GoodId)
                 .NotEqual(Guid.Empty);
 
             RuleFor(x => x.PurchasedAt)
                 .NotEmpty();
 
             RuleFor(x => x.ExpirateAt)
+                .GreaterThan(x => x.PurchasedAt);
+
+            RuleFor(x => x.ShelfLocation)
                 .NotEmpty();
         }
     }
