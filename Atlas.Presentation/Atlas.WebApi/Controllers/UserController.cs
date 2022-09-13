@@ -40,6 +40,7 @@ namespace Atlas.WebApi.Controllers
         /// <param name="searchQuery">Search Query (string)</param>
         /// <param name="pageSize">Page Size (int)</param>
         /// <param name="pageIndex">Page Index (int)</param>
+        /// <param name="showDeleted">Show deleted (bool)</param>
         /// <returns>Returns PageDto UserLookupDto</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not Found</response>

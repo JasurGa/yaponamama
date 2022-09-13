@@ -54,6 +54,7 @@ namespace Atlas.WebApi.Controllers
         /// <param name="filterMinSellingPrice">Filter Min Selling Price (int)</param>
         /// <param name="pageIndex">Page Index (int)</param>
         /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="showDeleted">Show deleted (bool)</param>
         /// <returns>Returns PageDto GoodLookupDto</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
