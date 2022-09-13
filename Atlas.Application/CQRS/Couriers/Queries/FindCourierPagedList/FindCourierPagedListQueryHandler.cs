@@ -24,8 +24,11 @@ namespace Atlas.Application.CQRS.Couriers.Queries.FindCourierPagedList
 
         public async Task<PageDto<CourierLookupDto>> Handle(FindCourierPagedListQuery request, CancellationToken cancellationToken)
         {
-            var couriers = _dbContext.Couriers.Include(x => x.Vehicle)
-                .Include(x => x.User).AsQueryable();
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+
+            var couriers = _dbContext.Couriers.Include(x => x.Vehicle).Include(x => x.User)
+                .Where(x => x.IsDeleted == request.ShowDeleted)
+                .AsQueryable();
 
             if (request.FilterStoreId != null)
             {

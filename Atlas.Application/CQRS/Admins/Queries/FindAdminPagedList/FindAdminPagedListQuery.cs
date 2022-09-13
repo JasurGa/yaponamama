@@ -7,6 +7,8 @@ namespace Atlas.Application.CQRS.Admins.Queries.FindAdminPagedList
 {
     public class FindAdminPagedListQuery : IRequest<PageDto<AdminLookupDto>>
     {
+        public bool ShowDeleted { get; set; }
+
         public string SearchQuery { get; set; }
 
         public int PageSize { get; set; }

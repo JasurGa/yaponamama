@@ -24,8 +24,10 @@ namespace Atlas.Application.CQRS.Admins.Queries.FindAdminPagedList
 
         public async Task<PageDto<AdminLookupDto>> Handle(FindAdminPagedListQuery request, CancellationToken cancellationToken)
         {
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+
             var admins = _dbContext.Admins.Include(x => x.User)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.PhoneNumber} {x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}",
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.PhoneNumber} {x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}".ToLower().Trim(),
                     request.SearchQuery));
 
             var adminsCount = await admins.CountAsync(cancellationToken);

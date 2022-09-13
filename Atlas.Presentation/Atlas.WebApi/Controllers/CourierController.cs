@@ -39,7 +39,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET /api/1.0/courier/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     GET /api/1.0/courier/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0&amp;showDeleted=false
         ///     
         /// </remarks>
         /// <param name="searchQuery">Search Query (string)</param>
@@ -48,14 +48,17 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto ClientLookupDto</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not Found</response>
+        [Authorize]
         [HttpGet("search")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.HeadRecruiter, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PageDto<CourierLookupDto>>> SearchAsync([FromQuery] string searchQuery,
-            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10, [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new FindCourierPagedListQuery
             {
+                ShowDeleted = showDeleted,
                 SearchQuery = searchQuery,
                 PageSize    = pageSize,
                 PageIndex   = pageIndex
