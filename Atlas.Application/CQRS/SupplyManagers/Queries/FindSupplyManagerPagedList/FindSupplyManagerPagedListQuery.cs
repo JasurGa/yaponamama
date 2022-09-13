@@ -7,6 +7,8 @@ namespace Atlas.Application.CQRS.SupplyManagers.Queries.FindSupplyManagerPagedLi
 {
     public class FindSupplyManagerPagedListQuery : IRequest<PageDto<SupplyManagerLookupDto>>
     {
+        public bool ShowDeleted { get; set; }
+
         public string SearchQuery { get; set; }
 
         public int PageSize { get; set; }

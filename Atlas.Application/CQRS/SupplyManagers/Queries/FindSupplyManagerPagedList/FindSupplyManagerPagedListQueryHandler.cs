@@ -24,8 +24,10 @@ namespace Atlas.Application.CQRS.SupplyManagers.Queries.FindSupplyManagerPagedLi
 
         public async Task<PageDto<SupplyManagerLookupDto>> Handle(FindSupplyManagerPagedListQuery request, CancellationToken cancellationToken)
         {
-            var supplyManagers = _dbContext.SupplyManagers.Include(x => x.User)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.PhoneNumber} {x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}",
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+
+            var supplyManagers = _dbContext.SupplyManagers.Include(x => x.User).Where(x => x.IsDeleted == request.ShowDeleted)
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.PhoneNumber} {x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}".ToLower().Trim(),
                     request.SearchQuery));
 
             var supplyManagersCount = await supplyManagers.CountAsync(cancellationToken);
