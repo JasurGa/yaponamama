@@ -7,6 +7,8 @@ namespace Atlas.Application.CQRS.Providers.Queries.FindProviderPagedList
 {
     public class FindProviderPagedListQuery : IRequest<PageDto<ProviderLookupDto>>
     {
+        public bool ShowDeleted { get; set; }
+
         public string SearchQuery { get; set; }
 
         public int PageIndex { get; set; }

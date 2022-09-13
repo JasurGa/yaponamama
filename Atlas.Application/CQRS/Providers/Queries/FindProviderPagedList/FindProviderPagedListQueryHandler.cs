@@ -25,8 +25,11 @@ namespace Atlas.Application.CQRS.Providers.Queries.FindProviderPagedList
 
         public async Task<PageDto<ProviderLookupDto>> Handle(FindProviderPagedListQuery request, CancellationToken cancellationToken)
         {
-            var providers = _dbContext.Providers.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Name} {x.Description}",
-                request.SearchQuery));
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+
+            var providers = _dbContext.Providers.Where(x => x.IsDeleted == request.ShowDeleted)
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Name} {x.Description}".ToLower().Trim(),
+                    request.SearchQuery));
 
             var providersCount = await providers.CountAsync(cancellationToken);
             var pagedProviders = await providers.Skip(request.PageSize * request.PageIndex)
