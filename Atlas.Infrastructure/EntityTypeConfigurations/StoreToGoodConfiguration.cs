@@ -13,8 +13,8 @@ namespace Atlas.Persistence.EntityTypeConfigurations
 
             builder
                 .HasOne(x => x.Good)
-                .WithOne(y => y.StoreToGood)
-                .HasForeignKey<StoreToGood>(x => x.GoodId);
+                .WithMany(y => y.StoreToGoods)
+                .HasForeignKey(x => x.GoodId);
 
             builder
                 .HasOne(x => x.Store)
