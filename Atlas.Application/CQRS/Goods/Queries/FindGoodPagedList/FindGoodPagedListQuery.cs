@@ -7,6 +7,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
 {
     public class FindGoodPagedListQuery : IRequest<PageDto<GoodLookupDto>>
     {
+        public bool ShowDeleted { get; set; }
+
         public string SearchQuery { get; set; }
 
         public Guid? FilterCategoryId { get; set; }

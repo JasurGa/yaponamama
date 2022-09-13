@@ -45,7 +45,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET /api/1.0/good/search?searchQuery=bla+bla+bla&amp;pageSize=10&amp;pageIndex=0&amp;filterCategoryId=a3eb7b4a-9f4e-4c71-8619-398655c563b8&amp;filterMinSellingPrice=0&amp;filterMaxSellingPrice=100000
+        ///     GET /api/1.0/good/search?searchQuery=bla+bla+bla&amp;pageSize=10&amp;pageIndex=0&amp;filterCategoryId=a3eb7b4a-9f4e-4c71-8619-398655c563b8&amp;filterMinSellingPrice=0&amp;filterMaxSellingPrice=100000&amp;showDeleted=false
         ///     
         /// </remarks>
         /// <param name="searchQuery">Search Query (string)</param>
@@ -62,7 +62,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> SearchAsync([FromQuery] string searchQuery,
             [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0, [FromQuery] Guid? filterCategoryId = null,
-            [FromQuery] int? filterMinSellingPrice = null, [FromQuery] int? filterMaxSellingPrice = null)
+            [FromQuery] int? filterMinSellingPrice = null, [FromQuery] int? filterMaxSellingPrice = null,
+            [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new FindGoodPagedListQuery
             {
@@ -71,7 +72,8 @@ namespace Atlas.WebApi.Controllers
                 PageSize              = pageSize,
                 FilterCategoryId      = filterCategoryId,
                 FilterMaxSellingPrice = filterMaxSellingPrice,
-                FilterMinSellingPrice = filterMinSellingPrice
+                FilterMinSellingPrice = filterMinSellingPrice,
+                ShowDeleted           = showDeleted
             });
 
             return Ok(vm);
