@@ -1,4 +1,5 @@
-﻿using Atlas.Application.CQRS.Supports.Commands.CreateSupport;
+﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Supports.Commands.CreateSupport;
 using Atlas.Application.CQRS.Supports.Commands.DeleteSupport;
 using Atlas.Application.CQRS.Supports.Commands.RestoreSupport;
 using Atlas.Application.CQRS.Supports.Commands.UpdateSupport;
@@ -7,6 +8,7 @@ using Atlas.Application.CQRS.Supports.Queries.GetSupportDetails;
 using Atlas.Application.CQRS.Supports.Queries.GetSupportPagedList;
 using Atlas.Application.CQRS.Users.Commands.CreateUser;
 using Atlas.Application.Models;
+using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -33,23 +35,27 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET /api/1.0/support/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     GET /api/1.0/support/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0&amp;showDeleted=false
         ///     
         /// </remarks>
         /// <param name="searchQuery">Search Query (string)</param>
         /// <param name="pageSize">Page Size (int)</param>
         /// <param name="pageIndex">Page Index (int)</param>
+        /// <param name="showDeleted">Show deleted (bool)</param>
         /// <returns>Returns PageDto ClientLookupDto</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not Found</response>
+        [Authorize]
         [HttpGet("search")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.HeadRecruiter, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PageDto<SupportLookupDto>>> SearchAsync([FromQuery] string searchQuery,
-            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10, [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new FindSupportsPagedListQuery
             {
+                ShowDeleted = showDeleted,
                 SearchQuery = searchQuery,
                 PageSize    = pageSize,
                 PageIndex   = pageIndex

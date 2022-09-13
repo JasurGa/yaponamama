@@ -6,6 +6,8 @@ namespace Atlas.Application.CQRS.HeadRecruiters.Quieries.FindHeadRecruitersPaged
 {
     public class FindHeadRecruitersPagedListQuery : IRequest<PageDto<HeadRecruiterLookupDto>>
     {
+        public bool ShowDeleted { get; set; }
+
         public string SearchQuery { get;set; }
 
         public int PageSize { get; set; }

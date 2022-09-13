@@ -23,8 +23,10 @@ namespace Atlas.Application.CQRS.HeadRecruiters.Quieries.FindHeadRecruitersPaged
 
         public async Task<PageDto<HeadRecruiterLookupDto>> Handle(FindHeadRecruitersPagedListQuery request, CancellationToken cancellationToken)
         {
-            var headRecruiters = _dbContext.HeadRecruiters.Include(x => x.User)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}",
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+
+            var headRecruiters = _dbContext.HeadRecruiters.Include(x => x.User).Where(x => x.IsDeleted == request.ShowDeleted)
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}".ToLower().Trim(),
                     request.SearchQuery));
 
             var headRecruitersCount = await headRecruiters.CountAsync(cancellationToken);

@@ -24,8 +24,10 @@ namespace Atlas.Application.CQRS.Supports.Queries.FindSupportsPagedList
 
         public async Task<PageDto<SupportLookupDto>> Handle(FindSupportsPagedListQuery request, CancellationToken cancellationToken)
         {
-            var supports = _dbContext.Supports.Include(x => x.User)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.InternalPhoneNumber} {x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}",
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+
+            var supports = _dbContext.Supports.Include(x => x.User).Where(x => x.IsDeleted == request.ShowDeleted)
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.InternalPhoneNumber} {x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}".Trim().ToLower(),
                     request.SearchQuery));
 
             var supportsCount = await supports.CountAsync(cancellationToken);
