@@ -1,8 +1,11 @@
 ﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Couriers.Queries.FindCourierPagedList;
+using Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList;
 using Atlas.Application.CQRS.Stores.Commands.CreateStore;
 using Atlas.Application.CQRS.Stores.Commands.DeleteStore;
 using Atlas.Application.CQRS.Stores.Commands.RestoreStore;
 using Atlas.Application.CQRS.Stores.Commands.UpdateStore;
+using Atlas.Application.CQRS.Stores.Queries.FindStoresPagedList;
 using Atlas.Application.CQRS.Stores.Queries.GetStoreDetails;
 using Atlas.Application.CQRS.Stores.Queries.GetStoreList;
 using Atlas.Application.CQRS.Stores.Queries.GetStorePagedList;
@@ -27,6 +30,37 @@ namespace Atlas.WebApi.Controllers
 
         public StoreController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Search stores
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/store/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     
+        /// </remarks>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <returns>Returns PageDto ClientLookupDto</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not Found</response>
+        [HttpGet("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<StoreLookupDto>>> SearchAsync([FromQuery] string searchQuery,
+            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new FindStoresPagedListQuery
+            {
+                SearchQuery = searchQuery,
+                PageSize    = pageSize,
+                PageIndex   = pageIndex
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Gets the list of stores
