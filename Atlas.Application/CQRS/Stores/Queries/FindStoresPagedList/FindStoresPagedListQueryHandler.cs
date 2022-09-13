@@ -24,8 +24,11 @@ namespace Atlas.Application.CQRS.Stores.Queries.FindStoresPagedList
 
         public async Task<PageDto<StoreLookupDto>> Handle(FindStoresPagedListQuery request, CancellationToken cancellationToken)
         {
-            var stores = _dbContext.Stores.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Name} {x.NameRu} {x.NameEn} {x.NameUz}",
-                request.SearchQuery));
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+
+            var stores = _dbContext.Stores.Where(x => x.IsDeleted == request.ShowDeleted)
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Name} {x.NameRu} {x.NameEn} {x.NameUz}".ToLower().Trim(),
+                    request.SearchQuery));
 
             var storesCount = await stores.CountAsync(cancellationToken);
             var pagedStores = await stores.Skip(request.PageSize * request.PageIndex)

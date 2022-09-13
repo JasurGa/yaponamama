@@ -7,6 +7,8 @@ namespace Atlas.Application.CQRS.Stores.Queries.FindStoresPagedList
 {
     public class FindStoresPagedListQuery : IRequest<PageDto<StoreLookupDto>>
     {
+        public bool ShowDeleted { get; set; }
+
         public string SearchQuery { get; set; }
 
         public int PageSize { get; set; }
