@@ -7,6 +7,8 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.FindVehiclesPagedList
 {
     public class FindVehiclesPagedListQuery : IRequest<PageDto<VehicleLookupDto>>
     {
+        public bool ShowDeleted { get; set; }
+
         public string SearchQuery { get; set; }
 
         public int PageSize { get; set; }

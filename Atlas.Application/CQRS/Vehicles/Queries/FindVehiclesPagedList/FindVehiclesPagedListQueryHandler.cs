@@ -25,7 +25,10 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.FindVehiclesPagedList
         public async Task<PageDto<VehicleLookupDto>> Handle(FindVehiclesPagedListQuery request,
             CancellationToken cancellationToken)
         {
-            var vehicles = _dbContext.Vehicles.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Name} {x.RegistrationNumber}",
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+
+            var vehicles = _dbContext.Vehicles.Where(x => x.IsDeleted == request.ShowDeleted)
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Name} {x.RegistrationNumber}".ToLower().Trim(),
                     request.SearchQuery));
 
             var vehiclesCount = await vehicles.CountAsync(cancellationToken);
