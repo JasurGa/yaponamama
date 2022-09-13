@@ -7,6 +7,8 @@ namespace Atlas.Application.CQRS.Clients.Queries.FindClientPagedList
 {
     public class FindClientPagedListQuery : IRequest<PageDto<ClientLookupDto>>
     {
+        public bool ShowDeleted { get; set; }
+
         public string SearchQuery { get; set; }
 
         public int PageSize { get; set; }
