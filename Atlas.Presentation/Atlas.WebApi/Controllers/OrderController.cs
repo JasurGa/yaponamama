@@ -50,7 +50,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto OrderLookupDto</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not Found</response>
+        [Authorize]
         [HttpGet("search")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.HeadRecruiter, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PageDto<OrderLookupDto>>> SearchAsync([FromQuery] string searchQuery,

@@ -24,7 +24,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList
 
         public async Task<PageDto<OrderLookupDto>> Handle(FindOrderPagedListQuery request, CancellationToken cancellationToken)
         {
-            var orders = _dbContext.Orders.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Id}",
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+
+            var orders = _dbContext.Orders.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Id}".ToLower().Trim(),
                 request.SearchQuery));
 
             var ordersCount = await orders.CountAsync(cancellationToken);
