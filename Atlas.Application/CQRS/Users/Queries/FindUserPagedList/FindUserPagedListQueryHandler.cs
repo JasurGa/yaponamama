@@ -24,8 +24,11 @@ namespace Atlas.Application.CQRS.Users.Queries.FindUserPagedList
 
         public async Task<PageDto<UserLookupDto>> Handle(FindUserPagedListQuery request, CancellationToken cancellationToken)
         {
-            var users = _dbContext.Users.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Login} {x.FirstName} {x.LastName} {x.MiddleName}",
-                request.SearchQuery));
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+
+            var users = _dbContext.Users.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
+                $"{x.Login} {x.FirstName} {x.LastName} {x.MiddleName}".ToLower().Trim(),
+                    request.SearchQuery));
 
             var usersCount = await users.CountAsync(cancellationToken);
             var pagedUsers = await users.Skip(request.PageSize * request.PageIndex)
