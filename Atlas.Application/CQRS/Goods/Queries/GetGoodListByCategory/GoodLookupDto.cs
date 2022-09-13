@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Atlas.Application.Common.Mappings;
 using Atlas.Domain;
 using AutoMapper;
@@ -41,6 +42,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
         
         public string ProviderName { get; set; }
 
+        public int Count { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Good, GoodLookupDto>()
@@ -77,7 +80,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                 .ForMember(dest => dest.ProviderId, opt =>
                     opt.MapFrom(src => src.Provider.Id))
                 .ForMember(dest => dest.ProviderName, opt =>
-                    opt.MapFrom(src => src.Provider.Name));
+                    opt.MapFrom(src => src.Provider.Name))
+                .ForMember(dest => dest.Count, opt =>
+                    opt.MapFrom(src => src.StoreToGoods.Sum(x => x.Count)));
         }
     }
 }

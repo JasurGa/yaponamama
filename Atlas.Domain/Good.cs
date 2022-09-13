@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Atlas.Domain
 {
     public class Good
@@ -37,7 +39,7 @@ namespace Atlas.Domain
 
         public bool IsDeleted { get; set; }
 
-        public StoreToGood StoreToGood { get; set; }
+        public ICollection<StoreToGood> StoreToGoods { get; set; }
 
         public Provider Provider { get; set; }
     }
