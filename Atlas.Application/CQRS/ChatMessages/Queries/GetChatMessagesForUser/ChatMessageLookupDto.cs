@@ -21,6 +21,8 @@ namespace Atlas.Application.CQRS.ChatMessages.Queries.GetChatMessagesForUser
 
         public DateTime CreatedAt { get; set; }
 
+        public bool HasBeenRead { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<ChatMessage, ChatMessageLookupDto>()
@@ -37,7 +39,9 @@ namespace Atlas.Application.CQRS.ChatMessages.Queries.GetChatMessagesForUser
                 .ForMember(dst => dst.Optional, opt =>
                     opt.MapFrom(src => src.Optional))
                 .ForMember(dst => dst.CreatedAt, opt =>
-                    opt.MapFrom(src => src.CreatedAt));
+                    opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dst => dst.HasBeenRead, opt =>
+                    opt.MapFrom(src => src.HasBeenRead));
         }
     }
 }

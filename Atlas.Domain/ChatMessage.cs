@@ -17,5 +17,7 @@ namespace Atlas.Domain
         public string Optional { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public bool HasBeenRead { get; set; }
     }
 }
