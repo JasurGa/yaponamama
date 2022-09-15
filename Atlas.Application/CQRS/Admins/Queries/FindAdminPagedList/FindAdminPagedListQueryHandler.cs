@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.Admins.Queries.FindAdminPagedList
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
             var admins = _dbContext.Admins.Include(x => x.User).Where(x => x.IsDeleted == request.ShowDeleted)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.PhoneNumber} {x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}".ToLower().Trim(),
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.PhoneNumber + " " + x.User.Login + " " + x.User.FirstName + " " + x.User.LastName + " " + x.User.MiddleName).ToLower().Trim(),
                     request.SearchQuery));
 
             var adminsCount = await admins.CountAsync(cancellationToken);

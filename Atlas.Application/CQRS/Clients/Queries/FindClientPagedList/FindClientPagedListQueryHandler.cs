@@ -28,7 +28,7 @@ namespace Atlas.Application.CQRS.Clients.Queries.FindClientPagedList
 
             var clients = _dbContext.Clients.Where(x => x.IsDeleted == request.ShowDeleted)
                 .Include(x => x.User).OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
-                    $"{x.PhoneNumber} {x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}".ToLower().Trim(),
+                    (x.PhoneNumber + " " + x.User.Login + " " + x.User.FirstName + " " + x.User.LastName + " " + x.User.MiddleName).ToLower().Trim(),
                         request.SearchQuery));
 
             var clientsCount = await clients.CountAsync(cancellationToken);

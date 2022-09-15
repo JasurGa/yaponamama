@@ -28,7 +28,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
 
             var consigments = _dbContext.Consignments.Include(x => x.StoreToGood.Good)
                 .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
-                    $"{x.StoreToGood.Good.Name} {x.StoreToGood.Good.NameRu} {x.StoreToGood.Good.NameEn} {x.StoreToGood.Good.NameUz}".ToLower().Trim(),
+                    (x.StoreToGood.Good.Name + " " + x.StoreToGood.Good.NameRu + " " + x.StoreToGood.Good.NameEn + " " + x.StoreToGood.Good.NameUz).ToLower().Trim(),
                         request.SearchQuery));
 
             var consigmentsCount = await consigments.CountAsync(cancellationToken);

@@ -28,7 +28,7 @@ namespace Atlas.Application.CQRS.Providers.Queries.FindProviderPagedList
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
             var providers = _dbContext.Providers.Where(x => x.IsDeleted == request.ShowDeleted)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Name} {x.Description}".ToLower().Trim(),
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.Name + " " + x.Description).ToLower().Trim(),
                     request.SearchQuery));
 
             var providersCount = await providers.CountAsync(cancellationToken);

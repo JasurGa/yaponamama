@@ -64,7 +64,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
             }
 
             goods = goods.Where(x => x.IsDeleted == request.ShowDeleted)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.Name} {x.NameRu} {x.NameEn} {x.NameUz} {x.SellingPrice}".ToLower().Trim(),
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice.ToString()).ToLower().Trim(),
                     request.SearchQuery));
 
             var goodsCount = await goods.CountAsync(cancellationToken);

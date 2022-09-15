@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.Supports.Queries.FindSupportsPagedList
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
             var supports = _dbContext.Supports.Include(x => x.User).Where(x => x.IsDeleted == request.ShowDeleted)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance($"{x.InternalPhoneNumber} {x.User.Login} {x.User.FirstName} {x.User.LastName} {x.User.MiddleName}".ToLower().Trim(),
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.InternalPhoneNumber + " " + x.User.Login + " " + x.User.FirstName + " " + x.User.LastName + " " + x.User.MiddleName).ToLower().Trim(),
                     request.SearchQuery));
 
             var supportsCount = await supports.CountAsync(cancellationToken);
