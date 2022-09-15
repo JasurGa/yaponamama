@@ -18,6 +18,11 @@ namespace Atlas.Application.CQRS.ChatMessages.Commands.CreateChatMessage
 
         public async Task<Guid> Handle(CreateChatMessageCommand request, CancellationToken cancellationToken)
         {
+            if (request.FromUserId == request.ToUserId)
+            {
+                throw new NotFoundException(nameof(User), "the same");
+            }
+
             var fromUser = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == request.FromUserId,
                 cancellationToken);
 
