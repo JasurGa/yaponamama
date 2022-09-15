@@ -74,7 +74,7 @@ namespace Atlas.WebApi.Hubs
             var myUserId = ConnectedUsers.FirstOrDefault(x =>
                 x.ConnectionId == ConnectionId);
 
-            if (myUserId == null)
+            if (myUserId == null && userId == myUserId.UserId)
             {
                 await Clients.Caller.SendAsync("onCantSend", new
                 {
