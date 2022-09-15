@@ -43,6 +43,7 @@ namespace Atlas.Application.CQRS.ChatMessages.Commands.CreateChatMessage
                 Optional    = request.Optional,
                 MessageType = request.MessageType,
                 CreatedAt   = DateTime.UtcNow,
+                HasBeenRead = false,
             };
 
             await _dbContext.ChatMessages.AddAsync(chatMessage,

@@ -46,6 +46,13 @@ namespace Atlas.Application.CQRS.ChatMessages.Queries.GetChatMessagesForUser
                 .ProjectTo<ChatMessageLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
+            foreach (var m in messages.Where(x => x.ToUserId == request.MyUserId))
+            {
+                m.HasBeenRead = true;
+            }
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
             return new PageDto<ChatMessageLookupDto>
             {
                 PageIndex  = request.PageIndex,

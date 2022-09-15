@@ -15,6 +15,8 @@ namespace Atlas.Application.CQRS.ChatMessages.Queries.GetChatUsers
 
         public string AvatarPhotoPath { get; set; }
 
+        public int UnreadCount { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<User, ChatUserLookupDto>()
