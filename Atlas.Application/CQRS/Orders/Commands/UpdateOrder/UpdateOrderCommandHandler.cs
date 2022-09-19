@@ -63,7 +63,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
             order.ClientId              = request.ClientId;
             order.Comment               = request.Comment;
             order.DontCallWhenDelivered = request.DontCallWhenDelivered;
-            order.DestinationType       = request.DestinationType;
+            order.Apartment             = request.Apartment;
             order.Floor                 = request.Floor;
             order.Entrance              = request.Entrance;
             order.CreatedAt             = request.CreatedAt;

@@ -78,7 +78,7 @@ namespace Atlas.WebApi.Controllers
         ///     {
         ///         "comment": "Test comment",
         ///         "dontCallWhenDelivered": false,
-        ///         "destinationType": 0,
+        ///         "apartment": 0,
         ///         "floor": 0,
         ///         "entrance": 0,
         ///         "toLongitude": 0,
@@ -135,7 +135,7 @@ namespace Atlas.WebApi.Controllers
         ///         "clientId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "comment": "Test comment",
         ///         "dontCallWhenDelivered": false,
-        ///         "destinationType": 0,
+        ///         "apartment": 0,
         ///         "floor": 0,
         ///         "entrance": 0,
         ///         "createdAt": "2022-01-01T10:00:00",

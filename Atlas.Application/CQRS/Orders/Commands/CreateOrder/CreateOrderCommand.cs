@@ -13,7 +13,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
         public bool DontCallWhenDelivered { get; set; }
 
-        public int DestinationType { get; set; }
+        public int Apartment { get; set; }
 
         public int Floor { get; set; }
 

@@ -174,7 +174,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 Status                = (int)OrderStatus.Created,
                 Comment               = request.Comment,
                 DontCallWhenDelivered = request.DontCallWhenDelivered,
-                DestinationType       = request.DestinationType,
+                Apartment             = request.Apartment,
                 Floor                 = request.Floor,
                 Entrance              = request.Entrance,
                 ToLatitude            = request.ToLatitude,
