@@ -39,7 +39,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
 
         public float ToLatitude { get; set; }
 
-        public Guid PaymentTypeId { get; set; }
+        public int PaymentType { get; set; }
 
         public bool IsPickup { get; set; }
 

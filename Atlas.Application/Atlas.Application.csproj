@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\PaymentTypes\Queries\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Common\Mappings\" />
     <Folder Include="CQRS\AddressToClients\" />
@@ -60,9 +59,6 @@
     <Folder Include="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
     <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
     <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
-    <Folder Include="CQRS\PaymentTypes\" />
-    <Folder Include="CQRS\PaymentTypes\Queries\" />
-    <Folder Include="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
     <Folder Include="CQRS\FavoriteGoods\" />
     <Folder Include="CQRS\FavoriteGoods\Commands\" />
     <Folder Include="CQRS\FavoriteGoods\Commands\CreateFavoriteGood\" />
@@ -207,9 +203,6 @@
     <None Remove="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
     <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
     <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
-    <None Remove="CQRS\PaymentTypes\" />
-    <None Remove="CQRS\PaymentTypes\Queries\" />
-    <None Remove="CQRS\PaymentTypes\Queries\GetPaymentTypeList\" />
     <None Remove="CQRS\FavoriteGoods\" />
     <None Remove="CQRS\FavoriteGoods\Commands\" />
     <None Remove="CQRS\FavoriteGoods\Commands\CreateFavoriteGood\" />

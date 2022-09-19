@@ -25,7 +25,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
         public bool IsPickup { get; set; }
 
-        public Guid PaymentTypeId { get; set; }
+        public int PaymentType { get; set; }
 
         public string Promo { get; set; }
 

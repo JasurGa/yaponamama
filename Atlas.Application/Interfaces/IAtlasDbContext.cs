@@ -52,8 +52,6 @@ namespace Atlas.Application.Interfaces
 
         DbSet<PageVisit> PageVisits { get; set; }
 
-        DbSet<PaymentType> PaymentTypes { get; set; }
-
         DbSet<Promo> Promos { get; set; }
 
         DbSet<Provider> Providers { get; set; }

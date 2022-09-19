@@ -41,7 +41,7 @@ namespace Atlas.WebApi.Models
 
         public float ToLatitude { get; set; }
 
-        public Guid PaymentTypeId { get; set; }
+        public int PaymentType { get; set; }
 
         public bool IsPickup { get; set; }
 
@@ -84,8 +84,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.ToLongitude))
                 .ForMember(dst => dst.ToLatitude, opt =>
                     opt.MapFrom(src => src.ToLatitude))
-                .ForMember(dst => dst.PaymentTypeId, opt =>
-                    opt.MapFrom(src => src.PaymentTypeId))
+                .ForMember(dst => dst.PaymentType, opt =>
+                    opt.MapFrom(src => src.PaymentType))
                 .ForMember(dst => dst.IsPickup, opt =>
                     opt.MapFrom(src => src.IsPickup))
                 .ForMember(dst => dst.PromoId, opt =>

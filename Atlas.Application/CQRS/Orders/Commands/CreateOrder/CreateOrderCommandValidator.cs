@@ -11,9 +11,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             RuleFor(x => x.ClientId)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(x => x.PaymentTypeId)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.GoodToOrders)
                 .NotEmpty();
         }

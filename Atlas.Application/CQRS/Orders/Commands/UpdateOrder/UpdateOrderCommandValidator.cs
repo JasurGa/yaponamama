@@ -17,9 +17,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
             RuleFor(x => x.CourierId)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(x => x.PaymentTypeId)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.PromoId)
                 .NotEqual(Guid.Empty);
 

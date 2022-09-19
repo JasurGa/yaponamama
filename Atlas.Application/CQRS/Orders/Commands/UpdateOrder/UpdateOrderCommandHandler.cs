@@ -42,14 +42,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
                 throw new NotFoundException(nameof(Courier), courier.Id);
             }
 
-            var paymentType = await _dbContext.PaymentTypes.FirstOrDefaultAsync(x => x.Id == request.PaymentTypeId,
-                cancellationToken);
-
-            if (paymentType == null)
-            {
-                throw new NotFoundException(nameof(PaymentType), paymentType.Id);
-            }
-
             var promo = await _dbContext.Promos.FirstOrDefaultAsync(x => x.Id == request.PromoId,
                 cancellationToken);
 
@@ -82,7 +74,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
             order.Status                = request.Status;
             order.ToLongitude           = request.ToLongitude;
             order.ToLatitude            = request.ToLatitude;
-            order.PaymentTypeId         = request.PaymentTypeId;
+            order.PaymentType           = request.PaymentType;
             order.IsPickup              = request.IsPickup;
             order.PromoId               = request.PromoId;
 

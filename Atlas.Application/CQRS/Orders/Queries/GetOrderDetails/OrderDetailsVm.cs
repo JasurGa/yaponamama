@@ -2,7 +2,6 @@
 using Atlas.Application.Common.Mappings;
 using Atlas.Application.CQRS.Clients.Queries.GetClientDetails;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails;
-using Atlas.Application.CQRS.PaymentTypes.Queries.GetPaymentTypeList;
 using Atlas.Application.CQRS.Promos.Queries.GetPromoDetails;
 using Atlas.Application.CQRS.Stores.Queries.GetStoreDetails;
 using Atlas.Domain;
@@ -44,7 +43,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public PromoDetailsVm Promo { get; set; }
 
-        public PaymentTypeLookupDto PaymentType { get; set; }
+        public int PaymentType { get; set; }
 
         public StoreDetailsVm Store { get; set; }
 

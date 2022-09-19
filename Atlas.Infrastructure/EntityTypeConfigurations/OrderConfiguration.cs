@@ -27,11 +27,6 @@ namespace Atlas.Persistence.EntityTypeConfigurations
                 .HasForeignKey(x => x.PromoId);
 
             builder
-                .HasOne(x => x.PaymentType)
-                .WithMany()
-                .HasForeignKey(x => x.PaymentTypeId);
-
-            builder
                 .HasOne(x => x.Store)
                 .WithMany()
                 .HasForeignKey(x => x.StoreId);

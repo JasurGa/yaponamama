@@ -149,12 +149,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             return minMax.OrderBy(x => x.Value).FirstOrDefault().Key;
         }
 
-        private async Task<PaymentType> GetPaymentType(CreateOrderCommand request, CancellationToken cancellation)
-        {
-            return await _dbContext.PaymentTypes.FirstOrDefaultAsync(x =>
-                x.Id == request.PaymentTypeId, cancellation);
-        }
-
         public async Task<Guid> Handle(CreateOrderCommand request,
             CancellationToken cancellationToken)
         {
@@ -174,12 +168,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             var sellingPrice    = await GetSellingPriceAsync(request, cancellationToken, foundPromo);
             var purchasePrice   = await GetPurchasePriceAsync(request, cancellationToken);
 
-            var paymentType     = await GetPaymentType(request, cancellationToken);
-            if (paymentType == null)
-            {
-                throw new NotFoundException(nameof(PaymentType), request.PaymentTypeId);
-            }
-            
             var order = new Order
             {
                 Id                    = Guid.NewGuid(),
@@ -193,7 +181,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 ToLongitude           = request.ToLongitude,
                 ClientId              = request.ClientId,
                 IsPickup              = request.IsPickup,
-                PaymentTypeId         = request.PaymentTypeId,
+                PaymentType           = request.PaymentType,
                 CreatedAt             = DateTime.UtcNow,
                 FinishedAt            = null,
                 SellingPrice          = sellingPrice,

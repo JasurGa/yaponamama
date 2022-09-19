@@ -39,7 +39,7 @@ namespace Atlas.Domain
 
         public float ToLatitude { get; set; }
 
-        public Guid PaymentTypeId { get; set; }
+        public int PaymentType { get; set; }
 
         public bool IsPickup { get; set; }
 
@@ -52,8 +52,6 @@ namespace Atlas.Domain
         public Store Store { get; set; }
 
         public Promo Promo { get; set; }
-
-        public PaymentType PaymentType { get; set; }
 
         public IEnumerable<GoodToOrder> GoodToOrders { get; set; } 
     }

@@ -22,7 +22,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
             CancellationToken cancellationToken)
         {
             var order = await _dbContext.Orders.Include(x => x.Client).Include(x => x.Courier)
-                .Include(x => x.PaymentType).Include(x => x.Promo).Include(x => x.Store)
+                .Include(x => x.Promo).Include(x => x.Store)
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (order == null || order.ClientId != request.ClientId)
