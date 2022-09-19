@@ -8,6 +8,7 @@ using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using Atlas.Domain;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Neo4j.Driver;
@@ -69,14 +70,17 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
 
             var goodsCount = await goods.CountAsync(cancellationToken);
             var pagedGoods = await goods.Skip(request.PageSize * request.PageIndex)
-                .Take(request.PageSize).ToListAsync(cancellationToken);
+                .Take(request.PageSize)
+                .Include(x => x.StoreToGoods)
+                .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
 
             return new PageDto<GoodLookupDto>
             {
                 PageIndex  = request.PageIndex,
                 TotalCount = goodsCount,
                 PageCount  = (int)Math.Ceiling((double)goodsCount / request.PageSize),
-                Data       = _mapper.Map<List<Good>, List<GoodLookupDto>>(pagedGoods),
+                Data       = pagedGoods,
             };
         }
     }
