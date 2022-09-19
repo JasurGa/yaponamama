@@ -5,6 +5,7 @@ using Atlas.Application.CQRS.Orders.Commands.CancelOrder;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
 using Atlas.Application.CQRS.Orders.Commands.FinishOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
+using Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus;
 using Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
@@ -167,6 +168,38 @@ namespace Atlas.WebApi.Controllers
         {
             await Mediator.Send(_mapper.Map<UpdateOrderDto,
                 UpdateOrderCommand>(updateOrderDto));
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Updates the order status
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     PUT /api/1.0/order/status
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "status": 0,
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="updateOrderDto">UpdateOrderStatusDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Ok</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPut("status")]
+        [AuthRoleFilter(new string[] { Roles.Client, Roles.Admin })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> UpdateStatusAsync([FromBody] UpdateOrderStatusDto updateOrderDto)
+        {
+            await Mediator.Send(_mapper.Map<UpdateOrderStatusDto,
+                UpdateOrderStatusCommand>(updateOrderDto));
 
             return NoContent();
         }
