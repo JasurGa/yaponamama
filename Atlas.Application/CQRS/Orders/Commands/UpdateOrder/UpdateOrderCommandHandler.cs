@@ -23,7 +23,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
 
             if (order == null)
             {
-                throw new NotFoundException(nameof(Order), order.Id);
+                throw new NotFoundException(nameof(Order), request.Id);
             }
 
             var client = await _dbContext.Clients.FirstOrDefaultAsync(x => x.Id == request.ClientId,
@@ -31,7 +31,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
 
             if (client == null)
             {
-                throw new NotFoundException(nameof(Client), client.Id);
+                throw new NotFoundException(nameof(Client), request.ClientId);
             }
 
             var courier = await _dbContext.Couriers.FirstOrDefaultAsync(x => x.Id == request.CourierId,
@@ -39,7 +39,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
 
             if (courier == null)
             {
-                throw new NotFoundException(nameof(Courier), courier.Id);
+                throw new NotFoundException(nameof(Courier), request.CourierId);
             }
 
             var promo = await _dbContext.Promos.FirstOrDefaultAsync(x => x.Id == request.PromoId,
