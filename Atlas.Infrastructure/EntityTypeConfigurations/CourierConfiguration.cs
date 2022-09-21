@@ -19,7 +19,8 @@ namespace Atlas.Persistence.EntityTypeConfigurations
             builder
                 .HasOne(x => x.Vehicle)
                 .WithOne(x => x.Courier)
-                .HasForeignKey<Courier>(x => x.VehicleId);
+                .HasForeignKey<Courier>(x => x.VehicleId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }

@@ -14,7 +14,8 @@ namespace Atlas.Persistence.EntityTypeConfigurations
             builder
                 .HasOne(x => x.VehicleType)
                 .WithMany(y => y.Vehicles)
-                .HasForeignKey(x => x.VehicleTypeId);
+                .HasForeignKey(x => x.VehicleTypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         }
     }
 }
