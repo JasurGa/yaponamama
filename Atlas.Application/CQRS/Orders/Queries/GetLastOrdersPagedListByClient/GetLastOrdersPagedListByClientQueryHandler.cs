@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 {
-    public class GetLastOrdersPagedListByClientQueryHandler : IRequestHandler<GetLastOrdersPagedListByClientQuery, PageDto<OrderLookupDto>>
+    public class GetLastOrdersPagedListByClientQueryHandler : IRequestHandler<GetLastOrdersPagedListByClientQuery, PageDto<ClientOrderLookupDto>>
     {
         private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
@@ -19,20 +19,22 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
         public GetLastOrdersPagedListByClientQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<PageDto<OrderLookupDto>> Handle(GetLastOrdersPagedListByClientQuery request, CancellationToken cancellationToken)
+        public async Task<PageDto<ClientOrderLookupDto>> Handle(GetLastOrdersPagedListByClientQuery request, CancellationToken cancellationToken)
         {
             var ordersCount = await _dbContext.Orders.CountAsync(x => 
                 x.ClientId == request.ClientId,
                 cancellationToken);
 
             var orders = await _dbContext.Orders
+                .Include(x => x.Store)
                 .Where(x => x.ClientId == request.ClientId)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
-                .ProjectTo<OrderLookupDto>(_mapper.ConfigurationProvider)
+                .OrderByDescending(x => x.CreatedAt)
+                .ProjectTo<ClientOrderLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new PageDto<OrderLookupDto>
+            return new PageDto<ClientOrderLookupDto>
             {
                 PageIndex  = request.PageIndex,
                 TotalCount = ordersCount,

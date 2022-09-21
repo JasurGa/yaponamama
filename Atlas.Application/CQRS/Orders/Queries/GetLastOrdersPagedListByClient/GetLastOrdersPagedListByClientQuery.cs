@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 {
-    public class GetLastOrdersPagedListByClientQuery : IRequest<PageDto<OrderLookupDto>>
+    public class GetLastOrdersPagedListByClientQuery : IRequest<PageDto<ClientOrderLookupDto>>
     {
         public Guid ClientId { get; set; }
 
