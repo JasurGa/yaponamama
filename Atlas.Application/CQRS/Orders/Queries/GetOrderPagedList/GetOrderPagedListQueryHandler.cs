@@ -26,6 +26,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin
             var ordersCount = await _dbContext.Orders.CountAsync(cancellationToken);
 
             var orders = await _dbContext.Orders
+                  .OrderByDescending(x => x.CreatedAt)
                   .Skip(request.PageIndex * request.PageSize)
                   .Take(request.PageSize)
                   .ProjectTo<OrderLookupDto>(_mapper.ConfigurationProvider)

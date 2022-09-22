@@ -28,6 +28,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
 
             var orders = await _dbContext.Orders
                     .Where(x => x.CourierId == request.CourierId)
+                    .OrderByDescending(x => x.CreatedAt)
                     .Skip(request.PageIndex * request.PageSize)
                     .Take(request.PageSize)
                     .ProjectTo<OrderLookupDto>(_mapper.ConfigurationProvider)
