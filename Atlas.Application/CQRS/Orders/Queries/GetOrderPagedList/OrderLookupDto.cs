@@ -18,6 +18,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
 
         public int GoodCount { get; set; }
 
+        public int PaymentType { get; set; }
+
         public bool IsPrePayed { get; set; }
 
         public DateTime CreatedAt { get; set; }
@@ -37,6 +39,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
                     opt.MapFrom(src => src.Status))
                 .ForMember(dst => dst.IsPrePayed, opt =>
                     opt.MapFrom(src => src.IsPrePayed))
+                .ForMember(dst => dst.PaymentType, opt =>
+                    opt.MapFrom(src => src.PaymentType))
                 .ForMember(dst => dst.CreatedAt, opt =>
                     opt.MapFrom(src => src.CreatedAt));
         }

@@ -402,7 +402,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/order/paged?pageIndex=0&amp;pageSize=10
+        ///     GET /api/1.0/order/paged?pageIndex=0&amp;pageSize=10&amp;filterIsPrePayed=false&amp;filterPaymentType=0&amp;filterStatus=0
         ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
@@ -415,12 +415,16 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10,
+            [FromQuery] bool? filterIsPrePayed = null, [FromQuery] int? filterPaymentType = null, [FromQuery] int? filterStatus = null)
         {
             var vm = await Mediator.Send(new GetOrderPagedListQuery
             {
-                PageIndex = pageIndex,
-                PageSize  = pageSize
+                PageIndex         = pageIndex,
+                PageSize          = pageSize,
+                FilterIsPrePayed  = filterIsPrePayed,
+                FilterPaymentType = filterPaymentType,
+                FilterStatus      = filterStatus,
             });
 
             return Ok(vm);

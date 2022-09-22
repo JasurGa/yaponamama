@@ -25,8 +25,21 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin
         {
             var ordersCount = await _dbContext.Orders.CountAsync(cancellationToken);
 
-            var orders = await _dbContext.Orders
-                  .OrderByDescending(x => x.CreatedAt)
+            var orders = _dbContext.Orders.AsQueryable();
+            if (request.FilterIsPrePayed != null)
+            {
+                orders = orders.Where(x => x.IsPrePayed == request.FilterIsPrePayed);
+            }
+            if (request.FilterPaymentType != null)
+            {
+                orders = orders.Where(x => x.PaymentType == request.FilterPaymentType);
+            }
+            if (request.FilterStatus != null)
+            {
+                orders = orders.Where(x => x.Status == request.FilterStatus);
+            }
+
+            var pagedOrders = await orders.OrderByDescending(x => x.CreatedAt)
                   .Skip(request.PageIndex * request.PageSize)
                   .Take(request.PageSize)
                   .ProjectTo<OrderLookupDto>(_mapper.ConfigurationProvider)
@@ -37,7 +50,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin
                 PageIndex  = request.PageIndex,
                 TotalCount = ordersCount,
                 PageCount  = (int)Math.Ceiling((double)ordersCount / request.PageSize),
-                Data       = orders
+                Data       = pagedOrders
             };
         }
     }

@@ -9,5 +9,11 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin
         public int PageSize { get; set; }
 
         public int PageIndex { get; set; }
+
+        public bool? FilterIsPrePayed { get; set; }
+
+        public int? FilterStatus { get; set; }
+
+        public int? FilterPaymentType { get; set; }
     }
 }
