@@ -18,6 +18,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
 
         public int GoodCount { get; set; }
 
+        public bool IsPrePayed { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public void Mapping(Profile profile)
@@ -33,6 +35,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
                     opt.MapFrom(src => src.GoodToOrders.Sum(x => x.Count)))
                 .ForMember(dst => dst.Status, opt =>
                     opt.MapFrom(src => src.Status))
+                .ForMember(dst => dst.IsPrePayed, opt =>
+                    opt.MapFrom(src => src.IsPrePayed))
                 .ForMember(dst => dst.CreatedAt, opt =>
                     opt.MapFrom(src => src.CreatedAt));
         }

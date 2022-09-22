@@ -45,6 +45,8 @@ namespace Atlas.Domain
 
         public Guid? PromoId { get; set; }
 
+        public bool IsPrePayed { get; set; }
+
         public Client Client { get; set; }
 
         public Courier Courier { get; set; }

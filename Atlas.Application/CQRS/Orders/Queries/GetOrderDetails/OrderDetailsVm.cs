@@ -45,6 +45,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public int PaymentType { get; set; }
 
+        public int Status { get; set; }
+
+        public bool IsPrePayed { get; set; }
+
         public StoreDetailsVm Store { get; set; }
 
         public void Mapping(Profile profile)
@@ -78,6 +82,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                     opt.MapFrom(src => src.IsPickup))
                 .ForMember(dst => dst.SellingPrice, opt =>
                     opt.MapFrom(src => src.SellingPrice))
+                .ForMember(dst => dst.Status, opt =>
+                    opt.MapFrom(src => src.Status))
+                .ForMember(dst => dst.IsPrePayed, opt =>
+                    opt.MapFrom(src => src.IsPrePayed))
                 .ForMember(dst => dst.PurchasePrice, opt =>
                     opt.MapFrom(src => src.PurchasePrice));
         }

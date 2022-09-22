@@ -49,6 +49,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public string Comment { get; set; }
 
+        public bool IsPrePayed { get; set; }
+
         public IList<GoodToOrderLookupDto> GoodToOrders { get; set; }
 
         public void Mapping(Profile profile)
@@ -94,6 +96,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                     opt.MapFrom(src => src.DontCallWhenDelivered))
                 .ForMember(dst => dst.Comment, opt =>
                     opt.MapFrom(src => src.Comment))
+                .ForMember(dst => dst.IsPrePayed, opt =>
+                    opt.MapFrom(src => src.IsPrePayed))
                 .ForMember(dst => dst.GoodToOrders, opt =>
                     opt.MapFrom(src => src.GoodToOrders));
         }
