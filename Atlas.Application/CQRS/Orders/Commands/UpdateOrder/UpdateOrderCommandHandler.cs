@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
+using Atlas.Application.Enums;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
@@ -56,6 +57,26 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
             if (store == null)
             {
                 throw new NotFoundException(nameof(Store), request.StoreId);
+            }
+
+            if (order.Status != (int)OrderStatus.CanceledByAdmin && order.Status != (int)OrderStatus.CanceledByUser)
+            {
+                if (request.Status == (int)OrderStatus.CanceledByAdmin || request.Status == (int)OrderStatus.CanceledByUser)
+                {
+                    var goodIds = order.GoodToOrders.Select(x => x.GoodId);
+
+                    var storeToGoods = await _dbContext.StoreToGoods.Where(x => x.StoreId == order.StoreId &&
+                        goodIds.Contains(x.GoodId)).ToListAsync(cancellationToken);
+
+                    foreach (var storeToGood in storeToGoods)
+                    {
+                        var goodToOrder = order.GoodToOrders.FirstOrDefault(x => x.GoodId == storeToGood.GoodId);
+                        if (goodToOrder != null)
+                        {
+                            storeToGood.Count += goodToOrder.Count;
+                        }
+                    }
+                }
             }
 
             order.CourierId             = request.CourierId;
