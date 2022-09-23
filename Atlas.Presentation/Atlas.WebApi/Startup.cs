@@ -140,11 +140,14 @@ namespace Atlas.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseSwagger();
             app.UseSwaggerUI(op =>
             {
                 op.SwaggerEndpoint("/swagger/v1/swagger.json",
                     "AtlasWebApi");
+                op.InjectStylesheet("/swagger-ui/SwaggerDark.css");
             });
 
             app.UseOptionsMiddleware();
