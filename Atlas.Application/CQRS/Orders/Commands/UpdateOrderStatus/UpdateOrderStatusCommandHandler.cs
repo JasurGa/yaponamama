@@ -20,7 +20,9 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus
 
         public async Task<Unit> Handle(UpdateOrderStatusCommand request, CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            var order = await _dbContext.Orders.Include(x => x.GoodToOrders).FirstOrDefaultAsync(x =>
+                x.Id == request.Id, cancellationToken);
+
             if (order == null)
             {
                 throw new NotFoundException(nameof(Order), request.Id);
