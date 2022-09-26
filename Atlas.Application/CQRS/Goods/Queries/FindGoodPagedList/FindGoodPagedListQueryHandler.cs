@@ -61,9 +61,15 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
                 goods = goods.Where(x => x.SellingPrice <= request.FilterMaxSellingPrice);
             }
 
-            goods = goods.Where(x => x.IsDeleted == request.ShowDeleted)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice.ToString()).ToLower().Trim(),
-                    request.SearchQuery.ToLower().Trim()));
+            goods = goods.Where(x => x.IsDeleted == request.ShowDeleted);
+
+            if (request.SearchQuery != null)
+            {
+                goods = goods.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
+                    (x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice).ToLower().Trim(),
+                        request.SearchQuery.ToLower().Trim()));
+            }
+                
 
             var goodsCount = await goods.CountAsync(cancellationToken);
             var pagedGoods = await goods.Skip(request.PageSize * request.PageIndex)
