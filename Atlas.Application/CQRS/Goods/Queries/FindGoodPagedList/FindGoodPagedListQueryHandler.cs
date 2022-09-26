@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
-using Atlas.Domain;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
