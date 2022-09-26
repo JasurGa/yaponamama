@@ -29,8 +29,6 @@ namespace Atlas.Application.CQRS.GoodToOrders.Queries
 
         public int Count { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
         public void Mapping(Profile profile)
         {
             profile.CreateMap<GoodToOrder, GoodToOrderLookupDto>()
@@ -55,9 +53,7 @@ namespace Atlas.Application.CQRS.GoodToOrders.Queries
                 .ForMember(dest => dest.ProviderId, opt =>
                     opt.MapFrom(src => src.Good.Provider.Id))
                 .ForMember(dest => dest.ProviderName, opt =>
-                    opt.MapFrom(src => src.Good.Provider.Name))
-                .ForMember(dest => dest.CreatedAt, opt =>
-                    opt.MapFrom(src => src.Order.CreatedAt));
+                    opt.MapFrom(src => src.Good.Provider.Name));
         }
     }
 }
