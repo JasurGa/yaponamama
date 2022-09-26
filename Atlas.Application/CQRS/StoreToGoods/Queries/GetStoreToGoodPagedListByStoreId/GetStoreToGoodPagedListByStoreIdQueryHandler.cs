@@ -27,7 +27,6 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
 
             var storeToGoods = await _dbContext.StoreToGoods
                 .Where(x => x.StoreId == request.StoreId)
-                .OrderByDynamic(request.Sortable, request.Ascending)
                 .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.Good.Name + " " + x.Good.NameRu + " " + x.Good.NameEn + " " + x.Good.NameUz + " " + x.Good.SellingPrice.ToString()).ToLower().Trim(),
                     request.SearchQuery.ToLower().Trim()))
                 .Skip(request.PageIndex * request.PageSize)
