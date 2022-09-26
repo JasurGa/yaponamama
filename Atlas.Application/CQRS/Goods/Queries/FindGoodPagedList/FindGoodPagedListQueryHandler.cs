@@ -26,8 +26,6 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
 
         public async Task<PageDto<GoodLookupDto>> Handle(FindGoodPagedListQuery request, CancellationToken cancellationToken)
         {
-            request.SearchQuery = request.SearchQuery.ToLower().Trim();
-
             var goods = _dbContext.Goods.AsQueryable();
             if (request.FilterCategoryId != null)
             {
@@ -65,7 +63,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
 
             goods = goods.Where(x => x.IsDeleted == request.ShowDeleted)
                 .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice.ToString()).ToLower().Trim(),
-                    request.SearchQuery));
+                    request.SearchQuery.ToLower().Trim()));
 
             var goodsCount = await goods.CountAsync(cancellationToken);
             var pagedGoods = await goods.Skip(request.PageSize * request.PageIndex)
