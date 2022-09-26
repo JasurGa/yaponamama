@@ -39,6 +39,8 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <param name="searchQuery">Search Query (string)</param>
         /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="filterStartDate">Starting date</param>
+        /// <param name="filterEndDate">Ending date</param>
         /// <param name="pageIndex">Page Index (int)</param>
         /// <returns>Returns PageDto ConsignmentLookupDto</returns>
         /// <response code="200">Success</response>
@@ -48,14 +50,20 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.HeadRecruiter, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PageDto<ConsignmentLookupDto>>> SearchAsync([FromQuery] string searchQuery,
-            [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<ConsignmentLookupDto>>> SearchAsync(
+            [FromQuery] string searchQuery,
+            [FromQuery] int pageIndex = 0, 
+            [FromQuery] int pageSize = 10, 
+            [FromQuery] DateTime? filterStartDate = null, 
+            [FromQuery] DateTime? filterEndDate = null)
         {
             var vm = await Mediator.Send(new FindConsignmentPagedListQuery
             {
-                SearchQuery = searchQuery,
-                PageSize    = pageSize,
-                PageIndex   = pageIndex,
+                SearchQuery     = searchQuery,
+                PageSize        = pageSize,
+                PageIndex       = pageIndex,
+                FilterStartDate = filterStartDate,
+                FilterEndDate   = filterEndDate
             });
 
             return Ok(vm);
