@@ -2,6 +2,7 @@
 using Atlas.Application.CQRS.StoreToGoods.Commands.CreateStoreToGood;
 using Atlas.Application.CQRS.StoreToGoods.Commands.DeleteStoreToGood;
 using Atlas.Application.CQRS.StoreToGoods.Commands.UpdateStoreToGood;
+using Atlas.Application.CQRS.StoreToGoods.Queries.FindStoreToGoodPagedList;
 using Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodListByStoreId;
 using Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByStoreId;
 using Atlas.Application.Models;
@@ -25,6 +26,43 @@ namespace Atlas.WebApi.Controllers
 
         public StoreToGoodController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Search for goods in a store
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/storetogood/store/a3eb7b4a-9f4e-4c71-8619-398655c563b8/search?searchQuery=bla+bla+bla&amp;pageSize=10&amp;pageIndex=0
+        ///     
+        /// </remarks>
+        /// <param name="storeId">Store id (guid)</param>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <param name="pageSize">Page Size (int)</param>
+        /// <returns>Returns PageDto GoodLookupDto</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        [HttpGet("store/{storeId}/search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<StoreToGoodLookupDto>>> SearchAsync(
+            [FromRoute] Guid storeId,
+            [FromQuery] string searchQuery,
+            [FromQuery] int pageSize = 10, 
+            [FromQuery] int pageIndex = 0
+        )
+        {
+            var vm = await Mediator.Send(new FindStoreToGoodPagedListQuery
+            {
+                SearchQuery = searchQuery,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
+                StoreId     = storeId
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Gets list of goods by store id
