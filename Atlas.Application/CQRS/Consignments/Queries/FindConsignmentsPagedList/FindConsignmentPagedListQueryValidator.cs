@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
 {
@@ -7,9 +6,6 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
     {
         public FindConsignmentPagedListQueryValidator()
         {
-            RuleFor(x => x.SearchQuery)
-                .NotNull();
-
             RuleFor(x => x.PageSize)
                 .GreaterThan(0);
 
