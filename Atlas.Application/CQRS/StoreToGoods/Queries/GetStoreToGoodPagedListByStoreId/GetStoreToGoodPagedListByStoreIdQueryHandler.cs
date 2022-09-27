@@ -22,23 +22,36 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
 
         public async Task<PageDto<StoreToGoodLookupDto>> Handle(GetStoreToGoodPagedListByStoreIdQuery request, CancellationToken cancellationToken)
         {
-            var storeToGoodsCount = await _dbContext.StoreToGoods.CountAsync(x => 
-                x.StoreId == request.StoreId, cancellationToken);
+            request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
-            var storeToGoods = await _dbContext.StoreToGoods
-                .Where(x => x.StoreId == request.StoreId)
-                .OrderByDynamic(request.Sortable, request.Ascending)
-                .Skip(request.PageIndex * request.PageSize)
+            var storeToGoods = _dbContext.StoreToGoods.AsQueryable();
+
+            storeToGoods = storeToGoods.Where(x => x.StoreId == request.StoreId)
+                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.Good.Name + " " + x.Good.NameRu + " " + x.Good.NameEn + " " + x.Good.NameUz + " " + x.Good.SellingPrice.ToString()).ToLower().Trim(),
+                    request.SearchQuery));
+
+            var storeToGoodsCount = await storeToGoods.CountAsync(cancellationToken);
+            var pagedStoreToGoods = await storeToGoods
+                .Skip(request.PageSize * request.PageIndex)
                 .Take(request.PageSize)
                 .ProjectTo<StoreToGoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
+
+            //var storeToGoods = await _dbContext.StoreToGoods
+            //    .Where(x => x.StoreId == request.StoreId)
+            //    .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.Good.Name + " " + x.Good.NameRu + " " + x.Good.NameEn + " " + x.Good.NameUz + " " + x.Good.SellingPrice.ToString()).ToLower().Trim(),
+            //        request.SearchQuery.ToLower().Trim()))
+            //    .Skip(request.PageIndex * request.PageSize)
+            //    .Take(request.PageSize)
+            //    .ProjectTo<StoreToGoodLookupDto>(_mapper.ConfigurationProvider)
+            //    .ToListAsync(cancellationToken);
 
             return new PageDto<StoreToGoodLookupDto>
             {
                 PageIndex = request.PageIndex,
                 TotalCount = storeToGoodsCount,
                 PageCount = (int)Math.Ceiling((double)storeToGoodsCount / request.PageSize),
-                Data = storeToGoods
+                Data = pagedStoreToGoods
             };
         }
     }

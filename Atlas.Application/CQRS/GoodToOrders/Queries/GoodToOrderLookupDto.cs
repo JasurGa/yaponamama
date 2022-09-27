@@ -19,6 +19,12 @@ namespace Atlas.Application.CQRS.GoodToOrders.Queries
 
         public float GoodDiscount { get; set; }
 
+        public long GoodPurchasePrice { get; set; }
+
+        public Guid ProviderId { get; set; }
+
+        public string ProviderName { get; set; }
+
         public Guid OrderId { get; set; }
 
         public int Count { get; set; }
@@ -41,7 +47,13 @@ namespace Atlas.Application.CQRS.GoodToOrders.Queries
                 .ForMember(dest => dest.OrderId, opt =>
                     opt.MapFrom(src => src.OrderId))
                 .ForMember(dest => dest.Count, opt =>
-                    opt.MapFrom(src => src.Count));
+                    opt.MapFrom(src => src.Count))
+                .ForMember(dest => dest.GoodPurchasePrice, opt =>
+                    opt.MapFrom(src => src.Good.PurchasePrice))
+                .ForMember(dest => dest.ProviderId, opt =>
+                    opt.MapFrom(src => src.Good.Provider.Id))
+                .ForMember(dest => dest.ProviderName, opt =>
+                    opt.MapFrom(src => src.Good.Provider.Name));
         }
     }
 }

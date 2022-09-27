@@ -37,19 +37,21 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public float PurchasePrice { get; set; }
 
-        public CourierDetailsVm Courier { get; set; }
-
-        public ClientDetailsVm Client { get; set; }
-
-        public PromoDetailsVm Promo { get; set; }
-
         public int PaymentType { get; set; }
 
         public int Status { get; set; }
 
         public bool IsPrePayed { get; set; }
 
+        public DateTime DeliverAt { get; set; }
+
         public StoreDetailsVm Store { get; set; }
+
+        public CourierDetailsVm Courier { get; set; }
+
+        public ClientDetailsVm Client { get; set; }
+
+        public PromoDetailsVm Promo { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -87,7 +89,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                 .ForMember(dst => dst.IsPrePayed, opt =>
                     opt.MapFrom(src => src.IsPrePayed))
                 .ForMember(dst => dst.PurchasePrice, opt =>
-                    opt.MapFrom(src => src.PurchasePrice));
+                    opt.MapFrom(src => src.PurchasePrice))
+                .ForMember(dst => dst.DeliverAt, opt =>
+                    opt.MapFrom(src => src.DeliverAt));
         }
     }
 }

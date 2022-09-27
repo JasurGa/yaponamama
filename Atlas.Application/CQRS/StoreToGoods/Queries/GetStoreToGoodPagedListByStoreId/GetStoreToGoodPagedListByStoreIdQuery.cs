@@ -12,6 +12,8 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
 
         public int PageIndex { get; set; }
 
+        public string SearchQuery { get; set; }
+
         public string Sortable { get; set; }
 
         public bool Ascending { get; set; }

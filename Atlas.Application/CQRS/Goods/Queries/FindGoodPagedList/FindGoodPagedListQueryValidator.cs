@@ -12,9 +12,6 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
 
             RuleFor(x => x.PageIndex)
                 .GreaterThanOrEqualTo(0);
-
-            RuleFor(x => x.SearchQuery)
-                .NotNull();
         }
     }
 }

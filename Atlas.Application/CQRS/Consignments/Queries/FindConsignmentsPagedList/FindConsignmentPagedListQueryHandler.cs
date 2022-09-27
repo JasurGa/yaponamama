@@ -26,7 +26,9 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
         {
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
-            var consigments = _dbContext.Consignments.Include(x => x.StoreToGood.Good)
+            var consigments = _dbContext.Consignments
+                .Where(x => x.PurchasedAt >= request.FilterStartDate && x.PurchasedAt <= request.FilterEndDate)
+                .Include(x => x.StoreToGood.Good)
                 .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
                     (x.StoreToGood.Good.Name + " " + x.StoreToGood.Good.NameRu + " " + x.StoreToGood.Good.NameEn + " " + x.StoreToGood.Good.NameUz).ToLower().Trim(),
                         request.SearchQuery));
