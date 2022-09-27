@@ -87,7 +87,7 @@ namespace Atlas.WebApi
                         OnMessageReceived = context =>
                         {
                             var path = context.HttpContext.Request.Path;
-                            if (path.StartsWithSegments("/api/chuthub"))
+                            if (path.StartsWithSegments("/api/chathub"))
                             {
                                 var accessToken = context.Request.Query["access_token"];
                                 if (!string.IsNullOrEmpty(accessToken))
