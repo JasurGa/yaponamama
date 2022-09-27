@@ -98,7 +98,11 @@ namespace Atlas.WebApi
                                 accessToken = context.Request.Headers["Authorization"];
                                 if (!string.IsNullOrEmpty(accessToken))
                                 {
-                                    context.Token = accessToken;
+                                    var tokenWithBearer = accessToken.ToString().Split(" ");
+                                    if (tokenWithBearer.Length == 2)
+                                    {
+                                        context.Token = tokenWithBearer[1];
+                                    }
                                 }
                             }
 
