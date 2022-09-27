@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Extensions;
 using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
@@ -25,16 +26,20 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
         {
             var query = _dbContext.Consignments.AsQueryable();
 
-            if (request.SearchQuery != null)
-            {
-                query = query.OrderBy(x => 
-                    EF.Functions.TrigramsWordSimilarityDistance((x.StoreToGood.Good.Name + " " + x.StoreToGood.Good.NameRu + " " + x.StoreToGood.Good.NameEn + " " + x.StoreToGood.Good.NameUz).ToLower().Trim(),
-                        request.SearchQuery.ToLower().Trim()));
-            }
-
             if (request.FilterStartDate != null && request.FilterEndDate != null)
             {
                 query = query.Where(x => x.PurchasedAt >= request.FilterStartDate && x.PurchasedAt <= request.FilterEndDate);
+            }
+
+            if (request.SearchQuery != null)
+            {
+                query = query.OrderBy(x =>
+                    EF.Functions.TrigramsWordSimilarityDistance((x.StoreToGood.Good.Name + " " + x.StoreToGood.Good.NameRu + " " + x.StoreToGood.Good.NameEn + " " + x.StoreToGood.Good.NameUz).ToLower().Trim(),
+                        request.SearchQuery.ToLower().Trim()));
+            }
+            else
+            {
+                query = query.OrderByDynamic(request.Sortable, request.Ascending);
             }
 
             var consignmentsCount = await query.CountAsync(cancellationToken);
