@@ -63,7 +63,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                 .ForMember(dst => dst.CourierId, opt =>
                     opt.MapFrom(src => src.CourierId))
                 .ForMember(dst => dst.CourierFullname, opt =>
-                    opt.MapFrom(src => src.Courier.User.FirstName + src.Courier.User.LastName + src.Courier.User.MiddleName))
+                    opt.MapFrom(src => src.Courier.User.FirstName + " " + src.Courier.User.LastName))
                 .ForMember(dst => dst.ClientId, opt =>
                     opt.MapFrom(src => src.ClientId))
                 .ForMember(dst => dst.CreatedAt, opt =>
