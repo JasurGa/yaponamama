@@ -13,6 +13,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public Guid? CourierId { get; set; }
 
+        public string CourierFullname { get; set; }
+
         public Guid ClientId { get; set; }
 
         public DateTime CreatedAt { get; set; }
@@ -60,6 +62,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                     opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.CourierId, opt =>
                     opt.MapFrom(src => src.CourierId))
+                .ForMember(dst => dst.CourierFullname, opt =>
+                    opt.MapFrom(src => src.Courier.User.FirstName + src.Courier.User.LastName + src.Courier.User.MiddleName))
                 .ForMember(dst => dst.ClientId, opt =>
                     opt.MapFrom(src => src.ClientId))
                 .ForMember(dst => dst.CreatedAt, opt =>
