@@ -26,9 +26,14 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.FindStoreToGoodPagedList
 
             if (request.SearchQuery != null)
             {
-                query = query.OrderBy(x => 
-                    EF.Functions.TrigramsWordSimilarityDistance((x.Good.Name + " " + x.Good.NameRu + " " + x.Good.NameEn + " " + x.Good.NameUz).ToLower().Trim(),
-                        request.SearchQuery.ToLower().Trim()));
+                query = query
+                    .OrderBy(x =>
+                        EF.Functions.TrigramsWordSimilarityDistance((x.Good.Name + " " + x.Good.NameRu + " " + x.Good.NameEn + " " + x.Good.NameUz).ToLower().Trim(),
+                            request.SearchQuery.ToLower().Trim()));
+            } 
+            else
+            {
+                query = query.OrderByDescending(x => x.Count);
             }
 
             var goodsCount = await query.CountAsync(cancellationToken);
