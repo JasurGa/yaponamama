@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
-using Atlas.Domain;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,25 +23,34 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
 
         public async Task<PageDto<ConsignmentLookupDto>> Handle(FindConsignmentPagedListQuery request, CancellationToken cancellationToken)
         {
-            request.SearchQuery = request.SearchQuery.ToLower().Trim();
+            var query = _dbContext.Consignments.AsQueryable();
 
-            var consigments = _dbContext.Consignments
-                .Where(x => x.PurchasedAt >= request.FilterStartDate && x.PurchasedAt <= request.FilterEndDate)
+            if (request.SearchQuery != null)
+            {
+                query = query.OrderBy(x => 
+                    EF.Functions.TrigramsWordSimilarityDistance((x.StoreToGood.Good.Name + " " + x.StoreToGood.Good.NameRu + " " + x.StoreToGood.Good.NameEn + " " + x.StoreToGood.Good.NameUz).ToLower().Trim(),
+                        request.SearchQuery.ToLower().Trim()));
+            }
+
+            if (request.FilterStartDate != null && request.FilterEndDate != null)
+            {
+                query = query.Where(x => x.PurchasedAt >= request.FilterStartDate && x.PurchasedAt <= request.FilterEndDate);
+            }
+
+            var consignmentsCount = await query.CountAsync(cancellationToken);
+            var consignmnets = await query
                 .Include(x => x.StoreToGood.Good)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
-                    (x.StoreToGood.Good.Name + " " + x.StoreToGood.Good.NameRu + " " + x.StoreToGood.Good.NameEn + " " + x.StoreToGood.Good.NameUz).ToLower().Trim(),
-                        request.SearchQuery));
-
-            var consigmentsCount = await consigments.CountAsync(cancellationToken);
-            var pagedConsigments = await consigments.Skip(request.PageSize * request.PageIndex)
-                .Take(request.PageSize).ToListAsync(cancellationToken);
+                .Skip(request.PageSize * request.PageIndex)
+                .Take(request.PageSize)
+                .ProjectTo<ConsignmentLookupDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
 
             return new PageDto<ConsignmentLookupDto>
             {
                 PageIndex  = request.PageIndex,
-                TotalCount = consigmentsCount,
-                PageCount  = (int)Math.Ceiling((double)consigmentsCount / request.PageSize),
-                Data       = _mapper.Map<List<Consignment>, List<ConsignmentLookupDto>>(pagedConsigments),
+                TotalCount = consignmentsCount,
+                PageCount  = (int)Math.Ceiling((double)consignmentsCount / request.PageSize),
+                Data       = consignmnets,
             };
         }
     }
