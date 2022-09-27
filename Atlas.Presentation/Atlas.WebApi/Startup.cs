@@ -160,8 +160,8 @@ namespace Atlas.WebApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers().RequireCors("AllowAll");
-                endpoints.MapHub<ChatHub>("/api/chathub").RequireCors("AllowAll");
+                endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/api/chathub");
             });
 
             app.ApplicationServices.UseScheduler(scheduler =>
