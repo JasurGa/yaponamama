@@ -1,9 +1,7 @@
 ﻿using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList;
 using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
-using Atlas.Application.CQRS.Orders.Commands.CancelOrder;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
-using Atlas.Application.CQRS.Orders.Commands.FinishOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus;
 using Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList;
