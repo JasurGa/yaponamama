@@ -79,7 +79,6 @@
     <Folder Include="CQRS\Orders\Commands\CreateOrder\" />
     <Folder Include="CQRS\GoodToOrders\Commands\CreateGoodToOrder\" />
     <Folder Include="Common\Helpers\" />
-    <Folder Include="CQRS\Orders\Commands\FinishOrder\" />
     <Folder Include="CQRS\Admins\" />
     <Folder Include="CQRS\Admins\Commands\" />
     <Folder Include="CQRS\Admins\Queries\" />
@@ -226,7 +225,6 @@
     <None Remove="CQRS\GoodToOrders\Commands\" />
     <None Remove="CQRS\GoodToOrders\Commands\CreateGoodToOrder\" />
     <None Remove="Common\Helpers\" />
-    <None Remove="CQRS\Orders\Commands\FinishOrder\" />
     <None Remove="CQRS\Admins\" />
     <None Remove="CQRS\Admins\Commands\" />
     <None Remove="CQRS\Admins\Queries\" />
