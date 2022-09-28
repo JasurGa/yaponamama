@@ -51,6 +51,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus
                         }
                     }
                 }
+
+                order.FinishedAt = DateTime.UtcNow;
             }
 
             order.Status = request.Status;
