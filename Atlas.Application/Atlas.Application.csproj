@@ -142,6 +142,7 @@
     <Folder Include="CQRS\Vehicles\Queries\FindVehiclesPagedList\" />
     <Folder Include="CQRS\Stores\Queries\FindStoresPagedList\" />
     <Folder Include="CQRS\Orders\Commands\UpdateOrderStatus\" />
+    <Folder Include="CQRS\Orders\Commands\CancelOrderByClient\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -292,5 +293,6 @@
     <None Remove="CQRS\Vehicles\Queries\FindVehiclesPagedList\" />
     <None Remove="CQRS\Stores\Queries\FindStoresPagedList\" />
     <None Remove="CQRS\Orders\Commands\UpdateOrderStatus\" />
+    <None Remove="CQRS\Orders\Commands\CancelOrderByClient\" />
   </ItemGroup>
 </Project>

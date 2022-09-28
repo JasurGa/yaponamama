@@ -1,6 +1,7 @@
 ﻿using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList;
 using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
+using Atlas.Application.CQRS.Orders.Commands.CancelOrderByClient;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus;
@@ -473,8 +474,8 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto OrderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
-        [HttpGet("courier/last/paged")]
         [Authorize]
+        [HttpGet("courier/last/paged")]
         [AuthRoleFilter(Roles.Courier)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -488,6 +489,38 @@ namespace Atlas.WebApi.Controllers
             }) ;
 
             return Ok(vm);
+        }
+
+        /// <summary>
+        /// Cancels the order (for client)
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     DELETE /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/cancel
+        /// 
+        /// </remarks>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">NotFound</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpDelete("{id}/cancel")]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> CancelOrderForClientAsync([FromQuery] Guid id)
+        {
+            await Mediator.Send(new CancelOrderByClientCommand
+            {
+                Id       = id,
+                ClientId = ClientId
+            });
+
+            return NoContent();
         }
     }
 }
