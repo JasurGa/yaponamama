@@ -13,6 +13,10 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
 
         public DateTime? FilterEndDate { get; set; }
 
+        public string Sortable { get; set; }
+
+        public bool Ascending { get; set; }
+
         public int PageSize { get; set; }
 
         public int PageIndex { get; set; }

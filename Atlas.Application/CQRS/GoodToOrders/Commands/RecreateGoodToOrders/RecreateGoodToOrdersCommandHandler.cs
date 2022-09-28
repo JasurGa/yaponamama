@@ -40,6 +40,11 @@ namespace Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders
                 var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x => 
                     x.GoodId == goodToOrder.GoodId && x.StoreId == order.StoreId, cancellationToken);
 
+                if (storeToGood == null)
+                {
+                    throw new NotFoundException(nameof(StoreToGood), "No such StoreToGood connection with goodId: " + goodToOrder.GoodId);
+                }
+
                 storeToGood.Count += goodToOrder.Count;
             }
 

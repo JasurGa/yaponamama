@@ -41,6 +41,8 @@ namespace Atlas.WebApi.Controllers
         /// <param name="pageSize">Page Size (int)</param>
         /// <param name="filterStartDate">Starting date</param>
         /// <param name="filterEndDate">Ending date</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order type: Ascending (true) || Descending (false)</param>
         /// <param name="pageIndex">Page Index (int)</param>
         /// <returns>Returns PageDto ConsignmentLookupDto</returns>
         /// <response code="200">Success</response>
@@ -55,7 +57,9 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] int pageIndex = 0, 
             [FromQuery] int pageSize = 10, 
             [FromQuery] DateTime? filterStartDate = null, 
-            [FromQuery] DateTime? filterEndDate = null)
+            [FromQuery] DateTime? filterEndDate = null,
+            [FromQuery] string sortable = "Id",
+            [FromQuery] bool ascending = true)
         {
             var vm = await Mediator.Send(new FindConsignmentPagedListQuery
             {
@@ -63,7 +67,9 @@ namespace Atlas.WebApi.Controllers
                 PageSize        = pageSize,
                 PageIndex       = pageIndex,
                 FilterStartDate = filterStartDate,
-                FilterEndDate   = filterEndDate
+                FilterEndDate   = filterEndDate,
+                Sortable        = sortable,
+                Ascending       = ascending
             });
 
             return Ok(vm);
