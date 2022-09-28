@@ -28,11 +28,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus
                 throw new NotFoundException(nameof(Order), request.Id);
             }
 
-            if (order.Status == (int)OrderStatus.Success)
-            {
-                order.FinishedAt = DateTime.UtcNow;
-            }
-
             if (order.Status != (int)OrderStatus.CanceledByAdmin && order.Status != (int)OrderStatus.CanceledByUser)
             {
                 if (request.Status == (int)OrderStatus.CanceledByAdmin || request.Status == (int)OrderStatus.CanceledByUser)
@@ -51,11 +46,14 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus
                         }
                     }
                 }
-
-                order.FinishedAt = DateTime.UtcNow;
             }
 
             order.Status = request.Status;
+            if (order.Status == (int)OrderStatus.Success || order.Status == (int)OrderStatus.CanceledByAdmin || order.Status == (int)OrderStatus.CanceledByUser)
+            {
+                order.FinishedAt = DateTime.UtcNow;
+            }
+                
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
