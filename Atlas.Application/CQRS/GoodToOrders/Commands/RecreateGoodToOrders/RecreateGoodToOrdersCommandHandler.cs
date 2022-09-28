@@ -49,6 +49,7 @@ namespace Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders
             }
 
             _dbContext.GoodToOrders.RemoveRange(goodToOrders);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             // Create a new list of goods
             foreach (var goodToOrder in request.GoodToOrders)
