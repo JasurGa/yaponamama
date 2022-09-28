@@ -15,7 +15,7 @@ namespace Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders
     {
         private readonly IAtlasDbContext _dbContext;
 
-        public RecreateGoodToOrdersCommandHandler(IMediator mediator, IAtlasDbContext dbContext) =>
+        public RecreateGoodToOrdersCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
         public async Task<List<Guid>> Handle(RecreateGoodToOrdersCommand request, CancellationToken cancellationToken)
