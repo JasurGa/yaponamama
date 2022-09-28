@@ -21,7 +21,6 @@ namespace Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders
 
         public async Task<List<Guid>> Handle(RecreateGoodToOrdersCommand request, CancellationToken cancellationToken)
         {
-            // Check if order exists
             var order = await _dbContext.Orders.FirstOrDefaultAsync(x =>
                 x.Id == request.OrderId, cancellationToken);
 
@@ -30,7 +29,6 @@ namespace Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders
                 throw new NotFoundException(nameof(Order), request.OrderId);
             }
 
-            // Clear the list of goods of our order and return all the good counts back to stores
             var goodToOrders = await _dbContext.GoodToOrders
                 .Where(x => x.OrderId == request.OrderId)
                 .ToListAsync(cancellationToken);
@@ -40,30 +38,42 @@ namespace Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders
                 var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x => 
                     x.GoodId == goodToOrder.GoodId && x.StoreId == order.StoreId, cancellationToken);
 
-                if (storeToGood == null)
+                if (storeToGood != null)
                 {
-                    throw new NotFoundException(nameof(StoreToGood), "No such StoreToGood connection with goodId: " + goodToOrder.GoodId);
+                    storeToGood.Count += goodToOrder.Count;
                 }
-
-                storeToGood.Count += goodToOrder.Count;
             }
 
             _dbContext.GoodToOrders.RemoveRange(goodToOrders);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            // Create a new list of goods
             foreach (var goodToOrder in request.GoodToOrders)
             {
                 goodToOrder.OrderId = order.Id;
                 goodToOrder.StoreId = order.StoreId;
-                await _mediator.Send(goodToOrder, cancellationToken);
+
+                var e = new GoodToOrder
+                {
+                    Id      = Guid.NewGuid(),
+                    GoodId  = goodToOrder.GoodId,
+                    OrderId = request.OrderId,
+                    Count   = goodToOrder.Count,
+                };
+
+                var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x =>
+                    x.GoodId == goodToOrder.GoodId && x.StoreId == order.StoreId, cancellationToken);
+
+                if (storeToGood != null)
+                {
+                    storeToGood.Count -= goodToOrder.Count;
+                }
+
+                await _dbContext.GoodToOrders.AddAsync(e, cancellationToken);
             }
 
-            // Set a new total price
             order.PurchasePrice = await GetPurchasePriceAsync(request, cancellationToken);
             order.SellingPrice  = await GetSellingPriceAsync(request, order.Promo, cancellationToken);
 
-            // Save all the changes
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return await _dbContext.GoodToOrders
