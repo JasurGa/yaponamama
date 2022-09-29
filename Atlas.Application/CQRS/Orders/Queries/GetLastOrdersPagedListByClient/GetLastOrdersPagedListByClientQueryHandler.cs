@@ -30,7 +30,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                 .Where(x => x.ClientId == request.ClientId)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
-                .OrderByDescending(x => x.CreatedAt)
+                .OrderBy(x => x.CreatedAt)
                 .ProjectTo<ClientOrderLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
