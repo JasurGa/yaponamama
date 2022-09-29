@@ -26,11 +26,11 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                 cancellationToken);
 
             var orders = await _dbContext.Orders
+                .OrderByDescending(x => x.CreatedAt)
                 .Include(x => x.Store)
                 .Where(x => x.ClientId == request.ClientId)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
-                .OrderBy(x => x.CreatedAt)
                 .ProjectTo<ClientOrderLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
