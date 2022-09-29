@@ -15,6 +15,11 @@ namespace Atlas.Persistence.EntityTypeConfigurations
                 .HasOne(x => x.VehicleType)
                 .WithMany(y => y.Vehicles)
                 .HasForeignKey(x => x.VehicleTypeId);
+
+            builder
+                .HasOne(x => x.Store)
+                .WithMany(y => y.Vehicles)
+                .HasForeignKey(x => x.StoreId);
         }
     }
 }
