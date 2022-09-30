@@ -33,7 +33,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByProvider
             }
 
             var goods = await _dbContext.Goods.OrderBy(x => x.NameRu)
-                .Where(x => x.ProviderId == request.ProviderId)
+                .Where(x => x.ProviderId == request.ProviderId && x.IsDeleted == request.ShowDeleted)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

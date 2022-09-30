@@ -86,7 +86,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/good/random/main
+        ///     GET /api/1.0/good/random/main?showDeleted=false
         ///     
         /// </remarks>
         /// <returns>Returns TopGoodListVm</returns>
@@ -95,9 +95,13 @@ namespace Atlas.WebApi.Controllers
         [HttpGet("random/main")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<TopGoodListVm>> GetRandomGoodsAsync()
+        public async Task<ActionResult<TopGoodListVm>> GetRandomGoodsAsync([FromQuery] bool showDeleted = false)
         {
-            var vm = await Mediator.Send(new GetGoodsForMainCategoriesQuery());
+            var vm = await Mediator.Send(new GetGoodsForMainCategoriesQuery
+            {
+                ShowDeleted = showDeleted
+            });
+
             return Ok(vm);
         }
 
@@ -107,7 +111,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/good/random/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     GET /api/1.0/good/random/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=false
         ///     
         /// </remarks>
         /// <param name="categoryId">Category id (guid)</param>
@@ -118,11 +122,12 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<TopGoodListVm>> GetRandomGoodsAsync(
-            [FromRoute] Guid categoryId)
+            [FromRoute] Guid categoryId, [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetTopGoodsQuery
             {
-                CategoryId = categoryId
+                CategoryId  = categoryId,
+                ShowDeleted = showDeleted
             });
 
             return Ok(vm);
@@ -161,7 +166,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/good/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=true
+        ///     GET /api/1.0/good/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=false
         ///     
         /// </remarks>
         /// <param name="categoryId">Category id (guid)</param>
@@ -189,7 +194,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/good/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=true
+        ///     GET /api/1.0/good/provider/a3eb7b4a-9f4e-4c71-8619-398655c563b8?showDeleted=false
         ///     
         /// </remarks>
         /// <param name="providerId">Provider id (guid)</param>
@@ -409,18 +414,20 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/good/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/discounted
+        ///     GET /api/1.0/good/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/discounted?showDeleted=false
         ///     
         /// </remarks>
         /// <returns>Returns GoodListVm GoodLookupDto object</returns>
         /// <response code="200">Success</response>
         [HttpGet("category/{categoryId}/discounted")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<GoodListVm>> GetDiscountedGoodsByCategoryIdtAsync([FromRoute] Guid categoryId)
+        public async Task<ActionResult<GoodListVm>> GetDiscountedGoodsByCategoryIdtAsync([FromRoute] Guid categoryId,
+            [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetDiscountedGoodListByCategoryQuery
             {
-                CategoryId = categoryId,
+                CategoryId  = categoryId,
+                ShowDeleted = showDeleted
             });
 
             return Ok(vm);

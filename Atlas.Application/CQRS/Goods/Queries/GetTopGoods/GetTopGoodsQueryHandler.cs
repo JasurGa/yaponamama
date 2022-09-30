@@ -33,7 +33,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetTopGoods
             var childCategories = await _mediator.Send(new GetCategoryChildrenQuery
             {
                 Id          = request.CategoryId,
-                ShowDeleted = false
+                ShowDeleted = request.ShowDeleted
             });
 
             var session = _driver.AsyncSession();
@@ -54,7 +54,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetTopGoods
                     }
 
                     var goods = await _dbContext.Goods
-                        .Where(x => goodIds.Contains(x.Id))
+                        .Where(x => goodIds.Contains(x.Id) && x.IsDeleted == request.ShowDeleted)
                         .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);
 

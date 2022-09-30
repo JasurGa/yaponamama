@@ -46,7 +46,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetDiscountedGoodListByCategory
             }
 
             var goods = await _dbContext.Goods
-                .Where(x => goodsIds.Contains(x.Id) & x.IsDeleted == false & x.Discount != 0)
+                .Where(x => goodsIds.Contains(x.Id) & x.IsDeleted == request.ShowDeleted & x.Discount != 0)
                 .Take(10)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
