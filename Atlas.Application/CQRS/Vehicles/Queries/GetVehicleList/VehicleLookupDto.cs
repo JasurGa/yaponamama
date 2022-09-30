@@ -17,7 +17,11 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList
 
         public Guid VehicleTypeId { get; set; }
 
+        public string VehicleTypeName { get; set; }
+
         public Guid StoreId { get; set; }
+        
+        public string StoreName { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -32,8 +36,12 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.GetVehicleList
                     opt.MapFrom(src => src.RegistrationCertificateNumber))
                 .ForMember(dst => dst.VehicleTypeId, opt =>
                     opt.MapFrom(src => src.VehicleTypeId))
+                .ForMember(dst => dst.VehicleTypeName, opt =>
+                    opt.MapFrom(src => src.VehicleType.Name))
                 .ForMember(dst => dst.StoreId, opt =>
-                    opt.MapFrom(src => src.StoreId));
+                    opt.MapFrom(src => src.StoreId))
+                .ForMember(dst => dst.StoreName, opt =>
+                    opt.MapFrom(src => src.Store.Name));
         }
     }
 }

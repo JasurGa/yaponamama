@@ -23,5 +23,7 @@ namespace Atlas.Domain
         public Courier Courier { get; set; }
 
         public VehicleType VehicleType { get; set; }
+
+        public Store Store { get; set; }
     }
 }
