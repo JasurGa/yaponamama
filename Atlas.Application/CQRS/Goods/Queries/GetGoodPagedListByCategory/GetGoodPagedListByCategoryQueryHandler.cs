@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Extensions;
+using Atlas.Application.Common.Helpers;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodsForMainCategories;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -29,6 +31,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory
             CancellationToken cancellationToken)
         {
             var goodIds = new List<Guid>();
+            var goodIdsWithCategories = new List<GoodToCategoriesLookupDto>();
 
             var session = _driver.AsyncSession();
             try
@@ -43,6 +46,13 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory
                 {
                     goodIds.Add(Guid.Parse(record[0].As<string>()));
                 }
+
+                cursor = await session.RunAsync("MATCH (g:Good)-[r:BELONGS_TO*..]->(c:Category) WHERE g.Id IN $GoodIds RETURN {GoodId: g.Id, CategoryIds: COLLECT(DISTINCT c.Id)}", new
+                {
+                    GoodIds = goodIds.Select(x => x.ToString())
+                });
+
+                goodIdsWithCategories = await cursor.ConvertDictManyAsync<GoodToCategoriesLookupDto>();
             }
             finally
             {
@@ -69,7 +79,16 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByCategory
                 TotalCount = goodsCount,
                 PageCount  = (int)Math.Ceiling((double)goodsCount /
                     request.PageSize),
-                Data       = goods
+                Data       = goods.Select((x) =>
+                {
+                    var categories = goodIdsWithCategories.FirstOrDefault(y => y.GoodId == x.Id);
+                    if (categories != null)
+                    {
+                        x.Categories = categories.CategoryIds;
+                    }
+
+                    return x;
+                }).ToList()
             };
         }
     }
