@@ -55,7 +55,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodsForMainCategories
                         goodIds.Add(Guid.Parse(record[1].As<string>()));
                     }
 
-                    cursor = await session.RunAsync("MATCH (g:Good)-[r:BELONGS_TO*..]->(c:Category) WHERE g.Id IN $GoodIds RETURN {goodId: g.Id, categories: COLLECT(DISTINCT c.Id)}", new
+                    cursor = await session.RunAsync("MATCH (g:Good)-[r:BELONGS_TO*..]->(c:Category) WHERE g.Id IN $GoodIds RETURN {GoodId: g.Id, CategoryIds: COLLECT(DISTINCT c.Id)}", new
                     {
                         GoodIds = goodIds.Select(x => x.ToString())
                     });
