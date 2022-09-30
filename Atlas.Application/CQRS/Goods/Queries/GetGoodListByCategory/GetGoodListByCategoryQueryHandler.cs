@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Helpers;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodsForMainCategories;
 using Atlas.Application.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -26,6 +28,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
             CancellationToken cancellationToken)
         {
             var goodIds = new List<Guid>();
+            var goodIdsWithCategories = new List<GoodToCategoriesLookupDto>();
 
             var session = _driver.AsyncSession();
             try
@@ -40,6 +43,13 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                 {
                     goodIds.Add(Guid.Parse(record[0].As<string>()));
                 }
+
+                cursor = await session.RunAsync("MATCH (g:Good)-[r:BELONGS_TO*..]->(c:Category) WHERE g.Id IN $GoodIds RETURN {GoodId: g.Id, CategoryIds: COLLECT(DISTINCT c.Id)}", new
+                {
+                    GoodIds = goodIds.Select(x => x.ToString())
+                });
+
+                goodIdsWithCategories = await cursor.ConvertDictManyAsync<GoodToCategoriesLookupDto>();
             }
             finally
             {
@@ -51,7 +61,19 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new GoodListVm { Goods = goods };
+            return new GoodListVm
+            {
+                Goods = goods.Select((x) =>
+                {
+                    var categories = goodIdsWithCategories.FirstOrDefault(y => y.GoodId == x.Id);
+                    if (categories != null)
+                    {
+                        x.Categories = categories.CategoryIds;
+                    }
+
+                    return x;
+                }).ToList()
+            };
         }
     }
 }
