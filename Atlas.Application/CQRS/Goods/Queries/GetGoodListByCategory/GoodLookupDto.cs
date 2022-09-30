@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Atlas.Application.Common.Mappings;
 using Atlas.Domain;
@@ -43,6 +44,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
         public string ProviderName { get; set; }
 
         public long Count { get; set; }
+
+        public List<Guid> Categories { get; set; }
 
         public void Mapping(Profile profile)
         {

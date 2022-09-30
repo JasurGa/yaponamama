@@ -55,6 +55,13 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodsForMainCategories
                         goodIds.Add(Guid.Parse(record[1].As<string>()));
                     }
 
+                    cursor = await session.RunAsync("MATCH (g:Good)-[r:BELONGS_TO*..]->(c:Category) WHERE g.Id IN $GoodIds RETURN {goodId: g.Id, categories: COLLECT(DISTINCT c.Id)}", new
+                    {
+                        GoodIds = goodIds
+                    });
+
+                    var goodIdsWithCategories = await cursor.ConvertDictManyAsync<GoodToCategoriesLookupDto>();
+
                     var goods = await _dbContext.Goods.OrderBy(x => x.NameRu)
                         .Where(x => goodIds.Contains(x.Id) && x.IsDeleted == request.ShowDeleted)
                         .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
@@ -63,7 +70,16 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodsForMainCategories
                     result.Add(new TopGoodDetailsVm
                     {
                         Category = c,
-                        Goods    = goods
+                        Goods    = goods.Select((x) =>
+                        {
+                            var categories = goodIdsWithCategories.FirstOrDefault(y => y.GoodId == x.Id);
+                            if (categories != null)
+                            {
+                                x.Categories = categories.CategoryIds;
+                            }
+
+                            return x;
+                        }).ToList()
                     });
                 }
             }
