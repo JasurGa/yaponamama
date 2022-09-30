@@ -45,6 +45,7 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
                 Mass          = request.Mass,
                 Discount      = request.Discount,
                 IsDeleted     = false,
+                CreatedAt     = DateTime.UtcNow,
             };
 
             await _dbContext.Goods.AddAsync(good, cancellationToken);

@@ -42,5 +42,7 @@ namespace Atlas.Domain
         public ICollection<StoreToGood> StoreToGoods { get; set; }
 
         public Provider Provider { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }

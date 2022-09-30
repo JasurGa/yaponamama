@@ -47,6 +47,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public List<CategoryLookupDto> Categories { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Good, GoodDetailsVm>()
@@ -85,7 +87,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 .ForMember(dest => dest.Discount, opt =>
                     opt.MapFrom(src => src.Discount))
                 .ForMember(dest => dest.IsDeleted, opt =>
-                    opt.MapFrom(src => src.IsDeleted));
+                    opt.MapFrom(src => src.IsDeleted))
+                .ForMember(dest => dest.CreatedAt, opt =>
+                    opt.MapFrom(src => src.CreatedAt));
         }
     }
 }

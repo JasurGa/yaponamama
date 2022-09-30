@@ -47,6 +47,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
 
         public List<Guid> Categories { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Good, GoodLookupDto>()
@@ -85,7 +87,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                 .ForMember(dest => dest.ProviderName, opt =>
                     opt.MapFrom(src => src.Provider.Name))
                 .ForMember(dest => dest.Count, opt =>
-                    opt.MapFrom(src => src.StoreToGoods.Sum(x => x.Count)));
+                    opt.MapFrom(src => src.StoreToGoods.Sum(x => x.Count)))
+                .ForMember(dest => dest.CreatedAt, opt =>
+                    opt.MapFrom(src => src.CreatedAt));
         }
     }
 }
