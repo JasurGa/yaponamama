@@ -57,7 +57,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodsForMainCategories
 
                     cursor = await session.RunAsync("MATCH (g:Good)-[r:BELONGS_TO*..]->(c:Category) WHERE g.Id IN $GoodIds RETURN {goodId: g.Id, categories: COLLECT(DISTINCT c.Id)}", new
                     {
-                        GoodIds = goodIds
+                        GoodIds = goodIds.Select(x => x.ToString())
                     });
 
                     var goodIdsWithCategories = await cursor.ConvertDictManyAsync<GoodToCategoriesLookupDto>();
