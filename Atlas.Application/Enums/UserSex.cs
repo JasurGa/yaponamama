@@ -2,7 +2,8 @@
 {
     public enum UserSex
     {
-        Male   = 0,
-        Female = 1,
+        Male      = 0,
+        Female    = 1,
+        Undefined = 2
     }
 }
