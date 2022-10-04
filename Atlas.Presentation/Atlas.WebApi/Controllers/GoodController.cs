@@ -26,6 +26,7 @@ using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByProvider;
 using Atlas.Application.CQRS.Goods.Queries.GetDiscountedGoodListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetDiscountedGoodList;
 using Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList;
+using Atlas.Application.CQRS.Goods.Commands.DiscountGoods;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -38,6 +39,42 @@ namespace Atlas.WebApi.Controllers
 
         public GoodController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Discount several goods
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PATCH /api/1.0/good/discount
+        ///     {
+        ///         "discount": 0.1,
+        ///         "goodIds": {
+        ///             a3eb7b4a-9f4e-4c71-8619-398655c563b8,
+        ///             a3eb7b4a-9f4e-4c71-8619-398655c563b8,
+        ///             a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///         }
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="discountGoods">DiscountGoodsDto object</param>
+        /// <returns>Returns id (guid)</returns> 
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpPatch("discount")]
+        [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> DiscountManyAsync([FromBody] DiscountGoodsDto discountGoods)
+        {
+            await Mediator.Send(_mapper.Map<DiscountGoodsDto,
+                DiscountGoodsCommand>(discountGoods));
+
+            return NoContent();
+        }
 
         /// <summary>
         /// Search goods
