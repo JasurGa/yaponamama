@@ -189,7 +189,9 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 StoreId               = foundStore.Id,
                 CourierId             = foundCourier.Id,
                 PromoId               = foundPromo != null ? foundPromo.Id : null,
-                DeliverAt             = request.DeliverAt
+                DeliverAt             = request.DeliverAt,
+                IsPrePayed            = false,
+                CanRefund             = false
             };
 
             await _dbContext.Orders.AddAsync(order,
