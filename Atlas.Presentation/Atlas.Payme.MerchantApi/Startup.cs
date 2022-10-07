@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Atlas.Application;
 using Atlas.Payme.MerchantApi.Controllers;
 using Atlas.Payme.MerchantApi.Helpers.Policies;
+using Atlas.Payme.MerchantApi.Middlewares;
 using Atlas.Payme.MerchantApi.Models;
 using Atlas.Payme.MerchantApi.Services;
 using Atlas.Payme.MerchantApi.Settings;
@@ -66,7 +67,8 @@ namespace Atlas.Payme.MerchantApi
 
             app.UseRouting();
             app.UseAuthorization();
-            
+            app.UseMiddleware<BasicAuthMiddleware>();
+
             app.UseJsonRpc(options =>
             {
                 var CheckPerformTransactionMethod = typeof(MerchantController).GetMethod("CheckPerformTransaction");
