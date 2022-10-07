@@ -69,23 +69,7 @@ namespace Atlas.Payme.MerchantApi
             app.UseAuthorization();
             app.UseMiddleware<BasicAuthMiddleware>();
 
-            app.UseJsonRpc(options =>
-            {
-                var CheckPerformTransactionMethod = typeof(MerchantController).GetMethod("CheckPerformTransaction");
-                var CreateTransactionMethod       = typeof(MerchantController).GetMethod("CreateTransaction");
-                var PerformTransactionMethod      = typeof(MerchantController).GetMethod("PerformTransaction");
-                var CancelTransactionMethod       = typeof(MerchantController).GetMethod("CancelTransaction");
-                var CheckTransactionMethod        = typeof(MerchantController).GetMethod("CheckTransaction");
-                var GetStatementMethod            = typeof(MerchantController).GetMethod("GetStatement");
-
-                options
-                    .AddMethod(CheckPerformTransactionMethod)
-                    .AddMethod(CreateTransactionMethod)
-                    .AddMethod(PerformTransactionMethod)
-                    .AddMethod(CancelTransactionMethod)
-                    .AddMethod(CheckTransactionMethod)
-                    .AddMethod(GetStatementMethod);
-            });
+            app.UseJsonRpc();
 
             app.UseEndpoints(endpoints =>
             {

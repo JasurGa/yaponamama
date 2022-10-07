@@ -31,7 +31,7 @@ namespace Atlas.Payme.MerchantApi.Controllers
             }
             catch (IncorrectAmountException)
             {
-                return Error(-31001, "Wrong amount!");
+                return Error(-31001, "Wrong amount!", "amount");
             }
         }
 
