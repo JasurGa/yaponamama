@@ -41,5 +41,8 @@
     <ProjectReference Include="..\..\Atlas.Domain\Atlas.Domain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\..\Atlas.Infrastructure\Atlas.Persistence.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

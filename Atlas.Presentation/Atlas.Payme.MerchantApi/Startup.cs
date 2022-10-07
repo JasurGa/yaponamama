@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Atlas.Application;
 using Atlas.Payme.MerchantApi.Controllers;
 using Atlas.Payme.MerchantApi.Helpers.Policies;
 using Atlas.Payme.MerchantApi.Models;
 using Atlas.Payme.MerchantApi.Services;
 using Atlas.Payme.MerchantApi.Settings;
+using Atlas.Persistence;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,6 +49,7 @@ namespace Atlas.Payme.MerchantApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Atlas.Payme.MerchantApi", Version = "v1" });
             });
+            services.AddPersistence(Configuration);
 
             services.Configure<AuthSettings>(
                 Configuration.GetSection(AuthSettings.Auth));
@@ -63,6 +66,7 @@ namespace Atlas.Payme.MerchantApi
 
             app.UseRouting();
             app.UseAuthorization();
+            
             app.UseJsonRpc(options =>
             {
                 var CheckPerformTransactionMethod = typeof(MerchantController).GetMethod("CheckPerformTransaction");
