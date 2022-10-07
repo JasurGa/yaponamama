@@ -10,6 +10,7 @@ using Atlas.Application.Enums;
 using InfluxDB.Client.Api.Domain;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using Atlas.Payme.MerchantApi.Extensions;
 
 namespace Atlas.Payme.MerchantApi.Services
 {
@@ -69,7 +70,7 @@ namespace Atlas.Payme.MerchantApi.Services
 
                     return new CreateTransactionResult
                     {
-                        CreateTime  = newTransaction.CreatedAt.Ticks,
+                        CreateTime  = newTransaction.CreatedAt.ToUnixTime(),
                         Transaction = newTransaction.Id.ToString(),
                         State       = newTransaction.State,
                     };
@@ -79,7 +80,7 @@ namespace Atlas.Payme.MerchantApi.Services
             {
                 if (transaction.State == (int)TransactionStatus.STATE_IN_PROGRESS)
                 {
-                    if (DateTime.UtcNow.Ticks - ((long)transaction.PaycomTime) > TIME_EXPIRED)
+                    if (DateTime.UtcNow.ToUnixTime() - ((long)transaction.PaycomTime) > TIME_EXPIRED)
                     {
                         throw new UnableCompleteException();
                     }
@@ -87,7 +88,7 @@ namespace Atlas.Payme.MerchantApi.Services
                     {
                         return new CreateTransactionResult
                         {
-                            CreateTime  = transaction.CreatedAt.Ticks,
+                            CreateTime  = transaction.CreatedAt.ToUnixTime(),
                             Transaction = transaction.Id.ToString(),
                             State       = transaction.State
                         };
@@ -114,7 +115,7 @@ namespace Atlas.Payme.MerchantApi.Services
 
             if (transaction.State == (int)TransactionStatus.STATE_IN_PROGRESS)
             {
-                if (DateTime.UtcNow.Ticks - ((long)transaction.PaycomTime) > TIME_EXPIRED)
+                if (DateTime.UtcNow.ToUnixTime() - ((long)transaction.PaycomTime) > TIME_EXPIRED)
                 {
                     transaction.State = (int)TransactionStatus.STATE_CANCELED;
                     _dbContext.SaveChanges();
@@ -134,7 +135,7 @@ namespace Atlas.Payme.MerchantApi.Services
                     return new PerformTransactionResult
                     {
                         Transaction = transaction.Id.ToString(),
-                        Timestamp   = transaction.PerformedAt.Ticks,
+                        Timestamp   = transaction.PerformedAt.ToUnixTime(),
                         State       = transaction.State
                     };
                 }
@@ -144,7 +145,7 @@ namespace Atlas.Payme.MerchantApi.Services
                 return new PerformTransactionResult
                 {
                     Transaction = transaction.Id.ToString(),
-                    Timestamp   = transaction.PerformedAt.Ticks,
+                    Timestamp   = transaction.PerformedAt.ToUnixTime(),
                     State       = transaction.State
                 };
             }
@@ -193,7 +194,7 @@ namespace Atlas.Payme.MerchantApi.Services
             return new CancelTransactionResult
             {
                 Transaction = transaction.Id.ToString(),
-                CanceledAt  = transaction.CanceledAt.Ticks,
+                CanceledAt  = transaction.CanceledAt.ToUnixTime(),
                 State       = transaction.State
             };
         }
@@ -210,9 +211,9 @@ namespace Atlas.Payme.MerchantApi.Services
 
             return new CheckTransactionResult
             {
-                CancelTime  = transaction.CanceledAt.Ticks,
-                CreateTime  = transaction.CreatedAt.Ticks,
-                PerformTime = transaction.PerformedAt.Ticks,
+                CancelTime  = transaction.CanceledAt.ToUnixTime(),
+                CreateTime  = transaction.CreatedAt.ToUnixTime(),
+                PerformTime = transaction.PerformedAt.ToUnixTime(),
                 Transaction = transaction.Id.ToString(),
                 Reason      = transaction.Reason,
                 State       = transaction.State
@@ -235,9 +236,9 @@ namespace Atlas.Payme.MerchantApi.Services
                     {
                         Order = x.OrderId
                     },
-                    CreateTime  = x.CreatedAt.Ticks,
-                    PerformTime = x.PerformedAt.Ticks,
-                    CancelTime  = x.CanceledAt.Ticks,
+                    CreateTime  = x.CreatedAt.ToUnixTime(),
+                    PerformTime = x.PerformedAt.ToUnixTime(),
+                    CancelTime  = x.CanceledAt.ToUnixTime(),
                     Transaction = x.Id.ToString(),
                     State       = x.State,
                     Reason      = x.Reason,
