@@ -39,7 +39,7 @@ namespace Atlas.Payme.MerchantApi.Controllers
         {
             try
             {
-                var result = await CreateTransaction(id, time, amount, account);
+                var result = await _merchantService.CreateTransaction(id, time, amount, account);
                 return Ok(result);
             }
             catch (OrderNotFoundException)
@@ -60,7 +60,7 @@ namespace Atlas.Payme.MerchantApi.Controllers
         {
             try
             {
-                var result = await PerformTransaction(id);
+                var result = await _merchantService.PerformTransaction(id);
                 return Ok(result);
             }
             catch (TransactionNotFoundException)
@@ -81,7 +81,7 @@ namespace Atlas.Payme.MerchantApi.Controllers
         {
             try
             {
-                var result = await CancelTransaction(id, reason);
+                var result = await _merchantService.CancelTransaction(id, reason);
                 return Ok(result);
             }
             catch (TransactionNotFoundException)
@@ -98,7 +98,7 @@ namespace Atlas.Payme.MerchantApi.Controllers
         {
             try
             {
-                var result = await CheckTransaction(id);
+                var result = await _merchantService.CheckTransaction(id);
                 return Ok(result);
             }
             catch (TransactionNotFoundException)
@@ -109,7 +109,7 @@ namespace Atlas.Payme.MerchantApi.Controllers
 
         public async Task<IRpcMethodResult> GetStatement(long from, long to)
         {
-            var result = await GetStatement(from, to);
+            var result = await _merchantService.GetStatement(from, to);
             return Ok(result);
         }
     }
