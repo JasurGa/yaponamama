@@ -17,7 +17,7 @@ namespace Atlas.Payme.MerchantApi.Services
     {
         Task<CheckPerformTransactionResult> CheckPerformTransaction(int amount, AccountDto account);
 
-        Task<CreateTransactionResult> CreateTransaction(string id, long time, int amount, AccountDto account);
+        Task<CreateTransactionResult> CreateTransaction(string id, ulong time, int amount, AccountDto account);
 
         Task<PerformTransactionResult> PerformTransaction(string id);
 
@@ -25,7 +25,7 @@ namespace Atlas.Payme.MerchantApi.Services
 
         Task<CheckTransactionResult> CheckTransaction(string id);
 
-        Task<GetStatementResult> GetStatement(long from, long to);
+        Task<GetStatementResult> GetStatement(ulong from, ulong to);
     }
 }
 

@@ -43,7 +43,7 @@ namespace Atlas.Payme.MerchantApi.Services
             };
         }
 
-        public async Task<CreateTransactionResult> CreateTransaction(string id, long time, int amount, AccountDto account)
+        public async Task<CreateTransactionResult> CreateTransaction(string id, ulong time, int amount, AccountDto account)
         {
             var transaction = await _dbContext.Transactions.FirstOrDefaultAsync(x =>
                 x.PaycomId == id);
@@ -79,7 +79,7 @@ namespace Atlas.Payme.MerchantApi.Services
             {
                 if (transaction.State == (int)TransactionStatus.STATE_IN_PROGRESS)
                 {
-                    if (DateTime.UtcNow.Ticks - transaction.PaycomTime > TIME_EXPIRED)
+                    if (DateTime.UtcNow.Ticks - ((long)transaction.PaycomTime) > TIME_EXPIRED)
                     {
                         throw new UnableCompleteException();
                     }
@@ -114,7 +114,7 @@ namespace Atlas.Payme.MerchantApi.Services
 
             if (transaction.State == (int)TransactionStatus.STATE_IN_PROGRESS)
             {
-                if (DateTime.UtcNow.Ticks - transaction.PaycomTime > TIME_EXPIRED)
+                if (DateTime.UtcNow.Ticks - ((long)transaction.PaycomTime) > TIME_EXPIRED)
                 {
                     transaction.State = (int)TransactionStatus.STATE_CANCELED;
                     _dbContext.SaveChanges();
@@ -219,7 +219,7 @@ namespace Atlas.Payme.MerchantApi.Services
             };
         }
 
-        public async Task<GetStatementResult> GetStatement(long from, long to)
+        public async Task<GetStatementResult> GetStatement(ulong from, ulong to)
         {
             var transactions = await _dbContext.Transactions.Where(x =>
                 from < x.PaycomTime && x.PaycomTime < to).ToListAsync();

@@ -8,7 +8,7 @@ namespace Atlas.Domain
 
         public string PaycomId { get; set; }
 
-        public long PaycomTime { get; set; }
+        public ulong PaycomTime { get; set; }
 
         public int PaycomAmount { get; set; }
 

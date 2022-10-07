@@ -35,7 +35,7 @@ namespace Atlas.Payme.MerchantApi.Controllers
             }
         }
 
-        public async Task<IRpcMethodResult> CreateTransaction(string id, long time, int amount, AccountDto account)
+        public async Task<IRpcMethodResult> CreateTransaction(string id, ulong time, int amount, AccountDto account)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace Atlas.Payme.MerchantApi.Controllers
             }
         }
 
-        public async Task<IRpcMethodResult> GetStatement(long from, long to)
+        public async Task<IRpcMethodResult> GetStatement(ulong from, ulong to)
         {
             var result = await _merchantService.GetStatement(from, to);
             return Ok(result);
