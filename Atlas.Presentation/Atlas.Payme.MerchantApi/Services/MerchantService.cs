@@ -62,6 +62,8 @@ namespace Atlas.Payme.MerchantApi.Services
                         PaycomTime   = time,
                         PaycomAmount = amount,
                         CreatedAt    = DateTime.UtcNow,
+                        CanceledAt   = DateTime.UnixEpoch,
+                        PerformedAt  = DateTime.UnixEpoch,
                         State        = (int)TransactionStatus.STATE_IN_PROGRESS
                     };
 
