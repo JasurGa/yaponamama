@@ -65,6 +65,8 @@ namespace Atlas.Payme.MerchantApi.Services
                     };
 
                     await _dbContext.Transactions.AddAsync(newTransaction);
+                    _dbContext.SaveChanges();
+
                     return new CreateTransactionResult
                     {
                         CreateTime  = newTransaction.CreatedAt.Ticks,
