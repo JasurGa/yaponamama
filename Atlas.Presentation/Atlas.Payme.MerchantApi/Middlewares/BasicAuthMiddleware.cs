@@ -20,7 +20,7 @@ namespace Atlas.Payme.MerchantApi.Middlewares
         public async Task Invoke(HttpContext httpContext)
         {
             var authHeader = httpContext.Request.Headers["Authorization"].ToString();
-            if (authHeader != null)
+            if (authHeader != null && authHeader != "")
             {
                 var auth     = authHeader.Split(' ')[1];
                 var encoding = Encoding.GetEncoding("UTF-8");
