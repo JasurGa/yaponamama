@@ -37,6 +37,7 @@ namespace Atlas.Payme.MerchantApi
             services.AddScoped<IMerchantService, MerchantService>();
             services.AddJsonRpc(config =>
             {
+                config.ShowServerExceptions = true;
                 config.JsonSerializerSettings = new System.Text.Json.JsonSerializerOptions
                 {
                     IgnoreNullValues     = false,

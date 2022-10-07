@@ -35,7 +35,7 @@ namespace Atlas.Payme.MerchantApi.Middlewares
                 }
                 else
                 {
-                    httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                    httpContext.Response.StatusCode = (int)HttpStatusCode.OK;
                     var bytes = Encoding.UTF8.GetBytes("{\"id\":0,\"jsonrpc\":\"2.0\",\"error\":{\"code\":-32605,\"message\":\"An Rpc error occurred while trying to invoke request.\",\"data\":\"\"}}");
                     await httpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
                     return;
@@ -43,7 +43,9 @@ namespace Atlas.Payme.MerchantApi.Middlewares
             }
             else
             {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                httpContext.Response.StatusCode = (int)HttpStatusCode.OK;
+                var bytes = Encoding.UTF8.GetBytes("{\"id\":0,\"jsonrpc\":\"2.0\",\"error\":{\"code\":-32605,\"message\":\"An Rpc error occurred while trying to invoke request.\",\"data\":\"\"}}");
+                await httpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
                 return;
             }
         }
