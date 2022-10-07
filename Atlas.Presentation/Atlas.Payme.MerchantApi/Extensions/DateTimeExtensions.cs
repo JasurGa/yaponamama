@@ -6,12 +6,6 @@ namespace Atlas.Payme.MerchantApi.Extensions
         public static long ToUnixTime(this DateTime dateTime)
         {
             DateTimeOffset dto = new DateTimeOffset(dateTime.ToUniversalTime());
-            return dto.ToUnixTimeSeconds();
-        }
-
-        public static long ToUnixTimeMilliSeconds(this DateTime dateTime)
-        {
-            DateTimeOffset dto = new DateTimeOffset(dateTime.ToUniversalTime());
             return dto.ToUnixTimeMilliseconds();
         }
     }
