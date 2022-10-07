@@ -76,6 +76,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<SupportNote> SupportNotes { get; set; }
 
+        DbSet<Transaction> Transactions { get; set; }
+
         DbSet<User> Users { get; set; }
 
         DbSet<Vehicle> Vehicles { get; set; }

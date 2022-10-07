@@ -76,6 +76,8 @@ namespace Atlas.Persistence
 
         public DbSet<SupportNote> SupportNotes { get; set; }
 
+        public DbSet<Transaction> Transactions { get; set; }
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<Vehicle> Vehicles { get; set; }
@@ -122,6 +124,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new SupportCallConfiguration());
             modelBuilder.ApplyConfiguration(new SupportConfiguration());
             modelBuilder.ApplyConfiguration(new SupportNoteConfiguration());
+            modelBuilder.ApplyConfiguration(new TransactionConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new VehicleConfiguration());
             modelBuilder.ApplyConfiguration(new VehicleTypeConfiguration());

@@ -47,6 +47,8 @@ namespace Atlas.Domain
 
         public bool IsPrePayed { get; set; }
 
+        public bool CanRefund { get; set; }
+
         public Client Client { get; set; }
 
         public Courier Courier { get; set; }
