@@ -7,7 +7,7 @@ namespace Atlas.Payme.MerchantApi.Models
     {
         public string Transaction { get; set; }
 
-        public long Timestamp { get; set; }
+        public long PerformTime { get; set; }
 
         public int State { get; set; }
     }

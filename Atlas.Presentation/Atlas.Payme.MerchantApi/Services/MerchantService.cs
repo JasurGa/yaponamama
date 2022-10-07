@@ -137,7 +137,7 @@ namespace Atlas.Payme.MerchantApi.Services
                     return new PerformTransactionResult
                     {
                         Transaction = transaction.Id.ToString(),
-                        Timestamp   = transaction.PerformedAt.ToUnixTime(),
+                        PerformTime = transaction.PerformedAt.ToUnixTime(),
                         State       = transaction.State
                     };
                 }
@@ -147,7 +147,7 @@ namespace Atlas.Payme.MerchantApi.Services
                 return new PerformTransactionResult
                 {
                     Transaction = transaction.Id.ToString(),
-                    Timestamp   = transaction.PerformedAt.ToUnixTime(),
+                    PerformTime = transaction.PerformedAt.ToUnixTime(),
                     State       = transaction.State
                 };
             }
