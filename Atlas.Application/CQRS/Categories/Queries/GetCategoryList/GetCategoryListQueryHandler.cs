@@ -38,7 +38,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id: c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g)} AS r", new
+                var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id: c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, NameRu: c.NameRu, NameEn: c.NameEn, NameUz: c.NameUz, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g)} AS r", new
                 {
                     IsDeleted = request.ShowDeleted
                 });
