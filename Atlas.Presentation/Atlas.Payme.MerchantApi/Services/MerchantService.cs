@@ -25,8 +25,14 @@ namespace Atlas.Payme.MerchantApi.Services
 
         public async Task<CheckPerformTransactionResult> CheckPerformTransaction(int amount, AccountDto account)
         {
+            Guid orderId = Guid.Empty;
+            if (!Guid.TryParse(account.Order, out orderId))
+            {
+                throw new OrderNotFoundException();
+            }
+            
             var order = await _dbContext.Orders.FirstOrDefaultAsync(x =>
-                x.Id == account.Order);
+                x.Id == orderId);
 
             if (order == null)
             {
@@ -46,6 +52,12 @@ namespace Atlas.Payme.MerchantApi.Services
 
         public async Task<CreateTransactionResult> CreateTransaction(string id, ulong time, int amount, AccountDto account)
         {
+            Guid orderId = Guid.Empty;
+            if (!Guid.TryParse(account.Order, out orderId))
+            {
+                throw new OrderNotFoundException();
+            }
+
             var transaction = await _dbContext.Transactions.FirstOrDefaultAsync(x =>
                 x.PaycomId == id);
 
@@ -57,7 +69,7 @@ namespace Atlas.Payme.MerchantApi.Services
                     var newTransaction = new Transaction
                     {
                         Id           = Guid.NewGuid(),
-                        OrderId      = account.Order.Value,
+                        OrderId      = orderId,
                         PaycomId     = id,
                         PaycomTime   = time,
                         PaycomAmount = amount,
@@ -236,7 +248,7 @@ namespace Atlas.Payme.MerchantApi.Services
                     Amount  = x.PaycomAmount,
                     Account = new AccountDto
                     {
-                        Order = x.OrderId
+                        Order = x.OrderId.ToString()
                     },
                     CreateTime  = x.CreatedAt.ToUnixTime(),
                     PerformTime = x.PerformedAt.ToUnixTime(),
