@@ -27,6 +27,8 @@ namespace Atlas.Application.CQRS.SupplyManagers.Commands.RestoreSupplyManager
 
             supplyManager.IsDeleted = false;
 
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
             return Unit.Value;
         }
     }
