@@ -24,7 +24,8 @@ namespace Atlas.Identity
                 }
                 catch (Exception exception)
                 {
-
+                    Console.WriteLine(exception.Message);
+                    Console.WriteLine(exception.StackTrace);
                 }
             }
 
