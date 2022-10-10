@@ -34,7 +34,7 @@ namespace Atlas.Payme.MerchantApi.Services
             var order = await _dbContext.Orders.FirstOrDefaultAsync(x =>
                 x.Id == orderId);
 
-            if (order == null)
+            if (order == null || order.IsPrePayed)
             {
                 throw new OrderNotFoundException();
             }
@@ -208,7 +208,7 @@ namespace Atlas.Payme.MerchantApi.Services
             return new CancelTransactionResult
             {
                 Transaction = transaction.Id.ToString(),
-                CanceledAt  = transaction.CanceledAt.ToUnixTime(),
+                CancelTime  = transaction.CanceledAt.ToUnixTime(),
                 State       = transaction.State
             };
         }
