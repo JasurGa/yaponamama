@@ -12,11 +12,10 @@ namespace Atlas.Payme.MerchantApi.Controllers
 {
     public class MerchantController : RpcController
     {
-        private readonly IAtlasDbContext  _dbContext;
         private readonly IMerchantService _merchantService;
 
-        public MerchantController(IMerchantService merchantService, IAtlasDbContext dbContext) =>
-            (_merchantService, _dbContext) = (merchantService, dbContext);
+        public MerchantController(IMerchantService merchantService) =>
+            _merchantService = merchantService;
 
         public async Task<IRpcMethodResult> CheckPerformTransaction(int amount, AccountDto account)
         {

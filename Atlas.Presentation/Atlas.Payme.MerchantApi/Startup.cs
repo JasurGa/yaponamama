@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Atlas.Application;
 using Atlas.Payme.MerchantApi.Controllers;
@@ -38,7 +39,7 @@ namespace Atlas.Payme.MerchantApi
             services.AddJsonRpc(config =>
             {
                 config.ShowServerExceptions = true;
-                config.JsonSerializerSettings = new System.Text.Json.JsonSerializerOptions
+                config.JsonSerializerSettings = new JsonSerializerOptions
                 {
                     IgnoreNullValues     = false,
                     WriteIndented        = true,
