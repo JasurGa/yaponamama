@@ -240,6 +240,7 @@ namespace Atlas.Identity.Controllers
             }
 
             var token = await _tokenService.GetTokenByUserIdAsync(user.Id);
+
             return Ok(token);
         }
 

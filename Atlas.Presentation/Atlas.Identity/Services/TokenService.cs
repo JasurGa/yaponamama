@@ -65,7 +65,7 @@ namespace Atlas.Identity.Services
                 claims.Add(new Claim(TokenClaims.SupportId, support.Id.ToString()));
 
             if (supplyManager != null)
-                claims.Add(new Claim(TokenClaims.SupplyManagerId, support.Id.ToString()));
+                claims.Add(new Claim(TokenClaims.SupplyManagerId, supplyManager.Id.ToString()));
 
             if (admin != null)
                 claims.Add(new Claim(TokenClaims.AdminId, admin.Id.ToString()));
