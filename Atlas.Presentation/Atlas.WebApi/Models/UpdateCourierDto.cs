@@ -17,6 +17,8 @@ namespace Atlas.WebApi.Models
 
         public string DriverLicensePath { get; set; }
 
+        public int Rate { get; set; }
+
         public Guid VehicleId { get; set; }
 
         public void Mapping(Profile profile)
@@ -32,6 +34,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.PassportPhotoPath))
                 .ForMember(x => x.DriverLicensePath, opt =>
                     opt.MapFrom(src => src.DriverLicensePath))
+                .ForMember(x => x.Rate, opt =>
+                    opt.MapFrom(src => src.Rate))
                 .ForMember(x => x.VehicleId, opt =>
                     opt.MapFrom(src => src.VehicleId));
         }

@@ -247,6 +247,7 @@ namespace Atlas.WebApi.Controllers
         ///             "birthday": "1990-01-01T10:00:00",
         ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png",
         ///         },
+        ///         "rate": 1,
         ///         "phoneNumber": "+998901234567"
         ///         "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
         ///         "driverLicensePath": "/storage/driverLicensePath/dlp123.pdf",
@@ -327,6 +328,7 @@ namespace Atlas.WebApi.Controllers
         ///             "birthday": "1990-01-01T10:00:00",
         ///             "avatarPhotoPath": "/0123456789abcdef0123456789abcdef.png",
         ///         },
+        ///         "rate": 1,
         ///         "phoneNumber": "+998901234567"
         ///         "passportPhotoPath": "/storage/passportPhotos/ppp986.jpg",
         ///         "driverLicensePath": "/storage/driverLicensePath/dlp123.pdf",
