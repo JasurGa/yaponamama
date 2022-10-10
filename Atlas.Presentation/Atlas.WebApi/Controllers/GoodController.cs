@@ -362,7 +362,6 @@ namespace Atlas.WebApi.Controllers
         /// <param name="showDeleted">Show deleted records</param>
         /// <param name="sortable">Field to order the records by</param>
         /// <param name="ascending">Type of ordering records ("Ascending" || "Descending")</param>
-        /// <param name="search">Search string</param>
         /// <param name="pageIndex">Page index</param>
         /// <returns>Returns PageDto GoodLookupDto object</returns>
         /// <response code="200">Success</response>
@@ -373,8 +372,7 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] int    pageSize    = 10,
             [FromQuery] bool   showDeleted = false,
             [FromQuery] string sortable    = "Name",
-            [FromQuery] bool   ascending   = true,
-            [FromQuery] string search      = "")
+            [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetGoodPagedListQuery
             {
@@ -383,7 +381,6 @@ namespace Atlas.WebApi.Controllers
                 ShowDeleted = showDeleted,
                 Sortable    = sortable,
                 Ascending   = ascending,
-                Search      = search,
             });
 
             return Ok(vm);

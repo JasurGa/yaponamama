@@ -15,7 +15,5 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList
         public bool ShowDeleted { get; set; }
 
         public bool Ascending { get; set; }
-
-        public string Search { get; set; }
     }
 }
