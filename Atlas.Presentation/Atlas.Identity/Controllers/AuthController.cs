@@ -236,7 +236,7 @@ namespace Atlas.Identity.Controllers
 
             if (user == null || !IsCorrectPassword(user, signIn.Password))
             {
-                throw new NotFoundException(nameof(User), signIn.Login);
+                throw new NotFoundException(nameof(Domain.User), signIn.Login);
             }
 
             var token = await _tokenService.GetTokenByUserIdAsync(user.Id);
