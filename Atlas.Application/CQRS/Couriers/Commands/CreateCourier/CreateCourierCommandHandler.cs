@@ -41,7 +41,8 @@ namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
                 DriverLicensePath = request.DriverLicensePath,
                 VehicleId         = request.VehicleId,
                 Balance           = 0,
-                KPI               = 0, 
+                KPI               = 0,
+                Rate              = request.Rate,
                 IsDeleted         = false,
             };
 

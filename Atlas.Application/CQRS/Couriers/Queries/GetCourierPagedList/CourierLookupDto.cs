@@ -21,6 +21,8 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList
 
         public long KPI { get; set; }
 
+        public int Rate { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Courier, CourierLookupDto>()
@@ -32,6 +34,8 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierPagedList
                     opt.MapFrom(x => x.Balance))
                 .ForMember(x => x.KPI, opt =>
                     opt.MapFrom(x => x.KPI))
+                .ForMember(x => x.Rate, opt =>
+                    opt.MapFrom(x => x.Rate))
                 .ForMember(x => x.User, opt =>
                     opt.MapFrom(x => x.User))
                 .ForMember(x => x.Vehicle, opt =>

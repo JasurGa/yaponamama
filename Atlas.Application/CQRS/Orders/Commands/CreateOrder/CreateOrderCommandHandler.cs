@@ -129,10 +129,14 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
         private async Task<Courier> GetCourierAsync(CreateOrderCommand request,
             CancellationToken cancellationToken, Store store)
         {
+            var hours = DateTime.UtcNow.Hour;
+            if (hours == 0) { hours = 1; }
+            var currentRate = (int)Math.Ceiling(hours / 8.0);
+
             var minMax = new Dictionary<Courier, int>();
 
-            var couriers = await _dbContext.Couriers.Where(x => x.Vehicle.StoreId == store.Id)
-                .ToListAsync(cancellationToken);
+            var couriers = await _dbContext.Couriers.Where(x => x.Vehicle.StoreId == store.Id &&
+                x.Rate == currentRate).ToListAsync(cancellationToken);
 
             foreach (var courier in couriers)
             {

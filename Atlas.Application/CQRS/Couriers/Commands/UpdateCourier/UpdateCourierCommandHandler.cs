@@ -46,6 +46,7 @@ namespace Atlas.Application.CQRS.Couriers.Commands.UpdateCourier
             courier.PassportPhotoPath = request.PassportPhotoPath;
             courier.DriverLicensePath = request.DriverLicensePath;
             courier.VehicleId         = request.VehicleId;
+            courier.Rate              = request.Rate;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

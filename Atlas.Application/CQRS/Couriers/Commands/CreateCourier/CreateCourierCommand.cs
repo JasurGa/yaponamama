@@ -14,6 +14,8 @@ namespace Atlas.Application.CQRS.Couriers.Commands.CreateCourier
 
         public string DriverLicensePath { get; set; }
 
+        public int Rate { get; set; }
+
         public Guid? VehicleId { get; set; }
     }
 }

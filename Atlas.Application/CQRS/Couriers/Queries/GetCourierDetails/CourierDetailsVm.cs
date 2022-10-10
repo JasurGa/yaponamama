@@ -22,6 +22,8 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
 
         public long KPI { get; set; }
 
+        public int Rate { get; set; }
+
         public Guid? VehicleId { get; set; }
 
         public void Mapping(Profile profile)
@@ -41,6 +43,8 @@ namespace Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails
                     opt => opt.MapFrom(src => src.Balance))
                 .ForMember(x => x.KPI,
                     opt => opt.MapFrom(src => src.KPI))
+                .ForMember(x => x.Rate,
+                    opt => opt.MapFrom(src => src.Rate))
                 .ForMember(x => x.VehicleId,
                     opt => opt.MapFrom(src => src.VehicleId));
         }

@@ -21,6 +21,8 @@ namespace Atlas.Domain
 
         public bool IsDeleted { get; set; }
 
+        public int Rate { get; set; }
+
         public Vehicle Vehicle { get; set; }
 
         public User User { get; set; }
