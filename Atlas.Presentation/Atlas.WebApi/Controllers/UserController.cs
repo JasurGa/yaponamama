@@ -72,7 +72,6 @@ namespace Atlas.WebApi.Controllers
         ///     GET /api/1.0/user/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
         ///     
         /// </remarks>
-        /// <param name="search">Search string</param>
         /// <param name="showDeleted">Show deleted list</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
@@ -84,11 +83,15 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<UserLookupDto>>> GetAllPagedAsync([FromQuery] string search = "", [FromQuery] bool showDeleted = false, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<UserLookupDto>>> GetAllPagedAsync
+        (
+            [FromQuery] bool showDeleted = false, 
+            [FromQuery] int pageIndex = 0, 
+            [FromQuery] int pageSize = 10
+        )
         {
             var vm = await Mediator.Send(new GetUserPagedListQuery
             {
-                Search      = search,
                 ShowDeleted = showDeleted,
                 PageIndex   = pageIndex,
                 PageSize    = pageSize

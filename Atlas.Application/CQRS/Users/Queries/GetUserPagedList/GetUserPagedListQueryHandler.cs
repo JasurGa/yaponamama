@@ -21,12 +21,8 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserPagedList
 
         public async Task<PageDto<UserLookupDto>> Handle(GetUserPagedListQuery request, CancellationToken cancellationToken)
         {
-            var usersCount = await _dbContext.Users
-                .Where(x =>
-                    x.FirstName.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()) ||
-                    x.LastName.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()) ||
-                    x.Login.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()))
-                .CountAsync(x => x.IsDeleted == request.ShowDeleted,
+            var usersCount = await _dbContext.Users.CountAsync(x => 
+                x.IsDeleted == request.ShowDeleted,
                     cancellationToken);
 
             var users = await _dbContext.Users
@@ -34,10 +30,6 @@ namespace Atlas.Application.CQRS.Users.Queries.GetUserPagedList
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<UserLookupDto>(_mapper.ConfigurationProvider)
-                .Where(x =>
-                    x.FirstName.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()) || 
-                    x.LastName.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()) ||
-                    x.Login.Trim().ToUpper().Contains(request.Search.Trim().ToUpper()))
                 .ToListAsync(cancellationToken);
 
             return new PageDto<UserLookupDto>
