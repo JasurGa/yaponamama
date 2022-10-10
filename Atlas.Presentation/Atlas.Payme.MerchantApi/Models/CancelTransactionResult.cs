@@ -5,7 +5,7 @@ namespace Atlas.Payme.MerchantApi.Models
     {
         public string Transaction { get; set; }
 
-        public long CanceledAt { get; set; }
+        public long CancelTime { get; set; }
 
         public int State { get; set; }
     }
