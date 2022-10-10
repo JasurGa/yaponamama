@@ -232,7 +232,7 @@ namespace Atlas.Identity.Controllers
         public async Task<ActionResult<AuthToken>> SignInAsync([FromBody] SignInDto signIn)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
-                x.Login == signIn.Login);
+                x.Login == signIn.Login && x.IsDeleted == false);
 
             if (user == null || !IsCorrectPassword(user, signIn.Password))
             {
