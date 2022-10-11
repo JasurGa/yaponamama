@@ -36,7 +36,7 @@ namespace Atlas.WebApi
         {
             return WebHost.CreateDefaultBuilder(args)
                 .UseWebRoot("wwwroot")
-                .UseUrls("http://0.0.0.0:5055")
+                .UseUrls("http://127.0.0.1:5055")
                 .UseStartup<Startup>()
                 .ConfigureLogging(logging =>
                 {

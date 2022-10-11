@@ -36,7 +36,7 @@ namespace Atlas.Identity
         {
             return WebHost.CreateDefaultBuilder(args)
                 .UseWebRoot("wwwroot")
-                .UseUrls("http://0.0.0.0:5056")
+                .UseUrls("http://127.0.0.1:5056")
                 .UseStartup<Startup>()
                 .ConfigureLogging(logging =>
                 {
