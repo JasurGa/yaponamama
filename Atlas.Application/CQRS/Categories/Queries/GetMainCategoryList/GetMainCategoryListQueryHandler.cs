@@ -32,10 +32,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetMainCategoryList
                 await session.CloseAsync();
             }
 
-            return new MainCategoryListVm
-            {
-                Maincategories = categories
-            };
+            return new MainCategoryListVm { Maincategories = categories };
         }
     }
 }

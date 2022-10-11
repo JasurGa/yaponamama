@@ -44,7 +44,7 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <returns>Returns MainCategoryListVm object</returns>
         /// <response code="200">Success</response>
-        [HttpGet]
+        [HttpGet("main")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<MainCategoryListVm>> GetAllMainAsync(
