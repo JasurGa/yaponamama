@@ -40,7 +40,7 @@ namespace Atlas.Payme.MerchantApi
         {
             return WebHost.CreateDefaultBuilder(args)
                 .UseWebRoot("wwwroot")
-                .UseUrls("http://0.0.0.0:5057")
+                .UseUrls("http://127.0.0.1:5057")
                 .UseStartup<Startup>()
                 .ConfigureLogging(logging =>
                 {
