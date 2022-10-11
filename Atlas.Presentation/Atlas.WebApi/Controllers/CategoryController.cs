@@ -13,6 +13,7 @@ using Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryParents;
+using Atlas.Application.CQRS.Categories.Queries.GetMainCategoryList;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -31,6 +32,31 @@ namespace Atlas.WebApi.Controllers
 
         public CategoryController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Gets the list of main categories
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/category/main?showDeleted=false
+        ///     
+        /// </remarks>
+        /// <returns>Returns MainCategoryListVm object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<MainCategoryListVm>> GetAllMainAsync(
+            [FromQuery] bool showDeleted = false)
+        {
+            var vm = await Mediator.Send(new GetMainCategoryListQuery
+            {
+                ShowDeleted = showDeleted
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Gets the category by id

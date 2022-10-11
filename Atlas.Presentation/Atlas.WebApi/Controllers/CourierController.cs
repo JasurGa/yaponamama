@@ -108,6 +108,7 @@ namespace Atlas.WebApi.Controllers
         ///     GET /api/1.0/courier/vehicle/a3eb7b4a-9f4e-4c71-8619-398655c563b8?&amp;showDeleted=false
         ///     
         /// </remarks>
+        /// <param name="vehicleId">Vehicle Id (guid)</param>
         /// <param name="showDeleted">Show deleted</param>
         /// <returns>Returns the list of CouierDetailsVm</returns>
         /// <response code="404">NotFound</response>
