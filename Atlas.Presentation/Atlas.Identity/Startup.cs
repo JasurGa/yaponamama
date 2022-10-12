@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 using Atlas.Application;
+using Atlas.Eskiz;
 using Atlas.Identity.Extensions;
 using Atlas.Identity.Middlewares;
 using Atlas.Identity.Observers;
@@ -108,6 +109,7 @@ namespace Atlas.Identity
             services.AddScheduler();
 
             services.AddHealthChecks();
+            services.AddEskiz(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,

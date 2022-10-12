@@ -1,4 +1,5 @@
 ﻿using System;
+using Atlas.Eskiz.Abstractions;
 using Atlas.Identity.Settings;
 using Microsoft.Extensions.Options;
 using Twilio;
@@ -8,24 +9,18 @@ namespace Atlas.Identity.Services
 {
     public class SmsService
     {
-        private readonly SmsSettings _smsSettings;
+        private readonly IEskizClient _eskizClient;
 
-        public SmsService(IOptions<SmsSettings> smsSettings)
+        public SmsService(IEskizClient eskizClient)
         {
-            _smsSettings = smsSettings.Value;
-            TwilioClient.Init(_smsSettings.AccountSid,
-                _smsSettings.AuthToken);
+            _eskizClient = eskizClient;
+            _eskizClient.AuthorizeAsync();
         }
 
         public bool SendSms(string toPhoneNumber, string body)
         {
-            var message = MessageResource.Create(
-                body: body,
-                to: new Twilio.Types.PhoneNumber(toPhoneNumber),
-                messagingServiceSid: _smsSettings.MessagingServiceSid
-            );
-
-            return message.ErrorCode == 0;
+            _eskizClient.SendAsync(toPhoneNumber, body);
+            return true;
         }
     }
 }
