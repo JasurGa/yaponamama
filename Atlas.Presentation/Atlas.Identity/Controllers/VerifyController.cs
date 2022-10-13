@@ -46,7 +46,7 @@ namespace Atlas.Identity.Controllers
             }
 
             var newCode = GenerateVerificationCode();
-            _smsService.SendSms(sendVerifySmsDto.PhoneNumber, "Ваш код для подтверждения: " + newCode);
+            _smsService.SendSms(sendVerifySmsDto.PhoneNumber, "OQ-OT Ваш код верификации: " + newCode);
             _dbContext.VerifyCodes.Add(new Domain.VerifyCode
             {
                 PhoneNumber      = sendVerifySmsDto.PhoneNumber,
