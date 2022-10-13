@@ -1,6 +1,7 @@
 ﻿using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Couriers.Commands.CreateCourier;
 using Atlas.Application.CQRS.Couriers.Commands.DeleteCourier;
+using Atlas.Application.CQRS.Couriers.Commands.DetachVehicleFromCourier;
 using Atlas.Application.CQRS.Couriers.Commands.RestoreCourier;
 using Atlas.Application.CQRS.Couriers.Commands.UpdateCourier;
 using Atlas.Application.CQRS.Couriers.Commands.UpdateCouriersStoreId;
@@ -377,6 +378,35 @@ namespace Atlas.WebApi.Controllers
         public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new DeleteCourierCommand
+            {
+                Id = id,
+            });
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Dettaches the courier's vehicle
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     DELETE /api/1.0/courier/a3eb7b4a-9f4e-4c71-8619-398655c563b8/vehicle
+        ///     
+        /// </remarks>
+        /// <param name="id">Courier id (guid)</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpDelete("{id}/vehicle")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> DeleteVehicleAsync([FromRoute] Guid id)
+        {
+            await Mediator.Send(new DettachVehicleFromCourierCommand
             {
                 Id = id,
             });
