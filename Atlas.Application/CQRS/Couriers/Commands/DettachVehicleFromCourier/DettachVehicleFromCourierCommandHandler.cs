@@ -13,14 +13,17 @@ namespace Atlas.Application.CQRS.Couriers.Commands.DettachVehicleFromCourier
     {
         private readonly IAtlasDbContext _dbContext;
 
+        public DettachVehicleFromCourierCommandHandler(IAtlasDbContext dbContext) =>
+            _dbContext = dbContext;
+
         public async Task<Unit> Handle(DettachVehicleFromCourierCommand request, CancellationToken cancellationToken)
         {
             var courier = await _dbContext.Couriers.FirstOrDefaultAsync(x => 
-                x.Id == request.CourierId, cancellationToken);
+                x.Id == request.Id, cancellationToken);
 
             if (courier == null)
             {
-                throw new NotFoundException(nameof(Courier), request.CourierId);
+                throw new NotFoundException(nameof(Courier), request.Id);
             }
 
             courier.VehicleId = null;
