@@ -54,8 +54,9 @@ namespace Atlas.Eskiz
                 var authResponse = JsonConvert.DeserializeObject<EskizAuthResponse>(responseString);
                 _token = authResponse.data.token;
             }
-            catch (JsonException)
+            catch (Exception e)
             {
+                Console.WriteLine("Eskiz.AuthException: " + e.Message + e.StackTrace);
                 throw new Exception("Eskiz.Exception: Can't authorize!");
             }
         }

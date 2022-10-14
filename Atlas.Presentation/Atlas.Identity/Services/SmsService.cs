@@ -15,11 +15,11 @@ namespace Atlas.Identity.Services
         public SmsService(IEskizClient eskizClient)
         {
             _eskizClient = eskizClient;
-            _eskizClient.AuthorizeAsync();
         }
 
         public async Task<bool> SendSmsAsync(string toPhoneNumber, string body)
         {
+            await _eskizClient.AuthorizeAsync();
             await _eskizClient.SendAsync(toPhoneNumber, body);
             return true;
         }
