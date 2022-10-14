@@ -42,11 +42,11 @@ namespace Atlas.Eskiz
             {
                 response = await client.PostAsync("https://notify.eskiz.uz/api/auth/login", content);
                 responseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Eskiz.Auth" + responseString);
+                Console.WriteLine("Eskiz.Auth: " + responseString);
             }
             catch (HttpRequestException)
             {
-                throw new Exception("Can't send auth request!");
+                throw new Exception("Eskiz.Exception: Can't send auth request!");
             }
 
             try
@@ -56,7 +56,7 @@ namespace Atlas.Eskiz
             }
             catch (JsonException)
             {
-                throw new Exception("Can't authorize!");
+                throw new Exception("Eskiz.Exception: Can't authorize!");
             }
         }
 
@@ -64,7 +64,7 @@ namespace Atlas.Eskiz
         {
             if (_token == null)
             {
-                throw new Exception("Authorize first!");
+                throw new Exception("Eskiz.Exception: Authorize first!");
             }
 
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Patch, "https://notify.eskiz.uz/api/auth/refresh"))
@@ -73,7 +73,7 @@ namespace Atlas.Eskiz
                     new AuthenticationHeaderValue("Bearer", _token);
 
                 var response = await client.SendAsync(requestMessage);
-                Console.WriteLine("Eskiz.Refresh" + await response.Content.ReadAsStringAsync());
+                Console.WriteLine("Eskiz.Refresh: " + await response.Content.ReadAsStringAsync());
             }
         }
 
@@ -81,7 +81,7 @@ namespace Atlas.Eskiz
         {
             if (_token == null)
             {
-                throw new Exception("Authorize first!");
+                throw new Exception("Eskiz.Exception: Authorize first!");
             }
 
             mobilePhone = mobilePhone.Replace("+", "");
@@ -99,7 +99,7 @@ namespace Atlas.Eskiz
                     new AuthenticationHeaderValue("Bearer", _token);
 
                 var response = await client.SendAsync(requestMessage);
-                Console.WriteLine("Eskiz.Send" + await response.Content.ReadAsStringAsync());
+                Console.WriteLine("Eskiz.Send: " + await response.Content.ReadAsStringAsync());
             }
         }
     }
