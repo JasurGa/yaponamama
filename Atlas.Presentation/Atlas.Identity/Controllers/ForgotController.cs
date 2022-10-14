@@ -43,7 +43,7 @@ namespace Atlas.Identity.Controllers
             }
 
             var newCode = GenerateVerificationCode();
-            _smsService.SendSms(sendForgotPasswordSmsDto.PhoneNumber, newCode);
+            await _smsService.SendSmsAsync(sendForgotPasswordSmsDto.PhoneNumber, "OQ-OT Ваш код верификации: " + newCode);
             _dbContext.ForgotPasswordCodes.Add(new ForgotPasswordCode
             {
                 PhoneNumber      = sendForgotPasswordSmsDto.PhoneNumber,
