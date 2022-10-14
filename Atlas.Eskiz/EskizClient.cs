@@ -79,6 +79,7 @@ namespace Atlas.Eskiz
                 throw new Exception("Authorize first!");
             }
 
+            mobilePhone = mobilePhone.Replace("+", "");
             using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, "https://notify.eskiz.uz/api/message/sms/send"))
             {
                 var values = new Dictionary<string, string>
