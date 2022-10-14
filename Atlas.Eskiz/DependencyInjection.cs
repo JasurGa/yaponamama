@@ -11,13 +11,15 @@ namespace Atlas.Eskiz
         public static IServiceCollection AddEskiz(this IServiceCollection services,
             IConfiguration Configuration)
         {
-            services.AddScoped<IEskizClient, EskizClient>();
-
             var section = Configuration.GetSection(EskizSettings.EskizSection);
 
             var email      = section.GetValue<string>("Email");
             var password   = section.GetValue<string>("Password");
             var fromNumber = section.GetValue<string>("FromNumber");
+
+            Console.WriteLine("Eskiz.AddSettings Email: ", email);
+            Console.WriteLine("Eskiz.AddSettings Password: ", password);
+            Console.WriteLine("Eskiz.AddSettings FromNumber: ", fromNumber);
 
             services.Configure<EskizSettings>(o =>
             {
@@ -26,6 +28,7 @@ namespace Atlas.Eskiz
                 o.FromNumber = fromNumber;
             });
 
+            services.AddScoped<IEskizClient, EskizClient>();
             return services;
         }
     }
