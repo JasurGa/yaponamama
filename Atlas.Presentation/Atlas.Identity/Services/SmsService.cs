@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Atlas.Eskiz.Abstractions;
 using Atlas.Identity.Settings;
 using Microsoft.Extensions.Options;
@@ -17,9 +18,9 @@ namespace Atlas.Identity.Services
             _eskizClient.AuthorizeAsync();
         }
 
-        public bool SendSms(string toPhoneNumber, string body)
+        public async Task<bool> SendSmsAsync(string toPhoneNumber, string body)
         {
-            _eskizClient.SendAsync(toPhoneNumber, body);
+            await _eskizClient.SendAsync(toPhoneNumber, body);
             return true;
         }
     }
