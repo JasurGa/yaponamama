@@ -32,6 +32,9 @@ namespace Atlas.Eskiz
                 { "password", _eskizSettings.Password }
             });
 
+            Console.WriteLine("Eskiz.Email: ", _eskizSettings.Email);
+            Console.WriteLine("Eskiz.Password: ", _eskizSettings.Password);
+
             HttpResponseMessage response;
             string responseString;
 
