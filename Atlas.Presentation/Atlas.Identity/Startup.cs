@@ -28,6 +28,8 @@ namespace Atlas.Identity
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddEskiz(Configuration);
+
             var smsSettings = Configuration.GetSection("SmsSettings");
 
             var accountSid          = smsSettings.GetValue<string>("AccountSid");
@@ -109,7 +111,6 @@ namespace Atlas.Identity
             services.AddScheduler();
 
             services.AddHealthChecks();
-            services.AddEskiz(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
