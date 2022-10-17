@@ -131,7 +131,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
         {
             var hours = DateTime.UtcNow.Hour;
             if (hours == 0) { hours = 1; }
-            var currentRate = (int)Math.Ceiling(hours / 8.0);
+            var currentRate = (int)Math.Ceiling(hours / 8.0) - 1;
 
             var minMax = new Dictionary<Courier, int>();
 
