@@ -17,11 +17,11 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
 
         public bool DontCallWhenDelivered { get; set; }
 
-        public int Apartment { get; set; }
+        public string Apartment { get; set; }
 
-        public int Floor { get; set; }
+        public string Floor { get; set; }
 
-        public int Entrance { get; set; }
+        public string Entrance { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
