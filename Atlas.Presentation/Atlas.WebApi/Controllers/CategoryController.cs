@@ -317,7 +317,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPost]
         [Authorize]
-        [AuthRoleFilter(Roles.Admin)]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager})]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateCategoryDto createCategory)
