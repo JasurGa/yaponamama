@@ -39,11 +39,11 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public string StoreNameUz { get; set; }
 
-        public int Apartment { get; set; }
+        public string Apartment { get; set; }
 
-        public int Floor { get; set; }
+        public string Floor { get; set; }
 
-        public int Entrance { get; set; }
+        public string Entrance { get; set; }
 
         public int PaymentType { get; set; }
 

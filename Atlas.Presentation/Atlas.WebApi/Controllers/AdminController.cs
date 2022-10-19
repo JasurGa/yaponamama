@@ -222,10 +222,10 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> UpdateAsync([FromBody] UpdateAdminDto updateAdmin)
         {
-            var vm = await Mediator.Send(_mapper.Map<UpdateAdminDto,
+            await Mediator.Send(_mapper.Map<UpdateAdminDto,
                 UpdateAdminCommand>(updateAdmin));
 
-            return Ok(vm);
+            return NoContent();
         }
 
         /// <summary>
