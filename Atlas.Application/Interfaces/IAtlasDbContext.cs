@@ -86,6 +86,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<VerifyCode> VerifyCodes { get; set; }
 
+        DbSet<VerificationRequest> VerificationRequests { get; set; }
+
         int SaveChanges();
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);

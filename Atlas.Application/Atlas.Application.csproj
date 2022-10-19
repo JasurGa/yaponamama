@@ -143,6 +143,12 @@
     <Folder Include="CQRS\Stores\Queries\FindStoresPagedList\" />
     <Folder Include="CQRS\Orders\Commands\UpdateOrderStatus\" />
     <Folder Include="CQRS\Orders\Commands\CancelOrderByClient\" />
+    <Folder Include="CQRS\VerificationRequests\Commands\DeclineVerificationRequest\" />
+    <Folder Include="CQRS\VerificationRequests\Queries\" />
+    <Folder Include="CQRS\VerificationRequests\Queries\GetMyVerificationRequests\" />
+    <Folder Include="CQRS\VerificationRequests\Queries\GetPagedVerificationRequestsList\" />
+    <Folder Include="CQRS\VerificationRequests\Queries\GetVerificationRequestDetails\" />
+    <Folder Include="CQRS\VerificationRequests\Queries\GetMyVerificationRequestDetails\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -294,5 +300,11 @@
     <None Remove="CQRS\Stores\Queries\FindStoresPagedList\" />
     <None Remove="CQRS\Orders\Commands\UpdateOrderStatus\" />
     <None Remove="CQRS\Orders\Commands\CancelOrderByClient\" />
+    <None Remove="CQRS\VerificationRequests\Commands\DeclineVerificationRequest\" />
+    <None Remove="CQRS\VerificationRequests\Queries\" />
+    <None Remove="CQRS\VerificationRequests\Queries\GetMyVerificationRequests\" />
+    <None Remove="CQRS\VerificationRequests\Queries\GetPagedVerificationRequestsList\" />
+    <None Remove="CQRS\VerificationRequests\Queries\GetVerificationRequestDetails\" />
+    <None Remove="CQRS\VerificationRequests\Queries\GetMyVerificationRequestDetails\" />
   </ItemGroup>
 </Project>
