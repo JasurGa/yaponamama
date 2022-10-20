@@ -45,6 +45,12 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public DateTime DeliverAt { get; set; }
 
+        public bool CanRefund { get; set; }
+
+        public int? TelegramUserId { get; set; }
+
+        public bool IsDevVersionBot { get; set; }
+
         public StoreDetailsVm Store { get; set; }
 
         public CourierDetailsVm Courier { get; set; }
@@ -91,7 +97,13 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                 .ForMember(dst => dst.PurchasePrice, opt =>
                     opt.MapFrom(src => src.PurchasePrice))
                 .ForMember(dst => dst.DeliverAt, opt =>
-                    opt.MapFrom(src => src.DeliverAt));
+                    opt.MapFrom(src => src.DeliverAt))
+                .ForMember(dst => dst.CanRefund, opt =>
+                    opt.MapFrom(src => src.CanRefund))
+                .ForMember(dst => dst.IsDevVersionBot, opt =>
+                    opt.MapFrom(src => src.IsDevVersionBot))
+                .ForMember(dst => dst.TelegramUserId, opt =>
+                    opt.MapFrom(src => src.TelegramUserId));
         }
     }
 }

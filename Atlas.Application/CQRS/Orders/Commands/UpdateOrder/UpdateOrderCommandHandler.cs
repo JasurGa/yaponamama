@@ -99,6 +99,9 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
             order.PaymentType           = request.PaymentType;
             order.IsPickup              = request.IsPickup;
             order.PromoId               = request.PromoId;
+            order.CanRefund             = request.CanRefund;
+            order.TelegramUserId        = request.TelegramUserId;
+            order.IsDevVersionBot       = request.IsDevVersionBot;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

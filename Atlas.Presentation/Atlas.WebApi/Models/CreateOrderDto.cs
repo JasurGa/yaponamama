@@ -30,6 +30,10 @@ namespace Atlas.WebApi.Models
 
         public DateTime? DeliverAt { get; set; }
 
+        public bool IsDevVersionBot { get; set; }
+
+        public int? TelegramUserId { get; set; }
+
         public IEnumerable<CreateGoodToOrderDto> GoodToOrders { get; set; }
 
         public void Mapping(Profile profile)
@@ -58,7 +62,11 @@ namespace Atlas.WebApi.Models
                 .ForMember(dst => dst.DeliverAt, opt =>
                     opt.MapFrom(src => src.DeliverAt))
                 .ForMember(dst => dst.GoodToOrders, opt =>
-                    opt.MapFrom(src => src.GoodToOrders));
+                    opt.MapFrom(src => src.GoodToOrders))
+                .ForMember(dst => dst.IsDevVersionBot, opt =>
+                    opt.MapFrom(src => src.IsDevVersionBot))
+                .ForMember(dst => dst.TelegramUserId, opt =>
+                    opt.MapFrom(src => src.TelegramUserId));
         }
     }
 }

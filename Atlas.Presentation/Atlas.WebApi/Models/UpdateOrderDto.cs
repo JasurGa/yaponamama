@@ -47,6 +47,10 @@ namespace Atlas.WebApi.Models
 
         public Guid? PromoId { get; set; }
 
+        public bool IsDevVersionBot { get; set; }
+
+        public int? TelegramUserId { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateOrderDto, UpdateOrderCommand>()
@@ -89,7 +93,11 @@ namespace Atlas.WebApi.Models
                 .ForMember(dst => dst.IsPickup, opt =>
                     opt.MapFrom(src => src.IsPickup))
                 .ForMember(dst => dst.PromoId, opt =>
-                    opt.MapFrom(src => src.PromoId));
+                    opt.MapFrom(src => src.PromoId))
+                .ForMember(dst => dst.IsDevVersionBot, opt =>
+                    opt.MapFrom(src => src.IsDevVersionBot))
+                .ForMember(dst => dst.TelegramUserId, opt =>
+                    opt.MapFrom(src => src.TelegramUserId));
         }
     }
 }

@@ -43,6 +43,12 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
 
         public bool IsPickup { get; set; }
 
+        public bool CanRefund { get; set; }
+
+        public int? TelegramUserId { get; set; }
+
+        public bool IsDevVersionBot { get; set; }
+
         public Guid? PromoId { get; set; }
     }
 }

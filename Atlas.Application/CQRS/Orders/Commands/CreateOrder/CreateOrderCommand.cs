@@ -31,6 +31,10 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
         public DateTime? DeliverAt { get; set; }
 
+        public int? TelegramUserId { get; set; }
+
+        public bool IsDevVersionBot { get; set; }
+
         public IEnumerable<CreateGoodToOrderCommand> GoodToOrders { get; set; }
     }
 }

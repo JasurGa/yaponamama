@@ -195,7 +195,9 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 PromoId               = foundPromo != null ? foundPromo.Id : null,
                 DeliverAt             = request.DeliverAt,
                 IsPrePayed            = false,
-                CanRefund             = false
+                CanRefund             = false,
+                TelegramUserId        = request.TelegramUserId,
+                IsDevVersionBot       = request.IsDevVersionBot
             };
 
             await _dbContext.Orders.AddAsync(order,

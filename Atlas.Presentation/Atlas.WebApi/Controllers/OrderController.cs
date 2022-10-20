@@ -87,6 +87,8 @@ namespace Atlas.WebApi.Controllers
         ///         "paymentType": 0,
         ///         "promo": "string",
         ///         "deliverAt": "2022-08-29T07:11:16.320Z",
+        ///         "isDevVersionBot": "false",
+        ///         "telegramUserId": 0123432432,
         ///         "goodToOrders": [
         ///             {
         ///                 "goodId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -148,7 +150,9 @@ namespace Atlas.WebApi.Controllers
         ///         "toLatitude": -20.00,
         ///         "paymentType": 0,
         ///         "isPickup": false,
-        ///         "promoId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         "promoId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "isDevVersionBot": "false",
+        ///         "telegramUserId": 0123432432
         ///     }
         ///     
         /// </remarks>

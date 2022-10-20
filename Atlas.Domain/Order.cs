@@ -49,6 +49,10 @@ namespace Atlas.Domain
 
         public bool CanRefund { get; set; }
 
+        public int? TelegramUserId { get; set; }
+
+        public bool IsDevVersionBot { get; set; }
+
         public Client Client { get; set; }
 
         public Courier Courier { get; set; }
