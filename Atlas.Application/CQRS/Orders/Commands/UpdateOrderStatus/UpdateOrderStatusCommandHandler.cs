@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Enums;
 using Atlas.Application.Interfaces;
+using Atlas.Application.Services;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,11 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus
 {
     public class UpdateOrderStatusCommandHandler : IRequestHandler<UpdateOrderStatusCommand>
     {
-        private readonly IAtlasDbContext _dbContext;
+        private readonly IAtlasDbContext      _dbContext;
+        private readonly IBotCallbacksService _botCallbacksService;
 
-        public UpdateOrderStatusCommandHandler(IAtlasDbContext dbContext) =>
-            (_dbContext) = (dbContext);
+        public UpdateOrderStatusCommandHandler(IAtlasDbContext dbContext, IBotCallbacksService botCallbacksService) =>
+            (_dbContext, _botCallbacksService) = (dbContext, botCallbacksService);
 
         public async Task<Unit> Handle(UpdateOrderStatusCommand request, CancellationToken cancellationToken)
         {
@@ -53,8 +55,13 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus
             {
                 order.FinishedAt = DateTime.UtcNow;
             }
-                
+
             await _dbContext.SaveChangesAsync(cancellationToken);
+            if (order.TelegramUserId != null)
+            {
+                await _botCallbacksService.UpdateStatusAsync(order.TelegramUserId.Value, order.IsDevVersionBot,
+                    order.Id, order.Status);
+            }
 
             return Unit.Value;
         }

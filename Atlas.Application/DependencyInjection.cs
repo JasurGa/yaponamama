@@ -3,6 +3,7 @@ using MediatR;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Atlas.Application.Common.Behaviors;
+using Atlas.Application.Services;
 
 namespace Atlas.Application
 {
@@ -14,6 +15,7 @@ namespace Atlas.Application
             services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
             services.AddTransient(typeof(IPipelineBehavior<,>),
                 typeof(ValidationBehavior<,>));
+            services.AddTransient<IBotCallbacksService, BotCallbacksService>();
             return services;
         }
     }
