@@ -13,7 +13,7 @@ namespace Atlas.WebApi.Models
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateVerificationRequestCommand, CreateVerificationRequestDto>()
+            profile.CreateMap<CreateVerificationRequestDto, CreateVerificationRequestCommand>()
                 .ForMember(dst => dst.PassportPhotoPath, opt =>
                     opt.MapFrom(src => src.PassportPhotoPath))
                 .ForMember(dst => dst.SelfieWithPassportPhotoPath, opt =>
