@@ -23,7 +23,7 @@ namespace Atlas.Application.CQRS.VerificationRequests.Queries.GetMyVerificationR
         public async Task<VerificationRequestDetailsVm> Handle(GetMyVerificationRequestDetailsQuery request,
             CancellationToken cancellationToken)
         {
-            var verificationRequest = await _dbContext.VerificationRequests.FirstOrDefaultAsync(x =>
+            var verificationRequest = await _dbContext.VerificationRequests.Include(x => x.Client.User).FirstOrDefaultAsync(x =>
                 x.Id == request.Id, cancellationToken);
 
             if (verificationRequest == null || verificationRequest.ClientId != request.ClientId)
