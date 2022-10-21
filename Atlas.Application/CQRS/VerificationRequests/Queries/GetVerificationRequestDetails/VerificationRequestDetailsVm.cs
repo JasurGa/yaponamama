@@ -11,6 +11,16 @@ namespace Atlas.Application.CQRS.VerificationRequests.Queries.GetVerificationReq
 
         public Guid ClientId { get; set; }
 
+        public string ClientFirstName { get; set; }
+
+        public string ClientLastName { get; set; }
+
+        public string ClientMiddleName { get; set; }
+
+        public DateTime ClientBirthday { get; set; }
+
+        public string ClientPhoneNumber { get; set; }
+
         public string PassportPhotoPath { get; set; }
 
         public string SelfieWithPassportPhotoPath { get; set; }
@@ -30,6 +40,16 @@ namespace Atlas.Application.CQRS.VerificationRequests.Queries.GetVerificationReq
                     opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.ClientId, opt =>
                     opt.MapFrom(src => src.ClientId))
+                .ForMember(dst => dst.ClientFirstName, opt =>
+                    opt.MapFrom(src => src.Client.User.FirstName))
+                .ForMember(dst => dst.ClientLastName, opt =>
+                    opt.MapFrom(src => src.Client.User.LastName))
+                .ForMember(dst => dst.ClientMiddleName, opt =>
+                    opt.MapFrom(src => src.Client.User.MiddleName))
+                .ForMember(dst => dst.ClientBirthday, opt =>
+                    opt.MapFrom(src => src.Client.User.Birthday))
+                .ForMember(dst => dst.ClientPhoneNumber, opt =>
+                    opt.MapFrom(src => src.Client.PhoneNumber))
                 .ForMember(dst => dst.PassportPhotoPath, opt =>
                     opt.MapFrom(src => src.PassportPhotoPath))
                 .ForMember(dst => dst.SelfieWithPassportPhotoPath, opt =>

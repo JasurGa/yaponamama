@@ -19,5 +19,7 @@ namespace Atlas.Domain
         public string Comment { get; set; }
 
         public DateTime SendAt { get; set; }
+
+        public Client Client { get; set; }
     }
 }
