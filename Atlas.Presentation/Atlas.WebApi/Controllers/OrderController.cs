@@ -176,6 +176,7 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
+        /// <summary>
         /// Updates the order status
         /// </summary>
         /// <remarks>

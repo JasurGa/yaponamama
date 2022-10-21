@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,12 +25,11 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
             if (request.ShowActive != false)
             {
-                query = query.Where(x => x.FinishedAt != null && x.Status < 3);
+                query = query.Where(x => x.Status < 3);
             }
 
             var ordersCount = await query.CountAsync(cancellationToken);
             var orders = await query
-                //.Include(x => x.Store)
                 .OrderByDescending(x => x.CreatedAt)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
