@@ -253,7 +253,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpPost("parent")]
-        [AuthRoleFilter(Roles.Admin)]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> AddCategoryParentAsync([FromBody] AddCategoryParentDto addCategoryParent)
@@ -283,7 +283,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpDelete("parent")]
-        [AuthRoleFilter(Roles.Admin)]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<Guid>> RemoveCategoryParentAsync([FromBody] RemoveCategoryParentDto removeCategoryParent)
@@ -351,7 +351,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [HttpPut]
         [Authorize]
-        [AuthRoleFilter(Roles.Admin)]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -379,7 +379,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpDelete("{id}")]
-        [AuthRoleFilter(Roles.Admin)]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -409,7 +409,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpPatch("{id}")]
-        [AuthRoleFilter(Roles.Admin)]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
