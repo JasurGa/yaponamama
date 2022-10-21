@@ -439,11 +439,12 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/order/client/last/paged?pageIndex=0&amp;pageSize=10
+        ///     GET /api/1.0/order/client/last/paged?pageIndex=0&amp;pageSize=10&amp;showActive=false
         ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
+        /// <param name="showActive">Show active only orders or not</param>
         /// <returns>Returns PageDto OrderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -452,13 +453,17 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<ClientOrderLookupDto>>> GetLastOrdersByClientIdAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<ClientOrderLookupDto>>> GetLastOrdersByClientIdAsync(
+            [FromQuery] int pageIndex = 0, 
+            [FromQuery] int pageSize = 10,
+            [FromQuery] bool showActive = false)
         {
             var vm = await Mediator.Send(new GetLastOrdersPagedListByClientQuery
             {
-                ClientId  = ClientId,
-                PageIndex = pageIndex,
-                PageSize  = pageSize
+                ClientId   = ClientId,
+                ShowActive = showActive,
+                PageIndex  = pageIndex,
+                PageSize   = pageSize
             });
 
             return Ok(vm);
