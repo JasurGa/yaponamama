@@ -18,18 +18,24 @@ namespace Atlas.Application.CQRS.Vehicles.Commands.DeleteVehicle
         public async Task<Unit> Handle(DeleteVehicleCommand request,
             CancellationToken cancellationToken)
         {
-            var vehicle = await _dbContext.Vehicles.Include(x => x.Courier)
-                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            var vehicle = await _dbContext.Vehicles.FirstOrDefaultAsync(x => 
+                x.Id == request.Id, cancellationToken);
 
             if (vehicle == null)
             {
                 throw new NotFoundException(nameof(Vehicle), request.Id);
             }
 
-            vehicle.Courier.VehicleId = null;
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            var courier = await _dbContext.Couriers.FirstOrDefaultAsync(x =>
+                x.VehicleId == request.Id, cancellationToken);
+
+            if (courier != null)
+            {
+                courier.VehicleId = null;
+            }
 
             _dbContext.Vehicles.Remove(vehicle);
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
