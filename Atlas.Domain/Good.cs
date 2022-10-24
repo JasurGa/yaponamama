@@ -44,5 +44,9 @@ namespace Atlas.Domain
         public Provider Provider { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+        public string CodeIkpu { get; set; }
+
+        public int SaleTaxPercent { get; set; }
     }
 }

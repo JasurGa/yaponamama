@@ -48,6 +48,8 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
             good.Mass           = request.Mass;
             good.Volume         = request.Volume;
             good.Discount       = request.Discount;
+            good.SaleTaxPercent = request.SaleTaxPercent;
+            good.CodeIkpu       = request.CodeIkpu;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

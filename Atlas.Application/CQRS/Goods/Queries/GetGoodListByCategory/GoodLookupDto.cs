@@ -49,6 +49,10 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
 
         public DateTime CreatedAt { get; set; }
 
+        public string CodeIkpu { get; set; }
+
+        public int SaleTaxPercent { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Good, GoodLookupDto>()
@@ -89,7 +93,11 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                 .ForMember(dest => dest.Count, opt =>
                     opt.MapFrom(src => src.StoreToGoods.Sum(x => x.Count)))
                 .ForMember(dest => dest.CreatedAt, opt =>
-                    opt.MapFrom(src => src.CreatedAt));
+                    opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.CodeIkpu, opt =>
+                    opt.MapFrom(src => src.CodeIkpu))
+                .ForMember(dest => dest.SaleTaxPercent, opt =>
+                    opt.MapFrom(src => src.SaleTaxPercent)); ;
         }
     }
 }

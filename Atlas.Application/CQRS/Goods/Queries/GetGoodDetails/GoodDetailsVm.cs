@@ -49,6 +49,10 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public DateTime CreatedAt { get; set; }
 
+        public string CodeIkpu { get; set; }
+
+        public int SaleTaxPercent { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Good, GoodDetailsVm>()
@@ -89,7 +93,11 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 .ForMember(dest => dest.IsDeleted, opt =>
                     opt.MapFrom(src => src.IsDeleted))
                 .ForMember(dest => dest.CreatedAt, opt =>
-                    opt.MapFrom(src => src.CreatedAt));
+                    opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.CodeIkpu, opt =>
+                    opt.MapFrom(src => src.CodeIkpu))
+                .ForMember(dest => dest.SaleTaxPercent, opt =>
+                    opt.MapFrom(src => src.SaleTaxPercent));
         }
     }
 }

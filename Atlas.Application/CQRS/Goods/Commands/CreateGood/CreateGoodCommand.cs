@@ -34,5 +34,10 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
         public float Mass { get; set; }
 
         public float Discount { get; set; }
+
+        public string CodeIkpu { get; set; }
+
+        public int SaleTaxPercent { get; set; }
+
     }
 }
