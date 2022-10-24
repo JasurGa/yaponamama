@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Helpers;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
@@ -65,11 +66,14 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
 
             if (request.SearchQuery != null)
             {
+                var notTranslited = request.SearchQuery.ToLower().Trim();
+                var translitedRu  = TranslitConverter.TranslitEnRu(notTranslited);
+                var translitedEn  = TranslitConverter.TranslitRuEn(notTranslited);
+
                 goods = goods.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
                     (x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice).ToLower().Trim(),
-                        request.SearchQuery.ToLower().Trim()));
+                        notTranslited + " " + translitedRu + " " + translitedEn));
             }
-                
 
             var goodsCount = await goods.CountAsync(cancellationToken);
             var pagedGoods = await goods.Skip(request.PageSize * request.PageIndex)
