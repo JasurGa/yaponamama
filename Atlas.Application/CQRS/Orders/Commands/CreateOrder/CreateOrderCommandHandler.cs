@@ -7,6 +7,7 @@ using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Common.Helpers;
 using Atlas.Application.Enums;
 using Atlas.Application.Interfaces;
+using Atlas.Application.Services;
 using Atlas.Domain;
 using AutoMapper;
 using MediatR;
@@ -17,12 +18,13 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand,
         Guid>
     {
-        private readonly IMapper         _mapper;
-        private readonly IMediator       _mediator;
-        private readonly IAtlasDbContext _dbContext;
+        private readonly IMapper              _mapper;
+        private readonly IMediator            _mediator;
+        private readonly IAtlasDbContext      _dbContext;
+        private readonly IBotCallbacksService _botCallbacksService;
 
-        public CreateOrderCommandHandler(IMapper mapper, IMediator mediator, IAtlasDbContext dbContext) =>
-            (_mapper, _mediator, _dbContext) = (mapper, mediator, dbContext);
+        public CreateOrderCommandHandler(IMapper mapper, IMediator mediator, IAtlasDbContext dbContext, IBotCallbacksService botCallbacksService) =>
+            (_mapper, _mediator, _dbContext, _botCallbacksService) = (mapper, mediator, dbContext, botCallbacksService);
 
         private async Task<Promo> GetPromoAsync(CreateOrderCommand request,
             CancellationToken cancellationToken)
@@ -203,6 +205,12 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             await _dbContext.Orders.AddAsync(order,
                 cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
+
+            if (order.TelegramUserId != null)
+            {
+                await _botCallbacksService.UpdateStatusAsync(order.TelegramUserId.Value, order.IsDevVersionBot,
+                    order.Id, order.Status);
+            }
 
             foreach (var createGoodToOrder in request.GoodToOrders)
             {
