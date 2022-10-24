@@ -13,8 +13,8 @@ namespace Atlas.Persistence.EntityTypeConfigurations
 
             builder
                 .HasOne(x => x.Client)
-                .WithOne()
-                .HasForeignKey<VerificationRequest>(x => x.ClientId);
+                .WithMany()
+                .HasForeignKey(x => x.ClientId);
         }
     }
 }
