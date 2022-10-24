@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.VerificationRequests.Queries.GetPagedVerificati
             var verificationRequestsCount = await _dbContext.VerificationRequests
                 .CountAsync(cancellationToken);
 
-            var verificationRequests = await _dbContext.VerificationRequests.OrderBy(x => x.SendAt)
+            var verificationRequests = await _dbContext.VerificationRequests.OrderByDescending(x => x.SendAt)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<VerificationRequestLookupDto>(_mapper.ConfigurationProvider)
