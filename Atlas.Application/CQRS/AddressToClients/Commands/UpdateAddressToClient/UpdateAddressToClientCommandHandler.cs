@@ -17,18 +17,21 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.UpdateAddressToClient
 
         public async Task<Unit> Handle(UpdateAddressToClientCommand request, CancellationToken cancellationToken)
         {
-            var entity = await _dbContext.AddressToClients
+            var address = await _dbContext.AddressToClients
                 .FirstOrDefaultAsync(e => e.Id == request.Id,
                 cancellationToken);
 
-            if (entity == null || entity.ClientId != request.ClientId)
+            if (address == null || address.ClientId != request.ClientId)
             {
                 throw new NotFoundException(nameof(AddressToClient), request.Id);
             }
 
-            entity.Address   = request.Address;
-            entity.Latitude  = request.Latitude;
-            entity.Longitude = request.Longitude;
+            address.Address   = request.Address;
+            address.Entrance  = request.Entrance;
+            address.Floor     = request.Floor;
+            address.Apartment = request.Apartment;
+            address.Latitude  = request.Latitude;
+            address.Longitude = request.Longitude;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

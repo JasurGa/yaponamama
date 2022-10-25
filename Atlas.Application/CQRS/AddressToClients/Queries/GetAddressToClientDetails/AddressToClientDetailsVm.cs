@@ -11,6 +11,12 @@ namespace Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientDeta
 
         public string Address { get; set; }
 
+        public string Entrance { get; set; }
+
+        public string Floor { get; set; }
+
+        public string Apartment { get; set; }
+
         public Guid ClientId { get; set; }
 
         public float Latitude { get; set; }
@@ -26,6 +32,12 @@ namespace Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientDeta
                     opt => opt.MapFrom(e => e.Id))
                 .ForMember(eVm => eVm.Address,
                     opt => opt.MapFrom(e => e.Address))
+                .ForMember(eVm => eVm.Entrance,
+                    opt => opt.MapFrom(e => e.Entrance))
+                .ForMember(eVm => eVm.Floor,
+                    opt => opt.MapFrom(e => e.Floor))
+                .ForMember(eVm => eVm.Apartment,
+                    opt => opt.MapFrom(e => e.Apartment))
                 .ForMember(eVm => eVm.ClientId,
                     opt => opt.MapFrom(e => e.ClientId))
                 .ForMember(eVm => eVm.Latitude,

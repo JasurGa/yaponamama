@@ -34,6 +34,9 @@ namespace Atlas.WebApi.Controllers
         ///     POST /api/1.0/addresstoclient
         ///     {
         ///         "address": "Sample address",
+        ///         "entrance": "10",
+        ///         "floor": "2a",
+        ///         "apartment": "72b",
         ///         "latitude": 0,
         ///         "longitude": 0
         ///     }
@@ -125,6 +128,9 @@ namespace Atlas.WebApi.Controllers
         ///     {
         ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "address": "Sample address",
+        ///         "entrance": "10",
+        ///         "floor": "2a",
+        ///         "apartment": "72b",
         ///         "latitude": 0,
         ///         "longitude": 0
         ///     }

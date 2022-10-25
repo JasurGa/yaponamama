@@ -19,8 +19,6 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.CreateAddressToClient
 
             RuleFor(e => e.Longitude)
                 .NotEmpty();
-
-
         }   
     }
 }
