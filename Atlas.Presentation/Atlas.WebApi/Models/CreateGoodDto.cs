@@ -37,6 +37,10 @@ namespace Atlas.WebApi.Models
 
         public float Discount { get; set; }
 
+        public string CodeIkpu { get; set; }
+
+        public int SaleTaxPercent { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateGoodDto, CreateGoodCommand>()
@@ -69,7 +73,11 @@ namespace Atlas.WebApi.Models
                 .ForMember(x => x.Volume, opt =>
                     opt.MapFrom(x => x.Volume))
                 .ForMember(x => x.Discount, opt =>
-                    opt.MapFrom(x => x.Discount));
+                    opt.MapFrom(x => x.Discount))
+                .ForMember(x => x.CodeIkpu, opt =>
+                    opt.MapFrom(x => x.CodeIkpu))
+                .ForMember(x => x.SaleTaxPercent, opt =>
+                    opt.MapFrom(x => x.SaleTaxPercent));
         }
     }
 }
