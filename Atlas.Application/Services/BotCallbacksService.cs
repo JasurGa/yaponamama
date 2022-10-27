@@ -17,7 +17,7 @@ namespace Atlas.Application.Services
             return !isDevVersionBot ? "https://botapi.oqot.uz" : "https://botapidev.oqot.uz";
         }
 
-        public async Task<string> UpdateStatusAsync(int telegramUserId, bool isDevVersionBot, Guid orderId, int status)
+        public async Task<string> UpdateStatusAsync(long telegramUserId, bool isDevVersionBot, Guid orderId, int status)
         {
             HttpResponseMessage response;
             string responseString;
