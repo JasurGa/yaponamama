@@ -31,8 +31,8 @@ namespace Atlas.Payme.MerchantApi.Services
                 throw new OrderNotFoundException();
             }
             
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(x =>
-                x.Id == orderId);
+            var order = await _dbContext.Orders.Include(x => x.GoodToOrders).ThenInclude(x => x.Good)
+                .FirstOrDefaultAsync(x => x.Id == orderId);
 
             if (order == null || order.IsPrePayed)
             {
@@ -46,7 +46,19 @@ namespace Atlas.Payme.MerchantApi.Services
 
             return new CheckPerformTransactionResult
             {
-                Allow = true
+                Allow  = true,
+                Detail = new DetailsLookupDto
+                {
+                    Items = order.GoodToOrders.Select(x => new ItemLookupDto
+                    {
+                        Title       = x.Good.NameRu,
+                        Price       = x.Good.SellingPrice * 100,
+                        Count       = x.Count,
+                        Code        = x.Good.CodeIkpu,
+                        VatPercent  = x.Good.SaleTaxPercent,
+                        PackageCode = x.Good.PackageCode
+                    })
+                }
             };
         }
 
