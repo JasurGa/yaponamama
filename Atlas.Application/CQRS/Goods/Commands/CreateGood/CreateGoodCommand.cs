@@ -39,5 +39,6 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
 
         public int SaleTaxPercent { get; set; }
 
+        public string PackageCode { get; set; }
     }
 }

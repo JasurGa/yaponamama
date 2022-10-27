@@ -53,6 +53,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
 
         public int SaleTaxPercent { get; set; }
 
+        public string PackageCode { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Good, GoodLookupDto>()
@@ -97,7 +99,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                 .ForMember(dest => dest.CodeIkpu, opt =>
                     opt.MapFrom(src => src.CodeIkpu))
                 .ForMember(dest => dest.SaleTaxPercent, opt =>
-                    opt.MapFrom(src => src.SaleTaxPercent)); ;
+                    opt.MapFrom(src => src.SaleTaxPercent))
+                .ForMember(dest => dest.PackageCode, opt =>
+                    opt.MapFrom(src => src.PackageCode));
         }
     }
 }

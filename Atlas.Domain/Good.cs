@@ -48,5 +48,7 @@ namespace Atlas.Domain
         public string CodeIkpu { get; set; }
 
         public int SaleTaxPercent { get; set; }
+
+        public string PackageCode { get; set; }
     }
 }

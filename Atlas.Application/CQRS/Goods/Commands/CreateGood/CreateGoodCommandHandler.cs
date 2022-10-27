@@ -47,7 +47,8 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
                 IsDeleted      = false,
                 CreatedAt      = DateTime.UtcNow,
                 CodeIkpu       = request.CodeIkpu,
-                SaleTaxPercent = request.SaleTaxPercent
+                SaleTaxPercent = request.SaleTaxPercent,
+                PackageCode    = request.PackageCode
             };
 
             await _dbContext.Goods.AddAsync(good, cancellationToken);

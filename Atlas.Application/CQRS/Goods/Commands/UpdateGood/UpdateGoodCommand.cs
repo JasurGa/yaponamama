@@ -40,5 +40,7 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
         public string CodeIkpu { get; set; }
 
         public int SaleTaxPercent { get; set; }
+
+        public string PackageCode { get; set; }
     }
 }
