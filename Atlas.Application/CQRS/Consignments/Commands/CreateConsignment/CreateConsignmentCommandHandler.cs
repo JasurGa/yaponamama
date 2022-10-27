@@ -60,12 +60,13 @@ namespace Atlas.Application.CQRS.Consignments.Commands.CreateConsignment
 
             var consignment = new Consignment
             {
-                Id              = Guid.NewGuid(),
-                ExpirateAt      = request.ExpirateAt,
-                PurchasedAt     = request.PurchasedAt,
-                ShelfLocation   = request.ShelfLocation,
-                StoreToGoodId   = storeToGood.Id,
-                Count           = request.Count
+                Id                   = Guid.NewGuid(),
+                ExpirateAt           = request.ExpirateAt,
+                PurchasedAt          = request.PurchasedAt,
+                ShelfLocation        = request.ShelfLocation,
+                StoreToGoodId        = storeToGood.Id,
+                Count                = request.Count,
+                CurrentPurchasePrice = good.PurchasePrice,
             };
 
             await _dbContext.Consignments.AddAsync(consignment,

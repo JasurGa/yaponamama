@@ -15,6 +15,8 @@ namespace Atlas.Domain
 
         public string ShelfLocation { get; set; }
 
+        public long CurrentPurchasePrice { get; set; }
+
         public StoreToGood StoreToGood { get; set; }
     }
 }
