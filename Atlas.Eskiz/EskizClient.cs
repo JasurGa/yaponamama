@@ -32,9 +32,6 @@ namespace Atlas.Eskiz
                 { "password", _eskizSettings.Password }
             });
 
-            Console.WriteLine("Eskiz.Email: " + _eskizSettings.Email);
-            Console.WriteLine("Eskiz.Password: " + _eskizSettings.Password);
-
             HttpResponseMessage response;
             string responseString;
 
@@ -42,7 +39,6 @@ namespace Atlas.Eskiz
             {
                 response = await client.PostAsync("https://notify.eskiz.uz/api/auth/login", content);
                 responseString = await response.Content.ReadAsStringAsync();
-                Console.WriteLine("Eskiz.Auth: " + responseString);
             }
             catch (HttpRequestException)
             {
@@ -56,7 +52,6 @@ namespace Atlas.Eskiz
             }
             catch (Exception e)
             {
-                Console.WriteLine("Eskiz.AuthException: " + e.Message + e.StackTrace);
                 throw new Exception("Eskiz.Exception: Can't authorize!");
             }
         }
@@ -74,7 +69,6 @@ namespace Atlas.Eskiz
                     new AuthenticationHeaderValue("Bearer", _token);
 
                 var response = await client.SendAsync(requestMessage);
-                Console.WriteLine("Eskiz.Refresh: " + await response.Content.ReadAsStringAsync());
             }
         }
 
@@ -100,7 +94,6 @@ namespace Atlas.Eskiz
                     new AuthenticationHeaderValue("Bearer", _token);
 
                 var response = await client.SendAsync(requestMessage);
-                Console.WriteLine("Eskiz.Send: " + await response.Content.ReadAsStringAsync());
             }
         }
     }
