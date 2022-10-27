@@ -32,7 +32,7 @@ namespace Atlas.WebApi.Models
 
         public bool IsDevVersionBot { get; set; }
 
-        public int? TelegramUserId { get; set; }
+        public long? TelegramUserId { get; set; }
 
         public IEnumerable<CreateGoodToOrderDto> GoodToOrders { get; set; }
 

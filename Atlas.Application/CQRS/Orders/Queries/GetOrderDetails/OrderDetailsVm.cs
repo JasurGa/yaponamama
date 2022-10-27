@@ -47,7 +47,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public bool CanRefund { get; set; }
 
-        public int? TelegramUserId { get; set; }
+        public long? TelegramUserId { get; set; }
 
         public bool IsDevVersionBot { get; set; }
 

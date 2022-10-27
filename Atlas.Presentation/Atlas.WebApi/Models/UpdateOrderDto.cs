@@ -49,7 +49,7 @@ namespace Atlas.WebApi.Models
 
         public bool IsDevVersionBot { get; set; }
 
-        public int? TelegramUserId { get; set; }
+        public long? TelegramUserId { get; set; }
 
         public void Mapping(Profile profile)
         {
