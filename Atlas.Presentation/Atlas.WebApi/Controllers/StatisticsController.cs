@@ -1,4 +1,5 @@
 ﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Statistics.Queries.GetDebitCreditStaistics;
 using Atlas.Application.CQRS.Statistics.Queries.GetGoodsCountStatistics;
 using Atlas.Application.CQRS.Statistics.Queries.GetNumberOfRegistrationsOfUsers;
 using Atlas.Application.CQRS.Statistics.Queries.GetOverallBalanceOfClients;
@@ -16,6 +17,27 @@ namespace Atlas.WebApi.Controllers
     [Route("/api/{version:apiVersion}/[controller]")]
     public class StatisticsController : BaseController
     {
+        /// <summary>
+        /// Get debit credit statistics
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/statistics/debitcredit
+        ///     
+        /// </remarks>
+        /// <returns>Returns DebitCreditStatisticsLookupDto</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("debitcredit")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<DebitCreditLookupDto>> GetDebitCreditAsync()
+        {
+            var vm = await Mediator.Send(new GetDebitCreditStatisticsQuery());
+            return Ok(vm);
+        }
+
         /// <summary>
         /// Get category goods count
         /// </summary>

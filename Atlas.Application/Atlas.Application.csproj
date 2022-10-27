@@ -149,6 +149,7 @@
     <Folder Include="CQRS\VerificationRequests\Queries\GetPagedVerificationRequestsList\" />
     <Folder Include="CQRS\VerificationRequests\Queries\GetVerificationRequestDetails\" />
     <Folder Include="CQRS\VerificationRequests\Queries\GetMyVerificationRequestDetails\" />
+    <Folder Include="CQRS\Statistics\Queries\GetDebitCreditStaistics\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -162,6 +163,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="InfluxDB.Client" Version="4.3.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams" Version="5.0.10" />
+    <PackageReference Include="Coravel" Version="4.1.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Atlas.Domain\Atlas.Domain.csproj" />
@@ -306,5 +308,7 @@
     <None Remove="CQRS\VerificationRequests\Queries\GetPagedVerificationRequestsList\" />
     <None Remove="CQRS\VerificationRequests\Queries\GetVerificationRequestDetails\" />
     <None Remove="CQRS\VerificationRequests\Queries\GetMyVerificationRequestDetails\" />
+    <None Remove="CQRS\Statistics\Queries\GetDebitCreditStaistics\" />
+    <None Remove="Coravel" />
   </ItemGroup>
 </Project>

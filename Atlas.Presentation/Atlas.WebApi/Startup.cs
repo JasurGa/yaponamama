@@ -21,6 +21,7 @@ using Atlas.WebApi.Services;
 using Atlas.WebApi.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Threading.Tasks;
+using Atlas.Application.Services;
 
 namespace Atlas.WebApi
 {
@@ -173,6 +174,9 @@ namespace Atlas.WebApi
                 scheduler
                     .Schedule<UptimeService>()
                     .EveryFiveSeconds();
+                scheduler
+                    .Schedule<StatisticsService>()
+                    .EveryFifteenMinutes();
             });
 
             app.UseHealthChecks("/health");

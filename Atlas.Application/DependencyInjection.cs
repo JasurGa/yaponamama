@@ -11,6 +11,7 @@ namespace Atlas.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddTransient<StatisticsService>();
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssemblies(new[] { Assembly.GetExecutingAssembly() });
             services.AddTransient(typeof(IPipelineBehavior<,>),
