@@ -43,6 +43,8 @@ namespace Atlas.WebApi.Models
 
         public int SaleTaxPercent { get; set; }
 
+        public string PackageCode { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateGoodDto, UpdateGoodCommand>()
@@ -81,7 +83,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(x => x.CodeIkpu, opt =>
                     opt.MapFrom(x => x.CodeIkpu))
                 .ForMember(x => x.SaleTaxPercent, opt =>
-                    opt.MapFrom(x => x.SaleTaxPercent));
+                    opt.MapFrom(x => x.SaleTaxPercent))
+                .ForMember(x => x.PackageCode, opt =>
+                    opt.MapFrom(x => x.PackageCode));
         }
     }
 }
