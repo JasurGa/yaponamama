@@ -20,7 +20,7 @@ namespace Atlas.Application.CQRS.Notifications.Commands.CreateNotification
 
         public async Task<Guid> Handle(CreateNotificationCommand request, CancellationToken cancellationToken)
         {
-            var notificationType = _dbContext.NotificationTypes.FirstOrDefaultAsync(x =>
+            var notificationType =  await _dbContext.NotificationTypes.FirstOrDefaultAsync(x =>
                 x.Id == request.NotificationTypeId, cancellationToken);
 
             if (notificationType == null)
