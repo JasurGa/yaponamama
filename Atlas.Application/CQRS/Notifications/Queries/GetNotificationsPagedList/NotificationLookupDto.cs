@@ -1,5 +1,6 @@
 ﻿using System;
 using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.NotificationTypes.Queries.GetNotificationTypes;
 using Atlas.Domain;
 using AutoMapper;
 
@@ -9,7 +10,7 @@ namespace Atlas.Application.CQRS.Notifications.Queries.GetNotificationsPagedList
     {
         public Guid Id { get; set; }
 
-        public Guid NotificationTypeId { get; set; }
+        public NotificationTypeLookupDto NotificationType { get; set; }
 
         public string Subject { get; set; }
 
@@ -26,8 +27,8 @@ namespace Atlas.Application.CQRS.Notifications.Queries.GetNotificationsPagedList
             profile.CreateMap<Notification, NotificationLookupDto>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
-                .ForMember(dst => dst.NotificationTypeId, opt =>
-                    opt.MapFrom(src => src.NotificationTypeId))
+                .ForMember(dst => dst.NotificationType, opt =>
+                    opt.MapFrom(src => src.NotificationType))
                 .ForMember(dst => dst.Subject, opt =>
                     opt.MapFrom(src => src.Subject))
                 .ForMember(dst => dst.SubjectRu, opt =>

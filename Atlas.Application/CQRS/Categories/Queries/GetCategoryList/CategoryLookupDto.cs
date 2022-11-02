@@ -23,6 +23,8 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
         public bool IsMainCategory { get; set; }
 
         public int ChildCategoriesCount { get; set; }
+            
+        public int TotalAvailableGoodsCount { get; set; }
 
         public int GoodsCount { get; set; }
 
