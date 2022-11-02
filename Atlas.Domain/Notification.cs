@@ -27,6 +27,8 @@ namespace Atlas.Domain
 
         public long Priority { get; set; }
 
+        public NotificationType NotificationType { get; set; }
+
         public List<NotificationAccess> NotificationAccesses { get; set; }
     }
 }

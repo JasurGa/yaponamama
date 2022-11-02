@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Common.Helpers;
+using Atlas.Application.CQRS.Notifications.Commands.AttachNotificationToUser;
+using Atlas.Application.CQRS.Notifications.Commands.CreateNotification;
 using Atlas.Application.Enums;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Services;
@@ -218,6 +220,18 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 createGoodToOrder.StoreId = foundStore.Id;
                 await _mediator.Send(createGoodToOrder, cancellationToken);
             }
+
+            var notificationId = await _mediator.Send(new CreateNotificationCommand { 
+                NotificationTypeId = new Guid("3dc1336a-553b-4869-be74-b771b73e3895"),
+                Subject = "New order",
+                Body = "Hey! There is a new order assigned to you! Please make sure to check the details",
+                Priority = 1
+            }, cancellationToken);
+
+            await _mediator.Send(new AttachNotificationToUserCommand {
+                UserId = foundCourier.UserId,
+                NotificationId = notificationId
+            }, cancellationToken);
 
             return order.Id;
         }
