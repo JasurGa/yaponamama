@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Atlas.Application.Interfaces;
+using Atlas.Payme.MerchantApi.Enums;
 using Atlas.Payme.MerchantApi.Exceptions;
 using Atlas.Payme.MerchantApi.Models;
 using Atlas.Payme.MerchantApi.Services;
@@ -26,11 +27,11 @@ namespace Atlas.Payme.MerchantApi.Controllers
             }
             catch (OrderNotFoundException)
             {
-                return Error(-31050, "Wrong order id", "order");
+                return Error((int)PaycomRpcErrorCodes.WrongOrderId, "Wrong order id", "order");
             }
             catch (IncorrectAmountException)
             {
-                return Error(-31001, "Wrong amount!", "amount");
+                return Error((int)PaycomRpcErrorCodes.WrongAmount, "Wrong amount!", "amount");
             }
         }
 
@@ -43,15 +44,15 @@ namespace Atlas.Payme.MerchantApi.Controllers
             }
             catch (OrderNotFoundException)
             {
-                return Error(-31050, "Wrong order id", "order");
+                return Error((int)PaycomRpcErrorCodes.WrongOrderId, "Wrong order id", "order");
             }
             catch (IncorrectAmountException)
             {
-                return Error(-31001, "Wrong amount!");
+                return Error((int)PaycomRpcErrorCodes.WrongAmount, "Wrong amount!");
             }
             catch (UnableCompleteException)
             {
-                return Error(-31008, "Unable to complete the operation!");
+                return Error((int)PaycomRpcErrorCodes.UnableComplete, "Unable to complete the operation!");
             }
         }
 
@@ -64,15 +65,15 @@ namespace Atlas.Payme.MerchantApi.Controllers
             }
             catch (TransactionNotFoundException)
             {
-                return Error(-31003, "Wrong transaction id!");
+                return Error((int)PaycomRpcErrorCodes.WrongTransactionId, "Wrong transaction id!");
             }
             catch (UnableCompleteException)
             {
-                return Error(-31008, "Unable to complete the operation!");
+                return Error((int)PaycomRpcErrorCodes.UnableComplete, "Unable to complete the operation!");
             }
             catch (OrderNotFoundException)
             {
-                return Error(-31050, "Wrong order id", "order");
+                return Error((int)PaycomRpcErrorCodes.WrongOrderId, "Wrong order id", "order");
             }
         }
 
@@ -85,11 +86,11 @@ namespace Atlas.Payme.MerchantApi.Controllers
             }
             catch (TransactionNotFoundException)
             {
-                return Error(-31003, "Wrong transaction id!");
+                return Error((int)PaycomRpcErrorCodes.WrongTransactionId, "Wrong transaction id!");
             }
             catch (UnableCancelTransactionException)
             {
-                return Error(-31007, "Unable to cancel the operation!");
+                return Error((int)PaycomRpcErrorCodes.UnableComplete, "Unable to cancel the operation!");
             }
         }
 
@@ -102,7 +103,7 @@ namespace Atlas.Payme.MerchantApi.Controllers
             }
             catch (TransactionNotFoundException)
             {
-                return Error(-31003, "Wrong transaction id!");
+                return Error((int)PaycomRpcErrorCodes.WrongTransactionId, "Wrong transaction id!");
             }
         }
 
@@ -113,4 +114,3 @@ namespace Atlas.Payme.MerchantApi.Controllers
         }
     }
 }
-
