@@ -21,7 +21,7 @@ namespace Atlas.Application.Services
 
         public async Task Invoke()
         {
-            var debit  = _dbContext.Consignments.Select(x => x.Count * x.StoreToGood.Good.PurchasePrice).Sum();
+            var debit  = _dbContext.Consignments.Select(x => x.Count * x.CurrentPurchasePrice).Sum();
             var credit = ((long)_dbContext.Orders.Select(x => x.SellingPrice).Sum());
 
             await _dbContext.DebitCreditStatistics.AddAsync(new DebitCreditStatistics

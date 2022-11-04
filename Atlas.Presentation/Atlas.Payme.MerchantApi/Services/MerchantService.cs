@@ -34,7 +34,7 @@ namespace Atlas.Payme.MerchantApi.Services
             var order = await _dbContext.Orders.Include(x => x.GoodToOrders).ThenInclude(x => x.Good)
                 .FirstOrDefaultAsync(x => x.Id == orderId);
 
-            if (order == null || order.IsPrePayed)
+            if (order == null)
             {
                 throw new OrderNotFoundException();
             }
@@ -44,9 +44,15 @@ namespace Atlas.Payme.MerchantApi.Services
                 throw new IncorrectAmountException();
             }
 
+            var isTransactionAllowed = true;
+            if (order.IsPrePayed)
+            {
+                isTransactionAllowed = false;
+            }
+
             return new CheckPerformTransactionResult
             {
-                Allow  = true,
+                Allow  = isTransactionAllowed,
                 Detail = new DetailsLookupDto
                 {
                     Items = order.GoodToOrders.Select(x => new ItemLookupDto
