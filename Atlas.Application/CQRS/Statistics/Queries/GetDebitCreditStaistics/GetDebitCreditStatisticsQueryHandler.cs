@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Interfaces;
@@ -18,7 +17,7 @@ namespace Atlas.Application.CQRS.Statistics.Queries.GetDebitCreditStaistics
         public async Task<DebitCreditLookupDto> Handle(GetDebitCreditStatisticsQuery request, CancellationToken cancellationToken)
         {
             var lastAdded = await _dbContext.DebitCreditStatistics.OrderByDescending(x => x.AddedAt)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken);
 
             return new DebitCreditLookupDto
             {
