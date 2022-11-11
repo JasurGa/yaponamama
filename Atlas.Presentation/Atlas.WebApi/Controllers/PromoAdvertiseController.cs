@@ -158,7 +158,7 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <returns>Returns PromoAdvertisesListVm</returns>
         /// <response code="200">Success</response>
-        [HttpGet("actual")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetActualAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
