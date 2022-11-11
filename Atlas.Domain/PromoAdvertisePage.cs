@@ -37,6 +37,8 @@ namespace Atlas.Domain
 
         public string ButtonColor { get; set; }
 
+        public string Background { get; set; }
+
         public ICollection<PromoAdvertiseGood> PromoAdvertiseGoods { get; set; }
     }
 }
