@@ -41,6 +41,9 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
             good.DescriptionRu  = request.DescriptionRu;
             good.DescriptionEn  = request.DescriptionEn;
             good.DescriptionUz  = request.DescriptionUz;
+            good.NoteRu         = request.NoteRu;
+            good.NoteEn         = request.NoteEn;
+            good.NoteUz         = request.NoteUz;
             good.PhotoPath      = request.PhotoPath;
             good.SellingPrice   = request.SellingPrice;
             good.PurchasePrice  = request.PurchasePrice;

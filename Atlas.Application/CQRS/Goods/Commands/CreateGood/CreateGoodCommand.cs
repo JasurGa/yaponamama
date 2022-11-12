@@ -21,6 +21,12 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
 
         public string DescriptionUz { get; set; }
 
+        public string NoteRu { get; set; }
+
+        public string NoteEn { get; set; }
+
+        public string NoteUz { get; set; }
+
         public string PhotoPath { get; set; }
 
         public long SellingPrice { get; set; }
