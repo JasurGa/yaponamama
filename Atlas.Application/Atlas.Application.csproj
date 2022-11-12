@@ -150,6 +150,14 @@
     <Folder Include="CQRS\VerificationRequests\Queries\GetVerificationRequestDetails\" />
     <Folder Include="CQRS\VerificationRequests\Queries\GetMyVerificationRequestDetails\" />
     <Folder Include="CQRS\Statistics\Queries\GetDebitCreditStaistics\" />
+    <Folder Include="CQRS\PromoAdvertises\" />
+    <Folder Include="CQRS\PromoAdvertises\Queries\" />
+    <Folder Include="CQRS\PromoAdvertises\Commands\" />
+    <Folder Include="CQRS\PromoAdvertises\Commands\CreatePromoAdvertise\" />
+    <Folder Include="CQRS\PromoAdvertises\Commands\UpdatePromoAdvertise\" />
+    <Folder Include="CQRS\PromoAdvertises\Commands\DeletePromoAdvertise\" />
+    <Folder Include="CQRS\PromoAdvertises\Queries\GetActualPromoAdvertises\" />
+    <Folder Include="CQRS\PromoAdvertises\Queries\GetAllPagedPromoAdvertises\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -310,5 +318,13 @@
     <None Remove="CQRS\VerificationRequests\Queries\GetMyVerificationRequestDetails\" />
     <None Remove="CQRS\Statistics\Queries\GetDebitCreditStaistics\" />
     <None Remove="Coravel" />
+    <None Remove="CQRS\PromoAdvertises\" />
+    <None Remove="CQRS\PromoAdvertises\Queries\" />
+    <None Remove="CQRS\PromoAdvertises\Commands\" />
+    <None Remove="CQRS\PromoAdvertises\Commands\CreatePromoAdvertise\" />
+    <None Remove="CQRS\PromoAdvertises\Commands\UpdatePromoAdvertise\" />
+    <None Remove="CQRS\PromoAdvertises\Commands\DeletePromoAdvertise\" />
+    <None Remove="CQRS\PromoAdvertises\Queries\GetActualPromoAdvertises\" />
+    <None Remove="CQRS\PromoAdvertises\Queries\GetAllPagedPromoAdvertises\" />
   </ItemGroup>
 </Project>
