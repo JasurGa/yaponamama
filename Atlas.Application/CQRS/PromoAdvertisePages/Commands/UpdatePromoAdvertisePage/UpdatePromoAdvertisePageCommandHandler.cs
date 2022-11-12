@@ -49,6 +49,7 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Commands.UpdatePromoAdverti
             promoAdvertisePage.DescriptionUz    = request.DescriptionUz;
             promoAdvertisePage.ButtonColor      = request.ButtonColor;
             promoAdvertisePage.Background       = request.Background;
+            promoAdvertisePage.OrderNumber      = request.OrderNumber;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

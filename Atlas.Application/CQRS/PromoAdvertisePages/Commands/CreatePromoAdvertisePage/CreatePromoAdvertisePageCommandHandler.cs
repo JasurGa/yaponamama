@@ -43,7 +43,8 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Commands.CreatePromoAdverti
                 DescriptionEn    = request.DescriptionEn,
                 DescriptionUz    = request.DescriptionUz,
                 ButtonColor      = request.ButtonColor,
-                Background       = request.Background
+                Background       = request.Background,
+                OrderNumber      = request.OrderNumber
             };
 
             await _dbContext.PromoAdvertisePages.AddAsync(promoAdvertisePage,

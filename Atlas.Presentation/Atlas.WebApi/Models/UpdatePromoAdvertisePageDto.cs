@@ -39,6 +39,8 @@ namespace Atlas.WebApi.Models
 
         public string Background { get; set; }
 
+        public int OrderNumber { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdatePromoAdvertisePageDto, UpdatePromoAdvertisePageCommand>()
@@ -73,7 +75,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(dst => dst.ButtonColor, opt =>
                     opt.MapFrom(src => src.ButtonColor))
                 .ForMember(dst => dst.Background, opt =>
-                    opt.MapFrom(src => src.Background));
+                    opt.MapFrom(src => src.Background))
+                .ForMember(dst => dst.OrderNumber, opt =>
+                    opt.MapFrom(src => src.OrderNumber));
         }
     }
 

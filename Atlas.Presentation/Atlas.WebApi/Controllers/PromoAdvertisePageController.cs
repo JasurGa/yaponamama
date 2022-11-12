@@ -46,7 +46,8 @@ namespace Atlas.WebApi.Controllers
         ///         "descriptionEn: "Hello",
         ///         "descriptionUz: "Salom",
         ///         "buttonColor": "#ffffff",
-        ///         "background": "/api/1.0/file/download/background.png"
+        ///         "background": "/api/1.0/file/download/background.png",
+        ///         "orderNumber": 1
         ///     }
         ///
         /// </remarks>
@@ -118,7 +119,8 @@ namespace Atlas.WebApi.Controllers
         ///         "descriptionEn: "Hello",
         ///         "descriptionUz: "Salom",
         ///         "buttonColor": "#ffffff",
-        ///         "background": "/api/1.0/file/download/background.png"
+        ///         "background": "/api/1.0/file/download/background.png",
+        ///         "orderNumber": 1
         ///     }
         ///
         /// </remarks>

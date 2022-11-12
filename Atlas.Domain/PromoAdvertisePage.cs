@@ -39,6 +39,8 @@ namespace Atlas.Domain
 
         public string Background { get; set; }
 
+        public int OrderNumber { get; set; }
+
         public ICollection<PromoAdvertiseGood> PromoAdvertiseGoods { get; set; }
     }
 }

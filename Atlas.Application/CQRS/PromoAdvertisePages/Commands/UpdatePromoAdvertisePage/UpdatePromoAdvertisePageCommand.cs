@@ -36,6 +36,8 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Commands.UpdatePromoAdverti
         public string ButtonColor { get; set; }
 
         public string Background { get; set; }
+
+        public int OrderNumber { get; set; }
     }
 }
 

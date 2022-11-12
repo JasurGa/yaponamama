@@ -39,6 +39,8 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Queries.GetPagesByPromoAdve
 
         public string Background { get; set; }
 
+        public int OrderNumber { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<PromoAdvertisePage, PromoAdvertisePageLookupDto>()
@@ -73,7 +75,9 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Queries.GetPagesByPromoAdve
                 .ForMember(dst => dst.ButtonColor, opt =>
                     opt.MapFrom(src => src.ButtonColor))
                 .ForMember(dst => dst.Background, opt =>
-                    opt.MapFrom(src => src.Background));
+                    opt.MapFrom(src => src.Background))
+                .ForMember(dst => dst.OrderNumber, opt =>
+                    opt.MapFrom(src => src.OrderNumber));
         }
     }
 }
