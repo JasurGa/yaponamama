@@ -39,6 +39,7 @@ namespace Atlas.WebApi.Controllers
         ///         "titleRu": "Привет",
         ///         "titleEn": "Hello",
         ///         "titleUz": "Salom",
+        ///         "orderNumber": 1,
         ///         "expiresAt": "2022-11-11T10:00:00.000Z"
         ///     }
         /// 
@@ -76,6 +77,7 @@ namespace Atlas.WebApi.Controllers
         ///         "titleRu": "Привет",
         ///         "titleEn": "Hello",
         ///         "titleUz": "Salom",
+        ///         "orderNumber": 1,
         ///         "expiresAt": "2022-11-11T10:00:00.000Z"
         ///     }
         ///     

@@ -19,6 +19,8 @@ namespace Atlas.Application.CQRS.PromoAdvertises.Commands.UpdatePromoAdvertise
 
         public string TitleUz { get; set; }
 
+        public int OrderNumber { get; set; }
+
         public DateTime ExpiresAt { get; set; }
     }
 }

@@ -32,6 +32,7 @@ namespace Atlas.Application.CQRS.PromoAdvertises.Commands.UpdatePromoAdvertise
             promoAdvertise.TitleRu        = request.TitleRu;
             promoAdvertise.TitleEn        = request.TitleEn;
             promoAdvertise.TitleUz        = request.TitleUz;
+            promoAdvertise.OrderNumber    = request.OrderNumber;
             promoAdvertise.ExpiresAt      = request.ExpiresAt;
 
             await _dbContext.SaveChangesAsync(cancellationToken);

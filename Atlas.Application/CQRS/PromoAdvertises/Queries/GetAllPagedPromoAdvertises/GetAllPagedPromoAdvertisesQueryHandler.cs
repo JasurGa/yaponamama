@@ -32,6 +32,8 @@ namespace Atlas.Application.CQRS.PromoAdvertises.Queries.GetAllPagedPromoAdverti
             var promoAdvertises = await _dbContext.PromoAdvertises
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
+                .OrderBy(x => x.CreatedAt)
+                .OrderBy(x => x.OrderNumber)
                 .ProjectTo<PromoAdvertiseLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

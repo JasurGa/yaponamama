@@ -23,6 +23,8 @@ namespace Atlas.Application.CQRS.PromoAdvertises.Queries.GetActualPromoAdvertise
         public async Task<PromoAdvertisesListVm> Handle(GetActualPromoAdvertisesQuery request, CancellationToken cancellationToken)
         {
             var actualPromoAdvertises = await _dbContext.PromoAdvertises.Where(pa => pa.ExpiresAt > DateTime.UtcNow)
+                .OrderBy(x => x.CreatedAt)
+                .OrderBy(x => x.OrderNumber)
                 .ToListAsync(cancellationToken);
 
             return new PromoAdvertisesListVm

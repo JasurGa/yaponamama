@@ -25,7 +25,8 @@ namespace Atlas.Application.CQRS.PromoAdvertises.Commands.CreatePromoAdvertise
                 TitleRu        = request.TitleRu,
                 TitleEn        = request.TitleEn,
                 TitleUz        = request.TitleUz,
-                ExpiresAt      = request.ExpiresAt,
+                OrderNumber    = request.OrderNumber,
+                ExpiresAt      = request.ExpiresAt,                
                 CreatedAt      = DateTime.UtcNow,
             };
 

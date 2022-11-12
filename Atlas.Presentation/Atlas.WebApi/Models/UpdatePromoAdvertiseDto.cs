@@ -22,6 +22,8 @@ namespace Atlas.WebApi.Models
 
         public string TitleUz { get; set; }
 
+        public int OrderNumber { get; set; }
+
         public DateTime ExpiresAt { get; set; }
 
         public void Mapping(Profile profile)
@@ -41,6 +43,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.TitleEn))
                 .ForMember(dst => dst.TitleUz, opt =>
                     opt.MapFrom(src => src.TitleUz))
+                .ForMember(dst => dst.OrderNumber, opt =>
+                    opt.MapFrom(src => src.OrderNumber))
                 .ForMember(dst => dst.ExpiresAt, opt =>
                     opt.MapFrom(src => src.ExpiresAt));
         }
