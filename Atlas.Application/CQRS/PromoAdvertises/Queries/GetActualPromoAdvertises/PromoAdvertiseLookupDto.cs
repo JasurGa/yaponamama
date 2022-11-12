@@ -21,6 +21,8 @@ namespace Atlas.Application.CQRS.PromoAdvertises.Queries.GetActualPromoAdvertise
 
         public string TitleUz { get; set; }
 
+        public int OrderNumber { get; set; }
+
         public DateTime ExpiresAt { get; set; }
 
         public DateTime CreatedAt { get; set; }
@@ -42,6 +44,8 @@ namespace Atlas.Application.CQRS.PromoAdvertises.Queries.GetActualPromoAdvertise
                     opt.MapFrom(src => src.TitleEn))
                 .ForMember(dst => dst.TitleUz, opt =>
                     opt.MapFrom(src => src.TitleUz))
+                .ForMember(dst => dst.OrderNumber, opt =>
+                    opt.MapFrom(src => src.OrderNumber))
                 .ForMember(dst => dst.ExpiresAt, opt =>
                     opt.MapFrom(src => src.ExpiresAt))
                 .ForMember(dst => dst.CreatedAt, opt =>
