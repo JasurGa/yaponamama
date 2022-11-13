@@ -26,6 +26,7 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Queries.GetPagesByPromoAdve
             var promoAdvertisePages = await _dbContext.PromoAdvertisePages
                 .Where(x => x.Id == request.PromoAdvertiseId)
                 .OrderBy(x => x.OrderNumber)
+                .Include(x => x.PromoAdvertiseGoods)
                 .ProjectTo<PromoAdvertisePageLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

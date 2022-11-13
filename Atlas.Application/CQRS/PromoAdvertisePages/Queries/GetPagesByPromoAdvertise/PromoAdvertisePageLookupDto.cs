@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Atlas.Application.Common.Mappings;
 using Atlas.Domain;
 using AutoMapper;
@@ -41,6 +43,8 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Queries.GetPagesByPromoAdve
 
         public int OrderNumber { get; set; }
 
+        public ICollection<Guid> GoodIds { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<PromoAdvertisePage, PromoAdvertisePageLookupDto>()
@@ -77,7 +81,10 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Queries.GetPagesByPromoAdve
                 .ForMember(dst => dst.Background, opt =>
                     opt.MapFrom(src => src.Background))
                 .ForMember(dst => dst.OrderNumber, opt =>
-                    opt.MapFrom(src => src.OrderNumber));
+                    opt.MapFrom(src => src.OrderNumber))
+                .ForMember(dst => dst.GoodIds, opt =>
+                    opt.MapFrom(src => src.PromoAdvertiseGoods.Select(x =>
+                        x.GoodId)));
         }
     }
 }
