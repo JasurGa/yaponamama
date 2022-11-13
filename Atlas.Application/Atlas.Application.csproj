@@ -171,6 +171,16 @@
     <Folder Include="CQRS\PromoAdvertiseGoods\Commands\CreatePromoAdvertiseGood\" />
     <Folder Include="CQRS\PromoAdvertiseGoods\Commands\DeletePromoAdvertiseGood\" />
     <Folder Include="CQRS\PromoAdvertiseGoods\Queries\GetGoodsByPromoAdvertisePage\" />
+    <Folder Include="CQRS\PromoCategories\" />
+    <Folder Include="CQRS\PromoCategories\Commands\" />
+    <Folder Include="CQRS\PromoCategories\Queries\" />
+    <Folder Include="CQRS\PromoCategories\Commands\CreatePromoCategory\" />
+    <Folder Include="CQRS\PromoCategories\Commands\DeletePromoCategory\" />
+    <Folder Include="CQRS\PromoCategories\Commands\UpdatePromoCategory\" />
+    <Folder Include="CQRS\PromoCategories\Commands\RestorePromoCategory\" />
+    <Folder Include="CQRS\PromoCategories\Queries\GetPromoCategoryDetails\" />
+    <Folder Include="CQRS\PromoCategories\Queries\GetPromoCategoryList\" />
+    <Folder Include="CQRS\PromoCategories\Queries\GetPromoCategoryPagedList\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -351,5 +361,15 @@
     <None Remove="CQRS\PromoAdvertiseGoods\Commands\CreatePromoAdvertiseGood\" />
     <None Remove="CQRS\PromoAdvertiseGoods\Commands\DeletePromoAdvertiseGood\" />
     <None Remove="CQRS\PromoAdvertiseGoods\Queries\GetGoodsByPromoAdvertisePage\" />
+    <None Remove="CQRS\PromoCategories\" />
+    <None Remove="CQRS\PromoCategories\Commands\" />
+    <None Remove="CQRS\PromoCategories\Queries\" />
+    <None Remove="CQRS\PromoCategories\Commands\CreatePromoCategory\" />
+    <None Remove="CQRS\PromoCategories\Commands\DeletePromoCategory\" />
+    <None Remove="CQRS\PromoCategories\Commands\UpdatePromoCategory\" />
+    <None Remove="CQRS\PromoCategories\Commands\RestorePromoCategory\" />
+    <None Remove="CQRS\PromoCategories\Queries\GetPromoCategoryDetails\" />
+    <None Remove="CQRS\PromoCategories\Queries\GetPromoCategoryList\" />
+    <None Remove="CQRS\PromoCategories\Queries\GetPromoCategoryPagedList\" />
   </ItemGroup>
 </Project>
