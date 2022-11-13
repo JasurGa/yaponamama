@@ -165,6 +165,12 @@
     <Folder Include="CQRS\PromoAdvertisePages\Commands\UpdatePromoAdvertisePage\" />
     <Folder Include="CQRS\PromoAdvertisePages\Commands\DeletePromoAdvertisePage\" />
     <Folder Include="CQRS\PromoAdvertisePages\Queries\GetPagesByPromoAdvertise\" />
+    <Folder Include="CQRS\PromoAdvertiseGoods\" />
+    <Folder Include="CQRS\PromoAdvertiseGoods\Commands\" />
+    <Folder Include="CQRS\PromoAdvertiseGoods\Queries\" />
+    <Folder Include="CQRS\PromoAdvertiseGoods\Commands\CreatePromoAdvertiseGood\" />
+    <Folder Include="CQRS\PromoAdvertiseGoods\Commands\DeletePromoAdvertiseGood\" />
+    <Folder Include="CQRS\PromoAdvertiseGoods\Queries\GetGoodsByPromoAdvertisePage\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -340,5 +346,10 @@
     <None Remove="CQRS\PromoAdvertisePages\Commands\UpdatePromoAdvertisePage\" />
     <None Remove="CQRS\PromoAdvertisePages\Commands\DeletePromoAdvertisePage\" />
     <None Remove="CQRS\PromoAdvertisePages\Queries\GetPagesByPromoAdvertise\" />
+    <None Remove="CQRS\PromoAdvertiseGoods\" />
+    <None Remove="CQRS\PromoAdvertiseGoods\Commands\" />
+    <None Remove="CQRS\PromoAdvertiseGoods\Commands\CreatePromoAdvertiseGood\" />
+    <None Remove="CQRS\PromoAdvertiseGoods\Commands\DeletePromoAdvertiseGood\" />
+    <None Remove="CQRS\PromoAdvertiseGoods\Queries\GetGoodsByPromoAdvertisePage\" />
   </ItemGroup>
 </Project>
