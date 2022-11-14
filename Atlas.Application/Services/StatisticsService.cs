@@ -31,6 +31,8 @@ namespace Atlas.Application.Services
                 Debit   = debit,
                 AddedAt = DateTime.UtcNow,
             });
+
+            _dbContext.SaveChanges();
         }
     }
 }
