@@ -86,11 +86,11 @@ namespace Atlas.WebApi.Controllers
         [HttpGet("promoadvertise/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetByPromoAdvertiseIdAsync([FromRoute] Guid promoAdvertiseId)
+        public async Task<IActionResult> GetByPromoAdvertiseIdAsync([FromRoute] Guid id)
         {
             var vm = await Mediator.Send(new GetPagesByPromoAdvertiseQuery
             {
-                PromoAdvertiseId = promoAdvertiseId
+                PromoAdvertiseId = id
             });
 
             return Ok(vm);
