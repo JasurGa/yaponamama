@@ -188,6 +188,7 @@
     <Folder Include="CQRS\PromoCategoryToGoods\Commands\CreatePromoCategoryToGood\" />
     <Folder Include="CQRS\PromoCategoryToGoods\Commands\DeletePromoCategoryToGood\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodPagedListByPromoCategory\" />
+    <Folder Include="CQRS\Goods\Queries\GetGoodsForPromoCategories\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -385,5 +386,6 @@
     <None Remove="CQRS\PromoCategoryToGoods\Commands\CreatePromoCategoryToGood\" />
     <None Remove="CQRS\PromoCategoryToGoods\Commands\DeletePromoCategoryToGood\" />
     <None Remove="CQRS\Goods\Queries\GetGoodPagedListByPromoCategory\" />
+    <None Remove="CQRS\Goods\Queries\GetGoodsForPromoCategories\" />
   </ItemGroup>
 </Project>

@@ -28,6 +28,7 @@ using Atlas.Application.CQRS.Goods.Queries.GetDiscountedGoodList;
 using Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList;
 using Atlas.Application.CQRS.Goods.Commands.DiscountGoods;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByPromoCategory;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodsForPromoCategories;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -118,6 +119,30 @@ namespace Atlas.WebApi.Controllers
             return Ok(vm);
         }
 
+
+        /// <summary>
+        /// Get main goods for promos
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/good/main/promo?showDeleted=false
+        ///     
+        /// </remarks>
+        /// <returns>Returns PromoTopGoodListVm</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("main/promo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<PromoTopGoodListVm>> GetPromoGoodsAsync([FromQuery] bool showDeleted = false)
+        {
+            var vm = await Mediator.Send(new GetGoodsForPromoCategoriesQuery
+            {
+                ShowDeleted = showDeleted
+            });
+
+            return Ok(vm);
+        }
+
         /// <summary>
         /// Get random goods by main category id
         /// </summary>
@@ -129,10 +154,8 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <returns>Returns TopGoodListVm</returns>
         /// <response code="200">Success</response>
-        /// <response code="401">If the user is unauthorized</response>
         [HttpGet("random/main")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<TopGoodListVm>> GetRandomGoodsAsync([FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetGoodsForMainCategoriesQuery
@@ -351,11 +374,11 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> GetGoodsByPromoCategoryIdAsync(
             [FromRoute] Guid   promoCategoryId,
-            [FromQuery] int    pageIndex = 0,
-            [FromQuery] int    pageSize = 10,
+            [FromQuery] int    pageIndex   = 0,
+            [FromQuery] int    pageSize    = 10,
             [FromQuery] bool   showDeleted = false,
-            [FromQuery] string sortable = "Name",
-            [FromQuery] bool   ascending = true)
+            [FromQuery] string sortable    = "Name",
+            [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetGoodPagedListByPromoCategoryQuery
             {
