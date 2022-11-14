@@ -200,6 +200,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 DeliverAt             = request.DeliverAt,
                 IsPrePayed            = false,
                 CanRefund             = false,
+                IsRefunded            = false,
                 TelegramUserId        = request.TelegramUserId,
                 IsDevVersionBot       = request.IsDevVersionBot
             };

@@ -204,12 +204,13 @@ namespace Atlas.Payme.MerchantApi.Services
                 var order = await _dbContext.Orders.FirstOrDefaultAsync(x =>
                     x.Id == transaction.OrderId);
 
-                if (!order.CanRefund)
+                if (!order.CanRefund || order.IsRefunded)
                 {
                     throw new UnableCancelTransactionException();
                 }
                 else
                 {
+                    order.IsRefunded  = true;
                     transaction.State = (int)TransactionStatus.STATE_POST_CANCELED;
                 }
             }

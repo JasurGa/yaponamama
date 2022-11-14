@@ -47,6 +47,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public bool CanRefund { get; set; }
 
+        public bool IsRefunded { get; set; }
+
         public long? TelegramUserId { get; set; }
 
         public bool IsDevVersionBot { get; set; }
@@ -100,6 +102,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                     opt.MapFrom(src => src.DeliverAt))
                 .ForMember(dst => dst.CanRefund, opt =>
                     opt.MapFrom(src => src.CanRefund))
+                .ForMember(dst => dst.IsRefunded, opt =>
+                    opt.MapFrom(src => src.IsRefunded))
                 .ForMember(dst => dst.IsDevVersionBot, opt =>
                     opt.MapFrom(src => src.IsDevVersionBot))
                 .ForMember(dst => dst.TelegramUserId, opt =>

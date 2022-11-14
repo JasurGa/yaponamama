@@ -2,6 +2,7 @@
 using Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList;
 using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
 using Atlas.Application.CQRS.Orders.Commands.CancelOrderByClient;
+using Atlas.Application.CQRS.Orders.Commands.ChangeOrderRefundStatus;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus;
@@ -121,6 +122,38 @@ namespace Atlas.WebApi.Controllers
                 }));
 
             return Ok(vm);
+        }
+
+        /// <summary>
+        /// Change order refund status
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PATCH /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/refund/true
+        ///     
+        /// </remarks>
+        /// <param name="id">Order id (Guid)</param>
+        /// <param name="canBeRefund">Can be refund (bool)</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">NotFound</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [AuthRoleFilter(Roles.Admin)]
+        [HttpPatch("{id}/refund/{canBeRefund}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> ChangeRefundAsync([FromRoute] Guid id, [FromRoute] bool canBeRefund)
+        {
+            await Mediator.Send(new ChangeOrderRefundStatusCommand
+            {
+                OrderId     = id,
+                CanBeRefund = canBeRefund
+            });
+
+            return NoContent();
         }
 
         /// <summary>
