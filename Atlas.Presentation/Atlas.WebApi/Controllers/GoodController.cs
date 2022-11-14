@@ -27,6 +27,7 @@ using Atlas.Application.CQRS.Goods.Queries.GetDiscountedGoodListByCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetDiscountedGoodList;
 using Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList;
 using Atlas.Application.CQRS.Goods.Commands.DiscountGoods;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByPromoCategory;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -324,6 +325,46 @@ namespace Atlas.WebApi.Controllers
                 ShowDeleted = showDeleted,
                 Sortable    = sortable,
                 Ascending   = ascending,
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the paged list of goods by promo category id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/1.0/good/paged/promocategory/a3eb7b4a-9f4e-4c71-8619-398655c563b8?pageSize=10&amp;pageIndex=0&amp;showDeleted=false&amp;sortable=Name&amp;ascending=true
+        ///     
+        /// </remarks>
+        /// <param name="promoCategoryId">Promo category id (guid)</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="showDeleted">Show deleted list</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
+        /// <returns>Returns PageDto GoodLookupDto object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("paged/promocategory/{promoCategoryId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<PageDto<GoodLookupDto>>> GetGoodsByPromoCategoryIdAsync(
+            [FromRoute] Guid   promoCategoryId,
+            [FromQuery] int    pageIndex = 0,
+            [FromQuery] int    pageSize = 10,
+            [FromQuery] bool   showDeleted = false,
+            [FromQuery] string sortable = "Name",
+            [FromQuery] bool   ascending = true)
+        {
+            var vm = await Mediator.Send(new GetGoodPagedListByPromoCategoryQuery
+            {
+                PromoCategoryId = promoCategoryId,
+                PageIndex       = pageIndex,
+                PageSize        = pageSize,
+                ShowDeleted     = showDeleted,
+                Sortable        = sortable,
+                Ascending       = ascending,
             });
 
             return Ok(vm);
