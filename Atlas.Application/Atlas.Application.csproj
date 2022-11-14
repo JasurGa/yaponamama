@@ -181,6 +181,12 @@
     <Folder Include="CQRS\PromoCategories\Queries\GetPromoCategoryDetails\" />
     <Folder Include="CQRS\PromoCategories\Queries\GetPromoCategoryList\" />
     <Folder Include="CQRS\PromoCategories\Queries\GetPromoCategoryPagedList\" />
+    <Folder Include="CQRS\PromoCategoryToGoods\" />
+    <Folder Include="CQRS\PromoCategoryToGoods\Commands\" />
+    <Folder Include="CQRS\PromoCategoryToGoods\Queries\" />
+    <Folder Include="CQRS\PromoCategoryToGoods\Commands\CreatePromoCategoriesToGood\" />
+    <Folder Include="CQRS\PromoCategoryToGoods\Commands\CreatePromoCategoryToGood\" />
+    <Folder Include="CQRS\PromoCategoryToGoods\Commands\DeletePromoCategoryToGood\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -371,5 +377,11 @@
     <None Remove="CQRS\PromoCategories\Queries\GetPromoCategoryDetails\" />
     <None Remove="CQRS\PromoCategories\Queries\GetPromoCategoryList\" />
     <None Remove="CQRS\PromoCategories\Queries\GetPromoCategoryPagedList\" />
+    <None Remove="CQRS\PromoCategoryToGoods\" />
+    <None Remove="CQRS\PromoCategoryToGoods\Commands\" />
+    <None Remove="CQRS\PromoCategoryToGoods\Queries\" />
+    <None Remove="CQRS\PromoCategoryToGoods\Commands\CreatePromoCategoriesToGood\" />
+    <None Remove="CQRS\PromoCategoryToGoods\Commands\CreatePromoCategoryToGood\" />
+    <None Remove="CQRS\PromoCategoryToGoods\Commands\DeletePromoCategoryToGood\" />
   </ItemGroup>
 </Project>
