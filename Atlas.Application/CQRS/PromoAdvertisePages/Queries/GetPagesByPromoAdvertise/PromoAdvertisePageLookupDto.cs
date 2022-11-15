@@ -51,7 +51,7 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Queries.GetPagesByPromoAdve
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.PromoAdvertiseId, opt =>
-                    opt.MapFrom(src => src.PromoAdvertise))
+                    opt.MapFrom(src => src.PromoAdvertiseId))
                 .ForMember(dst => dst.BadgeColor, opt =>
                     opt.MapFrom(src => src.BadgeColor))
                 .ForMember(dst => dst.BadgeTextRu, opt =>
