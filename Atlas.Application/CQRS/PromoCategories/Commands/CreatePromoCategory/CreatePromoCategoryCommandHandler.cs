@@ -12,7 +12,7 @@ namespace Atlas.Application.CQRS.PromoCategories.Commands.CreatePromoCategory
         private readonly IAtlasDbContext _dbContext;
 
         public CreatePromoCategoryCommandHandler(IAtlasDbContext dbContext) =>
-            dbContext = _dbContext;
+            _dbContext = dbContext;
 
         public async Task<Guid> Handle(CreatePromoCategoryCommand request, CancellationToken cancellationToken)
         {
