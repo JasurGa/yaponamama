@@ -22,7 +22,7 @@ namespace Atlas.Application.Services
         public async Task Invoke()
         {
             var debit  = _dbContext.Consignments.Select(x => x.Count * x.CurrentPurchasePrice).Sum();
-            var credit = ((long)_dbContext.Orders.Where(x => !x.IsRefunded).Select(x => x.SellingPrice).Sum());
+            var credit = ((long)_dbContext.Orders.Where(x => !x.IsRefunded).Select(x => x.SellingPrice + x.ShippingPrice).Sum());
 
             await _dbContext.DebitCreditStatistics.AddAsync(new DebitCreditStatistics
             {
