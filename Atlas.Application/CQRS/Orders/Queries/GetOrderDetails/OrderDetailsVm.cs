@@ -35,6 +35,16 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public float SellingPrice { get; set; }
 
+        public float ShippingPrice { get; set; }
+
+        public float TotalPrice
+        {
+            get
+            {
+                return SellingPrice + ShippingPrice;
+            }
+        }
+
         public float PurchasePrice { get; set; }
 
         public int PaymentType { get; set; }
@@ -92,6 +102,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                     opt.MapFrom(src => src.IsPickup))
                 .ForMember(dst => dst.SellingPrice, opt =>
                     opt.MapFrom(src => src.SellingPrice))
+                .ForMember(dst => dst.ShippingPrice, opt =>
+                    opt.MapFrom(src => src.ShippingPrice))
                 .ForMember(dst => dst.Status, opt =>
                     opt.MapFrom(src => src.Status))
                 .ForMember(dst => dst.IsPrePayed, opt =>

@@ -35,6 +35,8 @@ namespace Atlas.WebApi.Models
 
         public float SellingPrice { get; set; }
 
+        public float ShippingPrice { get; set; }
+
         public int Status { get; set; }
 
         public float ToLongitude { get; set; }
@@ -82,6 +84,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.PurchasePrice))
                 .ForMember(dst => dst.SellingPrice, opt =>
                     opt.MapFrom(src => src.SellingPrice))
+                .ForMember(dst => dst.ShippingPrice, opt =>
+                    opt.MapFrom(src => src.ShippingPrice))
                 .ForMember(dst => dst.Status, opt =>
                     opt.MapFrom(src => src.Status))
                 .ForMember(dst => dst.ToLongitude, opt =>

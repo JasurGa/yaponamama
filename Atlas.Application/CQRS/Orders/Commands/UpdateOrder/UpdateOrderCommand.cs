@@ -33,6 +33,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
 
         public float SellingPrice { get; set; }
 
+        public float ShippingPrice { get; set; }
+
         public int Status { get; set; }
 
         public float ToLongitude { get; set; }

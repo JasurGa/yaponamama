@@ -20,6 +20,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand,
         Guid>
     {
+        private readonly static int DELIVERY_PRICE = 10_000;
+
         private readonly IMapper              _mapper;
         private readonly IMediator            _mediator;
         private readonly IAtlasDbContext      _dbContext;
@@ -87,6 +89,12 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             }
 
             return calculatedPrice;
+        }
+
+        private async Task<float> GetShippingPriceAsync(CreateOrderCommand request,
+            CancellationToken cancellationToken)
+        {
+            return DELIVERY_PRICE;
         }
 
         private async Task<Store> GetStoreAsync(CreateOrderCommand request,
@@ -174,6 +182,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
             var foundPromo      = await GetPromoAsync(request, cancellationToken);
             var sellingPrice    = await GetSellingPriceAsync(request, cancellationToken, foundPromo);
+            var shippingPrice   = await GetShippingPriceAsync(request, cancellationToken);
             var purchasePrice   = await GetPurchasePriceAsync(request, cancellationToken);
 
             var order = new Order
@@ -193,6 +202,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 CreatedAt             = DateTime.UtcNow,
                 FinishedAt            = null,
                 SellingPrice          = sellingPrice,
+                ShippingPrice         = shippingPrice,
                 PurchasePrice         = purchasePrice,
                 StoreId               = foundStore.Id,
                 CourierId             = foundCourier.Id,
@@ -222,17 +232,21 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 await _mediator.Send(createGoodToOrder, cancellationToken);
             }
 
-            var notificationId = await _mediator.Send(new CreateNotificationCommand { 
+            var notificationId = await _mediator.Send(new CreateNotificationCommand
+            { 
                 NotificationTypeId = new Guid("3dc1336a-553b-4869-be74-b771b73e3895"),
-                Subject = "New order",
-                Body = "Hey! There is a new order assigned to you! Please make sure to check the details",
-                Priority = 1
-            }, cancellationToken);
+                Subject            = "New order",
+                Body               = "Hey! There is a new order assigned to you! Please make sure to check the details",
+                Priority           = 1
+            },
+            cancellationToken);
 
-            await _mediator.Send(new AttachNotificationToUserCommand {
-                UserId = foundCourier.UserId,
+            await _mediator.Send(new AttachNotificationToUserCommand
+            {
+                UserId         = foundCourier.UserId,
                 NotificationId = notificationId
-            }, cancellationToken);
+            },
+            cancellationToken);
 
             return order.Id;
         }

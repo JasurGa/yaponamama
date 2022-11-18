@@ -39,7 +39,8 @@ namespace Atlas.Payme.MerchantApi.Services
                 throw new OrderNotFoundException();
             }
 
-            if (order.SellingPrice * 100 != amount)
+            var totalPrice = order.ShippingPrice + order.SellingPrice;
+            if (totalPrice * 100 != amount)
             {
                 throw new IncorrectAmountException();
             }
@@ -55,6 +56,11 @@ namespace Atlas.Payme.MerchantApi.Services
                 Allow  = isTransactionAllowed,
                 Detail = new DetailsLookupDto
                 {
+                    Shipping = new ShippingLookupDto
+                    {
+                        Title = "Доставка",
+                        Price = (int)order.ShippingPrice * 100,
+                    },
                     Items = order.GoodToOrders.Select(x => new ItemLookupDto
                     {
                         Title       = x.Good.NameRu,

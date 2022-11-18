@@ -32,7 +32,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
                 .ForMember(dst => dst.Courier, opt =>
                     opt.MapFrom(src => src.Courier))
                 .ForMember(dst => dst.Price, opt =>
-                    opt.MapFrom(src => src.SellingPrice))
+                    opt.MapFrom(src => src.SellingPrice + src.ShippingPrice))
                 .ForMember(dst => dst.GoodCount, opt =>
                     opt.MapFrom(src => src.GoodToOrders.Sum(x => x.Count)))
                 .ForMember(dst => dst.Status, opt =>

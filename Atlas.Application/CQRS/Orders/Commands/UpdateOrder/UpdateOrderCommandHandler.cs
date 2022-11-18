@@ -93,6 +93,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
             order.FinishedAt            = request.FinishedAt;
             order.PurchasePrice         = request.PurchasePrice;
             order.SellingPrice          = request.SellingPrice;
+            order.ShippingPrice         = request.ShippingPrice;
             order.Status                = request.Status;
             order.ToLongitude           = request.ToLongitude;
             order.ToLatitude            = request.ToLatitude;
