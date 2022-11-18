@@ -148,7 +148,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             var minMax = new Dictionary<Courier, int>();
 
             var couriers = await _dbContext.Couriers.Where(x => x.Vehicle.StoreId == store.Id &&
-                x.Rate == currentRate).ToListAsync(cancellationToken);
+                x.Rate == currentRate && x.IsDeleted == false)
+                .ToListAsync(cancellationToken);
 
             foreach (var courier in couriers)
             {
