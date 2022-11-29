@@ -23,8 +23,6 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin
         public async Task<PageDto<OrderLookupDto>> Handle(GetOrderPagedListQuery request,
             CancellationToken cancellationToken)
         {
-            var ordersCount = await _dbContext.Orders.CountAsync(cancellationToken);
-
             var orders = _dbContext.Orders.AsQueryable();
             if (request.FilterIsPrePayed != null)
             {
@@ -39,6 +37,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin
                 orders = orders.Where(x => x.Status == request.FilterStatus);
             }
 
+            var ordersCount = await orders.CountAsync(cancellationToken);
             var pagedOrders = await orders.OrderByDescending(x => x.CreatedAt)
                   .Skip(request.PageIndex * request.PageSize)
                   .Take(request.PageSize)
