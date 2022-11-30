@@ -103,6 +103,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
             order.CanRefund             = request.CanRefund;
             order.TelegramUserId        = request.TelegramUserId;
             order.IsDevVersionBot       = request.IsDevVersionBot;
+            order.GoodReplacementType   = request.GoodReplacementType;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

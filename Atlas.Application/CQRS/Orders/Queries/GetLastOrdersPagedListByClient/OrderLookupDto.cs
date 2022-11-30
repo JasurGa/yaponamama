@@ -35,6 +35,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public int Status { get; set; }
 
+        public int GoodReplacementType { get; set; }
+
         public IList<GoodToOrderLookupDto> GoodToOrders { get; set; }
 
         public void Mapping(Profile profile)
@@ -67,7 +69,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                 .ForMember(dst => dst.Status, opt =>
                     opt.MapFrom(src => src.Status))
                 .ForMember(dst => dst.GoodToOrders, opt =>
-                    opt.MapFrom(src => src.GoodToOrders));
+                    opt.MapFrom(src => src.GoodToOrders))
+                .ForMember(dst => dst.GoodReplacementType, opt =>
+                    opt.MapFrom(src => src.GoodReplacementType));
         }
     }
 }

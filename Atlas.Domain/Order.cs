@@ -57,6 +57,8 @@ namespace Atlas.Domain
 
         public bool IsDevVersionBot { get; set; }
 
+        public int GoodReplacementType { get; set; }
+
         public Client Client { get; set; }
 
         public Courier Courier { get; set; }

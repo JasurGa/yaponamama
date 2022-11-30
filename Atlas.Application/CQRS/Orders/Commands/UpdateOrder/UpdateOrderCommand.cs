@@ -52,5 +52,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
         public bool IsDevVersionBot { get; set; }
 
         public Guid? PromoId { get; set; }
+
+        public int GoodReplacementType { get; set; }
     }
 }

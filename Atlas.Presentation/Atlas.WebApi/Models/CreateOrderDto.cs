@@ -34,6 +34,8 @@ namespace Atlas.WebApi.Models
 
         public long? TelegramUserId { get; set; }
 
+        public int GoodReplacementType { get; set; }
+
         public IEnumerable<CreateGoodToOrderDto> GoodToOrders { get; set; }
 
         public void Mapping(Profile profile)
@@ -66,7 +68,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(dst => dst.IsDevVersionBot, opt =>
                     opt.MapFrom(src => src.IsDevVersionBot))
                 .ForMember(dst => dst.TelegramUserId, opt =>
-                    opt.MapFrom(src => src.TelegramUserId));
+                    opt.MapFrom(src => src.TelegramUserId))
+                .ForMember(dst => dst.GoodReplacementType, opt =>
+                    opt.MapFrom(src => src.GoodReplacementType));
         }
     }
 }

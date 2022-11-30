@@ -35,6 +35,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
         public bool IsDevVersionBot { get; set; }
 
+        public int GoodReplacementType { get; set; }
+
         public IEnumerable<CreateGoodToOrderCommand> GoodToOrders { get; set; }
     }
 }

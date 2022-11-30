@@ -213,7 +213,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 CanRefund             = false,
                 IsRefunded            = false,
                 TelegramUserId        = request.TelegramUserId,
-                IsDevVersionBot       = request.IsDevVersionBot
+                IsDevVersionBot       = request.IsDevVersionBot,
+                GoodReplacementType   = request.GoodReplacementType,
             };
 
             await _dbContext.Orders.AddAsync(order,

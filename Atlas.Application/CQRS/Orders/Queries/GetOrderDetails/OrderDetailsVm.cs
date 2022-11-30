@@ -63,6 +63,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public bool IsDevVersionBot { get; set; }
 
+        public int GoodReplacementType { get; set; }
+
         public StoreDetailsVm Store { get; set; }
 
         public CourierDetailsVm Courier { get; set; }
@@ -119,7 +121,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                 .ForMember(dst => dst.IsDevVersionBot, opt =>
                     opt.MapFrom(src => src.IsDevVersionBot))
                 .ForMember(dst => dst.TelegramUserId, opt =>
-                    opt.MapFrom(src => src.TelegramUserId));
+                    opt.MapFrom(src => src.TelegramUserId))
+                .ForMember(dst => dst.GoodReplacementType, opt =>
+                    opt.MapFrom(src => src.GoodReplacementType));
         }
     }
 }
