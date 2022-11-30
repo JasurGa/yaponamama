@@ -29,6 +29,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public float SellingPrice { get; set; }
 
+        public int PaymentType { get; set; }
+
         public bool IsPrePayed { get; set; }
 
         public int Status { get; set; }
@@ -58,6 +60,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                     opt.MapFrom(src => src.PurchasePrice))
                 .ForMember(dst => dst.SellingPrice, opt =>
                     opt.MapFrom(src => src.SellingPrice))
+                .ForMember(dst => dst.PaymentType, opt =>
+                    opt.MapFrom(src => src.PaymentType))
                 .ForMember(dst => dst.IsPrePayed, opt =>
                     opt.MapFrom(src => src.IsPrePayed))
                 .ForMember(dst => dst.Status, opt =>
