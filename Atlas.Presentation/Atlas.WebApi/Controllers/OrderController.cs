@@ -5,6 +5,7 @@ using Atlas.Application.CQRS.Orders.Commands.CancelOrderByClient;
 using Atlas.Application.CQRS.Orders.Commands.ChangeOrderRefundStatus;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
+using Atlas.Application.CQRS.Orders.Commands.UpdateOrderPrepayment;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus;
 using Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin;
@@ -206,6 +207,39 @@ namespace Atlas.WebApi.Controllers
         {
             await Mediator.Send(_mapper.Map<UpdateOrderDto,
                 UpdateOrderCommand>(updateOrderDto));
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// <summary>
+        /// Updates the order's prepayment
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     PUT /api/1.0/order/prepayment
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "isprepaid": true,
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="updateOrderPrepayment">UpdateOrderPrepaymentDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Ok</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPut("prepayment")]
+        [AuthRoleFilter(new string[] { Roles.Client, Roles.Admin })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> UpdatePrepaymentAsync([FromBody] UpdateOrderPrepaymentDto updateOrderPrepayment)
+        {
+            await Mediator.Send(_mapper.Map<UpdateOrderPrepaymentDto,
+                UpdateOrderPrepaymentCommand>(updateOrderPrepayment));
 
             return NoContent();
         }

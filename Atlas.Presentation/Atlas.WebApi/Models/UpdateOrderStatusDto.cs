@@ -1,6 +1,5 @@
 ﻿using System;
 using Atlas.Application.Common.Mappings;
-using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus;
 using AutoMapper;
 
