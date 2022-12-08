@@ -13,6 +13,14 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
     {
         public Guid Id { get; set; }
 
+        public int OrderCode
+        {
+            get
+            {
+                return (int)(Convert.ToInt64(Id.ToString().Split("-")[0], 16) % 1000000);
+            }
+        }
+
         public string Comment { get; set; }
 
         public bool DontCallWhenDelivered { get; set; }

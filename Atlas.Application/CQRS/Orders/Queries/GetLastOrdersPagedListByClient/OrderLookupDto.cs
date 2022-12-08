@@ -11,6 +11,14 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
     {
         public Guid Id { get; set; }
 
+        public int OrderCode
+        {
+            get
+            {
+                return (int)(Convert.ToInt64(Id.ToString().Split("-")[0], 16) % 1000000);
+            }
+        }
+
         public Guid? CourierId { get; set; }
 
         public Guid ClientId { get; set; }

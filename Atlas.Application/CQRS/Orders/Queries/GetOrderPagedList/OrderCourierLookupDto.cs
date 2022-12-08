@@ -9,6 +9,14 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
     {
         public Guid Id { get; set; }
 
+        public int OrderCode
+        {
+            get
+            {
+                return (int)(Convert.ToInt64(Id.ToString().Split("-")[0], 16) % 1000000);
+            }
+        }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
