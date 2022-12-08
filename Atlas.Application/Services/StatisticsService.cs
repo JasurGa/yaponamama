@@ -22,7 +22,8 @@ namespace Atlas.Application.Services
 
         public async Task Invoke()
         {
-            var debit  = _dbContext.Consignments.Select(x => x.Count * x.CurrentPurchasePrice).Sum();
+            var debit  = _dbContext.Consignments.Where(x => !x.StoreToGood.Good.IsDeleted)
+                .Select(x => x.Count * x.CurrentPurchasePrice).Sum();
             var credit = ((long)_dbContext.Orders.Where(x => !x.IsRefunded).Where(x => x.Status == (int)OrderStatus.Success)
                 .Select(x => x.SellingPrice + x.ShippingPrice).Sum());
 
