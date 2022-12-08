@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Atlas.Application.Enums;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using Coravel.Invocable;
@@ -22,7 +23,8 @@ namespace Atlas.Application.Services
         public async Task Invoke()
         {
             var debit  = _dbContext.Consignments.Select(x => x.Count * x.CurrentPurchasePrice).Sum();
-            var credit = ((long)_dbContext.Orders.Where(x => !x.IsRefunded).Select(x => x.SellingPrice + x.ShippingPrice).Sum());
+            var credit = ((long)_dbContext.Orders.Where(x => !x.IsRefunded).Where(x => x.Status == (int)OrderStatus.Success)
+                .Select(x => x.SellingPrice + x.ShippingPrice).Sum());
 
             await _dbContext.DebitCreditStatistics.AddAsync(new DebitCreditStatistics
             {
