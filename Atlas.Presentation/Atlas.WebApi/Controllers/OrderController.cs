@@ -8,6 +8,7 @@ using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderPrepayment;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus;
 using Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList;
+using Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier;
@@ -498,6 +499,42 @@ namespace Atlas.WebApi.Controllers
                 FilterIsPrePayed  = filterIsPrePayed,
                 FilterPaymentType = filterPaymentType,
                 FilterStatus      = filterStatus,
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get the list of client's orders for bot
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/order/bot/paged?pageIndex=0&amp;pageSize=10&amp;status=1
+        ///     
+        /// </remarks>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="status">Order status</param>
+        /// <returns>Returns PageDto BotOrderLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("bot/paged")]
+        [Authorize]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<BotOrderLookupDto>>> GetPagedBotOrdersAsync(
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 10,
+            [FromQuery] int status = 0)
+        {
+            var vm = await Mediator.Send(new GetBotOrdersPagedListQuery
+            {
+                ClientId  = ClientId,
+                Status    = status,
+                PageIndex = pageIndex,
+                PageSize  = pageSize
             });
 
             return Ok(vm);
