@@ -57,6 +57,17 @@ namespace Atlas.Application.CQRS.ChatMessages.Queries.GetChatUsers
                 {
                     user.UnreadCount = unread.UnreadCount;
                 }
+
+                user.LastMessage = await _dbContext.ChatMessages
+                    .Where(x => x.ToUserId == request.UserId)
+                    .OrderByDescending(x => x.CreatedAt)
+                    .Select(x => new LastChatMessageLookupDto
+                    {
+                        Id = x.Id,
+                        Body = x.Body,
+                        CreatedAt = x.CreatedAt
+                    })
+                    .FirstOrDefaultAsync(cancellationToken);
             }
 
             return new ChatUsersListVm
