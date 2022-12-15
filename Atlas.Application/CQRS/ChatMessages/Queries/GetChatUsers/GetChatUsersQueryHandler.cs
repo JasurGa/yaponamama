@@ -59,7 +59,7 @@ namespace Atlas.Application.CQRS.ChatMessages.Queries.GetChatUsers
                 }
 
                 user.LastMessage = await _dbContext.ChatMessages
-                    .Where(x => (x.ToUserId == request.UserId && x.FromUserId == user.UserId) && (x.ToUserId == user.UserId && x.FromUserId == request.UserId))
+                    .Where(x => (x.ToUserId == request.UserId && x.FromUserId == user.UserId) || (x.ToUserId == user.UserId && x.FromUserId == request.UserId))
                     .OrderByDescending(x => x.CreatedAt)
                     .Select(x => new LastChatMessageLookupDto
                     {
