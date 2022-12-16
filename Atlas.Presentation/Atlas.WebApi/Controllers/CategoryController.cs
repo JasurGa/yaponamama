@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Categories.Commands.AddCategoryParent;
@@ -14,6 +15,7 @@ using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryParents;
 using Atlas.Application.CQRS.Categories.Queries.GetMainCategoryList;
+using Atlas.Application.CQRS.Categories.Queries.SearchCategoriesByGoodName;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -32,6 +34,30 @@ namespace Atlas.WebApi.Controllers
 
         public CategoryController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Search categories by good name
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /api/1.0/category/search
+        ///     "search query"
+        ///     
+        /// </remarks>
+        /// <returns>Returns SearchCategoryListVm object</returns>
+        /// <response code="200">Success</response>
+        [HttpPost("search")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<SearchedCategoryListVm>> SearchCategoriesByGoodNameAsync([FromBody] string searchQuery)
+        {
+            var vm = await Mediator.Send(new SearchCategoriesByGoodNameQuery
+            {
+                SearchQuery = searchQuery
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Gets the list of main categories
