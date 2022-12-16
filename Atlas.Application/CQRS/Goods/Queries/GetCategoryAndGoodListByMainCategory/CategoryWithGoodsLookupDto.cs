@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory
 {
-    public class CategoryLookupDto : IMapWith<Category>
+    public class CategoryWithGoodsLookupDto : IMapWith<Category>
     {
         public Guid Id { get; set; }
 
@@ -14,11 +14,11 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
         public int GoodsCount { get; set; }
 
-        public List<GoodLookupDto> Goods { get; set; }
+        public List<GoodInCategoryLookupDto> Goods { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Category, CategoryLookupDto>()
+            profile.CreateMap<Category, CategoryWithGoodsLookupDto>()
                 .ForMember(dest => dest.Id, opt =>
                     opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt =>
