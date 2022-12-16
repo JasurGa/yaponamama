@@ -190,6 +190,7 @@
     <Folder Include="CQRS\Goods\Queries\GetGoodPagedListByPromoCategory\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodsForPromoCategories\" />
     <Folder Include="CQRS\Orders\Commands\ChangeOrderRefundStatus\" />
+    <Folder Include="CQRS\Categories\Queries\SearchCategoriesByGoodName\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -389,5 +390,6 @@
     <None Remove="CQRS\Goods\Queries\GetGoodPagedListByPromoCategory\" />
     <None Remove="CQRS\Goods\Queries\GetGoodsForPromoCategories\" />
     <None Remove="CQRS\Orders\Commands\ChangeOrderRefundStatus\" />
+    <None Remove="CQRS\Categories\Queries\SearchCategoriesByGoodName\" />
   </ItemGroup>
 </Project>
