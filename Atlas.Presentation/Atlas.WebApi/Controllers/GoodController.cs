@@ -30,6 +30,7 @@ using Atlas.Application.CQRS.Goods.Commands.DiscountGoods;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByPromoCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodsForPromoCategories;
 using Atlas.Application.CQRS.Goods.Commands.UpdateGoodsProvider;
+using Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -194,9 +195,9 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         [HttpGet("subcategory/category/{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory.CategoryAndGoodListVm>> GetGoodsAndCategoriesByCategoryId([FromRoute] Guid categoryId)
+        public async Task<ActionResult<CategoryAndGoodListVm>> GetGoodsAndCategoriesByCategoryId([FromRoute] Guid categoryId)
         {
-            var vm = await Mediator.Send(new Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory.GetCategoryAndGoodListByMainCategoryQuery
+            var vm = await Mediator.Send(new GetCategoryAndGoodListByMainCategoryQuery
             {
                 MainCategoryId = categoryId
             });
