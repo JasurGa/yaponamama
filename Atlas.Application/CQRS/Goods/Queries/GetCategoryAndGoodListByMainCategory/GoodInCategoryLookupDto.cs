@@ -5,7 +5,7 @@ using System;
 
 namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory
 {
-    public class GoodLookupDto : IMapWith<Good>
+    public class GoodInCategoryLookupDto : IMapWith<Good>
     {
         public Guid Id { get; set; }
 
@@ -17,7 +17,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Good, GoodLookupDto>()
+            profile.CreateMap<Good, GoodInCategoryLookupDto>()
                 .ForMember(dest => dest.Id, opt =>
                     opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt =>

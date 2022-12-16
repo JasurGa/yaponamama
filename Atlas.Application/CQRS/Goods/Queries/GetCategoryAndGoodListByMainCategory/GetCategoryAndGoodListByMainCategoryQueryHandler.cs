@@ -25,7 +25,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
         public async Task<CategoryAndGoodListVm> Handle(GetCategoryAndGoodListByMainCategoryQuery request, CancellationToken cancellationToken)
         {
-            var result = new List<CategoryLookupDto>();
+            var result = new List<CategoryWithGoodsLookupDto>();
 
             var session = _driver.AsyncSession();
 
@@ -36,7 +36,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
                     Id = request.MainCategoryId.ToString()
                 });
 
-                var categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>(await cursor.ConvertManyAsync<Category>());
+                var categories = _mapper.Map<List<Category>, List<CategoryWithGoodsLookupDto>>(await cursor.ConvertManyAsync<Category>());
 
                 foreach (var category in categories)
                 {
@@ -60,7 +60,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
                         .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);
 
-                    result.Add(new CategoryLookupDto { 
+                    result.Add(new CategoryWithGoodsLookupDto { 
                         Id         = category.Id,
                         Name       = category.Name,
                         GoodsCount = goodsCount,

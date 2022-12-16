@@ -4,6 +4,6 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 {
     public class CategoryAndGoodListVm
     {                                
-        public List<CategoryLookupDto> Categories { get; set; }
+        public List<CategoryWithGoodsLookupDto> Categories { get; set; }
     }
 }
