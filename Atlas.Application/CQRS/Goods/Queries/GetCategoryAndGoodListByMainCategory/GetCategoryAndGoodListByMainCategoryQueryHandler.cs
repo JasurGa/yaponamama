@@ -49,7 +49,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
                     var records = await cursor.ToListAsync();
                     foreach (var record in records)
                     {
-                        goodIds.Add(Guid.Parse(record[1].As<string>()));
+                        goodIds.Add(Guid.Parse(record[0].As<string>()));
                     }
 
                     var goodsCount = await _dbContext.Goods.CountAsync(x => goodIds.Contains(x.Id) && x.IsDeleted == false, 
