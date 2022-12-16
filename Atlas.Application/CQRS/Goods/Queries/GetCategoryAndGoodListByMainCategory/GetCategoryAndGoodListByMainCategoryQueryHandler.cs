@@ -42,7 +42,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
                 {
                     var goodIds = new List<Guid>();
 
-                    cursor = await session.RunAsync("MATCH (c:Category {Id: $Id})<-[:BELONGS_TO]-(g:Good) RETURN g.Id LIMIT 15", new {
+                    cursor = await session.RunAsync("MATCH (c:Category {Id: $Id})<-[:BELONGS_TO]-(g:Good) RETURN g.Id", new {
                         Id = category.Id.ToString()
                     });
 
