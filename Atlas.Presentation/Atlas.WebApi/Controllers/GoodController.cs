@@ -189,16 +189,16 @@ namespace Atlas.WebApi.Controllers
         ///     GET /api/1.0/good/subcategory/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
         ///     
         /// </remarks>
-        /// <param name="mainCategoryId">Main category id (guid)</param>
+        /// <param name="categoryId">Main category id (guid)</param>
         /// <returns>Returns CategoryAndGoodListVm</returns>
         /// <response code="200">Success</response>
-        [HttpGet("subcategory/category/{category}")]
+        [HttpGet("subcategory/category/{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory.CategoryAndGoodListVm>> GetGoodsAndCategoriesByCategoryId([FromRoute] Guid mainCategoryId)
+        public async Task<ActionResult<Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory.CategoryAndGoodListVm>> GetGoodsAndCategoriesByCategoryId([FromRoute] Guid categoryId)
         {
             var vm = await Mediator.Send(new Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory.GetCategoryAndGoodListByMainCategoryQuery
             {
-                MainCategoryId = mainCategoryId
+                MainCategoryId = categoryId
             });
 
             return Ok(vm);
