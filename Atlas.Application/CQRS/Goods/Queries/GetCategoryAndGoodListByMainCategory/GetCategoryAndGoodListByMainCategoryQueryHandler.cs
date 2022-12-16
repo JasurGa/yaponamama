@@ -57,7 +57,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
                     var goods = await _dbContext.Goods
                         .Where(x => goodIds.Contains(x.Id) && x.IsDeleted == false)
-                        .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
+                        .ProjectTo<GoodInCategoryLookupDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);
 
                     result.Add(new CategoryWithGoodsLookupDto { 
