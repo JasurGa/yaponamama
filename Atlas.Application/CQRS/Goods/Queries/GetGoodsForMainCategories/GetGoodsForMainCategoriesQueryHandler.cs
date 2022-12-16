@@ -51,7 +51,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodsForMainCategories
 
                     var records = await cursor.ToListAsync();
                     foreach (var record in records)
-                    {
+                    {                                                                                                                                                 
                         goodIds.Add(Guid.Parse(record[1].As<string>()));
                     }
 

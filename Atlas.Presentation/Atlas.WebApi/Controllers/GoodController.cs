@@ -181,6 +181,30 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
+        /// Get child-categories and goods by main category id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/good/subcategory/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        /// </remarks>
+        /// <param name="mainCategoryId">Main category id (guid)</param>
+        /// <returns>Returns CategoryAndGoodListVm</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("subcategory/category/{category}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory.CategoryAndGoodListVm>> GetGoodsAndCategoriesByCategoryId([FromRoute] Guid mainCategoryId)
+        {
+            var vm = await Mediator.Send(new Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory.GetCategoryAndGoodListByMainCategoryQuery
+            {
+                MainCategoryId = mainCategoryId
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
         /// Get random goods by main category id
         /// </summary>
         /// <remarks>
