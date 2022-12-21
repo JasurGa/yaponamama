@@ -33,7 +33,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.SearchCategoriesByGoodName
             var goodIds = await _dbContext.Goods.Where(x => x.IsDeleted == false).OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
                 (x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice).ToLower().Trim(),
                        notTranslited + " " + translitedRu + " " + translitedEn))
-                .Select(x => x.Id).Take(200)
+                .Select(x => x.Id.ToString()).Take(200)
                 .ToListAsync(cancellationToken);
 
             List<SearchedCategoryLookupDto> categories;
