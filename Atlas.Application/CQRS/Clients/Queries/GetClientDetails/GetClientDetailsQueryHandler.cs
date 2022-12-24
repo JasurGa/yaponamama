@@ -23,8 +23,8 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
         {
             var client = await _dbContext.Clients
                 .Include(x => x.User)
-                .Include(x => x.Addresses)
-                .Include(x => x.Cards)
+                .Include(x => x.AddressToClients)
+                .Include(x => x.CardInfoToClients)
                 .FirstOrDefaultAsync(x => x.Id == request.Id, 
                     cancellationToken);
 
