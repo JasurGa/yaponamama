@@ -21,8 +21,12 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
         public async Task<ClientDetailsVm> Handle(GetClientDetailsQuery request,
             CancellationToken cancellationToken)
         {
-            var client = await _dbContext.Clients.Include(x => x.User).FirstOrDefaultAsync(x =>
-                x.Id == request.Id, cancellationToken);
+            var client = await _dbContext.Clients
+                .Include(x => x.User)
+                .Include(x => x.Addresses)
+                .Include(x => x.Cards)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, 
+                    cancellationToken);
 
             if (client == null)
             {

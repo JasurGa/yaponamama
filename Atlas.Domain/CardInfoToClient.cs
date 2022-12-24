@@ -18,5 +18,7 @@ namespace Atlas.Domain
         public string Cvc2 { get;set; }
 
         public string CardHolder { get; set; }
+
+        public Client Client { get; set; }
     }
 }
