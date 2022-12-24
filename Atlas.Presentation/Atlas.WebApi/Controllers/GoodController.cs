@@ -31,6 +31,8 @@ using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByPromoCategory;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodsForPromoCategories;
 using Atlas.Application.CQRS.Goods.Commands.UpdateGoodsProvider;
 using Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory;
+using System.Collections.Generic;
+using Atlas.Application.CQRS.Goods.Queries.GetAvailableGoodList;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -471,6 +473,26 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<GoodListVm>> GetGoodsAsync()
         {
             var vm = await Mediator.Send(new GetGoodListQuery());
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the list of available goods
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/1.0/good/available
+        ///     
+        /// </remarks>
+        /// <returns>Returns list of id (guid)></returns>
+        /// <response code="200">Success</response>
+        [HttpGet("available")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<List<Guid>>> GetAvailableGoodsAsync()
+        {
+            var vm = await Mediator.Send(new GetAvailableGoodListQuery());
 
             return Ok(vm);
         }
