@@ -1,4 +1,5 @@
-﻿using Atlas.Application.CQRS.Clients.Queries.GetClientsList;
+﻿using Atlas.Application.Common.Extensions;
+using Atlas.Application.CQRS.Clients.Queries.GetClientsList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -28,6 +29,7 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientPagedList
 
             var clients = await _dbContext.Clients
                 .Where(x => x.IsDeleted == request.ShowDeleted)
+                .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .Include(x => x.User)
