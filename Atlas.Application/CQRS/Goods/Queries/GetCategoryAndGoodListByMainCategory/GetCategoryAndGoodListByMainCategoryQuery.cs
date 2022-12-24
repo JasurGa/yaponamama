@@ -6,5 +6,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
     public class GetCategoryAndGoodListByMainCategoryQuery : IRequest<CategoryAndGoodListVm>
     {
         public Guid MainCategoryId { get; set; }
+
+        public int GoodListSize { get; set; }
     }
 }
