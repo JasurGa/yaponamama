@@ -13,7 +13,7 @@ namespace Atlas.Persistence.EntityTypeConfigurations
 
             builder
                 .HasOne(x => x.Client)
-                .WithMany(y => y.Cards)
+                .WithMany(y => y.CardInfoToClients)
                 .HasForeignKey(x => x.ClientId);
         }
     }

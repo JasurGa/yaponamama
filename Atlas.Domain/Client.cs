@@ -23,8 +23,8 @@ namespace Atlas.Domain
 
         public User User { get; set; }
 
-        public List<AddressToClient> Addresses { get; set; }
+        public List<AddressToClient> AddressToClients { get; set; }
 
-        public List<CardInfoToClient> Cards { get; set; }
+        public List<CardInfoToClient> CardInfoToClients { get; set; }
     }
 }

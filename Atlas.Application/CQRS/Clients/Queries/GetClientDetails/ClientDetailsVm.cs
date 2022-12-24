@@ -47,9 +47,9 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
                 .ForMember(dest => dest.Balance, opt =>
                     opt.MapFrom(src => src.Balance))
                 .ForMember(dest => dest.Adresseses, opt =>
-                    opt.MapFrom(src => src.Addresses))
+                    opt.MapFrom(src => src.AddressToClients))
                 .ForMember(dest => dest.Cards, opt =>
-                    opt.MapFrom(src => src.Cards));
+                    opt.MapFrom(src => src.CardInfoToClients));
         }
     }
 }
