@@ -189,19 +189,21 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/good/subcategory/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     GET /api/1.0/good/subcategory/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8?goodListSize=6
         ///     
         /// </remarks>
         /// <param name="categoryId">Main category id (guid)</param>
+        /// <param name="goodListSize">Good list size (int)</param>
         /// <returns>Returns CategoryAndGoodListVm</returns>
         /// <response code="200">Success</response>
         [HttpGet("subcategory/category/{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<CategoryAndGoodListVm>> GetGoodsAndCategoriesByCategoryId([FromRoute] Guid categoryId)
+        public async Task<ActionResult<CategoryAndGoodListVm>> GetGoodsAndCategoriesByCategoryId([FromRoute] Guid categoryId, [FromQuery] int goodListSize = 6)
         {
             var vm = await Mediator.Send(new GetCategoryAndGoodListByMainCategoryQuery
             {
-                MainCategoryId = categoryId
+                MainCategoryId = categoryId,
+                GoodListSize   = goodListSize
             });
 
             return Ok(vm);

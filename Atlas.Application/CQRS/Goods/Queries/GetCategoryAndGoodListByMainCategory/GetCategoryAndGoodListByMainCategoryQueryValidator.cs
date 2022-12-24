@@ -9,6 +9,10 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
         {
             RuleFor(x => x.MainCategoryId)
                 .NotEqual(Guid.Empty);
+
+            RuleFor(x => x.GoodListSize)
+                .NotEmpty()
+                .LessThanOrEqualTo(50);
         }
     }
 }
