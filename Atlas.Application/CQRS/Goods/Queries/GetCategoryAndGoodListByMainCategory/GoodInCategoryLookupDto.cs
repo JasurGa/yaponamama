@@ -15,6 +15,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
         public long SellingPrice { get; set; }
 
+        public float Discount { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Good, GoodInCategoryLookupDto>()
@@ -25,7 +27,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
                 .ForMember(dest => dest.PhotoPath, opt =>
                     opt.MapFrom(src => src.PhotoPath))
                 .ForMember(dest => dest.SellingPrice, opt =>
-                    opt.MapFrom(src => src.SellingPrice));
+                    opt.MapFrom(src => src.SellingPrice))
+                .ForMember(dest => dest.Discount, opt =>
+                    opt.MapFrom(src => src.Discount));
         }
     }
 }
