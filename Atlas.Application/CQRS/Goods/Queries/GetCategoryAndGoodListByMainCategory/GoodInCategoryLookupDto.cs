@@ -2,6 +2,7 @@
 using Atlas.Domain;
 using AutoMapper;
 using System;
+using System.Linq;
 
 namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory
 {
@@ -9,13 +10,15 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
     {
         public Guid Id { get; set; }
 
-        public string Name { get; set; }
-
         public string PhotoPath { get; set; }
+
+        public string Name { get; set; }
 
         public long SellingPrice { get; set; }
 
         public float Discount { get; set; }
+
+        public long Count { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -29,7 +32,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
                 .ForMember(dest => dest.SellingPrice, opt =>
                     opt.MapFrom(src => src.SellingPrice))
                 .ForMember(dest => dest.Discount, opt =>
-                    opt.MapFrom(src => src.Discount));
+                    opt.MapFrom(src => src.Discount))
+                .ForMember(dest => dest.Count, opt =>
+                    opt.MapFrom(src => src.StoreToGoods.Sum(x => x.Count)));
         }
     }
 }
