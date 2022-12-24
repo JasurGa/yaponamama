@@ -56,13 +56,13 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
                             cancellationToken);
 
                     var goods = await _dbContext.Goods
-                        .Where(x => goodIds.Contains(x.Id) && x.IsDeleted == false)
+                        .Where(x => goodIds.Contains(x.Id) && x.IsDeleted == false && x.StoreToGoods.Select(x => x.Consignments).Count() > 0)
                         .ProjectTo<GoodInCategoryLookupDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);
 
                     result.Add(new CategoryWithGoodsLookupDto { 
                         Id         = category.Id,
-                        Name       = category.Name,
+                        Name       = category.Name, 
                         GoodsCount = goodsCount,
                         Goods      = goods
                     });
