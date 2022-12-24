@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Atlas.Domain
 {
@@ -21,5 +22,9 @@ namespace Atlas.Domain
         public bool IsDeleted { get; set; }
 
         public User User { get; set; }
+
+        public List<AddressToClient> Addresses { get; set; }
+
+        public List<CardInfoToClient> Cards { get; set; }
     }
 }
