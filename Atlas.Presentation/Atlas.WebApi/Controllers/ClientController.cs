@@ -70,12 +70,14 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/client/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10
+        ///     GET /api/1.0/client/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
         ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
         /// <returns>Returns PageDto ClientLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -84,13 +86,20 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<ClientLookupDto>>> GetAllPagedAsync([FromQuery] bool showDeleted = false, [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<ClientLookupDto>>> GetAllPagedAsync(
+            [FromQuery] bool showDeleted = false, 
+            [FromQuery] int pageIndex    = 0, 
+            [FromQuery] int pageSize     = 10,
+            [FromQuery] string sortable  = "Id",
+            [FromQuery] bool ascending   = true)
         {
             var vm = await Mediator.Send(new GetClientPagedListQuery
             {
                 ShowDeleted = showDeleted,
-                PageIndex = pageIndex,
-                PageSize = pageSize
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
+                Sortable    = sortable,
+                Ascending   = ascending
             });
 
             return Ok(vm);

@@ -12,5 +12,9 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientPagedList
 
         public int PageIndex { get; set; }
 
+        public string Sortable { get; set; }
+
+        public bool Ascending { get; set; }
+
     }
 }
