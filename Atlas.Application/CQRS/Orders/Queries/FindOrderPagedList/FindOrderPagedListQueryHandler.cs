@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
             var orders = _dbContext.Orders.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
-                GenerateOrderCode(x.Id).ToLower().Trim(),
+                GenerateOrderCode(x.Id).ToString().ToLower().Trim(),
                     request.SearchQuery));
 
             var ordersCount = await orders.CountAsync(cancellationToken);
@@ -43,9 +43,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList
             };
         }
 
-        public string GenerateOrderCode(Guid Id)
+        public int GenerateOrderCode(Guid Id)
         {
-            return (new DateTime(2022, 12, 25).Ticks - DateTime.Now.Ticks).ToString("x");
+            return (int)(Convert.ToInt64(Id.ToString().Split("-")[0], 16) % 1000000);
         }
     }
 }
