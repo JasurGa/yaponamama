@@ -11,11 +11,12 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
     {
         public Guid Id { get; set; }
 
-        public int OrderCode
+        public string OrderCode
         {
             get
             {
-                return (int)(Convert.ToInt64(Id.ToString().Split("-")[0], 16) % 1000000);
+                //return (int)(Convert.ToInt64(Id.ToString().Split("-")[0], 16) % 1000000);
+                return (new DateTime(2022, 12, 25).Ticks - DateTime.Now.Ticks).ToString("x");
             }
         }
 

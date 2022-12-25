@@ -26,8 +26,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList
         {
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
-            var orders = _dbContext.Orders.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(x.Id.ToString().ToLower().Trim(),
-                request.SearchQuery));
+            var orders = _dbContext.Orders.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
+                GenerateOrderCode(x.Id).ToLower().Trim(),
+                    request.SearchQuery));
 
             var ordersCount = await orders.CountAsync(cancellationToken);
             var pagedOrders = await orders.Skip(request.PageSize * request.PageIndex)
@@ -40,6 +41,11 @@ namespace Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList
                 PageCount  = (int)Math.Ceiling((double)ordersCount / request.PageSize),
                 Data       = _mapper.Map<List<Order>, List<OrderLookupDto>>(pagedOrders),
             };
+        }
+
+        public string GenerateOrderCode(Guid Id)
+        {
+            return (new DateTime(2022, 12, 25).Ticks - DateTime.Now.Ticks).ToString("x");
         }
     }
 }
