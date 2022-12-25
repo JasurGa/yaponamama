@@ -31,7 +31,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
             try
             {
-                var cursor = await session.RunAsync("MATCH (:Category {Id: $Id, IsMainCategory: true})<-[:BELONGS_TO]-(sc:Category) WHERE (:Good)-->(sc) RETURN sc", new
+                var cursor = await session.RunAsync("MATCH (:Category {Id: $Id, IsMainCategory: true})<-[:BELONGS_TO]-(sc:Category {IsDeleted: false}) WHERE (:Good)-->(sc) RETURN sc", new
                 {
                     Id = request.MainCategoryId.ToString()
                 });
