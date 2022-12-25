@@ -70,7 +70,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/client/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        ///     GET /api/1.0/client/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=User.CreatedAt&amp;ascending=true
         ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
@@ -90,7 +90,7 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] bool showDeleted = false, 
             [FromQuery] int pageIndex    = 0, 
             [FromQuery] int pageSize     = 10,
-            [FromQuery] string sortable  = "Id",
+            [FromQuery] string sortable  = "User.CreatedAt",
             [FromQuery] bool ascending   = true)
         {
             var vm = await Mediator.Send(new GetClientPagedListQuery
