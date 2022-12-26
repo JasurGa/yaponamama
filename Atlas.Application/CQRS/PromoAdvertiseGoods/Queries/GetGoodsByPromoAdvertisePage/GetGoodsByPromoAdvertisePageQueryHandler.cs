@@ -2,30 +2,35 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.Interfaces;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.PromoAdvertiseGoods.Queries.GetGoodsByPromoAdvertisePage
 {
     public class GetGoodsByPromoAdvertisePageQueryHandler : IRequestHandler<GetGoodsByPromoAdvertisePageQuery,
-        GoodIdListVm>
+        GoodListVm>
     {
+        private readonly IMapper _mapper;
+
         private readonly IAtlasDbContext _dbContext;
 
-        public GetGoodsByPromoAdvertisePageQueryHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public GetGoodsByPromoAdvertisePageQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
+            (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<GoodIdListVm> Handle(GetGoodsByPromoAdvertisePageQuery request, CancellationToken cancellationToken)
+        public async Task<GoodListVm> Handle(GetGoodsByPromoAdvertisePageQuery request, CancellationToken cancellationToken)
         {
-            var goodIds = await _dbContext.PromoAdvertiseGoods.Where(x =>
+            var goods = await _dbContext.PromoAdvertiseGoods.Where(x =>
                 x.PromoAdvertisePageId == request.PromoAdvertisePageId)
-                .Select(x => x.GoodId)
+                .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return new GoodIdListVm
+            return new GoodListVm
             {
-                GoodIds = goodIds
+                Goods = goods
             };
         }
     }
