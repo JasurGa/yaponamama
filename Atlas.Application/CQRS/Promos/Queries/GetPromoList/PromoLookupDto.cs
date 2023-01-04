@@ -11,6 +11,8 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
 
         public Guid GoodId { get; set; }
 
+        public Guid ClientId { get; set; }
+
         public string Name { get; set; }
 
         public DateTime ExpiresAt { get; set; }
@@ -22,6 +24,8 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
                     opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.GoodId, opt =>
                     opt.MapFrom(src => src.GoodId))
+                .ForMember(dst => dst.ClientId, opt =>
+                    opt.MapFrom(src => src.ClientId))
                 .ForMember(dst => dst.Name, opt =>
                     opt.MapFrom(src => src.Name))
                 .ForMember(dst => dst.ExpiresAt, opt =>

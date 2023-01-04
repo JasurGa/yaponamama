@@ -30,6 +30,7 @@ namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
             var promo = new Promo
             {
                 Id              = Guid.NewGuid(),
+                ClientId        = request.ClientId,
                 GoodId          = request.GoodId,
                 Name            = request.Name,
                 DiscountPrice   = request.DiscountPrice,

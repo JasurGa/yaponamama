@@ -38,6 +38,7 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
                 throw new NotFoundException(nameof(Good), request.GoodId);
             }
 
+            promo.ClientId        = request.ClientId;
             promo.GoodId          = request.GoodId;
             promo.Name            = request.Name;
             promo.DiscountPercent = request.DiscountPercent;

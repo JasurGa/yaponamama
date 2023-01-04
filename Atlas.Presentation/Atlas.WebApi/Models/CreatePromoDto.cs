@@ -12,6 +12,8 @@ namespace Atlas.WebApi.Models
 
         public Guid GoodId { get; set; }
 
+        public Guid? ClientId { get; set; }
+
         public int DiscountPrice { get; set; }
 
         public int DiscountPercent { get; set; }
@@ -25,6 +27,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.Name))
                 .ForMember(dst => dst.GoodId, opt =>
                     opt.MapFrom(src => src.GoodId))
+                .ForMember(dst => dst.ClientId, opt =>
+                    opt.MapFrom(src => src.ClientId))
                 .ForMember(dst => dst.DiscountPrice, opt =>
                     opt.MapFrom(src => src.DiscountPrice))
                 .ForMember(dst => dst.DiscountPercent, opt =>

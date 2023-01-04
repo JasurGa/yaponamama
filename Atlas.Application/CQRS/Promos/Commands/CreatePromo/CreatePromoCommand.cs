@@ -5,6 +5,8 @@ namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
 {
     public class CreatePromoCommand : IRequest<Guid>
     {
+        public Guid? ClientId { get; set; }
+
         public Guid GoodId { get; set; }
 
         public string Name { get; set; }
