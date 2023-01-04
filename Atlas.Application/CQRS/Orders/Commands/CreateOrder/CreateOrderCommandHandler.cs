@@ -232,6 +232,19 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
             await _dbContext.Orders.AddAsync(order,
                 cancellationToken);
+
+            if (foundPromo != null)
+            {
+                await _dbContext.PromoUsages.AddAsync(new PromoUsage
+                {
+                    Id = Guid.NewGuid(),
+                    ClientId = request.ClientId,
+                    PromoId = foundPromo.Id,
+                    UsedAt = DateTime.UtcNow
+                });
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             if (order.TelegramUserId != null)
@@ -245,18 +258,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 createGoodToOrder.OrderId = order.Id;
                 createGoodToOrder.StoreId = foundStore.Id;
                 await _mediator.Send(createGoodToOrder, cancellationToken);
-            }
-
-            if (foundPromo != null)
-            {
-                await _dbContext.PromoUsages.AddAsync(new PromoUsage
-                {
-                    Id       = Guid.NewGuid(),
-                    ClientId = request.ClientId,
-                    PromoId  = foundPromo.Id,
-                    UsedAt   = DateTime.UtcNow
-                });
-                await _dbContext.SaveChangesAsync(cancellationToken);
             }
 
             var notificationId = await _mediator.Send(new CreateNotificationCommand
