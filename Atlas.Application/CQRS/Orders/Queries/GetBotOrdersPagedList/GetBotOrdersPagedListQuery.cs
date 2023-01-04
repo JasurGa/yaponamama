@@ -8,7 +8,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList
     {
         public Guid ClientId { get; set; }
 
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         public int PageSize { get; set; }
 

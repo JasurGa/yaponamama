@@ -527,7 +527,7 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<PageDto<BotOrderLookupDto>>> GetPagedBotOrdersAsync(
             [FromQuery] int pageIndex = 0,
             [FromQuery] int pageSize = 10,
-            [FromQuery] int status = 0)
+            [FromQuery] int? status = null)
         {
             var vm = await Mediator.Send(new GetBotOrdersPagedListQuery
             {
