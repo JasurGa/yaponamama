@@ -43,12 +43,12 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
             if (foundPromo == null || foundPromo.ExpiresAt <= DateTime.UtcNow)
             {
-                foundPromo = null;
+                return null;
             }
 
             if (foundPromo.ClientId != null && foundPromo.ClientId != request.ClientId)
             {
-                foundPromo = null;
+                return null;
             }
 
             var promoUsage = await _dbContext.PromoUsages.FirstOrDefaultAsync(x =>
@@ -56,7 +56,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
             if (promoUsage != null)
             {
-                foundPromo = null;
+                return null;
             }
 
             return foundPromo;
