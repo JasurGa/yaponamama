@@ -237,10 +237,10 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             {
                 await _dbContext.PromoUsages.AddAsync(new PromoUsage
                 {
-                    Id = Guid.NewGuid(),
+                    Id       = Guid.NewGuid(),
                     ClientId = request.ClientId,
-                    PromoId = foundPromo.Id,
-                    UsedAt = DateTime.UtcNow
+                    PromoId  = foundPromo.Id,
+                    UsedAt   = DateTime.UtcNow
                 });
                 await _dbContext.SaveChangesAsync(cancellationToken);
             }
