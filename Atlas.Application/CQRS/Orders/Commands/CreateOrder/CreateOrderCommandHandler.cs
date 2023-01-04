@@ -46,6 +46,19 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 foundPromo = null;
             }
 
+            if (foundPromo.ClientId != null && foundPromo.ClientId != request.ClientId)
+            {
+                foundPromo = null;
+            }
+
+            var promoUsage = await _dbContext.PromoUsages.FirstOrDefaultAsync(x =>
+                x.PromoId == foundPromo.Id && x.ClientId == request.ClientId);
+
+            if (promoUsage != null)
+            {
+                foundPromo = null;
+            }
+
             return foundPromo;
         }
 
@@ -232,6 +245,18 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 createGoodToOrder.OrderId = order.Id;
                 createGoodToOrder.StoreId = foundStore.Id;
                 await _mediator.Send(createGoodToOrder, cancellationToken);
+            }
+
+            if (foundPromo != null)
+            {
+                await _dbContext.PromoUsages.AddAsync(new PromoUsage
+                {
+                    Id       = Guid.NewGuid(),
+                    ClientId = request.ClientId,
+                    PromoId  = foundPromo.Id,
+                    UsedAt   = DateTime.UtcNow
+                });
+                await _dbContext.SaveChangesAsync(cancellationToken);
             }
 
             var notificationId = await _mediator.Send(new CreateNotificationCommand
