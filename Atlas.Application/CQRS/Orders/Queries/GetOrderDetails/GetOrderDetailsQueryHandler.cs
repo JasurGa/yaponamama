@@ -21,7 +21,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
         public async Task<OrderDetailsVm> Handle(GetOrderDetailsQuery request,
             CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders.Include(x => x.Client).Include(x => x.Courier)
+            var order = await _dbContext.Orders.Include(x => x.Client)
+                .Include(x => x.Courier).ThenInclude(x => x.User)
                 .Include(x => x.Promo).Include(x => x.Store)
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
