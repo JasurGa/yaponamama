@@ -193,8 +193,6 @@
     <Folder Include="CQRS\Categories\Queries\SearchCategoriesByGoodName\" />
     <Folder Include="CQRS\PromoUsages\" />
     <Folder Include="CQRS\PromoUsages\Queries\" />
-    <Folder Include="CQRS\PromoUsages\Queries\GetByClientId\" />
-    <Folder Include="CQRS\PromoUsages\Queries\GetLastUsagesPaged\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -397,7 +395,5 @@
     <None Remove="CQRS\Categories\Queries\SearchCategoriesByGoodName\" />
     <None Remove="CQRS\PromoUsages\" />
     <None Remove="CQRS\PromoUsages\Queries\" />
-    <None Remove="CQRS\PromoUsages\Queries\GetByClientId\" />
-    <None Remove="CQRS\PromoUsages\Queries\GetLastUsagesPaged\" />
   </ItemGroup>
 </Project>

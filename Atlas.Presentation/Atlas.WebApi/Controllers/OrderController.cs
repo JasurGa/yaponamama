@@ -446,7 +446,7 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <param name="id">Store id (guid)</param>
         /// <param name="pageIndex">Page index</param>
-        /// <param name="pageSize">Page size</param>/// 
+        /// <param name="pageSize">Page size</param>
         /// <returns>Returns PageDto OrderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>

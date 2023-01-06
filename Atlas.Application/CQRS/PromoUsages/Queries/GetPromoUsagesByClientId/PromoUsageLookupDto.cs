@@ -3,7 +3,7 @@ using Atlas.Application.Common.Mappings;
 using Atlas.Domain;
 using AutoMapper;
 
-namespace Atlas.Application.CQRS.PromoUsages.Queries.GetByClientId
+namespace Atlas.Application.CQRS.PromoUsages.Queries.GetPromoUsagesByClientId
 {
     public class PromoUsageLookupDto : IMapWith<PromoUsage>
     {

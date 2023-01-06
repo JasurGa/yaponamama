@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Atlas.Application.CQRS.PromoUsages.Queries.GetByClientId
+namespace Atlas.Application.CQRS.PromoUsages.Queries.GetPromoUsagesByClientId
 {
     public class PromoUsageListVm
     {

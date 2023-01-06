@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Atlas.Application.CQRS.PromoUsages.Queries.GetByClientId;
+using Atlas.Application.CQRS.PromoUsages.Queries.GetPromoUsagesByClientId;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -10,18 +10,18 @@ using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Atlas.Application.CQRS.PromoUsages.Queries.GetLastUsagesPaged
+namespace Atlas.Application.CQRS.PromoUsages.Queries.GetLastPromoUsagesPaged
 {
-    public class GetLastUsagesPagedQueryHandler : IRequestHandler<GetLastUsagesPagedQuery,
+    public class GetLastPromoUsagesPagedQueryHandler : IRequestHandler<GetLastPromoUsagesPagedQuery,
         PageDto<PromoUsageLookupDto>>
     {
         private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
-        public GetLastUsagesPagedQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
+        public GetLastPromoUsagesPagedQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<PageDto<PromoUsageLookupDto>> Handle(GetLastUsagesPagedQuery request, CancellationToken cancellationToken)
+        public async Task<PageDto<PromoUsageLookupDto>> Handle(GetLastPromoUsagesPagedQuery request, CancellationToken cancellationToken)
         {
             var promoUsagesCount = await _dbContext.PromoUsages
                 .CountAsync(cancellationToken);
