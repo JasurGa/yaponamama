@@ -38,7 +38,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpGet("order/{orderId}")]
-        [AuthRoleFilter(new string[] { Roles.Admin, Roles.Client })]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support, Roles.Client })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<GoodToOrderListVm>> GetAllByOrderId([FromRoute] Guid orderId)
