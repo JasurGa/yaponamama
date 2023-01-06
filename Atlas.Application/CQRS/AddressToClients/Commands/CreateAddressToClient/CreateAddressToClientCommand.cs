@@ -18,5 +18,7 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.CreateAddressToClient
         public float Latitude { get; set; }
 
         public float Longitude { get; set; }
+
+        public int AddressType { get; set; }
     }
 }

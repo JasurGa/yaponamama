@@ -19,6 +19,8 @@ namespace Atlas.Domain
 
         public float Longitude { get; set; }
 
+        public int AddressType { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public Client Client { get; set; }

@@ -23,6 +23,8 @@ namespace Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientDeta
 
         public float Longitude { get; set; }
 
+        public int AddressType { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public void Mapping(Profile profile)
@@ -44,6 +46,8 @@ namespace Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientDeta
                     opt => opt.MapFrom(e => e.Latitude))
                 .ForMember(eVm => eVm.Longitude,
                     opt => opt.MapFrom(e => e.Longitude))
+                .ForMember(eVm => eVm.AddressType,
+                    opt => opt.MapFrom(e => e.AddressType))
                 .ForMember(eVm => eVm.CreatedAt,
                     opt => opt.MapFrom(e => e.CreatedAt));
         }

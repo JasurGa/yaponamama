@@ -20,15 +20,16 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.CreateAddressToClient
         {
             var addressToClient = new AddressToClient
             {
-                Id        = Guid.NewGuid(),
-                ClientId  = request.ClientId,
-                Address   = request.Address,
-                Entrance  = request.Entrance,
-                Floor     = request.Floor,
-                Apartment = request.Apartment,
-                Latitude  = request.Latitude,
-                Longitude = request.Longitude,
-                CreatedAt = DateTime.UtcNow,
+                Id          = Guid.NewGuid(),
+                ClientId    = request.ClientId,
+                Address     = request.Address,
+                Entrance    = request.Entrance,
+                Floor       = request.Floor,
+                Apartment   = request.Apartment,
+                Latitude    = request.Latitude,
+                Longitude   = request.Longitude,
+                AddressType = request.AddressType,
+                CreatedAt   = DateTime.UtcNow,
             };
 
             await _dbContext.AddressToClients.AddAsync(addressToClient,
