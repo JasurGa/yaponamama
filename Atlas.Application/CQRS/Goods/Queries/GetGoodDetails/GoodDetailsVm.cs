@@ -47,7 +47,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public float Volume { get; set; }
 
-        public int Discount { get; set; }
+        public float Discount { get; set; }
 
         public bool IsDeleted { get; set; }
 
