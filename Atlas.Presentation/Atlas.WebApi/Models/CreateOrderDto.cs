@@ -18,6 +18,8 @@ namespace Atlas.WebApi.Models
 
         public string Entrance { get; set; }
 
+        public string Address { get; set; }
+
         public float ToLongitude { get; set; }
 
         public float ToLatitude { get; set; }
@@ -51,6 +53,8 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(src => src.Floor))
                 .ForMember(dst => dst.Entrance, opt =>
                     opt.MapFrom(src => src.Entrance))
+                .ForMember(dst => dst.Address, opt =>
+                    opt.MapFrom(src => src.Address))
                 .ForMember(dst => dst.ToLongitude, opt =>
                     opt.MapFrom(src => src.ToLongitude))
                 .ForMember(dst => dst.ToLatitude, opt =>
