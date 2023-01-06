@@ -19,6 +19,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
         public string Entrance { get; set; }
 
+        public string Address { get; set; }
+
         public float ToLongitude { get; set; }
 
         public float ToLatitude { get; set; }

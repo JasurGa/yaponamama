@@ -29,6 +29,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public DateTime FinishedAt { get; set; }
 
+        public string Address { get; set; }
+
         public float ToLongitude { get; set; }
 
         public float ToLatitude { get; set; }
@@ -88,6 +90,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                     opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dst => dst.FinishedAt, opt =>
                     opt.MapFrom(src => src.FinishedAt))
+                .ForMember(dst => dst.Address, opt =>
+                    opt.MapFrom(src => src.Address))
                 .ForMember(dst => dst.ToLongitude, opt =>
                     opt.MapFrom(src => src.ToLongitude))
                 .ForMember(dst => dst.ToLatitude, opt =>

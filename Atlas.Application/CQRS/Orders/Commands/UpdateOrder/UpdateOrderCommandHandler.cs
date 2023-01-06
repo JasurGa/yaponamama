@@ -95,6 +95,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
             order.SellingPrice          = request.SellingPrice;
             order.ShippingPrice         = request.ShippingPrice;
             order.Status                = request.Status;
+            order.Address               = request.Address;
             order.ToLongitude           = request.ToLongitude;
             order.ToLatitude            = request.ToLatitude;
             order.PaymentType           = request.PaymentType;

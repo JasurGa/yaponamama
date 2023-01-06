@@ -37,6 +37,8 @@ namespace Atlas.Domain
 
         public int Status { get; set; }
 
+        public string Address { get; set; }
+
         public float ToLongitude { get; set; }
 
         public float ToLatitude { get; set; }

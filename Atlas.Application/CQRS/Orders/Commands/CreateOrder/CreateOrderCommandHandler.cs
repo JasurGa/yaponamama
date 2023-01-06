@@ -208,6 +208,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 Apartment             = request.Apartment,
                 Floor                 = request.Floor,
                 Entrance              = request.Entrance,
+                Address               = request.Address,
                 ToLatitude            = request.ToLatitude,
                 ToLongitude           = request.ToLongitude,
                 ClientId              = request.ClientId,
