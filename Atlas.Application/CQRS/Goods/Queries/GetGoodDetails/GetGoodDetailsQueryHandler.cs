@@ -10,6 +10,7 @@ using Neo4j.Driver;
 using System.Collections.Generic;
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Application.Common.Helpers;
+using System.Linq;
 
 namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 {
@@ -45,7 +46,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 });
 
                 categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>(
-                    await cursor.ConvertDictManyAsync<Category>());
+                    await cursor.ConvertDictManyAsync<Category>())
+                    .OrderBy(x => x.IsMainCategory).ToList();
             }
             finally
             {
