@@ -47,7 +47,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
                 categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>(
                     await cursor.ConvertDictManyAsync<Category>())
-                    .OrderBy(x => x.IsMainCategory).ToList();
+                    .OrderByDescending(x => x.IsMainCategory).ToList();
             }
             finally
             {
