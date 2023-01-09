@@ -70,6 +70,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<Provider> Providers { get; set; }
 
+        DbSet<PhotoToGood> PhotoToGoods { get; set; }
+
         DbSet<ProviderPhoneNumber> ProviderPhoneNumbers { get; set; }
 
         DbSet<Recommendation> Recommendations { get; set; }
