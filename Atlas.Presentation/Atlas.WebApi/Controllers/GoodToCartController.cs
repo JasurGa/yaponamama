@@ -2,6 +2,7 @@
 using Atlas.Application.CQRS.GoodToCarts.Commands.CreateGoodToCart;
 using Atlas.Application.CQRS.GoodToCarts.Commands.DeleteGoodToCart;
 using Atlas.Application.CQRS.GoodToCarts.Commands.UpdateGoodToCart;
+using Atlas.Application.CQRS.GoodToCarts.Commands.UpdateManyGoodsInCart;
 using Atlas.Application.CQRS.GoodToCarts.Queries.GetGoodToCartList;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -10,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Atlas.WebApi.Controllers
@@ -25,6 +28,53 @@ namespace Atlas.WebApi.Controllers
             _mapper = mapper;
 
         /// <summary>
+        /// Fully changes client's shopping cart
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT /api/1.0/goodtocart/many
+        ///     [
+        ///         {
+        ///             "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "count": 10
+        ///         },
+        ///         {
+        ///             "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "count": 10
+        ///         },
+        ///         {
+        ///             "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "count": 10
+        ///         },
+        ///     ]
+        /// 
+        /// </remarks>
+        /// <returns>Returns LackingGoodListVm object</returns>
+        /// <param name="updateGoodToCarts">List of UpdateGoodToCartDto objects</param>
+        /// <response code="200">Success</response>
+        /// <response code="404">NotFound</response>
+        /// <response code-"401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPut("many")]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<LackingGoodListVm>> UpdateManyAsync([FromBody]
+            List<UpdateGoodToCartDto> updateStoreToGoodDto)
+        {
+            var vm = await Mediator.Send(new UpdateManyGoodsInCartCommand
+            {
+                ClientId = ClientId,
+                GoodsToCount = updateStoreToGoodDto.ToDictionary(x => x.Id,
+                    x => x.Count)
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
         /// Adds a new good to client's shopping cart
         /// </summary>
         /// <remarks>
@@ -32,7 +82,7 @@ namespace Atlas.WebApi.Controllers
         /// 
         ///     POST /api/1.0/goottocart
         ///     {
-        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "count": 10,
         ///     }
         ///     
