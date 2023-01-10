@@ -50,6 +50,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<OrderChat> OrderChats { get; set; }
 
+        DbSet<OrderComment> OrderComments { get; set; }
+
         DbSet<OrderFeedback> OrderFeedbacks { get; set; }
 
         DbSet<PageVisit> PageVisits { get; set; }

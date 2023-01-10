@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Atlas.Domain
 {
     public class User
@@ -34,5 +36,7 @@ namespace Atlas.Domain
         public Support Support { get; set; }
 
         public Client Client { get; set; }
+
+        public ICollection<OrderComment> OrderComments { get; set; }
     }
 }

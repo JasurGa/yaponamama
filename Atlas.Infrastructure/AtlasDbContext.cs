@@ -50,6 +50,8 @@ namespace Atlas.Persistence
 
         public DbSet<OrderChat> OrderChats { get; set; }
 
+        public DbSet<OrderComment> OrderComments { get; set; }
+
         public DbSet<OrderFeedback> OrderFeedbacks { get; set; }
 
         public DbSet<PageVisit> PageVisits { get; set; }
@@ -132,6 +134,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new NotificationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OfficialRoleConfiguration());
             modelBuilder.ApplyConfiguration(new OrderChatConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderCommentConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderFeedbackConfiguration());
             modelBuilder.ApplyConfiguration(new PageVisitConfiguration());
