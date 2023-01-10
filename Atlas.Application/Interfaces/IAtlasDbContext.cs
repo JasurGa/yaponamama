@@ -74,6 +74,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<ProviderPhoneNumber> ProviderPhoneNumbers { get; set; }
 
+        DbSet<PushNotification> PushNotifications { get; set; }
+
         DbSet<Recommendation> Recommendations { get; set; }
 
         DbSet<RecommendationType> RecommendationTypes { get; set; }

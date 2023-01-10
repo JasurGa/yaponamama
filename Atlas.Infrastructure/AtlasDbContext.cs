@@ -74,6 +74,8 @@ namespace Atlas.Persistence
 
         public DbSet<PhotoToGood> PhotoToGoods { get; set; }
 
+        public DbSet<PushNotification> PushNotifications { get; set; }
+
         public DbSet<Recommendation> Recommendations { get; set; }
 
         public DbSet<RecommendationType> RecommendationTypes { get; set; }
@@ -141,6 +143,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new ProviderConfiguration());
             modelBuilder.ApplyConfiguration(new ProviderPhoneNumberConfiguration());
             modelBuilder.ApplyConfiguration(new PhotoToGoodConfiguration());
+            modelBuilder.ApplyConfiguration(new PushNotificationConfiguration());
             modelBuilder.ApplyConfiguration(new RecommendationConfiguration());
             modelBuilder.ApplyConfiguration(new RecommendationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());

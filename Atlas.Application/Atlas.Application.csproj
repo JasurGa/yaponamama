@@ -194,6 +194,14 @@
     <Folder Include="CQRS\PromoUsages\" />
     <Folder Include="CQRS\PromoUsages\Queries\" />
     <Folder Include="CQRS\GoodToCarts\Commands\UpdateManyGoodsInCart\" />
+    <Folder Include="CQRS\PushNotifications\" />
+    <Folder Include="CQRS\PushNotifications\Commands\" />
+    <Folder Include="CQRS\PushNotifications\Commands\CreatePushNotification\" />
+    <Folder Include="CQRS\PushNotifications\Commands\UpdatePushNotification\" />
+    <Folder Include="CQRS\PushNotifications\Commands\DeletePushNotification\" />
+    <Folder Include="CQRS\PushNotifications\Queries\" />
+    <Folder Include="CQRS\PushNotifications\Queries\GetPushNotificationsPagedList\" />
+    <Folder Include="CQRS\PushNotifications\Queries\GetPushNotificationById\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.16" />
@@ -397,5 +405,13 @@
     <None Remove="CQRS\PromoUsages\" />
     <None Remove="CQRS\PromoUsages\Queries\" />
     <None Remove="CQRS\GoodToCarts\Commands\UpdateManyGoodsInCart\" />
+    <None Remove="CQRS\PushNotifications\" />
+    <None Remove="CQRS\PushNotifications\Commands\" />
+    <None Remove="CQRS\PushNotifications\Commands\CreatePushNotification\" />
+    <None Remove="CQRS\PushNotifications\Commands\UpdatePushNotification\" />
+    <None Remove="CQRS\PushNotifications\Commands\DeletePushNotification\" />
+    <None Remove="CQRS\PushNotifications\Queries\" />
+    <None Remove="CQRS\PushNotifications\Queries\GetPushNotificationsPagedList\" />
+    <None Remove="CQRS\PushNotifications\Queries\GetPushNotificationById\" />
   </ItemGroup>
 </Project>
