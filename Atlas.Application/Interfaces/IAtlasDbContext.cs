@@ -76,6 +76,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<PushNotification> PushNotifications { get; set; }
 
+        DbSet<PushNotificationRead> PushNotificationReads { get; set; }
+
         DbSet<Recommendation> Recommendations { get; set; }
 
         DbSet<RecommendationType> RecommendationTypes { get; set; }

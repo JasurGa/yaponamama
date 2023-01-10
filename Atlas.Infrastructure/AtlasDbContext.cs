@@ -76,6 +76,8 @@ namespace Atlas.Persistence
 
         public DbSet<PushNotification> PushNotifications { get; set; }
 
+        public DbSet<PushNotificationRead> PushNotificationReads { get; set; }
+
         public DbSet<Recommendation> Recommendations { get; set; }
 
         public DbSet<RecommendationType> RecommendationTypes { get; set; }
@@ -144,6 +146,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new ProviderPhoneNumberConfiguration());
             modelBuilder.ApplyConfiguration(new PhotoToGoodConfiguration());
             modelBuilder.ApplyConfiguration(new PushNotificationConfiguration());
+            modelBuilder.ApplyConfiguration(new PushNotificationReadConfiguration());
             modelBuilder.ApplyConfiguration(new RecommendationConfiguration());
             modelBuilder.ApplyConfiguration(new RecommendationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());

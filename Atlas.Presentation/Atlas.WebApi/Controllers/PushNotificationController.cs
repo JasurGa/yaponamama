@@ -6,6 +6,8 @@ using Atlas.Application.CQRS.PushNotifications.Commands.DeletePushNotification;
 using Atlas.Application.CQRS.PushNotifications.Commands.UpdatePushNotification;
 using Atlas.Application.CQRS.PushNotifications.Queries.GetPushNotificationById;
 using Atlas.Application.CQRS.PushNotifications.Queries.GetPushNotificationsPagedList;
+using Atlas.Application.CQRS.PushNotifications.Queries.GetUnreadPushNotifications;
+using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
@@ -177,13 +179,42 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PushNotificationLookupDto>> GetPagedAsync([FromQuery] int pageSize = 10,
+        public async Task<ActionResult<PageDto<PushNotificationLookupDto>>> GetPagedAsync([FromQuery] int pageSize = 10,
             [FromQuery] int pageIndex = 0)
         {
             var vm = await Mediator.Send(new GetPushNotificationsPagedListQuery
             {
                 PageSize  = pageSize,
                 PageIndex = pageIndex
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get unread notifications for client
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/pushnotification/unread
+        ///     
+        /// </remarks>
+        /// <returns>Returns PushNotificationListVm object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">NotFound</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("unread")]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PushNotificationListVm>> GetUnreadAsync()
+        {
+            var vm = await Mediator.Send(new GetUnreadPushNotificationsQuery
+            {
+                ClientId = ClientId
             });
 
             return Ok(vm);
