@@ -50,6 +50,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<OrderChat> OrderChats { get; set; }
 
+        DbSet<OrderComment> OrderComments { get; set; }
+
         DbSet<OrderFeedback> OrderFeedbacks { get; set; }
 
         DbSet<PageVisit> PageVisits { get; set; }
@@ -73,6 +75,10 @@ namespace Atlas.Application.Interfaces
         DbSet<PhotoToGood> PhotoToGoods { get; set; }
 
         DbSet<ProviderPhoneNumber> ProviderPhoneNumbers { get; set; }
+
+        DbSet<PushNotification> PushNotifications { get; set; }
+
+        DbSet<PushNotificationRead> PushNotificationReads { get; set; }
 
         DbSet<Recommendation> Recommendations { get; set; }
 

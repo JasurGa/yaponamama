@@ -50,6 +50,8 @@ namespace Atlas.Persistence
 
         public DbSet<OrderChat> OrderChats { get; set; }
 
+        public DbSet<OrderComment> OrderComments { get; set; }
+
         public DbSet<OrderFeedback> OrderFeedbacks { get; set; }
 
         public DbSet<PageVisit> PageVisits { get; set; }
@@ -73,6 +75,10 @@ namespace Atlas.Persistence
         public DbSet<ProviderPhoneNumber> ProviderPhoneNumbers { get; set; }
 
         public DbSet<PhotoToGood> PhotoToGoods { get; set; }
+
+        public DbSet<PushNotification> PushNotifications { get; set; }
+
+        public DbSet<PushNotificationRead> PushNotificationReads { get; set; }
 
         public DbSet<Recommendation> Recommendations { get; set; }
 
@@ -128,6 +134,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new NotificationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OfficialRoleConfiguration());
             modelBuilder.ApplyConfiguration(new OrderChatConfiguration());
+            modelBuilder.ApplyConfiguration(new OrderCommentConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new OrderFeedbackConfiguration());
             modelBuilder.ApplyConfiguration(new PageVisitConfiguration());
@@ -141,6 +148,8 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new ProviderConfiguration());
             modelBuilder.ApplyConfiguration(new ProviderPhoneNumberConfiguration());
             modelBuilder.ApplyConfiguration(new PhotoToGoodConfiguration());
+            modelBuilder.ApplyConfiguration(new PushNotificationConfiguration());
+            modelBuilder.ApplyConfiguration(new PushNotificationReadConfiguration());
             modelBuilder.ApplyConfiguration(new RecommendationConfiguration());
             modelBuilder.ApplyConfiguration(new RecommendationTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
