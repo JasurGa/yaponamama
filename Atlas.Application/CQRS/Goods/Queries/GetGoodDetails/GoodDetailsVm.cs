@@ -61,6 +61,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public string PackageCode { get; set; }
 
+        public Dictionary<Guid, long> StoreToCount { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Good, GoodDetailsVm>()
@@ -113,7 +115,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 .ForMember(dest => dest.SaleTaxPercent, opt =>
                     opt.MapFrom(src => src.SaleTaxPercent))
                 .ForMember(dest => dest.PackageCode, opt =>
-                    opt.MapFrom(src => src.PackageCode));
+                    opt.MapFrom(src => src.PackageCode))
+                .ForMember(dest => dest.StoreToCount, opt =>
+                    opt.Ignore());
         }
     }
 }

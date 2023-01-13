@@ -13,7 +13,7 @@ namespace Atlas.Persistence.EntityTypeConfigurations
             builder.HasIndex(x => x.Id).IsUnique();
 
             builder.HasOne(x => x.Good)
-                .WithMany();
+                .WithMany(x => x.FavoriteGoods);
         }
     }
 }
