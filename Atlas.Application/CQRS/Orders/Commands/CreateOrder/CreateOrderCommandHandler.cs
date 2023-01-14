@@ -107,7 +107,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
         private async Task<float> GetShippingPriceAsync(CreateOrderCommand request,
             CancellationToken cancellationToken)
         {
-            return DELIVERY_PRICE;
+            return request.IsPickup ? 0f : DELIVERY_PRICE;
         }
 
         private async Task<Store> GetStoreAsync(CreateOrderCommand request,
