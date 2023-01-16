@@ -23,16 +23,8 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
 
         public async Task<PageDto<StoreToGoodLookupDto>> Handle(GetStoreToGoodPagedListByStoreIdQuery request, CancellationToken cancellationToken)
         {
-            var storeToGoodsCount = await _dbContext.StoreToGoods.CountAsync(x =>
-                x.StoreId == request.StoreId,
-                    cancellationToken);
-
             var storeToGoodsQuery = _dbContext.StoreToGoods
-                .Where(x => x.StoreId == request.StoreId && x.Good.IsDeleted == false)
-                .OrderByDynamic(request.Sortable, request.Ascending)
-                .Skip(request.PageSize * request.PageIndex)
-                .Take(request.PageSize)
-                .ProjectTo<StoreToGoodLookupDto>(_mapper.ConfigurationProvider);
+                .Where(x => x.StoreId == request.StoreId && x.Good.IsDeleted == false);
 
             if (request.IgnoreNulls)
             {
@@ -40,12 +32,23 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
                     .Where(x => x.Count != 0);
             }
 
+            var storeToGoodsCount = await _dbContext.StoreToGoods.CountAsync(x =>
+                x.StoreId == request.StoreId,
+                    cancellationToken);
+
+            var storeToGoods = await storeToGoodsQuery
+                .Skip(request.PageSize * request.PageIndex)
+                .Take(request.PageSize)
+                .OrderByDynamic(request.Sortable, request.Ascending)
+                .ProjectTo<StoreToGoodLookupDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
+
             return new PageDto<StoreToGoodLookupDto>
             {
                 PageIndex = request.PageIndex,
                 TotalCount = storeToGoodsCount,
                 PageCount = (int)Math.Ceiling((double)storeToGoodsCount / request.PageSize),
-                Data = await storeToGoodsQuery.ToListAsync(cancellationToken)
+                Data = storeToGoods
             };
         }
     }

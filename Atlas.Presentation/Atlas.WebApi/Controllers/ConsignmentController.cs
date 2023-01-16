@@ -120,17 +120,19 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<ConsignmentLookupDto>>> GetAllPagedAsync(
-            [FromQuery] int    pageIndex = 0, 
-            [FromQuery] int    pageSize  = 10,
-            [FromQuery] string sortable  = "ShelfLocation",
-            [FromQuery] bool   ascending = true)
+            [FromQuery] int    pageIndex        = 0, 
+            [FromQuery] int    pageSize         = 10,
+            [FromQuery] string sortable         = "ShelfLocation",
+            [FromQuery] bool   ascending        = true,
+            [FromQuery] Guid?  filterCategoryId = null)
         {
             var vm = await Mediator.Send(new GetConsignmentPagedListQuery
             {
-                PageIndex = pageIndex,
-                PageSize  = pageSize,
-                Sortable  = sortable,
-                Ascending = ascending
+                PageIndex        = pageIndex,
+                PageSize         = pageSize,
+                Sortable         = sortable,
+                Ascending        = ascending,
+                FilterCategoryId = filterCategoryId
             });
 
             return Ok(vm);
