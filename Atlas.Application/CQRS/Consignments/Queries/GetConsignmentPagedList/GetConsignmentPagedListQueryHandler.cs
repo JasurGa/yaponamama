@@ -29,8 +29,6 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
         {
             var consignmentsQuery = _dbContext.Consignments
                 .OrderByDynamic(request.Sortable, request.Ascending)
-                .Skip(request.PageIndex * request.PageSize)
-                .Take(request.PageSize)
                 .ProjectTo<ConsignmentLookupDto>(_mapper.ConfigurationProvider);
 
             if (request.FilterCategoryId != null)
@@ -59,8 +57,13 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
                 consignmentsQuery = consignmentsQuery.Where(x => goodIds.Contains(x.GoodId));
             }
 
-            var consignmentsCount = await consignmentsQuery.CountAsync(cancellationToken);
-            var consignments = await consignmentsQuery.ToListAsync(cancellationToken);
+            var consignmentsCount = await consignmentsQuery
+                .CountAsync(cancellationToken);
+
+            var consignments = await consignmentsQuery
+                .Skip(request.PageIndex * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync(cancellationToken);
 
             return new PageDto<ConsignmentLookupDto>
             {
