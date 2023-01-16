@@ -9,6 +9,8 @@ namespace Atlas.Domain
 
         public Guid GoodId { get; set; }
 
+        public Good Good { get; set; }
+
         public DateTime CreatedAt { get; set;  }
     }
 }

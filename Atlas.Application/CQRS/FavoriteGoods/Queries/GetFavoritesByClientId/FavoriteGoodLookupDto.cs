@@ -1,5 +1,6 @@
 ﻿using System;
 using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Domain;
 using AutoMapper;
 
@@ -13,6 +14,8 @@ namespace Atlas.Application.CQRS.FavoriteGoods.Queries.GetFavoritesByClientId
 
         public Guid GoodId { get; set; }
 
+        public GoodLookupDto Good { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public void Mapping(Profile profile)
@@ -24,6 +27,8 @@ namespace Atlas.Application.CQRS.FavoriteGoods.Queries.GetFavoritesByClientId
                     opt.MapFrom(src => src.ClientId))
                 .ForMember(dst => dst.GoodId, opt =>
                     opt.MapFrom(src => src.GoodId))
+                .ForMember(dst => dst.Good, opt =>
+                    opt.MapFrom(src => src.Good))
                 .ForMember(dst => dst.CreatedAt, opt =>
                     opt.MapFrom(src => src.CreatedAt));
         }

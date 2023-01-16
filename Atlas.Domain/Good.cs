@@ -49,6 +49,8 @@ namespace Atlas.Domain
 
         public ICollection<PhotoToGood> PhotoToGoods { get; set; }
 
+        public ICollection<FavoriteGood> FavoriteGoods { get; set; }
+
         public Provider Provider { get; set; }
 
         public DateTime CreatedAt { get; set; }

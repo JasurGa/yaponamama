@@ -28,7 +28,7 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
                     cancellationToken);
 
             var storeToGoodsQuery = _dbContext.StoreToGoods
-                .Where(x => x.StoreId == request.StoreId)
+                .Where(x => x.StoreId == request.StoreId && x.Good.IsDeleted == false)
                 .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageSize * request.PageIndex)
                 .Take(request.PageSize)

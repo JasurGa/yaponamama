@@ -56,9 +56,11 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
             return _mapper.Map<Good, GoodDetailsVm>(good, opt =>
             {
-                opt.AfterMap((src, dst) =>
+                opt.AfterMap(async (src, dst) =>
                 {
                     dst.Categories = categories;
+                    dst.StoreToCount = await _dbContext.StoreToGoods.Where(x => x.GoodId == request.Id)
+                        .ToDictionaryAsync(x => x.StoreId, x => x.Count, cancellationToken);
                 });
             });
         }
