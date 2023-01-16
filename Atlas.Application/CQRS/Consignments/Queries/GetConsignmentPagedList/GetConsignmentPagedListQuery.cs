@@ -1,4 +1,5 @@
-﻿using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
+﻿using System;
+using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
 using Atlas.Application.Models;
 using MediatR;
 
@@ -13,5 +14,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
         public string Sortable { get; set; }
 
         public bool Ascending { get; set; }
+
+        public Guid? FilterCategoryId { get; set; }
     }
 }
