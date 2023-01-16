@@ -17,5 +17,7 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
         public string Sortable { get; set; }
 
         public bool Ascending { get; set; }
+
+        public bool IgnoreNulls { get; set; }
     }
 }

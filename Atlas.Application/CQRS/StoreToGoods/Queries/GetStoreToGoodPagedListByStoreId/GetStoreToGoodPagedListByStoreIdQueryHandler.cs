@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,20 +27,25 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
                 x.StoreId == request.StoreId,
                     cancellationToken);
 
-            var storeToGoods = await _dbContext.StoreToGoods
+            var storeToGoodsQuery = _dbContext.StoreToGoods
                 .Where(x => x.StoreId == request.StoreId)
                 .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageSize * request.PageIndex)
                 .Take(request.PageSize)
-                .ProjectTo<StoreToGoodLookupDto>(_mapper.ConfigurationProvider)
-                .ToListAsync(cancellationToken);
+                .ProjectTo<StoreToGoodLookupDto>(_mapper.ConfigurationProvider);
+
+            if (request.IgnoreNulls)
+            {
+                storeToGoodsQuery = storeToGoodsQuery
+                    .Where(x => x.Count != 0);
+            }
 
             return new PageDto<StoreToGoodLookupDto>
             {
                 PageIndex = request.PageIndex,
                 TotalCount = storeToGoodsCount,
                 PageCount = (int)Math.Ceiling((double)storeToGoodsCount / request.PageSize),
-                Data = storeToGoods
+                Data = await storeToGoodsQuery.ToListAsync(cancellationToken)
             };
         }
     }

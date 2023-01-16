@@ -121,7 +121,8 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] int pageIndex = 0, 
             [FromQuery] int pageSize = 10,
             [FromQuery] string sortable = "Id",
-            [FromQuery] bool ascending = true)
+            [FromQuery] bool ascending = true,
+            [FromQuery] bool ignoreNulls = false)
         {
             var vm = await Mediator.Send(new GetStoreToGoodPagedListByStoreIdQuery
             {
@@ -129,7 +130,8 @@ namespace Atlas.WebApi.Controllers
                 PageIndex   = pageIndex,
                 PageSize    = pageSize,
                 Sortable    = sortable,
-                Ascending   = ascending
+                Ascending   = ascending,
+                IgnoreNulls = ignoreNulls
             });
 
             return Ok(vm);
