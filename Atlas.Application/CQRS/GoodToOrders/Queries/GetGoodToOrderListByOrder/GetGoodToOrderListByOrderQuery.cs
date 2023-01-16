@@ -1,6 +1,5 @@
-﻿using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrdersByOrder;
+﻿using System;
 using MediatR;
-using System;
 
 namespace Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderListByOrder
 {

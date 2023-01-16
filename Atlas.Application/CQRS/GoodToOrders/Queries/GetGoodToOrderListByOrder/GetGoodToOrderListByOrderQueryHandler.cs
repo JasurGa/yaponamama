@@ -1,5 +1,4 @@
-﻿using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrdersByOrder;
-using Atlas.Application.Interfaces;
+﻿using Atlas.Application.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;

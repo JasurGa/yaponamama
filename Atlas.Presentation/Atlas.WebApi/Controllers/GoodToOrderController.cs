@@ -3,7 +3,6 @@ using Atlas.Application.CQRS.GoodToOrders.Commands.DeleteGoodToOrder;
 using Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders;
 using Atlas.Application.CQRS.GoodToOrders.Commands.UpdateGoodToOrder;
 using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderListByOrder;
-using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrdersByOrder;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;

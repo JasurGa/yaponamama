@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Atlas.Application.Common.Mappings;
-using Atlas.Application.CQRS.GoodToOrders.Queries;
+using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderListByOrder;
 using Atlas.Domain;
 using AutoMapper;
 

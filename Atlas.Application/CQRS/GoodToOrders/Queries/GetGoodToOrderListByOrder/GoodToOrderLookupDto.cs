@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Atlas.Application.CQRS.GoodToOrders.Queries
+namespace Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderListByOrder
 {
     public class GoodToOrderLookupDto : IMapWith<GoodToOrder>
     {
