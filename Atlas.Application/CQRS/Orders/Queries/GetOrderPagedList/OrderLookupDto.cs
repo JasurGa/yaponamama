@@ -1,4 +1,5 @@
 ﻿using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.Clients.Queries.GetClientsList;
 using Atlas.Domain;
 using AutoMapper;
 using System;
@@ -17,6 +18,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
                 return (int)(Convert.ToInt64(Id.ToString().Split("-")[0], 16) % 1000000);
             }
         }
+
+        public ClientLookupDto Client { get; set; }
 
         public OrderCourierLookupDto Courier { get; set; }
 
@@ -37,6 +40,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
             profile.CreateMap<Order, OrderLookupDto>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
+                .ForMember(dst => dst.Client, opt =>
+                    opt.MapFrom(src => src.Client))
                 .ForMember(dst => dst.Courier, opt =>
                     opt.MapFrom(src => src.Courier))
                 .ForMember(dst => dst.Price, opt =>
