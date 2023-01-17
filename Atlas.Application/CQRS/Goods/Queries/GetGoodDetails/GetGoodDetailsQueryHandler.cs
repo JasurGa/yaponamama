@@ -35,8 +35,16 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 throw new NotFoundException(nameof(Good), request.Id);
             }
 
+            var storeToCount = await _dbContext.StoreToGoods
+                .Where(x => x.GoodId == request.Id)
+                .Select(x => new StoreToCountLookupDto
+                {
+                    StoreId = x.StoreId,
+                    Count = x.Count
+                })
+                .ToListAsync(cancellationToken);
+      
             var categories = new List<CategoryLookupDto>();
-
             var session = _driver.AsyncSession();
             try
             {
@@ -60,7 +68,6 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 {
                     dst.Categories = categories;
                     dst.StoreToCount = await _dbContext.StoreToGoods
-                        .Include(x => x.Good)
                         .Where(x => x.GoodId == request.Id)
                         .Select(x => new StoreToCountLookupDto
                         {
