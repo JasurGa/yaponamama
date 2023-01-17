@@ -67,7 +67,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 opt.AfterMap(async (src, dst) =>
                 {
                     dst.Categories = categories;
-                    dst.StoreToCount = storeToCount
+                    dst.StoreToCount = storeToCount;
                 });
             });
         }
