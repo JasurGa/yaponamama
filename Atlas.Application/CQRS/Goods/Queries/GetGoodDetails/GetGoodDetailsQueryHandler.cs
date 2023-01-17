@@ -59,7 +59,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 opt.AfterMap(async (src, dst) =>
                 {
                     dst.Categories = categories;
-                    dst.StoreToCount = await _dbContext.StoreToGoods.Where(x => x.GoodId == request.Id)
+                    dst.StoreToCount = await _dbContext.StoreToGoods
+                        .Include(x => x.Good)
+                        .Where(x => x.GoodId == request.Id)
                         .Select(x => new StoreToCountLookupDto
                         {
                             StoreId = x.StoreId,
