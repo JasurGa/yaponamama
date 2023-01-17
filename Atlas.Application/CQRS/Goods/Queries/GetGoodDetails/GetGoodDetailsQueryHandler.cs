@@ -60,7 +60,12 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                 {
                     dst.Categories = categories;
                     dst.StoreToCount = await _dbContext.StoreToGoods.Where(x => x.GoodId == request.Id)
-                        .ToDictionaryAsync(x => x.StoreId, x => x.Count, cancellationToken);
+                        .Select(x => new StoreToCountLookupDto
+                        {
+                            StoreId = x.StoreId,
+                            Count = x.Count
+                        })
+                        .ToListAsync(cancellationToken);
                 });
             });
         }

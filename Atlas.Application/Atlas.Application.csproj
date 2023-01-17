@@ -27,7 +27,6 @@
     <Folder Include="CQRS\CardInfoToClients\Queries\GetCardInfoToClientList\" />
     <Folder Include="CQRS\Categories\Queries\GetCategoryDetails\" />
     <Folder Include="CQRS\Categories\Queries\GetCategoryList\" />
-    <Folder Include="CQRS\Goods\Queries\GetGoodDetails\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodListByCategory\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodPagedListByCategory\" />
     <Folder Include="Models\" />

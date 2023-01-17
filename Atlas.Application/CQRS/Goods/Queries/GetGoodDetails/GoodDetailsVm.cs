@@ -61,7 +61,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public string PackageCode { get; set; }
 
-        public Dictionary<Guid, long> StoreToCount { get; set; }
+        public List<StoreToCountLookupDto> StoreToCount { get; set; }
 
         public void Mapping(Profile profile)
         {
