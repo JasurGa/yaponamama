@@ -29,7 +29,15 @@ namespace Atlas.Identity
                 }
             }
 
-            host.Run();
+            try
+            {
+                host.Run();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+                Console.WriteLine(exception.StackTrace);
+            }
         }
 
         public static IWebHostBuilder CreateHostBuilder(string[] args)
