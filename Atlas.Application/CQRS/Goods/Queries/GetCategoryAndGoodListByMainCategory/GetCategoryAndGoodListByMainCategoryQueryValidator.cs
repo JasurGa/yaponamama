@@ -12,7 +12,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
             RuleFor(x => x.GoodListSize)
                 .NotEmpty()
-                .LessThanOrEqualTo(50);
+                .LessThanOrEqualTo(1000);
         }
     }
 }
