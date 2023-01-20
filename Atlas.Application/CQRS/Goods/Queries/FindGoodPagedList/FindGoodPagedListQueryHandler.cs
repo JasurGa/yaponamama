@@ -71,7 +71,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
                 var translitedEn  = TranslitConverter.TranslitRuEn(notTranslited);
 
                 goods = goods.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
-                    (x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice).ToLower().Trim(),
+                    (x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
                         notTranslited + " " + translitedRu + " " + translitedEn));
             }
 
