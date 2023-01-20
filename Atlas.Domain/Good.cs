@@ -45,6 +45,14 @@ namespace Atlas.Domain
 
         public bool IsDeleted { get; set; }
 
+        public string CodeIkpu { get; set; }
+
+        public int SaleTaxPercent { get; set; }
+
+        public string PackageCode { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
         public ICollection<StoreToGood> StoreToGoods { get; set; }
 
         public ICollection<PhotoToGood> PhotoToGoods { get; set; }
@@ -52,13 +60,5 @@ namespace Atlas.Domain
         public ICollection<FavoriteGood> FavoriteGoods { get; set; }
 
         public Provider Provider { get; set; }
-
-        public DateTime CreatedAt { get; set; }
-
-        public string CodeIkpu { get; set; }
-
-        public int SaleTaxPercent { get; set; }
-
-        public string PackageCode { get; set; }
     }
 }
