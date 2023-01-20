@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.CreateFavoriteGood;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.CreateManyFavoriteGoods;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteFavoriteGood;
+using Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteFavoriteGoods;
 using Atlas.Application.CQRS.FavoriteGoods.Queries.GetFavoritesByClientId;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -128,6 +130,44 @@ namespace Atlas.WebApi.Controllers
             {
                 Id = id,
                 ClientId = ClientId,
+            });
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Deletes multiple favorite goods
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     DELETE /api/1.0/favoritegood/many
+        ///     {
+        ///         "favoriteGoodIds": [
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         ]
+        ///     }
+        ///     
+        /// </remarks>
+        /// <returns>Returns NoContent</returns>
+        /// <param name="favoriteGoodIds">FavoriteGoodIds List(Guid)</param>
+        /// <response code="204">Success</response>
+        /// <response code="404">NotFound</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpDelete("many")]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> DeleteManyAsync([FromBody] List<Guid> favoriteGoodIds)
+        {
+            await Mediator.Send(new DeleteFavoriteGoodsCommand
+            {
+                ClientId = ClientId,
+                FavoriteGoodIds = favoriteGoodIds
             });
 
             return NoContent();
