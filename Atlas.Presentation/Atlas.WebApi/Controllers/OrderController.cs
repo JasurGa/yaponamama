@@ -279,6 +279,39 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
+        /// <summary>
+        /// Updates the order payment type
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     PUT /api/1.0/order/paymenttype
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "paymentType": 0,
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="updateOrderPaymentTypeDto">UpdateOrderPaymentTypeDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Ok</response>
+        /// <response code="404">Not Found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPut("paymenttype")]
+        [AuthRoleFilter(new string[] { Roles.Support, Roles.Admin })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> UpdatePaymentTypeAsync([FromBody] UpdateOrderPaymentTypeDto updateOrderPaymentTypeDto)
+        {
+            await Mediator.Send(_mapper.Map<UpdateOrderPaymentTypeDto,
+                UpdateOrderPrepaymentCommand>(updateOrderPaymentTypeDto));
+
+            return NoContent();
+        }
+
+        /// <summary>
         /// Get the order details
         /// </summary>
         /// <remarks>
