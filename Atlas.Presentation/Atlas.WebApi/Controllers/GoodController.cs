@@ -33,6 +33,7 @@ using Atlas.Application.CQRS.Goods.Commands.UpdateGoodsProvider;
 using Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory;
 using System.Collections.Generic;
 using Atlas.Application.CQRS.Goods.Queries.GetAvailableGoodList;
+using Atlas.Application.CQRS.Goods.Queries.GetPopularGoodList;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -475,6 +476,26 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<GoodListVm>> GetGoodsAsync()
         {
             var vm = await Mediator.Send(new GetGoodListQuery());
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the list of most popular goods
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/1.0/good/popular
+        ///     
+        /// </remarks>
+        /// <returns>Returns PopularGoodListVm object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("popular")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<PopularGoodListVm>> GetPopularGoodsAsync()
+        {
+            var vm = await Mediator.Send(new GetPopularGoodListQuery());
 
             return Ok(vm);
         }
