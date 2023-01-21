@@ -59,6 +59,8 @@ namespace Atlas.Domain
 
         public ICollection<FavoriteGood> FavoriteGoods { get; set; }
 
+        public ICollection<GoodToOrder> GoodToOrders { get; set; }
+
         public Provider Provider { get; set; }
     }
 }

@@ -15,6 +15,11 @@ namespace Atlas.Persistence.EntityTypeConfigurations
                 .HasOne(x => x.Order)
                 .WithMany(y => y.GoodToOrders)
                 .HasForeignKey(x => x.OrderId);
+
+            builder
+                .HasOne(x => x.Good)
+                .WithMany(y => y.GoodToOrders)
+                .HasForeignKey(x => x.GoodId);
         }
     }
 }
