@@ -18,7 +18,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetPopularGoodList
 
         public float Discount { get; set; }
 
-        public int Count { get; set; }
+        public long Count { get; set; }
 
         public void Mapping(Profile profile)
         {
