@@ -6,28 +6,27 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Atlas.Application.CQRS.Consignments.Commands.DeleteConsignment
+namespace Atlas.Application.CQRS.Consignments.Commands.RestoreConsignment
 {
-    public class DeleteConsignmentCommandHandler : IRequestHandler<DeleteConsignmentCommand>
+    public class RestoreConsignmentCommandHandler : IRequestHandler<RestoreConsignmentCommand>
     {
         private readonly IAtlasDbContext _dbContext;
-
-        public DeleteConsignmentCommandHandler(IAtlasDbContext dbContext) =>
+        public RestoreConsignmentCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(DeleteConsignmentCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(RestoreConsignmentCommand request, CancellationToken cancellationToken)
         {
             var consignment = await _dbContext.Consignments.FirstOrDefaultAsync(x =>
                 x.Id == request.Id, cancellationToken);
 
-            if (consignment == null || consignment.IsDeleted)
+            if (consignment == null || !consignment.IsDeleted)
             {
                 throw new NotFoundException(nameof(Consignment), request.Id);
             }
 
-            consignment.IsDeleted = true;
+            consignment.IsDeleted = false;
 
-            consignment.StoreToGood.Count -= consignment.Count;
+            consignment.StoreToGood.Count += consignment.Count;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

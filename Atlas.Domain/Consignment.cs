@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Atlas.Domain
 {
     public class Consignment
@@ -16,6 +17,8 @@ namespace Atlas.Domain
         public string ShelfLocation { get; set; }
 
         public long CurrentPurchasePrice { get; set; }
+
+        public bool IsDeleted { get; set; }
 
         public StoreToGood StoreToGood { get; set; }
     }

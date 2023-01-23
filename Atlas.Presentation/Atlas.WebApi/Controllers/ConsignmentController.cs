@@ -15,6 +15,7 @@ using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList;
 using Atlas.WebApi.Filters;
 using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList;
+using Atlas.Application.CQRS.Consignments.Commands.RestoreConsignment;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -262,6 +263,36 @@ namespace Atlas.WebApi.Controllers
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             await Mediator.Send(new DeleteConsignmentCommand
+            {
+                Id = id,
+            });
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Restores a specific consignment by id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PATCH /api/1.0/consignment/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        /// 
+        /// </remarks>
+        /// <param name="id">Consignment id</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPatch("{id}")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> RestoreAsync(Guid id)
+        {
+            await Mediator.Send(new RestoreConsignmentCommand
             {
                 Id = id,
             });
