@@ -46,7 +46,7 @@ namespace Atlas.WebApi.Controllers
         /// <param name="ascending">Order type: Ascending (true) || Descending (false)</param>
         /// <param name="pageIndex">Page Index (int)</param>
         /// <returns>Returns PageDto ConsignmentLookupDto</returns>
-        /// <response code="200">Success</response>
+        /// <response code="200">Success</response>c
         /// <response code="404">Not Found</response>
         [Authorize]
         [HttpGet("search")]
@@ -105,13 +105,15 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/consigment/paged?pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        ///     GET /api/1.0/consigment/paged?pageIndex=0&amp;pageSize=10&amp;showDeleted=false&amp;sortable=Name&amp;ascending=true
         /// 
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
+        /// <param name="showDeleted">Show deleted (bool)</param>
         /// <param name="sortable">Property to sort by</param>
         /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
+        /// <param name="filterCategoryId">Filtering consignment goods by category</param>
         /// <returns>Returns PageDto ConsignmentLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -123,6 +125,7 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<PageDto<ConsignmentLookupDto>>> GetAllPagedAsync(
             [FromQuery] int    pageIndex        = 0, 
             [FromQuery] int    pageSize         = 10,
+            [FromQuery] bool   showDeleted      = false,
             [FromQuery] string sortable         = "ShelfLocation",
             [FromQuery] bool   ascending        = true,
             [FromQuery] Guid?  filterCategoryId = null)
@@ -131,6 +134,7 @@ namespace Atlas.WebApi.Controllers
             {
                 PageIndex        = pageIndex,
                 PageSize         = pageSize,
+                ShowDeleted      = showDeleted,
                 Sortable         = sortable,
                 Ascending        = ascending,
                 FilterCategoryId = filterCategoryId
