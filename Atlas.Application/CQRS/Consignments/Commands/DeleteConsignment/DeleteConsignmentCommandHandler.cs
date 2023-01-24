@@ -17,8 +17,10 @@ namespace Atlas.Application.CQRS.Consignments.Commands.DeleteConsignment
 
         public async Task<Unit> Handle(DeleteConsignmentCommand request, CancellationToken cancellationToken)
         {
-            var consignment = await _dbContext.Consignments.FirstOrDefaultAsync(x =>
-                x.Id == request.Id, cancellationToken);
+            var consignment = await _dbContext.Consignments
+                .Include(x => x.StoreToGood)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, 
+                    cancellationToken);
 
             if (consignment == null || consignment.IsDeleted)
             {
