@@ -64,7 +64,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
             return _mapper.Map<Good, GoodDetailsVm>(good, opt =>
             {
-                opt.AfterMap(async (src, dst) =>
+                opt.AfterMap((src, dst) =>
                 {
                     dst.Categories = categories;
                     dst.StoreToCount = storeToCount;

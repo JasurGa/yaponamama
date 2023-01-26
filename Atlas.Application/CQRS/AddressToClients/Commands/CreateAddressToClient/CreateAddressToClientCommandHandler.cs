@@ -24,9 +24,7 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.CreateAddressToClient
                 x.ClientId == request.ClientId &&
                 x.Entrance == request.Entrance &&
                 x.Floor == request.Floor &&
-                x.Apartment == request.Apartment &&
-                x.Latitude == request.Latitude &&
-                x.Longitude == x.Longitude);
+                x.Apartment == request.Apartment);
 
             if (oldAddressToClient != null)
             {
