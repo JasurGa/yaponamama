@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 {
     public class GetOrderDetailsQueryHandler : IRequestHandler<GetOrderDetailsQuery,
-        OrderDetailsVm>
+        ClientOrderDetailsVm>
     {
         private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
@@ -18,20 +18,24 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
         public GetOrderDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<OrderDetailsVm> Handle(GetOrderDetailsQuery request,
+        public async Task<ClientOrderDetailsVm> Handle(GetOrderDetailsQuery request,
             CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders.Include(x => x.Client)
-                .Include(x => x.Courier).ThenInclude(x => x.User)
-                .Include(x => x.Promo).Include(x => x.Store)
-                .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            var order = await _dbContext.Orders
+                .Include(x => x.Client)
+                .Include(x => x.Courier.User)
+                .Include(x => x.Promo)
+                .Include(x => x.Store)
+                .Include(x => x.GoodToOrders)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, 
+                    cancellationToken);
 
             if (order == null || order.ClientId != request.ClientId)
             {
                 throw new NotFoundException(nameof(Order), request.Id);
             }
 
-            return _mapper.Map<Order, OrderDetailsVm>(order);
+            return _mapper.Map<Order, ClientOrderDetailsVm>(order);
         }
     }
 }

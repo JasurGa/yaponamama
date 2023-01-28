@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 {
-    public class GetOrderDetailsQuery : IRequest<OrderDetailsVm>
+    public class GetOrderDetailsQuery : IRequest<ClientOrderDetailsVm>
     {
         public Guid Id { get; set; }
 

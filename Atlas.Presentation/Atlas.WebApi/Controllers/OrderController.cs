@@ -381,7 +381,7 @@ namespace Atlas.WebApi.Controllers
         ///     
         /// </remarks>
         /// <param name="id">Order id (guid)</param>
-        /// <returns>Returns OrderDetailsVm object</returns>
+        /// <returns>Returns ClientOrderDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -391,7 +391,7 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<OrderDetailsVm>> GetByIdForClientAsync([FromRoute] Guid id)
+        public async Task<ActionResult<ClientOrderDetailsVm>> GetByIdForClientAsync([FromRoute] Guid id)
         {
             var vm = await Mediator.Send(new GetOrderDetailsQuery
             {
