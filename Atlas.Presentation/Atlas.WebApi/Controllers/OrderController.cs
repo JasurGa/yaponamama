@@ -424,7 +424,7 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllByForCourierAsync([FromRoute] Guid id,
+        public async Task<ActionResult<PageDto<CourierOrderLookupDto>>> GetAllByForCourierAsync([FromRoute] Guid id,
             [FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             var vm = await Mediator.Send(new GetLastOrdersPagedListByCourierQuery
@@ -628,14 +628,14 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(Roles.Courier)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetLastOrdersByCourierIdAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<CourierOrderLookupDto>>> GetLastOrdersByCourierIdAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             var vm = await Mediator.Send(new GetLastOrdersPagedListByCourierQuery
             {
                 CourierId = CourierId,
                 PageIndex = pageIndex,
                 PageSize  = pageSize
-            }) ;
+            });
 
             return Ok(vm);
         }

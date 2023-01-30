@@ -23,6 +23,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public Guid ClientId { get; set; }
 
+        public Guid StoreId { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public DateTime FinishedAt { get; set; }

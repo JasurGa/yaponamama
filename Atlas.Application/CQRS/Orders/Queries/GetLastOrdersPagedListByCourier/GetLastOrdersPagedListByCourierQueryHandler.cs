@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
@@ -12,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
 {
-    public class GetLastOrdersPagedListByCourierQueryHandler : IRequestHandler<GetLastOrdersPagedListByCourierQuery, PageDto<OrderLookupDto>>
+    public class GetLastOrdersPagedListByCourierQueryHandler : IRequestHandler<GetLastOrdersPagedListByCourierQuery, PageDto<CourierOrderLookupDto>>
     {
         private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
@@ -20,7 +19,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
         public GetLastOrdersPagedListByCourierQueryHandler(IMapper mapper, IAtlasDbContext dbContext) => 
             (_mapper, _dbContext) = (mapper, dbContext);
 
-        public async Task<PageDto<OrderLookupDto>> Handle(GetLastOrdersPagedListByCourierQuery request, CancellationToken cancellationToken)
+        public async Task<PageDto<CourierOrderLookupDto>> Handle(GetLastOrdersPagedListByCourierQuery request, CancellationToken cancellationToken)
         {
             var ordersCount = await _dbContext.Orders.CountAsync(x => 
                 x.CourierId == request.CourierId, 
@@ -31,10 +30,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
                     .OrderByDescending(x => x.CreatedAt)
                     .Skip(request.PageIndex * request.PageSize)
                     .Take(request.PageSize)
-                    .ProjectTo<OrderLookupDto>(_mapper.ConfigurationProvider)
+                    .ProjectTo<CourierOrderLookupDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
 
-            return new PageDto<OrderLookupDto>
+            return new PageDto<CourierOrderLookupDto>
             {
                 PageIndex  = request.PageIndex,
                 TotalCount = ordersCount,
