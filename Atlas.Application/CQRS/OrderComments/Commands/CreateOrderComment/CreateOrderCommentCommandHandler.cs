@@ -43,7 +43,7 @@ namespace Atlas.Application.CQRS.OrderComments.Commands.CreateOrderComment
                 CreatedAt = DateTime.UtcNow,
             };
 
-            await _dbContext.AddAsync(orderComment, cancellationToken);
+            await _dbContext.OrderComments.AddAsync(orderComment, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return orderComment.Id;
