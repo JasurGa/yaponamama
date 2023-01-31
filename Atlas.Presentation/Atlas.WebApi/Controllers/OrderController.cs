@@ -213,7 +213,6 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// <summary>
         /// Updates the order's prepayment
         /// </summary>
         /// <remarks>
@@ -246,7 +245,6 @@ namespace Atlas.WebApi.Controllers
         }
 
         /// <summary>
-        /// <summary>
         /// Updates the order status
         /// </summary>
         /// <remarks>
@@ -278,7 +276,6 @@ namespace Atlas.WebApi.Controllers
             return NoContent();
         }
 
-        /// <summary>
         /// <summary>
         /// Updates the order payment type
         /// </summary>
@@ -649,8 +646,6 @@ namespace Atlas.WebApi.Controllers
         ///     DELETE /api/1.0/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8/cancel
         /// 
         /// </remarks>
-        /// <param name="pageIndex">Page index</param>
-        /// <param name="pageSize">Page size</param>
         /// <returns>Returns NoContent</returns>
         /// <response code="204">Success</response>
         /// <response code="404">NotFound</response>
