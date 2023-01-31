@@ -20,7 +20,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand,
         Guid>
     {
-        private readonly static int DELIVERY_PRICE = 10_000;
+        private readonly static int DELIVERY_PRICE = 15_000;
 
         private readonly IMapper              _mapper;
         private readonly IMediator            _mediator;
