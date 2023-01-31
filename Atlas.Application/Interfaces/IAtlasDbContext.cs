@@ -80,6 +80,10 @@ namespace Atlas.Application.Interfaces
 
         DbSet<PushNotificationRead> PushNotificationReads { get; set; }
 
+        DbSet<Receipt> Receipts { get; set; }
+
+        DbSet<ReceiptItem> ReceiptItems { get; set; }
+
         DbSet<Recommendation> Recommendations { get; set; }
 
         DbSet<RecommendationType> RecommendationTypes { get; set; }
