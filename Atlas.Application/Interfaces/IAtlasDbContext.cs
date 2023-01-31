@@ -110,7 +110,6 @@ namespace Atlas.Application.Interfaces
 
         DbSet<VerificationRequest> VerificationRequests { get; set; }
 
-        Task AddAsync(OrderComment orderComment, CancellationToken cancellationToken);
         int SaveChanges();
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
