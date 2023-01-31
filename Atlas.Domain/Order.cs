@@ -69,6 +69,8 @@ namespace Atlas.Domain
 
         public Promo Promo { get; set; }
 
+        public IEnumerable<OrderComment> OrderComments { get; set; }
+
         public IEnumerable<GoodToOrder> GoodToOrders { get; set; } 
     }
 }
