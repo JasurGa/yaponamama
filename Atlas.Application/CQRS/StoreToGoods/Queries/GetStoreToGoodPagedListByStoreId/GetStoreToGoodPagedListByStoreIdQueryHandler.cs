@@ -26,11 +26,11 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
             var storeToGoodsQuery = _dbContext.StoreToGoods
                 .Where(x => x.StoreId == request.StoreId && x.Good.IsDeleted == false);
 
-            if (request.IgnoreNulls)
-            {
+            //if (request.IgnoreNulls)
+            //{
                 storeToGoodsQuery = storeToGoodsQuery
                     .Where(x => x.Count != 0);
-            }
+            //}
 
             var storeToGoodsCount = await storeToGoodsQuery.CountAsync(x =>
                 x.StoreId == request.StoreId,
