@@ -32,23 +32,23 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
                     .Where(x => x.Count != 0);
             }
 
-            var storeToGoodsCount = await _dbContext.StoreToGoods.CountAsync(x =>
+            var storeToGoodsCount = await storeToGoodsQuery.CountAsync(x =>
                 x.StoreId == request.StoreId,
                     cancellationToken);
 
             var storeToGoods = await storeToGoodsQuery
+                .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageSize * request.PageIndex)
                 .Take(request.PageSize)
-                .OrderByDynamic(request.Sortable, request.Ascending)
                 .ProjectTo<StoreToGoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
             return new PageDto<StoreToGoodLookupDto>
             {
-                PageIndex = request.PageIndex,
+                PageIndex  = request.PageIndex,
                 TotalCount = storeToGoodsCount,
-                PageCount = (int)Math.Ceiling((double)storeToGoodsCount / request.PageSize),
-                Data = storeToGoods
+                PageCount  = (int)Math.Ceiling((double)storeToGoodsCount / request.PageSize),
+                Data       = storeToGoods
             };
         }
     }
