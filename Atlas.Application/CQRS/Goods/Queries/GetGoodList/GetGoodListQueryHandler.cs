@@ -21,6 +21,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodList
         public async Task<GoodListVm> Handle(GetGoodListQuery request, CancellationToken cancellationToken)
         {
             var goods = await _dbContext.Goods.OrderBy(x => x.NameRu)
+                .OrderByDescending(x => x.StoreToGoods.Select(x => x.Count).Sum())
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

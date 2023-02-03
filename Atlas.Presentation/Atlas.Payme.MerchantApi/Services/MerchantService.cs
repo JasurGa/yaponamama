@@ -170,6 +170,7 @@ namespace Atlas.Payme.MerchantApi.Services
                     transaction.PerformedAt = DateTime.UtcNow;
 
                     _dbContext.SaveChanges();
+
                     return new PerformTransactionResult
                     {
                         Transaction = transaction.Id.ToString(),

@@ -47,6 +47,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetDiscountedGoodListByCategory
 
             var goods = await _dbContext.Goods
                 .Where(x => goodsIds.Contains(x.Id) & x.IsDeleted == request.ShowDeleted & x.Discount != 0)
+                .OrderByDescending(x => x.StoreToGoods.Select(x => x.Count).Sum())
                 .Take(10)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);

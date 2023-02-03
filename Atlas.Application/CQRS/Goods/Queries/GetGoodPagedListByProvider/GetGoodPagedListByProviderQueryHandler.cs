@@ -37,6 +37,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByProvider
                 .CountAsync(cancellationToken);
 
             var goods = await _dbContext.Goods.OrderBy(x => x.Name)
+                .OrderByDescending(x => x.StoreToGoods.Select(x => x.Count).Sum())
                 .Where(x => x.IsDeleted == request.ShowDeleted && x.ProviderId == request.ProviderId)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)

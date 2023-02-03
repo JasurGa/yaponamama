@@ -57,6 +57,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
                     var goods = await _dbContext.Goods
                         .Where(x => goodIds.Contains(x.Id) && x.IsDeleted == false && x.StoreToGoods.Select(x => x.Consignments).Count() > 0)
+                        .OrderByDescending(x => x.StoreToGoods.Select(x => x.Count).Sum())
                         .Take(request.GoodListSize)
                         .ProjectTo<GoodInCategoryLookupDto>(_mapper.ConfigurationProvider)
                         .ToListAsync(cancellationToken);

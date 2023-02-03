@@ -40,6 +40,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodsForPromoCategories
                     .ToListAsync(cancellationToken);
 
                 var goods = await _dbContext.Goods.OrderBy(x => x.NameRu)
+                    .OrderByDescending(x => x.StoreToGoods.Select(x => x.Count).Sum())
                     .Where(x => goodIds.Contains(x.Id) && x.IsDeleted == request.ShowDeleted)
                     .Take(4)
                     .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)

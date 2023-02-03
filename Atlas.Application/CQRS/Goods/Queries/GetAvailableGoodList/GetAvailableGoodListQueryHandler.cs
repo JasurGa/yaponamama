@@ -20,6 +20,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetAvailableGoodList
         {
             var goodIds = await _dbContext.Goods
                 .Where(x => x.StoreToGoods.Sum(x => x.Count) > 0)
+                .OrderByDescending(x => x.StoreToGoods.Select(x => x.Count).Sum())
                 .Select(x => x.Id)
                 .ToListAsync(cancellationToken);
 
