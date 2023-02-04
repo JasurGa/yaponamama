@@ -32,18 +32,6 @@ namespace Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders
                 .Where(x => x.OrderId == request.OrderId)
                 .ToListAsync(cancellationToken);
 
-            foreach (var goodToOrder in goodToOrders)
-            {
-                var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x => 
-                    x.GoodId == goodToOrder.GoodId && x.StoreId == order.StoreId,
-                    cancellationToken);
-
-                if (storeToGood != null)
-                {
-                    storeToGood.Count += goodToOrder.Count;
-                }
-            }
-
             _dbContext.GoodToOrders.RemoveRange(goodToOrders);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
@@ -61,15 +49,6 @@ namespace Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders
                 };
 
                 await _dbContext.GoodToOrders.AddAsync(e, cancellationToken);
-
-                var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x =>
-                    x.GoodId == goodToOrder.GoodId && x.StoreId == order.StoreId,
-                    cancellationToken);
-
-                if (storeToGood != null)
-                {
-                    storeToGood.Count -= goodToOrder.Count;
-                }
             }
 
             order.PurchasePrice = await GetPurchasePriceAsync(request, cancellationToken);
