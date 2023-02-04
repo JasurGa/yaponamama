@@ -24,6 +24,9 @@ namespace Atlas.Application.CQRS.Consignments.Commands.UpdateConsignment
 
             RuleFor(x => x.ShelfLocation)
                 .NotEmpty();
+
+            RuleFor(x => x.Count)
+                .GreaterThan(0);
         }
     }
 }
