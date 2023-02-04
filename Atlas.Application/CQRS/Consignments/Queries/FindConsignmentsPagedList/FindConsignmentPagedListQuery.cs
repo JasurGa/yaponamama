@@ -20,6 +20,8 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
         public int PageSize { get; set; }
 
         public int PageIndex { get; set; }
+
+        public bool ShowDeleted { get; set; }
     }
 }
 
