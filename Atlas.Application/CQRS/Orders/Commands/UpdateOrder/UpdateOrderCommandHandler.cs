@@ -20,8 +20,9 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
 
         public async Task<Unit> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == request.Id,
-                cancellationToken);
+            var order = await _dbContext.Orders.Include(x => x.GoodToOrders)
+                .FirstOrDefaultAsync(x => x.Id == request.Id,
+                    cancellationToken);
 
             if (order == null)
             {
@@ -60,21 +61,38 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
                 throw new NotFoundException(nameof(Store), request.StoreId);
             }
 
-            if (order.Status != (int)OrderStatus.CanceledByAdmin && order.Status != (int)OrderStatus.CanceledByUser)
+            if (order.Status == (int)OrderStatus.Success && request.Status != (int)OrderStatus.Success)
             {
-                if (request.Status == (int)OrderStatus.CanceledByAdmin || request.Status == (int)OrderStatus.CanceledByUser)
+                var goodIds = order.GoodToOrders.Select(x => x.GoodId);
+
+                var storeToGoods = await _dbContext.StoreToGoods.Where(x => x.StoreId == order.StoreId &&
+                    goodIds.Contains(x.GoodId)).ToListAsync(cancellationToken);
+
+                foreach (var storeToGood in storeToGoods)
                 {
-                    var goodIds = order.GoodToOrders.Select(x => x.GoodId);
-
-                    var storeToGoods = await _dbContext.StoreToGoods.Where(x => x.StoreId == order.StoreId &&
-                        goodIds.Contains(x.GoodId)).ToListAsync(cancellationToken);
-
-                    foreach (var storeToGood in storeToGoods)
+                    var goodToOrder = order.GoodToOrders.FirstOrDefault(x => x.GoodId == storeToGood.GoodId);
+                    if (goodToOrder != null)
                     {
-                        var goodToOrder = order.GoodToOrders.FirstOrDefault(x => x.GoodId == storeToGood.GoodId);
-                        if (goodToOrder != null)
+                        storeToGood.Count += goodToOrder.Count;
+                    }
+                }
+            }
+            else if (order.Status != (int)OrderStatus.Success && request.Status == (int)OrderStatus.Success)
+            {
+                var goodIds = order.GoodToOrders.Select(x => x.GoodId);
+
+                var storeToGoods = await _dbContext.StoreToGoods.Where(x => x.StoreId == order.StoreId &&
+                    goodIds.Contains(x.GoodId)).ToListAsync(cancellationToken);
+
+                foreach (var storeToGood in storeToGoods)
+                {
+                    var goodToOrder = order.GoodToOrders.FirstOrDefault(x => x.GoodId == storeToGood.GoodId);
+                    if (goodToOrder != null)
+                    {
+                        storeToGood.Count -= goodToOrder.Count;
+                        if (storeToGood.Count < 0)
                         {
-                            storeToGood.Count += goodToOrder.Count;
+                            storeToGood.Count = 0;
                         }
                     }
                 }

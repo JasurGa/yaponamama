@@ -256,11 +256,19 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
             foreach (var createGoodToOrder in request.GoodToOrders)
             {
-                createGoodToOrder.OrderId = order.Id;
-                createGoodToOrder.StoreId = foundStore.Id;
-                await _mediator.Send(createGoodToOrder, cancellationToken);
+                var goodToOrder = new GoodToOrder
+                {
+                    Id      = Guid.NewGuid(),
+                    GoodId  = createGoodToOrder.GoodId,
+                    OrderId = createGoodToOrder.OrderId,
+                    Count   = createGoodToOrder.Count,
+                };
+
+                await _dbContext.GoodToOrders.AddAsync(goodToOrder,
+                    cancellationToken);
             }
 
+            await _dbContext.SaveChangesAsync(cancellationToken);
             var notificationId = await _mediator.Send(new CreateNotificationCommand
             { 
                 NotificationTypeId = new Guid("3dc1336a-553b-4869-be74-b771b73e3895"),

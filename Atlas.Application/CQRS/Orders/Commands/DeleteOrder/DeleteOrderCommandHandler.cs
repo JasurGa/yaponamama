@@ -1,4 +1,5 @@
 ﻿using Atlas.Application.Common.Exceptions;
+using Atlas.Application.Enums;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
@@ -29,15 +30,18 @@ namespace Atlas.Application.CQRS.Orders.Commands.DeleteOrder
 
             var goodIds = order.GoodToOrders.Select(x => x.GoodId);
 
-            var storeToGoods = await _dbContext.StoreToGoods.Where(x => x.StoreId == order.StoreId &&
-                goodIds.Contains(x.GoodId)).ToListAsync(cancellationToken);
-
-            foreach (var storeToGood in storeToGoods)
+            if (order.Status == (int)OrderStatus.Success)
             {
-                var goodToOrder = order.GoodToOrders.FirstOrDefault(x => x.GoodId == storeToGood.GoodId);
-                if (goodToOrder != null)
+                var storeToGoods = await _dbContext.StoreToGoods.Where(x => x.StoreId == order.StoreId &&
+                    goodIds.Contains(x.GoodId)).ToListAsync(cancellationToken);
+
+                foreach (var storeToGood in storeToGoods)
                 {
-                    storeToGood.Count += goodToOrder.Count;
+                    var goodToOrder = order.GoodToOrders.FirstOrDefault(x => x.GoodId == storeToGood.GoodId);
+                    if (goodToOrder != null)
+                    {
+                        storeToGood.Count += goodToOrder.Count;
+                    }
                 }
             }
 

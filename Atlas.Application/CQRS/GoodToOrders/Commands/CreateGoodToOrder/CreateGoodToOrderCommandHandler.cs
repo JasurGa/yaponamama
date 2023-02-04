@@ -30,15 +30,6 @@ namespace Atlas.Application.CQRS.GoodToOrders.Commands.CreateGoodToOrder
             await _dbContext.GoodToOrders.AddAsync(goodToOrder,
                 cancellationToken);
 
-            var storeToGood = await _dbContext.StoreToGoods.FirstOrDefaultAsync(x =>
-                x.GoodId == goodToOrder.GoodId && x.StoreId == request.StoreId,
-                cancellationToken);
-
-            if (storeToGood != null)
-            {
-                storeToGood.Count -= request.Count;
-            }
-
             await _dbContext.SaveChangesAsync(cancellationToken);
             return goodToOrder.Id;
         }

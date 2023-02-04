@@ -27,7 +27,6 @@ namespace Atlas.Application.CQRS.Consignments.Commands.RestoreConsignment
             }
 
             consignment.IsDeleted = false;
-
             consignment.StoreToGood.Count += consignment.Count;
 
             await _dbContext.SaveChangesAsync(cancellationToken);

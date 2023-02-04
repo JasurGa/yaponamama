@@ -30,30 +30,51 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus
                 throw new NotFoundException(nameof(Order), request.Id);
             }
 
-            if (order.Status != (int)OrderStatus.CanceledByAdmin && order.Status != (int)OrderStatus.CanceledByUser)
+            if (order.Status == (int)OrderStatus.Success && request.Status != (int)OrderStatus.Success)
             {
-                if (request.Status == (int)OrderStatus.CanceledByAdmin || request.Status == (int)OrderStatus.CanceledByUser)
+                var goodIds = order.GoodToOrders.Select(x => x.GoodId);
+
+                var storeToGoods = await _dbContext.StoreToGoods.Where(x => x.StoreId == order.StoreId &&
+                    goodIds.Contains(x.GoodId)).ToListAsync(cancellationToken);
+
+                foreach (var storeToGood in storeToGoods)
                 {
-                    var goodIds = order.GoodToOrders.Select(x => x.GoodId);
-
-                    var storeToGoods = await _dbContext.StoreToGoods.Where(x => x.StoreId == order.StoreId &&
-                        goodIds.Contains(x.GoodId)).ToListAsync(cancellationToken);
-
-                    foreach (var storeToGood in storeToGoods)
+                    var goodToOrder = order.GoodToOrders.FirstOrDefault(x => x.GoodId == storeToGood.GoodId);
+                    if (goodToOrder != null)
                     {
-                        var goodToOrder = order.GoodToOrders.FirstOrDefault(x => x.GoodId == storeToGood.GoodId);
-                        if (goodToOrder != null)
+                        storeToGood.Count += goodToOrder.Count;
+                    }
+                }
+            }
+            else if (order.Status != (int)OrderStatus.Success && request.Status == (int)OrderStatus.Success)
+            {
+                var goodIds = order.GoodToOrders.Select(x => x.GoodId);
+
+                var storeToGoods = await _dbContext.StoreToGoods.Where(x => x.StoreId == order.StoreId &&
+                    goodIds.Contains(x.GoodId)).ToListAsync(cancellationToken);
+
+                foreach (var storeToGood in storeToGoods)
+                {
+                    var goodToOrder = order.GoodToOrders.FirstOrDefault(x => x.GoodId == storeToGood.GoodId);
+                    if (goodToOrder != null)
+                    {
+                        storeToGood.Count -= goodToOrder.Count;
+                        if (storeToGood.Count < 0)
                         {
-                            storeToGood.Count += goodToOrder.Count;
+                            storeToGood.Count = 0;
                         }
                     }
                 }
             }
 
-            order.Status = request.Status;
-            if (order.Status == (int)OrderStatus.Success || order.Status == (int)OrderStatus.CanceledByAdmin || order.Status == (int)OrderStatus.CanceledByUser)
+            if (order.Status != request.Status)
             {
-                order.FinishedAt = DateTime.UtcNow;
+                if (request.Status == (int)OrderStatus.Success || request.Status == (int)OrderStatus.CanceledByAdmin || request.Status == (int)OrderStatus.CanceledByUser)
+                {
+                    order.FinishedAt = DateTime.UtcNow;
+                }
+
+                order.Status = request.Status;
             }
 
             await _dbContext.SaveChangesAsync(cancellationToken);
