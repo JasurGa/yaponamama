@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CQRS\GeneralCategories\**" />
+    <EmbeddedResource Remove="CQRS\GeneralCategories\**" />
+    <None Remove="CQRS\GeneralCategories\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Interfaces\" />
     <Folder Include="Common\Mappings\" />
     <Folder Include="CQRS\AddressToClients\" />
@@ -49,15 +55,6 @@
     <Folder Include="CQRS\Notifications\Commands\DettachNotificationToRole\" />
     <Folder Include="CQRS\Notifications\Commands\DettachNotificationToUser\" />
     <Folder Include="CQRS\Notifications\Commands\UpdateNotification\" />
-    <Folder Include="CQRS\GeneralCategories\" />
-    <Folder Include="CQRS\GeneralCategories\Commands\" />
-    <Folder Include="CQRS\GeneralCategories\Queries\" />
-    <Folder Include="CQRS\GeneralCategories\Commands\CreateGeneralCategory\" />
-    <Folder Include="CQRS\GeneralCategories\Commands\UpdateGeneralCategory\" />
-    <Folder Include="CQRS\GeneralCategories\Commands\DeleteGeneralCategory\" />
-    <Folder Include="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
-    <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
-    <Folder Include="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
     <Folder Include="CQRS\FavoriteGoods\" />
     <Folder Include="CQRS\FavoriteGoods\Commands\" />
     <Folder Include="CQRS\FavoriteGoods\Commands\CreateFavoriteGood\" />
@@ -255,14 +252,6 @@
     <None Remove="CQRS\Notifications\Commands\DettachNotificationToUser\" />
     <None Remove="CQRS\Notifications\Commands\UpdateNotification\" />
     <None Remove="CQRS\GeneralCategories\" />
-    <None Remove="CQRS\GeneralCategories\Commands\" />
-    <None Remove="CQRS\GeneralCategories\Queries\" />
-    <None Remove="CQRS\GeneralCategories\Commands\CreateGeneralCategory\" />
-    <None Remove="CQRS\GeneralCategories\Commands\UpdateGeneralCategory\" />
-    <None Remove="CQRS\GeneralCategories\Commands\DeleteGeneralCategory\" />
-    <None Remove="CQRS\GeneralCategories\Commands\RestoreGeneralCategory\" />
-    <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategories\" />
-    <None Remove="CQRS\GeneralCategories\Queries\GetGeneralCategoryById\" />
     <None Remove="CQRS\FavoriteGoods\" />
     <None Remove="CQRS\FavoriteGoods\Commands\" />
     <None Remove="CQRS\FavoriteGoods\Commands\CreateFavoriteGood\" />

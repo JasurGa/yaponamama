@@ -8,9 +8,9 @@ namespace Atlas.Persistence
 {
     public class AtlasDbContext : DbContext, IAtlasDbContext
     {
-        public DbSet<Admin> Admins { get; set; }
-
         public DbSet<AddressToClient> AddressToClients { get; set; }
+
+        public DbSet<Admin> Admins { get; set; }
 
         public DbSet<CardInfoToClient> CardInfoToClients { get; set; }
 
@@ -19,6 +19,8 @@ namespace Atlas.Persistence
         public DbSet<Client> Clients { get; set; }
 
         public DbSet<Consignment> Consignments { get; set; }
+
+        public DbSet<Correction> Corrections { get; set; }
 
         public DbSet<Courier> Couriers { get; set; }
 
@@ -119,12 +121,13 @@ namespace Atlas.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AdminConfiguration());
             modelBuilder.ApplyConfiguration(new AddressToClientConfiguration());
+            modelBuilder.ApplyConfiguration(new AdminConfiguration());
             modelBuilder.ApplyConfiguration(new CardInfoToClientConfiguration());
             modelBuilder.ApplyConfiguration(new ChatMessageConfiguration());
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new ConsignmentConfiguration());
+            modelBuilder.ApplyConfiguration(new CorrectionConfiguration());
             modelBuilder.ApplyConfiguration(new CourierConfiguration());
             modelBuilder.ApplyConfiguration(new DebitCreditStatisticsConfiguration());
             modelBuilder.ApplyConfiguration(new ForgotPasswordCodeConfiguration());

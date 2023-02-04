@@ -20,6 +20,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<Consignment> Consignments { get; set; }
 
+        DbSet<Correction> Corrections { get; set; }
+
         DbSet<Courier> Couriers { get; set; }
 
         DbSet<DebitCreditStatistics> DebitCreditStatistics { get; set; }
