@@ -48,12 +48,19 @@ namespace Atlas.WebApi.Middlewares
 
             if (result == string.Empty)
             {
-                result = JsonSerializer.Serialize(new
+                try
                 {
-                    error = exception.Message,
-                    sourceFile = exception.Source,
-                    stackTrace = exception.StackTrace
-                });
+                    result = JsonSerializer.Serialize(exception);
+                }
+                catch (Exception)
+                {
+                    result = JsonSerializer.Serialize(new
+                    {
+                        error      = exception.Message,
+                        sourceFile = exception.Source,
+                        stackTrace = exception.StackTrace
+                    });
+                }
             }
 
             return context.Response.WriteAsync(result);
