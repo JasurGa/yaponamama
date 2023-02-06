@@ -7,8 +7,6 @@ namespace Atlas.WebApi.Models
 {
     public class CreateCorrectionDto : IMapWith<CreateCorrectionCommand>
     {
-        public Guid UserId { get; set; }
-
         public Guid StoreId { get; set; }
 
         public Guid GoodId { get; set; }
@@ -20,8 +18,6 @@ namespace Atlas.WebApi.Models
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateCorrectionDto, CreateCorrectionCommand>()
-                .ForMember(x => x.UserId, opt =>
-                    opt.MapFrom(x => x.UserId))
                 .ForMember(x => x.StoreId, opt =>
                     opt.MapFrom(x => x.StoreId))
                 .ForMember(x => x.GoodId, opt =>

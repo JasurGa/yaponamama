@@ -132,9 +132,7 @@ namespace Atlas.WebApi.Controllers
         ///     {
         ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "storeId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "purchasedAt": "2022-05-14T14:12:02.953Z",
-        ///         "expirateAt": "2022-05-14T14:12:02.953Z",
-        ///         "shelfLocation": "1st shelf, 2nd box",
+        ///         "causeBy": "Test cause",
         ///         "count": 10
         ///     }
         ///     
