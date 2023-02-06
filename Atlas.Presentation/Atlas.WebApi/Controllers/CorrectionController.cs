@@ -151,7 +151,13 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreateCorrectionDto createCorrection)
         {
             var correctionId = await Mediator.Send(_mapper.Map<CreateCorrectionDto,
-                CreateCorrectionCommand>(createCorrection));
+                CreateCorrectionCommand>(createCorrection, opt =>
+                {
+                    opt.AfterMap((src, dst) =>
+                    {
+                        dst.UserId = UserId;
+                    });
+                }));
 
             return Ok(correctionId);
         }
