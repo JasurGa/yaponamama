@@ -15,6 +15,13 @@ namespace Atlas.Persistence.EntityTypeConfigurations
         {
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.Id).IsUnique();
+
+            builder.HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId);
+            builder.HasOne(x => x.StoreToGood)
+                .WithMany()
+                .HasForeignKey(x => x.StoreToGoodId);
         }
     }
 }

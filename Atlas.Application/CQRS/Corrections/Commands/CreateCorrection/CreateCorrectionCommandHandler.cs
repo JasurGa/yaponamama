@@ -49,7 +49,8 @@ namespace Atlas.Application.CQRS.Corrections.Commands.CreateCorrection
                     Count   = request.Count,
                 };
 
-                await _dbContext.StoreToGoods.AddAsync(storeToGood, cancellationToken);
+                await _dbContext.StoreToGoods.AddAsync(storeToGood, 
+                    cancellationToken);
             }
             else
             {
