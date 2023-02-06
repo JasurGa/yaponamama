@@ -14,12 +14,12 @@ namespace Atlas.Domain
 
         public Guid StoreToGoodId { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
         public int Count { get; set; }
 
         public string CauseBy { get; set; }
- 
+
+        public DateTime CreatedAt { get; set; }
+
         public StoreToGood StoreToGood { get; set; }
 
         public User User { get; set; }

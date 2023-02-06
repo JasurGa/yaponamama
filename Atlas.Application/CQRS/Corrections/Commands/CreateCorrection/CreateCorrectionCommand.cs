@@ -11,8 +11,6 @@ namespace Atlas.Application.CQRS.Corrections.Commands.CreateCorrection
 
         public Guid GoodId { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
         public string CauseBy { get; set; }
 
         public int Count { get; set; }

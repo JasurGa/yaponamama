@@ -13,8 +13,6 @@ namespace Atlas.WebApi.Models
 
         public Guid GoodId { get; set; }
 
-        public DateTime CreatedAt { get; set; }
-
         public string CauseBy { get; set; }
 
         public int Count { get; set; }
@@ -28,8 +26,6 @@ namespace Atlas.WebApi.Models
                     opt.MapFrom(x => x.StoreId))
                 .ForMember(x => x.GoodId, opt =>
                     opt.MapFrom(x => x.GoodId))
-                .ForMember(x => x.CreatedAt, opt =>
-                    opt.MapFrom(x => x.CreatedAt))
                 .ForMember(x => x.CauseBy, opt =>
                     opt.MapFrom(x => x.CauseBy))
                 .ForMember(x => x.Count, opt =>

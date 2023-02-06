@@ -17,6 +17,8 @@ namespace Atlas.Domain
 
         public List<Consignment> Consignments { get; set; }
 
+        public List<Correction> Corrections { get; set; }
+
         public Store Store { get; set; }
     }
 }

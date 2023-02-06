@@ -19,8 +19,9 @@ namespace Atlas.Persistence.EntityTypeConfigurations
             builder.HasOne(x => x.User)
                 .WithMany()
                 .HasForeignKey(x => x.UserId);
+
             builder.HasOne(x => x.StoreToGood)
-                .WithMany()
+                .WithMany(x => x.Corrections)
                 .HasForeignKey(x => x.StoreToGoodId);
         }
     }
