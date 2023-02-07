@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -59,7 +60,12 @@ namespace Atlas.WebApi.Middlewares
                         error      = exception.Message,
                         sourceFile = exception.Source,
                         stackTrace = exception.StackTrace,
-                        inner      = exception.InnerException
+                        inner      = new
+                        {
+                            error      = exception.InnerException?.Message,
+                            sourceFile = exception.InnerException?.Source,
+                            stackTrace = exception.InnerException?.StackTrace
+                        }
                     });
                 }
             }
