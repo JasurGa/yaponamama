@@ -51,7 +51,18 @@ namespace Atlas.WebApi.Middlewares
             {
                 try
                 {
-                    result = JsonSerializer.Serialize(exception);
+                    result = JsonSerializer.Serialize(new
+                    {
+                        error      = exception.Message,
+                        sourceFile = exception.Source,
+                        stackTrace = exception.StackTrace,
+                        inner = new
+                        {
+                            error      = exception.InnerException?.Message,
+                            sourceFile = exception.InnerException?.Source,
+                            stackTrace = exception.InnerException?.StackTrace
+                        }
+                    });
                 }
                 catch (Exception)
                 {
@@ -60,12 +71,6 @@ namespace Atlas.WebApi.Middlewares
                         error      = exception.Message,
                         sourceFile = exception.Source,
                         stackTrace = exception.StackTrace,
-                        inner      = new
-                        {
-                            error      = exception.InnerException?.Message,
-                            sourceFile = exception.InnerException?.Source,
-                            stackTrace = exception.InnerException?.StackTrace
-                        }
                     });
                 }
             }

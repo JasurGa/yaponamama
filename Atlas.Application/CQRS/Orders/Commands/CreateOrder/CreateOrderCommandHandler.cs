@@ -260,7 +260,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 {
                     Id      = Guid.NewGuid(),
                     GoodId  = createGoodToOrder.GoodId,
-                    OrderId = createGoodToOrder.OrderId,
+                    OrderId = order.Id,
                     Count   = createGoodToOrder.Count,
                 };
 
