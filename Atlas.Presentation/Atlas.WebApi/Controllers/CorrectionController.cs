@@ -31,7 +31,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/consigment
+        ///     GET /api/1.0/correction
         /// 
         /// </remarks>
         /// <returns>Returns CorrectionListVm object</returns>
@@ -54,7 +54,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/consigment/paged?pageIndex=0&amp;pageSize=10&amp;showDeleted=false&amp;sortable=Name&amp;ascending=true
+        ///     GET /api/1.0/correction/paged?pageIndex=0&amp;pageSize=10&amp;showDeleted=false&amp;sortable=Name&amp;ascending=true
         /// 
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
@@ -75,7 +75,7 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] int    pageIndex        = 0,
             [FromQuery] int    pageSize         = 10,
             [FromQuery] bool   showDeleted      = false,
-            [FromQuery] string sortable         = "ShelfLocation",
+            [FromQuery] string sortable         = "Id",
             [FromQuery] bool   ascending        = true,
             [FromQuery] Guid?  filterCategoryId = null)
         {

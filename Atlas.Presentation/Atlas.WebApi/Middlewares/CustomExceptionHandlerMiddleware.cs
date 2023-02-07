@@ -58,7 +58,8 @@ namespace Atlas.WebApi.Middlewares
                     {
                         error      = exception.Message,
                         sourceFile = exception.Source,
-                        stackTrace = exception.StackTrace
+                        stackTrace = exception.StackTrace,
+                        inner      = exception.InnerException
                     });
                 }
             }
