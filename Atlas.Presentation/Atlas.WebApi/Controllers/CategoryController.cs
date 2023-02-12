@@ -23,6 +23,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 namespace Atlas.WebApi.Controllers
 {
     [ApiVersion("1.0")]
@@ -245,7 +246,7 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] bool   showDeleted = false,
             [FromQuery] int    pageIndex   = 0,
             [FromQuery] int    pageSize    = 10,
-            [FromQuery] string sortable    = "Name",
+            [FromQuery] string sortable   = "Name",
             [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetCategoryPagedListQuery

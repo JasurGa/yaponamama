@@ -7,6 +7,7 @@ using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderPrepayment;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus;
+using Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice;
 using Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList;
 using Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList;
 using Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin;
@@ -37,6 +38,52 @@ namespace Atlas.WebApi.Controllers
 
         public OrderController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Calculate order price
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// {
+        ///     POST /api/1.0/order/calculateprice
+        ///     {
+        ///         "toLongitude": 0,
+        ///         "toLatitude": 0,
+        ///         "isPickup": true,
+        ///         "promo": "string",
+        ///         "goodToOrders": [
+        ///             {
+        ///                 "goodId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        ///                 "count": 10
+        ///             }
+        ///         ]
+        ///     }
+        /// }
+        /// </remarks>
+        /// <param name="calculateOrderPriceDto">CalculateOrderPriceDto object</param>
+        /// <returns>Returns PriceDetailsVm object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">NotFound</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPost("calculateprice")]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PriceDetailsVm>> CalculatePriceAsync([FromBody] CalculateOrderPriceDto calculateOrderPriceDto)
+        {
+            var vm = await Mediator.Send(_mapper.Map<CalculateOrderPriceDto,
+                CalculateOrderPriceQuery>(calculateOrderPriceDto, opt =>
+                {
+                    opt.AfterMap((src, dst) =>
+                    {
+                        dst.ClientId = ClientId;
+                    });
+                }));
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Search orders

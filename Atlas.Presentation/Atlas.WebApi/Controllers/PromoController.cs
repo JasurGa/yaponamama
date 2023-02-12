@@ -4,7 +4,9 @@ using Atlas.Application.CQRS.Promos.Commands.DeletePromo;
 using Atlas.Application.CQRS.Promos.Commands.UpdatePromo;
 using Atlas.Application.CQRS.Promos.Queries.GetPromoDetails;
 using Atlas.Application.CQRS.Promos.Queries.GetPromoList;
+using Atlas.Application.CQRS.Promos.Queries.GetPromoListForClient;
 using Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList;
+using Atlas.Application.CQRS.Promos.Queries.GetPromoPagedListForClient;
 using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -56,7 +58,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/promo/paged?pageIndex=0&amp;pageSize=10
+        ///     GET /api/1.0/promo/paged?pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
         ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
@@ -88,6 +90,72 @@ namespace Atlas.WebApi.Controllers
             return Ok(vm);
         }
 
+        /// <summary>
+        /// Gets the list of promo codes for client
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/promo/client
+        ///     
+        /// </remarks>
+        /// <returns>Returns PromoListVm object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("client")]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PromoListVm>> GetAllForClientAsync()
+        {
+            var vm = await Mediator.Send(new GetPromoListForClientQuery
+            {
+                ClientId = ClientId
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Gets the paged list of promo codes for client
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/promo/client/paged?pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        ///     
+        /// </remarks>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <param name="sortable">Property to sort by</param>
+        /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
+        /// <returns>Returns PageDto PromoLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("client/paged")]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<PromoLookupDto>>> GetAllPagedForClientAsync(
+            [FromQuery] int    pageIndex = 0,
+            [FromQuery] int    pageSize  = 10,
+            [FromQuery] string sortable  = "Name",
+            [FromQuery] bool   ascending = true)
+        {
+            var vm = await Mediator.Send(new GetPromoPagedListForClientQuery
+            {
+                ClientId  = ClientId,
+                PageIndex = pageIndex,
+                PageSize  = pageSize,
+                Sortable  = sortable,
+                Ascending = ascending,
+            });
+
+            return Ok(vm);
+        }
+        
         /// <summary>
         /// Gets the promo code by id
         /// </summary>
