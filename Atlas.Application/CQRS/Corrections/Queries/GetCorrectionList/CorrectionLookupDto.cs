@@ -1,5 +1,4 @@
 ﻿using Atlas.Application.Common.Mappings;
-using Atlas.Application.CQRS.Corrections.Queries.GetCorrectionDetails;
 using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
 using Atlas.Application.CQRS.Stores.Queries.GetStoreList;
 using Atlas.Application.CQRS.Users.Queries.GetUserPagedList;
@@ -27,7 +26,7 @@ namespace Atlas.Application.CQRS.Corrections.Queries.GetCorrectionList
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Correction, CorrectionDetailsVm>()
+            profile.CreateMap<Correction, CorrectionLookupDto>()
                 .ForMember(x => x.Id, opt =>
                     opt.MapFrom(x => x.Id))
                 .ForMember(x => x.Store, opt =>

@@ -13,6 +13,8 @@ using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
 using Atlas.Application.CQRS.OrderComments.Commands.UpdateOrderComment;
 using Atlas.Application.CQRS.Orders.Commands.CancelOrderByClient;
 using Atlas.Application.CQRS.OrderComments.Commands.DeleteOrderComment;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
+using Atlas.Application.CQRS.OrderComments.Queries.GetOrderCommentListByOrder;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -25,6 +27,30 @@ namespace Atlas.WebApi.Controllers
 
         public OrderCommentController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Gets the list of order comments by order id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     GET /api/1.0/ordercomment/order/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        /// </remarks>
+        /// <param name="orderId">Order id (guid)</param>
+        /// <returns>Returns OrderCommentListVm</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("order/{orderId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<OrderCommentListVm>> GetListByOrderIdAsync([FromRoute] Guid orderId)
+        {
+            var vm = await Mediator.Send(new GetOrderCommentListByOrderQuery
+            {
+                OrderId = orderId
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Creates an order comment for the admins
