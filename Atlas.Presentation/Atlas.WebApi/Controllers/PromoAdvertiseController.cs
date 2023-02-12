@@ -6,6 +6,7 @@ using Atlas.Application.CQRS.PromoAdvertises.Commands.DeletePromoAdvertise;
 using Atlas.Application.CQRS.PromoAdvertises.Commands.UpdatePromoAdvertise;
 using Atlas.Application.CQRS.PromoAdvertises.Queries.GetActualPromoAdvertises;
 using Atlas.Application.CQRS.PromoAdvertises.Queries.GetAllPagedPromoAdvertises;
+using Atlas.Application.CQRS.PromoAdvertises.Queries.GetPromoAdvertiseById;
 using Atlas.Application.CQRS.Promos.Queries.GetPromoDetails;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -164,9 +165,13 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<PromoDetailsVm>> GetByIdAsync([FromRoute] Guid id)
+        public async Task<ActionResult<PromoAdvertiseDetailsVm>> GetByIdAsync([FromRoute] Guid id)
         {
-            var vm = await Mediator.Send(new GetActualPromoAdvertisesQuery());
+            var vm = await Mediator.Send(new GetPromoAdvertiseByIdQuery()
+            {
+                Id = id
+            });
+
             return Ok(vm);
         }
 
