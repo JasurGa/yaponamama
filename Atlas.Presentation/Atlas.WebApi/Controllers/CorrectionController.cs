@@ -12,6 +12,8 @@ using Atlas.Application.CQRS.Corrections.Queries.GetCorrectionList;
 using Atlas.Application.CQRS.Corrections.Queries.GetCorrectionPagedList;
 using Atlas.WebApi.Filters;
 using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Corrections.Commands.UpdateCorrectionCausedBy;
+using Atlas.Application.CQRS.Stores.Commands.UpdateStore;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -158,6 +160,38 @@ namespace Atlas.WebApi.Controllers
                 }));
 
             return Ok(correctionId);
+        }
+
+        /// <summary>
+        /// Updates a correction's causedBy field (correction type)
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     PUT /api/1.0/correction/causedBy
+        ///     {
+        ///         "Id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "causeBy": "Test cause",
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="updateCorrectionCausedBy">UpdateCorrectionCausedByDto object</param>
+        /// <returns>Returns NoContent</returns> 
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpPut("causedBy")]
+        [Authorize]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> UpdateCausedByAsync([FromBody] UpdateCorrectionCausedByDto updateCorrectionCausedBy)
+        {
+            await Mediator.Send(_mapper.Map<UpdateCorrectionCausedByDto,
+                UpdateCorrectionCausedByCommand>(updateCorrectionCausedBy));
+
+            return NoContent();
         }
     }
 }
