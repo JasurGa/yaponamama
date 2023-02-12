@@ -7,6 +7,8 @@
         Delivering      = 2,
         Success         = 3,
         CanceledByUser  = 4,
-        CanceledByAdmin = 5
+        CanceledByAdmin = 5,
+        ReadyForPickup  = 6,
+        PickedUp        = 7
     }
 }

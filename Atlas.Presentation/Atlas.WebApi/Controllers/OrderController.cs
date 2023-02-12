@@ -44,7 +44,7 @@ namespace Atlas.WebApi.Controllers
         /// </summary>
         /// <remarks>
         /// Sample request:
-        /// {
+        ///     
         ///     POST /api/1.0/order/calculateprice
         ///     {
         ///         "toLongitude": 0,
@@ -58,7 +58,7 @@ namespace Atlas.WebApi.Controllers
         ///             }
         ///         ]
         ///     }
-        /// }
+        ///     
         /// </remarks>
         /// <param name="calculateOrderPriceDto">CalculateOrderPriceDto object</param>
         /// <returns>Returns PriceDetailsVm object</returns>

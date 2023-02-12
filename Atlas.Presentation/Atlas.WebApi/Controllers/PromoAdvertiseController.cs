@@ -6,6 +6,7 @@ using Atlas.Application.CQRS.PromoAdvertises.Commands.DeletePromoAdvertise;
 using Atlas.Application.CQRS.PromoAdvertises.Commands.UpdatePromoAdvertise;
 using Atlas.Application.CQRS.PromoAdvertises.Queries.GetActualPromoAdvertises;
 using Atlas.Application.CQRS.PromoAdvertises.Queries.GetAllPagedPromoAdvertises;
+using Atlas.Application.CQRS.Promos.Queries.GetPromoDetails;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
@@ -143,7 +144,27 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         [HttpGet("actual")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetActualAsync()
+        public async Task<ActionResult<PromoAdvertisesListVm>> GetActualAsync()
+        {
+            var vm = await Mediator.Send(new GetActualPromoAdvertisesQuery());
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get promo advertise by id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/promoadvertise/a3eb7b4a-9f4e-4c71-8619-398655c563b8
+        ///     
+        /// </remarks>
+        /// <param name="id">PromoAdvertise id (Guid)</param>
+        /// <returns>Returns PromoAdvertiseDetailsVm object</returns>
+        /// <response code="200">Success</response>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<PromoDetailsVm>> GetByIdAsync([FromRoute] Guid id)
         {
             var vm = await Mediator.Send(new GetActualPromoAdvertisesQuery());
             return Ok(vm);

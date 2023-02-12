@@ -30,7 +30,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.DeleteOrder
 
             var goodIds = order.GoodToOrders.Select(x => x.GoodId);
 
-            if (order.Status == (int)OrderStatus.Success)
+            if (order.Status == (int)OrderStatus.Success || order.Status == (int)OrderStatus.PickedUp)
             {
                 var storeToGoods = await _dbContext.StoreToGoods.Where(x => x.StoreId == order.StoreId &&
                     goodIds.Contains(x.GoodId)).ToListAsync(cancellationToken);
