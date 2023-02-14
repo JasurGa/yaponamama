@@ -31,6 +31,10 @@ namespace Atlas.Domain
 
         public bool IsDeleted { get; set; }
 
+        public TimeSpan WorkStartsAt { get; set; }
+
+        public TimeSpan WorkFinishesAt { get; set; }
+
         public ICollection<StoreToGood> StoreToGoods { get; set; }
 
         public ICollection<Vehicle> Vehicles { get; set; }
