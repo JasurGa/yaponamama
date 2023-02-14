@@ -154,7 +154,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
         private async Task<Courier> GetCourierAsync(CreateOrderCommand request,
             CancellationToken cancellationToken, Store store)
         {
-            var hours = DateTime.UtcNow.Hour;
+            var hours = (DateTime.UtcNow.Hour + 5) % 24;
             if (hours == 0) { hours = 1; }
             var currentRate = (int)Math.Ceiling(hours / 8.0) - 1;
 

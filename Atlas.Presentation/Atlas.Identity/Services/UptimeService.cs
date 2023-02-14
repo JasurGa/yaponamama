@@ -19,7 +19,7 @@ namespace Atlas.Identity.Services
 
         public Task Invoke()
         {
-            var uptime = DateTime.Now - Process.GetCurrentProcess().StartTime;
+            var uptime = DateTime.UtcNow - Process.GetCurrentProcess().StartTime;
 
             _service.Write(write =>
             {
