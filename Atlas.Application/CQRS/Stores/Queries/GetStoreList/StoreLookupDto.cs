@@ -31,6 +31,10 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStoreList
 
         public string PhoneNumber { get; set; }
 
+        public TimeSpan WorkStartsAt { get; set; }
+
+        public TimeSpan WorkFinishesAt { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Store, StoreLookupDto>()
@@ -57,7 +61,11 @@ namespace Atlas.Application.CQRS.Stores.Queries.GetStoreList
                 .ForMember(x => x.AddressUz, opt =>
                     opt.MapFrom(x => x.AddressUz))
                 .ForMember(x => x.PhoneNumber, opt =>
-                    opt.MapFrom(x => x.PhoneNumber));
+                    opt.MapFrom(x => x.PhoneNumber))
+                .ForMember(x => x.WorkStartsAt, opt =>
+                    opt.MapFrom(src => src.WorkStartsAt))
+                .ForMember(x => x.WorkFinishesAt, opt =>
+                    opt.MapFrom(src => src.WorkFinishesAt));
         }
     }
 }

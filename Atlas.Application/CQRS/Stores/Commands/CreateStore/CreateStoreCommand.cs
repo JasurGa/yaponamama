@@ -23,6 +23,10 @@ namespace Atlas.Application.CQRS.Stores.Commands.CreateStore
 
         public string PhoneNumber { get; set; }
 
+        public TimeSpan WorkStartsAt { get; set; }
+
+        public TimeSpan WorkFinishesAt { get; set; }
+
         public float Latitude { get; set; }
 
         public float Longitude { get; set; }

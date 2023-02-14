@@ -28,5 +28,9 @@ namespace Atlas.Application.CQRS.Stores.Commands.UpdateStore
         public float Latitude { get; set; }
 
         public float Longitude { get; set; }
+
+        public TimeSpan WorkStartsAt { get; set; }
+
+        public TimeSpan WorkFinishesAt { get; set; }
     }
 }
