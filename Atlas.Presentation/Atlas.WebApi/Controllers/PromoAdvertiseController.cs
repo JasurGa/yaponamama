@@ -167,7 +167,7 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<PromoAdvertiseDetailsVm>> GetByIdAsync([FromRoute] Guid id)
         {
-            var vm = await Mediator.Send(new GetPromoAdvertiseByIdQuery()
+            var vm = await Mediator.Send(new GetPromoAdvertiseByIdQuery
             {
                 Id = id
             });

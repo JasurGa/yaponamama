@@ -11,5 +11,7 @@ namespace Atlas.Domain
         public PromoAdvertisePage PromoAdvertisePage { get; set; }
 
         public Guid GoodId { get; set; }
+
+        public Good Good { get; set; }
     }
 }

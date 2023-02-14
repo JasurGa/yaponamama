@@ -146,8 +146,6 @@
     <Folder Include="CQRS\VerificationRequests\Queries\GetVerificationRequestDetails\" />
     <Folder Include="CQRS\VerificationRequests\Queries\GetMyVerificationRequestDetails\" />
     <Folder Include="CQRS\Statistics\Queries\GetDebitCreditStaistics\" />
-    <Folder Include="CQRS\PromoAdvertises\" />
-    <Folder Include="CQRS\PromoAdvertises\Queries\" />
     <Folder Include="CQRS\PromoAdvertises\Commands\" />
     <Folder Include="CQRS\PromoAdvertises\Commands\CreatePromoAdvertise\" />
     <Folder Include="CQRS\PromoAdvertises\Commands\UpdatePromoAdvertise\" />

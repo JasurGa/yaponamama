@@ -9,6 +9,5 @@
         CanceledByUser  = 4,
         CanceledByAdmin = 5,
         ReadyForPickup  = 6,
-        PickedUp        = 7
     }
 }

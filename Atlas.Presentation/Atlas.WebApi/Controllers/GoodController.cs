@@ -141,10 +141,14 @@ namespace Atlas.WebApi.Controllers
         [HttpGet("search")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PageDto<GoodLookupDto>>> SearchAsync([FromQuery] string searchQuery,
-            [FromQuery] int pageSize = 10, [FromQuery] int pageIndex = 0, [FromQuery] Guid? filterCategoryId = null,
-            [FromQuery] int? filterMinSellingPrice = null, [FromQuery] int? filterMaxSellingPrice = null,
-            [FromQuery] bool showDeleted = false)
+        public async Task<ActionResult<PageDto<GoodLookupDto>>> SearchAsync(
+            [FromQuery] string searchQuery,
+            [FromQuery] int    pageSize              = 10, 
+            [FromQuery] int    pageIndex             = 0, 
+            [FromQuery] Guid?  filterCategoryId      = null,
+            [FromQuery] int?   filterMinSellingPrice = null, 
+            [FromQuery] int?   filterMaxSellingPrice = null,
+            [FromQuery] bool   showDeleted           = false)
         {
             var vm = await Mediator.Send(new FindGoodPagedListQuery
             {
@@ -199,7 +203,9 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         [HttpGet("subcategory/category/{categoryId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<CategoryAndGoodListVm>> GetGoodsAndCategoriesByCategoryId([FromRoute] Guid categoryId, [FromQuery] int goodListSize = 6)
+        public async Task<ActionResult<CategoryAndGoodListVm>> GetGoodsAndCategoriesByCategoryId(
+            [FromRoute] Guid categoryId, 
+            [FromQuery] int  goodListSize = 6)
         {
             var vm = await Mediator.Send(new GetCategoryAndGoodListByMainCategoryQuery
             {
@@ -250,7 +256,8 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<TopGoodListVm>> GetRandomGoodsAsync(
-            [FromRoute] Guid categoryId, [FromQuery] bool showDeleted = false)
+            [FromRoute] Guid categoryId, 
+            [FromQuery] bool showDeleted = false)
         {
             var vm = await Mediator.Send(new GetTopGoodsQuery
             {

@@ -23,8 +23,9 @@ namespace Atlas.Application.CQRS.PromoAdvertiseGoods.Queries.GetGoodsByPromoAdve
 
         public async Task<GoodListVm> Handle(GetGoodsByPromoAdvertisePageQuery request, CancellationToken cancellationToken)
         {
-            var goods = await _dbContext.PromoAdvertiseGoods.Where(x =>
-                x.PromoAdvertisePageId == request.PromoAdvertisePageId)
+            var goods = await _dbContext.PromoAdvertiseGoods.Include(x => x.Good)
+                .Where(x => x.PromoAdvertisePageId == request.PromoAdvertisePageId)
+                .Select(x => x.Good)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
