@@ -192,7 +192,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             {
                 try
                 {
-                    idNumber = int.Parse(lastExternalId.Split("-")[2]);
+                    idNumber = int.Parse(lastExternalId.Split("-")[1]);
                 }
                 catch
                 {
