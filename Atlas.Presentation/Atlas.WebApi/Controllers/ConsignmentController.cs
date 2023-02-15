@@ -114,6 +114,7 @@ namespace Atlas.WebApi.Controllers
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="showDeleted">Show deleted (bool)</param>
+        /// <param name="showExpired">Show expired consignments only (bool) - [if false, returns all consignments]</param>
         /// <param name="sortable">Property to sort by</param>
         /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
         /// <param name="filterCategoryId">Filtering consignment goods by category</param>
@@ -129,6 +130,7 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] int    pageIndex        = 0, 
             [FromQuery] int    pageSize         = 10,
             [FromQuery] bool   showDeleted      = false,
+            [FromQuery] bool   showExpired      = false,
             [FromQuery] string sortable         = "ShelfLocation",
             [FromQuery] bool   ascending        = true,
             [FromQuery] Guid?  filterCategoryId = null)
@@ -138,6 +140,7 @@ namespace Atlas.WebApi.Controllers
                 PageIndex        = pageIndex,
                 PageSize         = pageSize,
                 ShowDeleted      = showDeleted,
+                ShowExpired      = showExpired,
                 Sortable         = sortable,
                 Ascending        = ascending,
                 FilterCategoryId = filterCategoryId
