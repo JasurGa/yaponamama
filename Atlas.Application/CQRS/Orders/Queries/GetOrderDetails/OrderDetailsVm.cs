@@ -13,6 +13,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
     {
         public Guid Id { get; set; }
 
+        public string ExternalId { get; set; }
+
         public int OrderCode
         {
             get
@@ -88,6 +90,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
             profile.CreateMap<Order, OrderDetailsVm>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
+                .ForMember(dst => dst.ExternalId, opt =>
+                    opt.MapFrom(src => src.ExternalId))
                 .ForMember(dst => dst.Courier, opt =>
                     opt.MapFrom(src => src.Courier))
                 .ForMember(dst => dst.Client, opt =>

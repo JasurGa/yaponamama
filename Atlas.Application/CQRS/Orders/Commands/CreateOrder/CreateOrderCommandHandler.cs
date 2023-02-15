@@ -179,6 +179,73 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             return minMax.OrderBy(x => x.Value).FirstOrDefault().Key;
         }
 
+        private async Task<string> GenerateExternalIdAsync()
+        {
+            var lastCreatedOrder = await _dbContext.Orders
+                .OrderByDescending(x => x.CreatedAt)
+                .FirstOrDefaultAsync();
+
+            var idNumber = 1;
+
+            var lastExternalId = lastCreatedOrder.ExternalId;
+            if (lastExternalId != null && lastExternalId != string.Empty)
+            {
+                try
+                {
+                    idNumber = int.Parse(lastExternalId.Split("-")[2]);
+                }
+                catch
+                {
+                    idNumber = 0;
+                }
+            }
+
+            string month = "ER";
+            var monthNumber = DateTime.UtcNow.Month;
+            switch (monthNumber)
+            {
+                case 1:
+                    month = "JA";
+                    break;
+                case 2:
+                    month = "F";
+                    break;
+                case 3:
+                    month = "MR";
+                    break;
+                case 4:
+                    month = "AP";
+                    break;
+                case 5:
+                    month = "MY";
+                    break;
+                case 6:
+                    month = "JU";
+                    break;
+                case 7:
+                    month = "JL";
+                    break;
+                case 8:
+                    month = "AU";
+                    break;
+                case 9:
+                    month = "S";
+                    break;
+                case 10:
+                    month = "O";
+                    break;
+                case 11:
+                    month = "N";
+                    break;
+                case 12:
+                    month = "D";
+                    break;
+            }
+
+            var year = (DateTime.UtcNow.Year - 2000).ToString();
+            return $"{month}{year}-{idNumber}";
+        }
+
         public async Task<Guid> Handle(CreateOrderCommand request,
             CancellationToken cancellationToken)
         {
@@ -198,11 +265,13 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             var sellingPrice    = await GetSellingPriceAsync(request, cancellationToken, foundPromo);
             var shippingPrice   = await GetShippingPriceAsync(request, cancellationToken);
             var purchasePrice   = await GetPurchasePriceAsync(request, cancellationToken);
+            var extenralId      = await GenerateExternalIdAsync();
 
             var order = new Order
             {
                 Id                    = Guid.NewGuid(),
                 Status                = (int)OrderStatus.Created,
+                ExternalId            = extenralId,
                 Comment               = request.Comment,
                 DontCallWhenDelivered = request.DontCallWhenDelivered,
                 Apartment             = request.Apartment,

@@ -7,6 +7,8 @@ namespace Atlas.Domain
     {
         public Guid Id { get; set; }
 
+        public string ExternalId { get; set; }
+
         public Guid? CourierId { get; set; }
 
         public Guid StoreId { get; set; }

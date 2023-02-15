@@ -11,6 +11,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
     {
         public Guid Id { get; set; }
 
+        public string ExternalId { get; set; }
+
         public int OrderCode
         {
             get
@@ -40,6 +42,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
             profile.CreateMap<Order, OrderLookupDto>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
+                .ForMember(dst => dst.ExternalId, opt =>
+                    opt.MapFrom(src => src.ExternalId))
                 .ForMember(dst => dst.Client, opt =>
                     opt.MapFrom(src => src.Client))
                 .ForMember(dst => dst.Courier, opt =>
