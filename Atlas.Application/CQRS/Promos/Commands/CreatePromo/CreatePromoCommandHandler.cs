@@ -26,6 +26,8 @@ namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
                 Name            = request.Name,
                 DiscountPrice   = request.DiscountPrice,
                 DiscountPercent = request.DiscountPercent,
+                ForAllGoods     = request.ForAllGoods,
+                FreeDelivery    = request.FreeDelivery,
                 ExpiresAt       = request.ExpiresAt,
             };
 

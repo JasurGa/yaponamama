@@ -108,7 +108,7 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> UpdateAasync([FromBody] UpdatePromoToGoodDto updatePromoToGoodDto)
+        public async Task<ActionResult> UpdateAsync([FromBody] UpdatePromoToGoodDto updatePromoToGoodDto)
         {
             await Mediator.Send(_mapper.Map<UpdatePromoToGoodDto,
                 UpdatePromoToGoodCommand>(updatePromoToGoodDto));

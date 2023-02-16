@@ -34,6 +34,8 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
             promo.Name            = request.Name;
             promo.DiscountPercent = request.DiscountPercent;
             promo.DiscountPrice   = request.DiscountPrice;
+            promo.ForAllGoods     = request.ForAllGoods;
+            promo.FreeDelivery    = request.FreeDelivery;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

@@ -15,5 +15,9 @@ namespace Atlas.Domain
         public int DiscountPrice { get; set; }
 
         public int DiscountPercent { get; set; }
+
+        public bool ForAllGoods { get; set; }
+
+        public bool FreeDelivery { get; set; }
     }
 }

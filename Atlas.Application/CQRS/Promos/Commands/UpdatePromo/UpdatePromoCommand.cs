@@ -15,6 +15,10 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
 
         public int DiscountPercent { get; set; }
 
+        public bool ForAllGoods { get; set; }
+
+        public bool FreeDelivery { get; set; }
+
         public DateTime ExpiresAt { get; set; }
     }
 }
