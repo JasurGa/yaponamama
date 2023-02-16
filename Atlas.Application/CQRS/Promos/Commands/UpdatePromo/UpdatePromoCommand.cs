@@ -9,8 +9,6 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
 
         public Guid ClientId { get; set; }
 
-        public Guid GoodId { get; set; }
-
         public string Name { get; set; }
 
         public int DiscountPrice { get; set; }

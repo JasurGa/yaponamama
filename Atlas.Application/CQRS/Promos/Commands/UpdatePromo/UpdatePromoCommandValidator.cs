@@ -10,9 +10,6 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
             RuleFor(x => x.Id)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(x => x.GoodId)
-                .NotEqual(Guid.Empty);
-
             RuleFor(x => x.Name)
                .NotEmpty();
 

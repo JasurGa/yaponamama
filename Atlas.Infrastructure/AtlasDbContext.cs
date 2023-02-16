@@ -68,6 +68,8 @@ namespace Atlas.Persistence
 
         public DbSet<PromoCategory> PromoCategories { get; set; }
 
+        public DbSet<PromoToGood> PromoToGoods { get; set; }
+
         public DbSet<PromoCategoryToGood> PromoCategoryToGoods { get; set; }
 
         public DbSet<PromoUsage> PromoUsages { get; set; }
@@ -146,6 +148,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new OrderFeedbackConfiguration());
             modelBuilder.ApplyConfiguration(new PageVisitConfiguration());
             modelBuilder.ApplyConfiguration(new PromoConfiguration());
+            modelBuilder.ApplyConfiguration(new PromoToGoodConfiguration());
             modelBuilder.ApplyConfiguration(new PromoAdvertiseConfiguration());
             modelBuilder.ApplyConfiguration(new PromoAdvertiseGoodConfiguration());
             modelBuilder.ApplyConfiguration(new PromoAdvertisePageConfiguration());

@@ -19,19 +19,10 @@ namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
         public async Task<Guid> Handle(CreatePromoCommand request,
             CancellationToken cancellationToken)
         {
-            var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
-                x.Id == request.GoodId, cancellationToken);
-
-            if (good == null)
-            {
-                throw new NotFoundException(nameof(Good), request.GoodId);
-            }
-
             var promo = new Promo
             {
                 Id              = Guid.NewGuid(),
                 ClientId        = request.ClientId,
-                GoodId          = request.GoodId,
                 Name            = request.Name,
                 DiscountPrice   = request.DiscountPrice,
                 DiscountPercent = request.DiscountPercent,

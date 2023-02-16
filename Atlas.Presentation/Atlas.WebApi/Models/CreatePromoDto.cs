@@ -10,8 +10,6 @@ namespace Atlas.WebApi.Models
     {
         public string Name { get; set; }
 
-        public Guid GoodId { get; set; }
-
         public Guid? ClientId { get; set; }
 
         public int DiscountPrice { get; set; }
@@ -25,8 +23,6 @@ namespace Atlas.WebApi.Models
             profile.CreateMap<CreatePromoDto, CreatePromoCommand>()
                 .ForMember(dst => dst.Name, opt =>
                     opt.MapFrom(src => src.Name))
-                .ForMember(dst => dst.GoodId, opt =>
-                    opt.MapFrom(src => src.GoodId))
                 .ForMember(dst => dst.ClientId, opt =>
                     opt.MapFrom(src => src.ClientId))
                 .ForMember(dst => dst.DiscountPrice, opt =>

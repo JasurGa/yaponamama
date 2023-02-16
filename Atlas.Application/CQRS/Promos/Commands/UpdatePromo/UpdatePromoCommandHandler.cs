@@ -30,16 +30,7 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
                 throw new NotFoundException(nameof(Promo), request.Id);
             }
 
-            var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
-                x.Id == request.GoodId, cancellationToken);
-
-            if (good == null)
-            {
-                throw new NotFoundException(nameof(Good), request.GoodId);
-            }
-
             promo.ClientId        = request.ClientId;
-            promo.GoodId          = request.GoodId;
             promo.Name            = request.Name;
             promo.DiscountPercent = request.DiscountPercent;
             promo.DiscountPrice   = request.DiscountPrice;

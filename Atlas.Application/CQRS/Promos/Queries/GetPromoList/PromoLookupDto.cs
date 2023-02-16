@@ -9,8 +9,6 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
     {
         public Guid Id { get; set; }
 
-        public Guid GoodId { get; set; }
-
         public Guid ClientId { get; set; }
 
         public string Name { get; set; }
@@ -22,8 +20,6 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
             profile.CreateMap<Promo, PromoLookupDto>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
-                .ForMember(dst => dst.GoodId, opt =>
-                    opt.MapFrom(src => src.GoodId))
                 .ForMember(dst => dst.ClientId, opt =>
                     opt.MapFrom(src => src.ClientId))
                 .ForMember(dst => dst.Name, opt =>

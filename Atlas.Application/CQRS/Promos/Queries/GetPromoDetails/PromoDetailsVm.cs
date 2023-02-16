@@ -11,8 +11,6 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
 
         public Guid ClientId { get; set; }
 
-        public Guid GoodId { get; set; }
-
         public string Name { get; set; }
 
         public int DiscountPrice { get; set; }
@@ -28,8 +26,6 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
                     opt.MapFrom(src => src.Id))
                 .ForMember(dst => dst.ClientId, opt =>
                     opt.MapFrom(src => src.ClientId))
-                .ForMember(dst => dst.GoodId, opt =>
-                    opt.MapFrom(src => src.GoodId))
                 .ForMember(dst => dst.Name, opt =>
                     opt.MapFrom(src => src.Name))
                 .ForMember(dst => dst.DiscountPrice, opt =>

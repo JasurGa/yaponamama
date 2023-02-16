@@ -61,6 +61,8 @@ namespace Atlas.Domain
 
         public ICollection<GoodToOrder> GoodToOrders { get; set; }
 
+        public ICollection<PromoToGood> PromoToGoods { get; set; }
+
         public Provider Provider { get; set; }
     }
 }

@@ -60,6 +60,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<Promo> Promos { get; set; }
 
+        DbSet<PromoToGood> PromoToGoods { get; set; }
+
         DbSet<PromoAdvertise> PromoAdvertises { get; set; }
 
         DbSet<PromoAdvertiseGood> PromoAdvertiseGoods { get; set; }
