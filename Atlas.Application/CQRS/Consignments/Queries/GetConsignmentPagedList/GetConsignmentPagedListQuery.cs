@@ -13,6 +13,8 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
 
         public bool ShowDeleted { get; set; }
 
+        public bool ShowExpired { get; set; }
+
         public string Sortable { get; set; }
 
         public bool Ascending { get; set; }

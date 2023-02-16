@@ -2,7 +2,6 @@
 using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
-using Atlas.Domain;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
@@ -27,8 +26,16 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
 
         public async Task<PageDto<ConsignmentLookupDto>> Handle(GetConsignmentPagedListQuery request, CancellationToken cancellationToken)
         {
-            var consignmentsQuery = _dbContext.Consignments
+            var query = _dbContext.Consignments
                 .Where(x => x.IsDeleted == request.ShowDeleted)
+                .AsQueryable();
+
+            if (request.ShowExpired)
+            {
+                query = query.Where(x => x.ExpirateAt <= DateTime.UtcNow);
+            }
+
+            var consignmentsQuery = query
                 .OrderByDynamic(request.Sortable, request.Ascending)
                 .ProjectTo<ConsignmentLookupDto>(_mapper.ConfigurationProvider);
 
