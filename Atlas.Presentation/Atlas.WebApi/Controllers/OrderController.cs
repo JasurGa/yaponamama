@@ -5,6 +5,7 @@ using Atlas.Application.CQRS.Orders.Commands.CancelOrderByClient;
 using Atlas.Application.CQRS.Orders.Commands.ChangeOrderRefundStatus;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
+using Atlas.Application.CQRS.Orders.Commands.UpdateOrderPaymentType;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderPrepayment;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus;
 using Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice;
@@ -350,7 +351,7 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult> UpdatePaymentTypeAsync([FromBody] UpdateOrderPaymentTypeDto updateOrderPaymentTypeDto)
         {
             await Mediator.Send(_mapper.Map<UpdateOrderPaymentTypeDto,
-                UpdateOrderPrepaymentCommand>(updateOrderPaymentTypeDto));
+                UpdateOrderPaymentTypeCommand>(updateOrderPaymentTypeDto));
 
             return NoContent();
         }
