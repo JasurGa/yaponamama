@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Atlas.Domain
 {
@@ -19,5 +20,7 @@ namespace Atlas.Domain
         public bool ForAllGoods { get; set; }
 
         public bool FreeDelivery { get; set; }
+
+        public List<PromoToGood> PromoToGoods { get; set; }
     }
 }

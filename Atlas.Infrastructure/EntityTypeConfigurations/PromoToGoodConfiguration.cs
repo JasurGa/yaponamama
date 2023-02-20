@@ -20,6 +20,10 @@ namespace Atlas.Persistence.EntityTypeConfigurations
             builder.HasOne(x => x.Good)
                 .WithMany(x => x.PromoToGoods)
                 .HasForeignKey(x => x.GoodId);
+
+            builder.HasOne(x => x.Promo)
+                .WithMany(x => x.PromoToGoods)
+                .HasForeignKey(x => x.PromoId);
         }
     }
 }
