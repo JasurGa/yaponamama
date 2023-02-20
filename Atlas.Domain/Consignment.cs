@@ -21,5 +21,7 @@ namespace Atlas.Domain
         public bool IsDeleted { get; set; }
 
         public StoreToGood StoreToGood { get; set; }
+
+        public DisposeToConsignment DisposeToConsignment { get; set; }
     }
 }
