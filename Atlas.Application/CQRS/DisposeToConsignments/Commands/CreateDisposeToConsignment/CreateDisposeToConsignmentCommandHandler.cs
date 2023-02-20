@@ -18,10 +18,12 @@ namespace Atlas.Application.CQRS.DisposeToConsignments.Commands.CreateDisposeToC
 
         public async Task<Guid> Handle(CreateDisposeToConsignmentCommand request, CancellationToken cancellationToken)
         {
-            var consignment = await _dbContext.Consignments.FirstOrDefaultAsync(x =>
-                x.Id == request.ConsignmentId, cancellationToken);
+            var consignment = await _dbContext.Consignments
+                .Include(x => x.DisposeToConsignment)
+                .FirstOrDefaultAsync(x => x.Id == request.ConsignmentId, 
+                    cancellationToken);
 
-            if (consignment == null)
+            if (consignment == null || consignment.DisposeToConsignment != null)
             {
                 throw new NotFoundException(nameof(Consignment), request.ConsignmentId);
             }
