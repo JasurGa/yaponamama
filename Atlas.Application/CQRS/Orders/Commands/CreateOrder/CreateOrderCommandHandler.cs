@@ -116,7 +116,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 calculatedPrice -= promo.DiscountPrice;
             }
 
-            return calculatedPrice;
+            return calculatedPrice > 0 ? calculatedPrice : 0.0f;
         }
 
         private async Task<float> GetShippingPriceAsync(CreateOrderCommand request,

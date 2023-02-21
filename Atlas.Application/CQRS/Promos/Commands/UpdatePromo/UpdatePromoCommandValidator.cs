@@ -12,12 +12,6 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
 
             RuleFor(x => x.Name)
                .NotEmpty();
-
-            RuleFor(x => x.DiscountPrice)
-               .NotEmpty();
-
-            RuleFor(x => x.DiscountPercent)
-               .NotEmpty();
         }
     }
 }
