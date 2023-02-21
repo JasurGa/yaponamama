@@ -197,7 +197,7 @@ namespace Atlas.WebApi.Controllers
         ///         "name": "Sample name",
         ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "discountPrice": 1000,
-        ///         "discountPercent": 10,
+        ///         "discountPercent": 0.1,
         ///         "expiresAt": "1900-01-01T01:01:01"
         ///     }
         ///     
@@ -231,7 +231,7 @@ namespace Atlas.WebApi.Controllers
         ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "name": "Sample name",
         ///         "discountPrice": 1000,
-        ///         "discountPercent": 10,
+        ///         "discountPercent": 0.1,
         ///         "expiresAt": "1900-01-01T01:01:01"
         ///     }
         ///     

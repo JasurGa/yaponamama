@@ -15,7 +15,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
 
         public int DiscountPrice { get; set; }
 
-        public int DiscountPercent { get; set; }
+        public float DiscountPercent { get; set; }
 
         public bool ForAllGoods { get; set; }
 

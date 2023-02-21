@@ -13,7 +13,7 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
 
         public int DiscountPrice { get; set; }
 
-        public int DiscountPercent { get; set; }
+        public float DiscountPercent { get; set; }
 
         public bool ForAllGoods { get; set; }
 
