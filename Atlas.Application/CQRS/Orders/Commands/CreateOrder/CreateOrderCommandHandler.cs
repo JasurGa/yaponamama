@@ -86,8 +86,11 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
         {
             var calculatedPrice = 0.0f;
 
-            var promoGoods = promo.ForAllGoods ? new List<Guid>() : 
-                promo.PromoToGoods.Select(x => x.GoodId).ToList();
+            var promoGoods = new List<Guid>();
+            if (promo != null && promo.ForAllGoods)
+            {
+                promoGoods = promo.PromoToGoods.Select(x => x.GoodId).ToList();
+            }
 
             foreach (var createGoodToOrder in request.GoodToOrders)
             {
