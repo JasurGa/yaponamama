@@ -26,6 +26,8 @@ namespace Atlas.Application.Interfaces
 
         DbSet<DebitCreditStatistics> DebitCreditStatistics { get; set; }
 
+        DbSet<DisposeToConsignment> DisposeToConsignments { get; set; }
+
         DbSet<FavoriteGood> FavoriteGoods { get; set; }
 
         DbSet<ForgotPasswordCode> ForgotPasswordCodes { get; set; }

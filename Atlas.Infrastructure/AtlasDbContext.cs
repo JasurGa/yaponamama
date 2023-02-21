@@ -26,6 +26,8 @@ namespace Atlas.Persistence
 
         public DbSet<DebitCreditStatistics> DebitCreditStatistics { get; set; }
 
+        public DbSet<DisposeToConsignment> DisposeToConsignments { get; set; }
+
         public DbSet<FavoriteGood> FavoriteGoods { get; set; }
 
         public DbSet<ForgotPasswordCode> ForgotPasswordCodes { get; set; }
@@ -132,6 +134,7 @@ namespace Atlas.Persistence
             modelBuilder.ApplyConfiguration(new CorrectionConfiguration());
             modelBuilder.ApplyConfiguration(new CourierConfiguration());
             modelBuilder.ApplyConfiguration(new DebitCreditStatisticsConfiguration());
+            modelBuilder.ApplyConfiguration(new DisposeToConsignmentConfiguration());
             modelBuilder.ApplyConfiguration(new ForgotPasswordCodeConfiguration());
             modelBuilder.ApplyConfiguration(new GoodConfiguration());
             modelBuilder.ApplyConfiguration(new GoodToCartConfiguration());
