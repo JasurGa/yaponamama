@@ -10,6 +10,8 @@ using System;
 using Atlas.Application.CQRS.DisposeToConsignments.Commands.CreateDisposeToConsignment;
 using Atlas.Application.CQRS.DisposeToConsignments.Queries.GetDisposeToConsignmentDetails;
 using Atlas.Application.CQRS.DisposeToConsignments.Commands.DeleteDisposeToConsignment;
+using Atlas.Application.Models;
+using Atlas.Application.CQRS.DisposeToConsignments.Queries.GetDisposeToConsignmentPagedList;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -110,6 +112,36 @@ namespace Atlas.WebApi.Controllers
             var vm = await Mediator.Send(new GetDisposeToConsignmentDetailsQuery
             {
                 Id = id
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Get the paged list of consignment dispose records
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/1.0/disposetoconsignment/paged?pageIndex=0&amp;pageSize=10
+        ///     
+        /// </remarks>
+        /// <param name="pageIndex">Page index</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>Returns PageDto DisposeToConsignmentLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpGet("paged")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<DisposeToConsignmentLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetDisposeToConsignmentPagedListQuery
+            {
+                PageIndex = pageIndex,
+                PageSize = pageSize
             });
 
             return Ok(vm);
