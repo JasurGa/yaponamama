@@ -21,6 +21,8 @@ namespace Atlas.Application.CQRS.GoodToCarts.Queries.GetGoodToCartList
         {
             var goodToCarts = await _dbContext.GoodToCarts
                 .Where(x => x.ClientId == request.ClientId)
+                .Include(x => x.Good)
+                .ThenInclude(x => x.StoreToGoods)
                 .ProjectTo<GoodToCartLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

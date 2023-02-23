@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -17,6 +18,16 @@ namespace Atlas.Application.CQRS.Promos.Commands.DeletePromo
 
         public async Task<Unit> Handle(DeletePromoCommand request, CancellationToken cancellationToken)
         {
+            var orders = await _dbContext.Orders.Where(x => x.PromoId == request.Id)
+                .ToListAsync(cancellationToken);
+
+            foreach (var order in orders)
+            {
+                order.PromoId = null;
+            }
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
             var promo = await _dbContext.Promos.FirstOrDefaultAsync(x =>
                 x.Id == request.Id, cancellationToken);
 

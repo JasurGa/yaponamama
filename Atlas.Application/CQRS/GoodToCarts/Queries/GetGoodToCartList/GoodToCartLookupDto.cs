@@ -2,6 +2,7 @@
 using Atlas.Domain;
 using AutoMapper;
 using System;
+using System.Linq;
 
 namespace Atlas.Application.CQRS.GoodToCarts.Queries.GetGoodToCartList
 {
@@ -23,6 +24,8 @@ namespace Atlas.Application.CQRS.GoodToCarts.Queries.GetGoodToCartList
 
         public int Count { get; set; }
 
+        public int MaxCount { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<GoodToCart, GoodToCartLookupDto>()
@@ -41,7 +44,9 @@ namespace Atlas.Application.CQRS.GoodToCarts.Queries.GetGoodToCartList
                 .ForMember(dst => dst.GoodDiscount, opt =>
                     opt.MapFrom(src => src.Good.Discount))
                 .ForMember(dst => dst.Count, opt =>
-                    opt.MapFrom(src => src.Count));
+                    opt.MapFrom(src => src.Count))
+                .ForMember(dst => dst.MaxCount, opt =>
+                    opt.MapFrom(src => src.Good.StoreToGoods.Sum(x => x.Count)));
         }
     }
 }
