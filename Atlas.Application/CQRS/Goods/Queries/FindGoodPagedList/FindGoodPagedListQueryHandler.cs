@@ -70,7 +70,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
                 var translitedRu  = ""; // TranslitConverter.TranslitEnRu(notTranslited);
                 var translitedEn  = ""; // TranslitConverter.TranslitRuEn(notTranslited);
 
-                goods = goods.OrderBy(x => EF.Functions.TrigramsSimilarityDistance(
+                goods = goods.OrderBy(x => EF.Functions.TrigramsStrictWordSimilarityDistance(
                     (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
                         notTranslited + " " + translitedRu + " " + translitedEn));
             }
