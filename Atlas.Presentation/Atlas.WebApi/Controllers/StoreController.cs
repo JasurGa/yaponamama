@@ -147,13 +147,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns StoreDetailsVm object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
-        /// <response code="401">If the user is unauthorized</response>
-        [Authorize]
         [HttpGet("{id}")]
-        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<StoreDetailsVm>> GetByIdAsync([FromRoute] Guid id)
         {
             var vm = await Mediator.Send(new GetStoreDetailsQuery
