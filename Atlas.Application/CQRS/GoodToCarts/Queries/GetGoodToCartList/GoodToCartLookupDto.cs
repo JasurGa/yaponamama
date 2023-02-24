@@ -24,7 +24,7 @@ namespace Atlas.Application.CQRS.GoodToCarts.Queries.GetGoodToCartList
 
         public int Count { get; set; }
 
-        public int MaxCount { get; set; }
+        public long MaxCount { get; set; }
 
         public void Mapping(Profile profile)
         {
