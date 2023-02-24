@@ -22,7 +22,6 @@ namespace Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice
 
         public CalculateOrderPriceQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
             (_mapper, _dbContext) = (mapper, dbContext);
-
         private async Task<Promo> GetPromoAsync(CalculateOrderPriceQuery request,
             CancellationToken cancellationToken)
         {
@@ -31,8 +30,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice
                 return null;
             }
 
-            var foundPromo = await _dbContext.Promos.FirstOrDefaultAsync(x =>
-                x.Name == request.Promo, cancellationToken);
+            var foundPromo = await _dbContext.Promos
+                .Include(x => x.PromoToGoods)
+                .FirstOrDefaultAsync(x =>
+                    x.Name == request.Promo, cancellationToken);
 
             if (foundPromo == null || foundPromo.ExpiresAt <= DateTime.UtcNow)
             {
@@ -55,35 +56,71 @@ namespace Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice
             return foundPromo;
         }
 
-        private async Task<float> GetSellingPriceAsync(CalculateOrderPriceQuery request,
-            CancellationToken cancellationToken, Promo promo)   
+        private async Task<float> GetPurchasePriceAsync(CalculateOrderPriceQuery request,
+            CancellationToken cancellationToken)
         {
             var calculatedPrice = 0.0f;
+            foreach (var createGoodToOrder in request.GoodToOrders)
+            {
+                var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
+                    x.Id == createGoodToOrder.GoodId, cancellationToken);
+
+                var priceForGoods = good.PurchasePrice * createGoodToOrder.Count;
+
+                calculatedPrice += priceForGoods;
+            }
+
+            return calculatedPrice;
+        }
+
+        private async Task<float> GetSellingPriceAsync(CalculateOrderPriceQuery request,
+            CancellationToken cancellationToken, Promo promo)
+        {
+            var calculatedPrice = 0.0f;
+
+            var promoGoods = new List<Guid>();
+            if (promo != null && promo.ForAllGoods)
+            {
+                promoGoods = promo.PromoToGoods.Select(x => x.GoodId).ToList();
+            }
 
             foreach (var createGoodToOrder in request.GoodToOrders)
             {
                 var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
                     x.Id == createGoodToOrder.GoodId, cancellationToken);
 
-                var priceForGoods = good.SellingPrice * createGoodToOrder.Count *
+                var priceForGood = good.SellingPrice * createGoodToOrder.Count *
                     (1 - good.Discount);
 
-                calculatedPrice += priceForGoods;
+                if (promoGoods.Contains(createGoodToOrder.GoodId))
+                {
+                    priceForGood = priceForGood * (1 - promo.DiscountPrice) - promo.DiscountPrice;
+                    if (priceForGood < 0)
+                        priceForGood = 0;
+                }
+
+                calculatedPrice += priceForGood;
             }
 
-            if (promo != null)
+            if ((promo != null) && promo.ForAllGoods)
             {
                 calculatedPrice *= (1 - promo.DiscountPercent);
                 calculatedPrice -= promo.DiscountPrice;
             }
 
-            return calculatedPrice;
+            return calculatedPrice > 0 ? calculatedPrice : 0.0f;
         }
 
         private async Task<float> GetShippingPriceAsync(CalculateOrderPriceQuery request,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken, Promo promo)
         {
-            return request.IsPickup ? 0.0f : DELIVERY_PRICE;
+            float deliveryPrice = DELIVERY_PRICE;
+            if (promo != null && promo.FreeDelivery)
+            {
+                deliveryPrice = 0.0f;
+            }
+
+            return request.IsPickup ? 0.0f : deliveryPrice;
         }
 
         public async Task<PriceDetailsVm> Handle(CalculateOrderPriceQuery request,
@@ -91,7 +128,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice
         {
             var foundPromo      = await GetPromoAsync(request, cancellationToken);
             var sellingPrice    = await GetSellingPriceAsync(request, cancellationToken, foundPromo);
-            var shippingPrice   = await GetShippingPriceAsync(request, cancellationToken);
+            var shippingPrice   = await GetShippingPriceAsync(request, cancellationToken, foundPromo);
 
             return new PriceDetailsVm
             {
