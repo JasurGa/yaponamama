@@ -46,6 +46,7 @@ namespace Atlas.Application.CQRS.GoodToCarts.Commands.UpdateManyGoodsInCart
             _dbContext.GoodToCarts.RemoveRange(
                 _dbContext.GoodToCarts.Where(x =>
                     x.ClientId == request.ClientId));
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             foreach (var goodToCount in request.GoodsToCount)
             {
