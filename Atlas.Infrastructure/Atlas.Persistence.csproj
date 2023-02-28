@@ -15,13 +15,16 @@
     <PackageReference Include="InfluxDB.Client" Version="4.3.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams" Version="5.0.10" />
   </ItemGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\Atlas.Domain\Atlas.Domain.csproj" />
     <ProjectReference Include="..\Atlas.Application\Atlas.Application.csproj" />
   </ItemGroup>
+	
   <ItemGroup>
     <None Remove="Neo4j.Driver" />
     <None Remove="InfluxDB.Client" />
     <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL.Trigrams" />
   </ItemGroup>
+	
 </Project>

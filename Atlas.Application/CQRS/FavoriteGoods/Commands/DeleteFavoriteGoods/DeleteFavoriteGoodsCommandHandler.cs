@@ -32,10 +32,12 @@ namespace Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteFavoriteGoods
                 }
             }
 
+            var ids = favorites.Select(x => x.Id).ToList();
+
             _dbContext.FavoriteGoods.RemoveRange(favorites);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return favorites.Select(x => x.Id).ToList();
+            return ids;
         }
     }
 }
