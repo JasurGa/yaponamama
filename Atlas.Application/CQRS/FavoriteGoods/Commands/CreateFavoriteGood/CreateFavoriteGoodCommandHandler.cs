@@ -36,6 +36,15 @@ namespace Atlas.Application.CQRS.FavoriteGoods.Commands.CreateFavoriteGood
                 throw new NotFoundException(nameof(Client), request.ClientId);
             }
 
+            var duplicate = await _dbContext.FavoriteGoods.FirstOrDefaultAsync(x =>
+                x.GoodId == request.GoodId && x.ClientId == request.ClientId,
+                    cancellationToken);
+
+            if (duplicate != null)
+            {
+                return Guid.Empty;
+            }
+
             var entity = new FavoriteGood
             {
                 Id        = Guid.NewGuid(),
