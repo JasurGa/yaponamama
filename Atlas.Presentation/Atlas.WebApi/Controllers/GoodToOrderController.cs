@@ -1,6 +1,4 @@
 ﻿using Atlas.Application.Common.Constants;
-using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
-using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByProvider;
 using Atlas.Application.CQRS.GoodToOrders.Commands.DeleteGoodToOrder;
 using Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders;
 using Atlas.Application.CQRS.GoodToOrders.Commands.UpdateGoodToOrder;
@@ -41,7 +39,9 @@ namespace Atlas.WebApi.Controllers
         /// <returns>Returns PageDto GoodToOrderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
         [HttpGet("paged")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<GoodToOrderLookupDto>>> GetAllPaged(
