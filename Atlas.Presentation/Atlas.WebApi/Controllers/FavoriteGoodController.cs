@@ -162,15 +162,15 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult> DeleteManyAsync([FromBody] List<Guid> favoriteGoodIds)
+        public async Task<ActionResult<List<Guid>>> DeleteManyAsync([FromBody] List<Guid> favoriteGoodIds)
         {
-            await Mediator.Send(new DeleteFavoriteGoodsCommand
+            var vm = await Mediator.Send(new DeleteFavoriteGoodsCommand
             {
-                ClientId = ClientId,
+                ClientId        = ClientId,
                 FavoriteGoodIds = favoriteGoodIds
             });
 
-            return NoContent();
+            return vm;
         }
 
         /// <summary>

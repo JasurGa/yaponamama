@@ -3,20 +3,22 @@ using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteFavoriteGoods
 {
-    public class DeleteFavoriteGoodsCommandHandler : IRequestHandler<DeleteFavoriteGoodsCommand>
+    public class DeleteFavoriteGoodsCommandHandler : IRequestHandler<DeleteFavoriteGoodsCommand, List<Guid>>
     {
         private readonly IAtlasDbContext _dbContext;
 
         public DeleteFavoriteGoodsCommandHandler(IAtlasDbContext dbContext) =>
             _dbContext = dbContext;
 
-        public async Task<Unit> Handle(DeleteFavoriteGoodsCommand request, CancellationToken cancellationToken)
+        public async Task<List<Guid>> Handle(DeleteFavoriteGoodsCommand request, CancellationToken cancellationToken)
         {
             var favorites = await _dbContext.FavoriteGoods
                 .Where(x => request.FavoriteGoodIds.Contains(x.Id))
@@ -33,7 +35,7 @@ namespace Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteFavoriteGoods
             _dbContext.FavoriteGoods.RemoveRange(favorites);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return Unit.Value;
+            return favorites.Select(x => x.Id);
         }
     }
 }
