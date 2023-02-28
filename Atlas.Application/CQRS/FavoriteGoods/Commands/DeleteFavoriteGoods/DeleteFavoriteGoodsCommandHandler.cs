@@ -35,7 +35,7 @@ namespace Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteFavoriteGoods
             _dbContext.FavoriteGoods.RemoveRange(favorites);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return favorites.Select(x => x.Id);
+            return favorites.Select(x => x.Id).ToList();
         }
     }
 }
