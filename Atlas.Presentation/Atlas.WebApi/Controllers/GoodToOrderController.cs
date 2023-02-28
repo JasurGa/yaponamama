@@ -1,8 +1,12 @@
 ﻿using Atlas.Application.Common.Constants;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByProvider;
 using Atlas.Application.CQRS.GoodToOrders.Commands.DeleteGoodToOrder;
 using Atlas.Application.CQRS.GoodToOrders.Commands.RecreateGoodToOrders;
 using Atlas.Application.CQRS.GoodToOrders.Commands.UpdateGoodToOrder;
 using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderListByOrder;
+using Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderPagedList;
+using Atlas.Application.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
@@ -22,6 +26,36 @@ namespace Atlas.WebApi.Controllers
         private readonly IMapper _mapper;
         public GoodToOrderController(IMapper mapper) =>
             _mapper = mapper;
+
+        /// <summary>
+        /// Gets the paged list of sold goods
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     GET /api/1.0/goodtoorder/paged
+        ///     
+        /// </remarks>
+        /// <param name="pageSize">Page size (int)</param>
+        /// <param name="pageIndex">Page index (int)</param>
+        /// <returns>Returns PageDto GoodToOrderLookupDto object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpGet("paged")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<PageDto<GoodToOrderLookupDto>>> GetAllPaged(
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 10)
+        {
+            var vm = await Mediator.Send(new GetGoodToOrderPagedListQuery
+            {
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            });
+
+            return Ok(vm);
+        }
 
         /// <summary>
         /// Gets the list of goods of an order by order id
