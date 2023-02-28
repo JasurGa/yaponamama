@@ -2,7 +2,7 @@
 
 namespace Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderPagedList
 {
-    public class GetGoodToOrderPagedListQueryValidator : AbstractValidator<GetGoodToOrderPagedListQuery>>
+    public class GetGoodToOrderPagedListQueryValidator : AbstractValidator<GetGoodToOrderPagedListQuery>
     {
         public GetGoodToOrderPagedListQueryValidator()
         {
