@@ -43,7 +43,7 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Queries.GetPagesByPromoAdve
 
         public int OrderNumber { get; set; }
 
-        public ICollection<Guid> GoodIds { get; set; }
+        public ICollection<Good> Goods { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -82,9 +82,8 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Queries.GetPagesByPromoAdve
                     opt.MapFrom(src => src.Background))
                 .ForMember(dst => dst.OrderNumber, opt =>
                     opt.MapFrom(src => src.OrderNumber))
-                .ForMember(dst => dst.GoodIds, opt =>
-                    opt.MapFrom(src => src.PromoAdvertiseGoods.Select(x =>
-                        x.GoodId)));
+                .ForMember(dst => dst.Goods, opt =>
+                    opt.MapFrom(src => src.PromoAdvertiseGoods.Select(x => x.Good)));
         }
     }
 }
