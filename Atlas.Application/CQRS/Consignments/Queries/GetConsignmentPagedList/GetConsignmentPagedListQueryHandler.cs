@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
         public async Task<PageDto<ConsignmentLookupDto>> Handle(GetConsignmentPagedListQuery request, CancellationToken cancellationToken)
         {
             var query = _dbContext.Consignments
-                .Where(x => x.IsDeleted == request.ShowDeleted)
+                .Where(x => x.IsDeleted == request.ShowDeleted && x.DisposeToConsignment == null)
                 .AsQueryable();
 
             if (request.ShowExpired)
@@ -37,6 +37,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
 
             var consignmentsQuery = query
                 .OrderByDynamic(request.Sortable, request.Ascending)
+                .OrderByDescending(x => x.ExpirateAt)
                 .ProjectTo<ConsignmentLookupDto>(_mapper.ConfigurationProvider);
 
             if (request.FilterCategoryId != null)
