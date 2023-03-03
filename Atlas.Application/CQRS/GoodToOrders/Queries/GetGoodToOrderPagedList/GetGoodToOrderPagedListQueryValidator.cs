@@ -6,7 +6,7 @@ namespace Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderPagedList
     {
         public GetGoodToOrderPagedListQueryValidator()
         {
-            RuleFor(x => x.PageIndex)
+            RuleFor(x => x.PageSize)
                 .NotEmpty();
         }
     }
