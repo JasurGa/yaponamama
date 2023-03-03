@@ -66,9 +66,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="200">Success</response>
         /// <response code="404">NotFound</response>
         /// <response code="401">If the user is unauthorized</response>
-        [Authorize]
         [HttpPost("calculateprice")]
-        [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
