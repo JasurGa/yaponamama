@@ -42,6 +42,15 @@ namespace Atlas.Application.CQRS.FavoriteGoods.Commands.CreateManyFavoriteGoods
             var result = new List<Guid>();
             foreach (var goodId in request.GoodIds)
             {
+                var duplicate = await _dbContext.FavoriteGoods.FirstOrDefaultAsync(x =>
+                    x.GoodId == goodId && x.ClientId == request.ClientId,
+                        cancellationToken);
+
+                if (duplicate != null)
+                {
+                    continue;
+                }
+
                 var favoriteGood = new FavoriteGood
                 {
                     Id          = Guid.NewGuid(),

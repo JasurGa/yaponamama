@@ -20,6 +20,8 @@ namespace Atlas.WebApi.Models
 
         public int AddressType { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateAddressToClientDto, CreateAddressToClientCommand>()
@@ -36,7 +38,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(x => x.Longitude, opt =>
                     opt.MapFrom(x => x.Longitude))
                 .ForMember(x => x.AddressType, opt =>
-                    opt.MapFrom(x => x.AddressType));
+                    opt.MapFrom(x => x.AddressType))
+                .ForMember(x => x.PhoneNumber, opt =>
+                    opt.MapFrom(x => x.PhoneNumber));
         }
     }
 }

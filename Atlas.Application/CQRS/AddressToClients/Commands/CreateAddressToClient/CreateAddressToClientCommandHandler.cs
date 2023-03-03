@@ -42,6 +42,7 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.CreateAddressToClient
                 Latitude    = request.Latitude,
                 Longitude   = request.Longitude,
                 AddressType = request.AddressType,
+                PhoneNumber = request.PhoneNumber,
                 CreatedAt   = DateTime.UtcNow,
             };
 

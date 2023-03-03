@@ -22,5 +22,7 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.UpdateAddressToClient
         public float Longitude { get; set; }
 
         public int AddressType { get; set; }
+
+        public string PhoneNumber { get; set; }
     }
 }

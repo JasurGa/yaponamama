@@ -21,6 +21,8 @@ namespace Atlas.Domain
 
         public int AddressType { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public Client Client { get; set; }

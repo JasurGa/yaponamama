@@ -25,6 +25,8 @@ namespace Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientDeta
 
         public int AddressType { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public void Mapping(Profile profile)
@@ -48,6 +50,8 @@ namespace Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientDeta
                     opt => opt.MapFrom(e => e.Longitude))
                 .ForMember(eVm => eVm.AddressType,
                     opt => opt.MapFrom(e => e.AddressType))
+                .ForMember(eVm => eVm.PhoneNumber,
+                    opt => opt.MapFrom(e => e.PhoneNumber))
                 .ForMember(eVm => eVm.CreatedAt,
                     opt => opt.MapFrom(e => e.CreatedAt));
         }

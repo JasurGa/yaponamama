@@ -33,6 +33,7 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.UpdateAddressToClient
             address.Latitude    = request.Latitude;
             address.Longitude   = request.Longitude;
             address.AddressType = request.AddressType;
+            address.PhoneNumber = request.PhoneNumber;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
