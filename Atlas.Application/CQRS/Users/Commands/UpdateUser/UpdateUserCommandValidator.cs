@@ -16,9 +16,6 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
             RuleFor(x => x.LastName)
                 .NotEmpty();
 
-            RuleFor(x => x.MiddleName)
-                .NotEmpty();
-
             RuleFor(x => x.Birthday)
                 .NotEmpty();
 
