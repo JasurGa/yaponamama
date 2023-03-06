@@ -565,16 +565,24 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Courier, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllPagedAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10,
-            [FromQuery] bool? filterIsPrePayed = null, [FromQuery] int? filterPaymentType = null, [FromQuery] int? filterStatus = null)
+        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllPagedAsync(
+            [FromQuery] int       pageIndex           = 0, 
+            [FromQuery] int       pageSize            = 10,
+            [FromQuery] bool?     filterIsPrePayed    = null, 
+            [FromQuery] int?      filterPaymentType   = null, 
+            [FromQuery] int?      filterStatus        = null,
+            [FromQuery] DateTime? filterFromCreatedAt = null,
+            [FromQuery] DateTime? filterToCreatedAt   = null)
         {
             var vm = await Mediator.Send(new GetOrderPagedListQuery
             {
-                PageIndex         = pageIndex,
-                PageSize          = pageSize,
-                FilterIsPrePayed  = filterIsPrePayed,
-                FilterPaymentType = filterPaymentType,
-                FilterStatus      = filterStatus,
+                PageIndex           = pageIndex,
+                PageSize            = pageSize,
+                FilterIsPrePayed    = filterIsPrePayed,
+                FilterPaymentType   = filterPaymentType,
+                FilterStatus        = filterStatus,
+                FilterFromCreatedAt = filterFromCreatedAt,
+                FilterToCreatedAt   = filterToCreatedAt
             });
 
             return Ok(vm);

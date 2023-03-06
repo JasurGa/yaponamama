@@ -126,15 +126,15 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                 .ForMember(dst => dst.IsPickup, opt =>
                     opt.MapFrom(src => src.IsPickup))
                 .ForMember(dst => dst.SellingPrice, opt =>
-                    opt.MapFrom(src => Math.Ceiling(src.SellingPrice)))
+                    opt.MapFrom(src => (long)Math.Ceiling(src.SellingPrice)))
                 .ForMember(dst => dst.ShippingPrice, opt =>
-                    opt.MapFrom(src => Math.Ceiling(src.ShippingPrice)))
+                    opt.MapFrom(src => (long)Math.Ceiling(src.ShippingPrice)))
                 .ForMember(dst => dst.Status, opt =>
                     opt.MapFrom(src => src.Status))
                 .ForMember(dst => dst.IsPrePayed, opt =>
                     opt.MapFrom(src => src.IsPrePayed))
                 .ForMember(dst => dst.PurchasePrice, opt =>
-                    opt.MapFrom(src => Math.Ceiling(src.PurchasePrice)))
+                    opt.MapFrom(src => (long)Math.Ceiling(src.PurchasePrice)))
                 .ForMember(dst => dst.DeliverAt, opt =>
                     opt.MapFrom(src => src.DeliverAt))
                 .ForMember(dst => dst.CanRefund, opt =>

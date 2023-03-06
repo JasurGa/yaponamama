@@ -36,6 +36,14 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByAdmin
             {
                 orders = orders.Where(x => x.Status == request.FilterStatus);
             }
+            if (request.FilterFromCreatedAt != null)
+            {
+                orders = orders.Where(x => x.CreatedAt >= request.FilterFromCreatedAt);
+            }
+            if (request.FilterToCreatedAt != null)
+            {
+                orders = orders.Where(x => x.CreatedAt <= request.FilterToCreatedAt);
+            }
 
             var ordersCount = await orders.CountAsync(cancellationToken);
             var pagedOrders = await orders.OrderByDescending(x => x.CreatedAt)
