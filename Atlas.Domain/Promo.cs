@@ -11,6 +11,8 @@ namespace Atlas.Domain
 
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public DateTime ExpiresAt { get; set; }
 
         public int DiscountPrice { get; set; }

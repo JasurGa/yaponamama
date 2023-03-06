@@ -32,6 +32,7 @@ namespace Atlas.Application.CQRS.Promos.Commands.UpdatePromo
 
             promo.ClientId        = request.ClientId;
             promo.Name            = request.Name;
+            promo.Description     = request.Description;
             promo.DiscountPercent = request.DiscountPercent;
             promo.DiscountPrice   = request.DiscountPrice;
             promo.ForAllGoods     = request.ForAllGoods;

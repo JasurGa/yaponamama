@@ -9,6 +9,8 @@ namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
 
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public int DiscountPrice { get; set; }
 
         public float DiscountPercent { get; set; }

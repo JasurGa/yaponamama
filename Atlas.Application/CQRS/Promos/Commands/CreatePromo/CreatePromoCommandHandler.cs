@@ -24,6 +24,7 @@ namespace Atlas.Application.CQRS.Promos.Commands.CreatePromo
                 Id              = Guid.NewGuid(),
                 ClientId        = request.ClientId,
                 Name            = request.Name,
+                Description     = request.Description,
                 DiscountPrice   = request.DiscountPrice,
                 DiscountPercent = request.DiscountPercent,
                 ForAllGoods     = request.ForAllGoods,
