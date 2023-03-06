@@ -1,6 +1,7 @@
 ﻿using Atlas.Application.CQRS.Clients.Queries.GetClientsList;
 using Atlas.Application.Models;
 using MediatR;
+using System;
 
 namespace Atlas.Application.CQRS.Clients.Queries.GetClientPagedList
 {
@@ -16,5 +17,8 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientPagedList
 
         public bool Ascending { get; set; }
 
+        public DateTime? FilterFromCreatedAt { get; set; }
+
+        public DateTime? FilterToCreatedAt { get; set; }
     }
 }

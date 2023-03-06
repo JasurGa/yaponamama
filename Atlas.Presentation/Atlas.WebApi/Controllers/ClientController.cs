@@ -70,7 +70,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/client/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=User.CreatedAt&amp;ascending=true
+        ///     GET /api/1.0/client/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=User.CreatedAt&amp;ascending=true&amp;filterFromCreatedAt=null&amp;filterToCreatedAt=null
         ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted</param>
@@ -78,6 +78,8 @@ namespace Atlas.WebApi.Controllers
         /// <param name="pageSize">Page size</param>
         /// <param name="sortable">Property to sort by</param>
         /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
+        /// <param name="filterFromCreatedAt">Filter for from created at (datetime)</param>
+        /// <param name="filterToCreatedAt">Filter for to created at (datetime)</param> 
         /// <returns>Returns PageDto ClientLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -87,19 +89,23 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<ClientLookupDto>>> GetAllPagedAsync(
-            [FromQuery] bool showDeleted = false, 
-            [FromQuery] int pageIndex    = 0, 
-            [FromQuery] int pageSize     = 10,
-            [FromQuery] string sortable  = "User.CreatedAt",
-            [FromQuery] bool ascending   = true)
+            [FromQuery] bool      showDeleted         = false, 
+            [FromQuery] int       pageIndex           = 0, 
+            [FromQuery] int       pageSize            = 10,
+            [FromQuery] string    sortable            = "User.CreatedAt",
+            [FromQuery] bool      ascending           = true,
+            [FromQuery] DateTime? filterFromCreatedAt = null,
+            [FromQuery] DateTime? filterToCreatedAt   = null)
         {
             var vm = await Mediator.Send(new GetClientPagedListQuery
             {
-                ShowDeleted = showDeleted,
-                PageIndex   = pageIndex,
-                PageSize    = pageSize,
-                Sortable    = sortable,
-                Ascending   = ascending
+                ShowDeleted         = showDeleted,
+                PageIndex           = pageIndex,
+                PageSize            = pageSize,
+                Sortable            = sortable,
+                Ascending           = ascending,
+                FilterFromCreatedAt = filterFromCreatedAt,
+                FilterToCreatedAt   = filterToCreatedAt
             });
 
             return Ok(vm);

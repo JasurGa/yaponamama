@@ -23,12 +23,21 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientPagedList
 
         public async Task<PageDto<ClientLookupDto>> Handle(GetClientPagedListQuery request, CancellationToken cancellationToken)
         {
-            var clientsCount = await _dbContext.Clients.CountAsync(x =>
-                x.IsDeleted == request.ShowDeleted, 
-                    cancellationToken);
+            var clientsQuery = _dbContext.Clients.Include(x => x.User)
+                .Where(x => x.IsDeleted == request.ShowDeleted);
 
-            var clients = await _dbContext.Clients
-                .Where(x => x.IsDeleted == request.ShowDeleted)
+            if (request.FilterFromCreatedAt != null)
+            {
+                clientsQuery = clientsQuery.Where(x => x.User.CreatedAt >= request.FilterFromCreatedAt);
+            }
+            if (request.FilterToCreatedAt != null)
+            {
+                clientsQuery = clientsQuery.Where(x => x.User.CreatedAt <= request.FilterToCreatedAt);
+            }
+
+            var clientsCount = await clientsQuery.CountAsync(cancellationToken);
+
+            var clients = await clientsQuery
                 .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
@@ -38,10 +47,10 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientPagedList
 
             return new PageDto<ClientLookupDto>
             {
-                PageIndex = request.PageIndex,
+                PageIndex  = request.PageIndex,
                 TotalCount = clientsCount,
-                PageCount = (int)Math.Ceiling((double)clientsCount / request.PageSize),
-                Data = clients,
+                PageCount  = (int)Math.Ceiling((double)clientsCount / request.PageSize),
+                Data       = clients,
             };
         }
     }
