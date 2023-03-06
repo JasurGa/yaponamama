@@ -74,17 +74,21 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<PromoLookupDto>>> GetAllPagedAsync(
-            [FromQuery] int    pageIndex = 0, 
-            [FromQuery] int    pageSize  = 10,
-            [FromQuery] string sortable  = "Name",
-            [FromQuery] bool   ascending = true) 
+            [FromQuery] int       pageIndex           = 0, 
+            [FromQuery] int       pageSize            = 10,
+            [FromQuery] string    sortable            = "Name",
+            [FromQuery] bool      ascending           = true,
+            [FromQuery] DateTime? filterFromExpiresAt = null,
+            [FromQuery] DateTime? filterToExpiresAt   = null) 
         {
             var vm = await Mediator.Send(new GetPromoPagedListQuery 
             { 
-                PageIndex = pageIndex,
-                PageSize  = pageSize,
-                Sortable  = sortable,
-                Ascending = ascending,
+                PageIndex           = pageIndex,
+                PageSize            = pageSize,
+                Sortable            = sortable,
+                Ascending           = ascending,
+                FilterFromExpiresAt = filterFromExpiresAt,
+                FilterToExpiresAt   = filterToExpiresAt
             });
 
             return Ok(vm);

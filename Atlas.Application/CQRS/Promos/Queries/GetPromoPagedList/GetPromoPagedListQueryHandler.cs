@@ -23,9 +23,22 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList
 
         public async Task<PageDto<PromoLookupDto>> Handle(GetPromoPagedListQuery request, CancellationToken cancellationToken)
         {
-            var promosCount = await _dbContext.Promos.CountAsync(cancellationToken);
+            var promosQuery = _dbContext.Promos.Select(x => x);
+
+            if (request.FilterFromExpiresAt != null)
+            {
+                promosQuery = promosQuery.Where(x => 
+                    x.ExpiresAt >= request.FilterFromExpiresAt);
+            }
+            if (request.FilterToExpiresAt != null)
+            {
+                promosQuery = promosQuery.Where(x =>
+                    x.ExpiresAt <= request.FilterToExpiresAt);
+            }
+
+            var promosCount = await promosQuery.CountAsync(cancellationToken);
             
-            var promos = await _dbContext.Promos
+            var promos = await promosQuery
                 .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)

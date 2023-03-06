@@ -1,6 +1,7 @@
 ﻿using Atlas.Application.CQRS.Promos.Queries.GetPromoList;
 using Atlas.Application.Models;
 using MediatR;
+using System;
 
 namespace Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList
 {
@@ -13,5 +14,9 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList
         public string Sortable { get; set; }
         
         public bool Ascending { get; set; }
+
+        public DateTime? FilterFromExpiresAt { get; set; }
+
+        public DateTime? FilterToExpiresAt { get; set; }
     }
 }
