@@ -32,6 +32,11 @@ namespace Atlas.Identity.Controllers
         public async Task<IActionResult> SendSmsAsync([FromBody] SendVerifySmsDto sendVerifySmsDto,
             CancellationToken cancellationToken)
         {
+            if (!sendVerifySmsDto.PhoneNumber.StartsWith("+998"))
+            {
+                return BadRequest("The phone number must starts with \"+998\"!");
+            }
+
             var oldVerificationCode = await _dbContext.VerifyCodes.FirstOrDefaultAsync(x =>
                 x.PhoneNumber == sendVerifySmsDto.PhoneNumber, cancellationToken);
 
@@ -69,6 +74,11 @@ namespace Atlas.Identity.Controllers
         public async Task<IActionResult> VerifyPhoneAsync([FromBody] VerifyPhoneDto verifyPhoneDto,
             CancellationToken cancellationToken)
         {
+            if (!verifyPhoneDto.PhoneNumber.StartsWith("+998"))
+            {
+                return BadRequest("The phone number must starts with \"+998\"!");
+            }
+
             var verificationCode = await _dbContext.VerifyCodes
                 .FirstOrDefaultAsync(x => x.PhoneNumber == verifyPhoneDto.PhoneNumber &&
                     x.VerificationCode == verifyPhoneDto.VerificationCode, cancellationToken);

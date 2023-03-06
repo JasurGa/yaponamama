@@ -126,6 +126,11 @@ namespace Atlas.Identity.Controllers
                 return BadRequest("This phone number is already registered!");
             }
 
+            if (!registerDto.PhoneNumber.StartsWith("+998"))
+            {
+                return BadRequest("The phone number must starts with \"+998\"!");
+            }
+
             if (!Enum.IsDefined(typeof(UserSex), registerDto.Sex))
             {
                 throw new NotFoundException(nameof(UserSex), registerDto.Sex);
