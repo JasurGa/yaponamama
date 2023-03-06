@@ -63,13 +63,13 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
                 .ForMember(dst => dst.Courier, opt =>
                     opt.MapFrom(src => src.Courier))
                 .ForMember(dst => dst.Price, opt =>
-                    opt.MapFrom(src => Math.Ceiling(src.SellingPrice) + Math.Ceiling(src.ShippingPrice)))
+                    opt.MapFrom(src => (long)(Math.Ceiling(src.SellingPrice) + Math.Ceiling(src.ShippingPrice))))
                 .ForMember(dst => dst.SellingPrice, opt =>
-                    opt.MapFrom(src => Math.Ceiling(src.SellingPrice)))
+                    opt.MapFrom(src => (long)Math.Ceiling(src.SellingPrice)))
                 .ForMember(dst => dst.ShippingPrice, opt =>
-                    opt.MapFrom(src => Math.Ceiling(src.ShippingPrice)))
+                    opt.MapFrom(src => (long)Math.Ceiling(src.ShippingPrice)))
                 .ForMember(dst => dst.PurchasePrice, opt =>
-                    opt.MapFrom(src => Math.Ceiling(src.PurchasePrice)))
+                    opt.MapFrom(src => (long)Math.Ceiling(src.PurchasePrice)))
                 .ForMember(dst => dst.GoodCount, opt =>
                     opt.MapFrom(src => src.GoodToOrders.Sum(x => x.Count)))
                 .ForMember(dst => dst.Status, opt =>
