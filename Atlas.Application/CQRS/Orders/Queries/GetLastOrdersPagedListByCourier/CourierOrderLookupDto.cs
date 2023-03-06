@@ -31,13 +31,13 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
 
         public float ToLatitude { get; set; }
 
-        public float PurchasePrice { get; set; }
+        public long PurchasePrice { get; set; }
 
-        public float SellingPrice { get; set; }
+        public long SellingPrice { get; set; }
 
-        public float ShippingPrice { get; set; }
+        public long ShippingPrice { get; set; }
 
-        public float TotalPrice
+        public long TotalPrice
         {
             get
             {
@@ -91,11 +91,11 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
                 .ForMember(dst => dst.ToLongitude, opt =>
                     opt.MapFrom(src => src.ToLongitude))
                 .ForMember(dst => dst.PurchasePrice, opt =>
-                    opt.MapFrom(src => src.PurchasePrice))
+                    opt.MapFrom(src => Math.Ceiling(src.PurchasePrice)))
                 .ForMember(dst => dst.SellingPrice, opt =>
-                    opt.MapFrom(src => src.SellingPrice))
+                    opt.MapFrom(src => Math.Ceiling(src.SellingPrice)))
                 .ForMember(dst => dst.ShippingPrice, opt =>
-                    opt.MapFrom(src => src.ShippingPrice))
+                    opt.MapFrom(src => Math.Ceiling(src.ShippingPrice)))
                 .ForMember(dst => dst.Comment, opt =>
                     opt.MapFrom(src => src.Comment))
                 .ForMember(dst => dst.Apartment, opt =>

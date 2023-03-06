@@ -132,8 +132,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice
 
             return new PriceDetailsVm
             {
-                SellingPrice  = sellingPrice,
-                ShippingPrice = shippingPrice
+                SellingPrice  = (long)Math.Ceiling(sellingPrice),
+                ShippingPrice = (long)Math.Ceiling(shippingPrice)
             };
         }
     }

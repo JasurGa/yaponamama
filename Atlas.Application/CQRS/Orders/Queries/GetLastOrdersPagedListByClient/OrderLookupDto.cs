@@ -39,9 +39,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public bool IsPickup { get; set; }
 
-        public float PurchasePrice { get; set; }
+        public long PurchasePrice { get; set; }
 
-        public float SellingPrice { get; set; }
+        public long SellingPrice { get; set; }
 
         public int PaymentType { get; set; }
 
@@ -77,9 +77,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                 .ForMember(dst => dst.IsPickup, opt =>
                     opt.MapFrom(src => src.IsPickup))
                 .ForMember(dst => dst.PurchasePrice, opt =>
-                    opt.MapFrom(src => src.PurchasePrice))
+                    opt.MapFrom(src => Math.Ceiling(src.PurchasePrice)))
                 .ForMember(dst => dst.SellingPrice, opt =>
-                    opt.MapFrom(src => src.SellingPrice))
+                    opt.MapFrom(src => Math.Ceiling(src.SellingPrice)))
                 .ForMember(dst => dst.PaymentType, opt =>
                     opt.MapFrom(src => src.PaymentType))
                 .ForMember(dst => dst.IsPrePayed, opt =>

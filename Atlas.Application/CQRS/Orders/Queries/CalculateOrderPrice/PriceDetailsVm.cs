@@ -2,11 +2,11 @@
 {
     public class PriceDetailsVm
     {
-        public float ShippingPrice { get; set; }
+        public long ShippingPrice { get; set; }
 
-        public float SellingPrice { get; set; }
+        public long SellingPrice { get; set; }
 
-        public float TotalPrice
+        public long TotalPrice
         {
             get
             {
