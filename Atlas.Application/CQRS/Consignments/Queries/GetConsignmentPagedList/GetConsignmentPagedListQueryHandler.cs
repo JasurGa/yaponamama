@@ -65,6 +65,26 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
 
                 consignmentsQuery = consignmentsQuery.Where(x => goodIds.Contains(x.GoodId));
             }
+            if (request.FilterFromPurchasedAt != null)
+            {
+                consignmentsQuery = consignmentsQuery
+                    .Where(x => x.PurchasedAt >= request.FilterFromPurchasedAt);
+            }
+            if (request.FilterToPurchasedAt != null)
+            {
+                consignmentsQuery = consignmentsQuery
+                    .Where(x => x.PurchasedAt <= request.FilterToPurchasedAt);
+            }
+            if (request.FilterFromExpireAt != null)
+            {
+                consignmentsQuery = consignmentsQuery
+                    .Where(x => x.PurchasedAt >= request.FilterFromExpireAt);
+            }
+            if (request.FilterToExpireAt != null)
+            {
+                consignmentsQuery = consignmentsQuery
+                    .Where(x => x.PurchasedAt <= request.FilterToExpireAt);
+            }
 
             var consignmentsCount = await consignmentsQuery
                 .CountAsync(cancellationToken);

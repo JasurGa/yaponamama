@@ -20,5 +20,13 @@ namespace Atlas.Application.CQRS.Consignments.Queries.GetConsignmentPagedList
         public bool Ascending { get; set; }
 
         public Guid? FilterCategoryId { get; set; }
+
+        public DateTime? FilterFromPurchasedAt { get; set; }
+
+        public DateTime? FilterToPurchasedAt { get; set; }
+
+        public DateTime? FilterFromExpireAt { get; set; }
+
+        public DateTime? FilterToExpireAt { get; set; }
     }
 }

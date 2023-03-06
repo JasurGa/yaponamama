@@ -552,11 +552,16 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/order/paged?pageIndex=0&amp;pageSize=10&amp;filterIsPrePayed=false&amp;filterPaymentType=0&amp;filterStatus=0
+        ///     GET /api/1.0/order/paged?pageIndex=0&amp;pageSize=10&amp;filterIsPrePayed=false&amp;filterPaymentType=0&amp;filterStatus=0&amp;filterFromCreated=null&amp;filterToCreated=null,
         ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
+        /// <param name="filterIsPrePayed">Filter param for pre payed (bool)</param>
+        /// <param name="filterPaymentType">Filter param for payment type (int)</param>
+        /// <param name="filterStatus">Filter param for status (int)</param>
+        /// <param name="filterFromCreatedAt">Filter for from created at (datetime)</param>
+        /// <param name="filterToCreatedAt">Filter for to created at (datetime)</param>
         /// <returns>Returns PageDto OrderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>

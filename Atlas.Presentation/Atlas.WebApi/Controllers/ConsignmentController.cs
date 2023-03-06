@@ -108,7 +108,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/consigment/paged?pageIndex=0&amp;pageSize=10&amp;showDeleted=false&amp;sortable=Name&amp;ascending=true
+        ///     GET /api/1.0/consigment/paged?pageIndex=0&amp;pageSize=10&amp;showDeleted=false&amp;sortable=Name&amp;ascending=true&amp;filterFromPurchasedAt=null&amp;filterToPurchasedAt=null&amp;filterFromExpireAt=null&amp;filterToExpireAt=null
         /// 
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
@@ -118,6 +118,10 @@ namespace Atlas.WebApi.Controllers
         /// <param name="sortable">Property to sort by</param>
         /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
         /// <param name="filterCategoryId">Filtering consignment goods by category</param>
+        /// <param name="filterFromPurchasedAt">Filter param for from purchased at (datetime)</param>
+        /// <param name="filterToPurchasedAt">Filter param for to purchased at (datetime)</param>
+        /// <param name="filterFromExpireAt">Filter param for from expire at (datetime)</param>
+        /// <param name="filterToExpireAt">Filter param for to expire at (datetime)</param>
         /// <returns>Returns PageDto ConsignmentLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -127,23 +131,31 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<ConsignmentLookupDto>>> GetAllPagedAsync(
-            [FromQuery] int    pageIndex        = 0, 
-            [FromQuery] int    pageSize         = 10,
-            [FromQuery] bool   showDeleted      = false,
-            [FromQuery] bool   showExpired      = false,
-            [FromQuery] string sortable         = "ShelfLocation",
-            [FromQuery] bool   ascending        = true,
-            [FromQuery] Guid?  filterCategoryId = null)
+            [FromQuery] int       pageIndex             = 0, 
+            [FromQuery] int       pageSize              = 10,
+            [FromQuery] bool      showDeleted           = false,
+            [FromQuery] bool      showExpired           = false,
+            [FromQuery] string    sortable              = "ShelfLocation",
+            [FromQuery] bool      ascending             = true,
+            [FromQuery] Guid?     filterCategoryId      = null,
+            [FromQuery] DateTime? filterFromPurchasedAt = null,
+            [FromQuery] DateTime? filterToPurchasedAt   = null,
+            [FromQuery] DateTime? filterFromExpireAt    = null,
+            [FromQuery] DateTime? filterToExpireAt      = null)
         {
             var vm = await Mediator.Send(new GetConsignmentPagedListQuery
             {
-                PageIndex        = pageIndex,
-                PageSize         = pageSize,
-                ShowDeleted      = showDeleted,
-                ShowExpired      = showExpired,
-                Sortable         = sortable,
-                Ascending        = ascending,
-                FilterCategoryId = filterCategoryId
+                PageIndex             = pageIndex,
+                PageSize              = pageSize,
+                ShowDeleted           = showDeleted,
+                ShowExpired           = showExpired,
+                Sortable              = sortable,
+                Ascending             = ascending,
+                FilterCategoryId      = filterCategoryId,
+                FilterFromPurchasedAt = filterFromPurchasedAt,
+                FilterToPurchasedAt   = filterToPurchasedAt,
+                FilterFromExpireAt    = filterFromExpireAt,
+                FilterToExpireAt      = filterToExpireAt
             });
 
             return Ok(vm);
