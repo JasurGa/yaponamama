@@ -65,6 +65,8 @@ namespace Atlas.WebApi.Controllers
         /// <param name="pageSize">Page size</param>
         /// <param name="sortable">Property to sort by</param>
         /// <param name="ascending">Order: Ascending (true) || Descending (false)</param>
+        /// <param name="filterFromExpiresAt">Filter param for from expires at (datetime)</param>
+        /// <param name="filterToExpiresAt">Filter param for to expires at (datetime)</param>
         /// <returns>Returns PageDto PromoLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>

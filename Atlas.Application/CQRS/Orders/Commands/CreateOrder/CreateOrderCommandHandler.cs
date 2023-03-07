@@ -175,6 +175,11 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
         private async Task<Courier> GetCourierAsync(CreateOrderCommand request,
             CancellationToken cancellationToken, Store store)
         {
+            if (request.IsPickup)
+            {
+                return null;
+            }
+
             var hours = (DateTime.UtcNow.Hour + 5) % 24;
             if (hours == 0) { hours = 1; }
             var currentRate = (int)Math.Ceiling(hours / 8.0) - 1;
@@ -277,7 +282,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             }
 
             var foundCourier = await GetCourierAsync(request, cancellationToken, foundStore);
-            if (foundCourier == null)
+            if (!request.IsPickup && foundCourier == null)
             {
                 throw new NotFoundException(nameof(Courier), request.ClientId.ToString());
             }
@@ -310,7 +315,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 ShippingPrice         = shippingPrice,
                 PurchasePrice         = purchasePrice,
                 StoreId               = foundStore.Id,
-                CourierId             = foundCourier.Id,
+                CourierId             = request.IsPickup ? Guid.Empty : foundCourier.Id,
                 PromoId               = foundPromo != null ? foundPromo.Id : null,
                 DeliverAt             = request.DeliverAt,
                 IsPrePayed            = false,
