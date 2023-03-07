@@ -17,6 +17,25 @@ namespace Atlas.Application.Services
             return !isDevVersionBot ? "https://botapi.oqot.uz" : "https://botapidev.oqot.uz";
         }
 
+        public async Task<string> SendPaymentAsync(long telegramUserId, bool isDevVersionBot, Guid orderId)
+        {
+            HttpResponseMessage response;
+            string responseString;
+
+            try
+            {
+                response = await client.GetAsync($"{GetUrlByIsDev(isDevVersionBot)}/callback/pay"
+                                               + $"?user_id={telegramUserId}&order_id={orderId.ToString()}");
+                responseString = await response.Content.ReadAsStringAsync();
+            }
+            catch (HttpRequestException)
+            {
+                throw new Exception("Exception: Can't send pay request!");
+            }
+
+            return responseString;
+        }
+
         public async Task<string> UpdateStatusAsync(long telegramUserId, bool isDevVersionBot, Guid orderId, int status)
         {
             HttpResponseMessage response;

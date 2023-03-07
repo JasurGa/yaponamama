@@ -1,5 +1,7 @@
 ﻿using Atlas.Application.Common.Exceptions;
+using Atlas.Application.Enums;
 using Atlas.Application.Interfaces;
+using Atlas.Application.Services;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +12,11 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderPaymentType
 {
     public class UpdateOrderPaymentTypeCommandHandler : IRequestHandler<UpdateOrderPaymentTypeCommand>
     {
-        private readonly IAtlasDbContext _dbContext;
+        private readonly IAtlasDbContext      _dbContext;
+        private readonly IBotCallbacksService _botCallbacksService;
 
-        public UpdateOrderPaymentTypeCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public UpdateOrderPaymentTypeCommandHandler(IAtlasDbContext dbContext, IBotCallbacksService botCallbacksService) =>
+            (_dbContext, _botCallbacksService) = (dbContext, botCallbacksService);
 
         public async Task<Unit> Handle(UpdateOrderPaymentTypeCommand request, CancellationToken cancellationToken)
         {
@@ -28,6 +31,11 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderPaymentType
             order.PaymentType = request.PaymentType;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
+            if (order.TelegramUserId != null && request.PaymentType == (int)PaymentType.Payme)
+            {
+                await _botCallbacksService.SendPaymentAsync(order.TelegramUserId.Value, 
+                    order.IsDevVersionBot, order.Id);
+            }
 
             return Unit.Value;
         }
