@@ -56,14 +56,13 @@ namespace Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice
             return foundPromo;
         }
 
-        private async Task<float> GetPurchasePriceAsync(CalculateOrderPriceQuery request,
-            CancellationToken cancellationToken)
+        private async Task<float> GetPurchasePriceAsync(CalculateOrderPriceQuery request)
         {
             var calculatedPrice = 0.0f;
             foreach (var createGoodToOrder in request.GoodToOrders)
             {
                 var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
-                    x.Id == createGoodToOrder.GoodId, cancellationToken);
+                    x.Id == createGoodToOrder.GoodId);
 
                 var priceForGoods = good.PurchasePrice * createGoodToOrder.Count;
 
@@ -73,10 +72,30 @@ namespace Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice
             return calculatedPrice;
         }
 
-        private async Task<float> GetSellingPriceAsync(CalculateOrderPriceQuery request,
-            CancellationToken cancellationToken, Promo promo)
+        private async Task<float> GetSellingPriceAsync(CalculateOrderPriceQuery request)
         {
             var calculatedPrice = 0.0f;
+            foreach (var createGoodToOrder in request.GoodToOrders)
+            {
+                var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
+                    x.Id == createGoodToOrder.GoodId);
+
+                if (good is null)
+                {
+                    continue;
+                }
+
+                var priceForGood = good.SellingPrice * createGoodToOrder.Count;
+                calculatedPrice += priceForGood;
+            }
+
+            return calculatedPrice;
+        }
+
+        private async Task<float> GetSellingPriceDiscountAsync(CalculateOrderPriceQuery request, Promo promo)
+        {
+            var calculatedPriceWithDiscount   = 0.0f;
+            var calculatePriceWithoutDiscount = 0.0f;
 
             var promoGoods = new List<Guid>();
             if (promo != null && promo.ForAllGoods)
@@ -87,53 +106,64 @@ namespace Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice
             foreach (var createGoodToOrder in request.GoodToOrders)
             {
                 var good = await _dbContext.Goods.FirstOrDefaultAsync(x =>
-                    x.Id == createGoodToOrder.GoodId, cancellationToken);
+                    x.Id == createGoodToOrder.GoodId);
 
-                var priceForGood = good.SellingPrice * createGoodToOrder.Count *
+                var priceForGoodWithoutDiscount = good.SellingPrice * createGoodToOrder.Count;
+                var priceForGoodWithDiscount = good.SellingPrice * createGoodToOrder.Count *
                     (1 - good.Discount);
 
                 if (promoGoods.Contains(createGoodToOrder.GoodId))
                 {
-                    priceForGood = priceForGood * (1 - promo.DiscountPrice) - promo.DiscountPrice;
-                    if (priceForGood < 0)
-                        priceForGood = 0;
+                    priceForGoodWithDiscount = priceForGoodWithDiscount * (1 - promo.DiscountPercent) - promo.DiscountPrice;
+                    if (priceForGoodWithDiscount < 0)
+                        priceForGoodWithDiscount = 0;
                 }
 
-                calculatedPrice += priceForGood;
+                calculatedPriceWithDiscount   += priceForGoodWithDiscount;
+                calculatePriceWithoutDiscount += priceForGoodWithoutDiscount;
             }
 
             if ((promo != null) && promo.ForAllGoods)
             {
-                calculatedPrice *= (1 - promo.DiscountPercent);
-                calculatedPrice -= promo.DiscountPrice;
+                calculatedPriceWithDiscount *= (1 - promo.DiscountPercent);
+                calculatedPriceWithDiscount -= promo.DiscountPrice;
             }
 
-            return calculatedPrice > 0 ? calculatedPrice : 0.0f;
+            calculatedPriceWithDiscount = calculatedPriceWithDiscount > 0 ? calculatedPriceWithDiscount : 0.0f;
+            return calculatePriceWithoutDiscount - calculatedPriceWithDiscount;
         }
 
-        private async Task<float> GetShippingPriceAsync(CalculateOrderPriceQuery request,
-            CancellationToken cancellationToken, Promo promo)
+        private async Task<float> GetShippingPriceAsync(CalculateOrderPriceQuery request)
         {
             float deliveryPrice = DELIVERY_PRICE;
+            return request.IsPickup ? 0.0f : deliveryPrice;
+        }
+
+        private async Task<float> GetShippingPriceDiscountAsync(CalculateOrderPriceQuery request, Promo promo)
+        {
             if (promo != null && promo.FreeDelivery)
             {
-                deliveryPrice = 0.0f;
+                return await GetShippingPriceAsync(request);
             }
 
-            return request.IsPickup ? 0.0f : deliveryPrice;
+            return 0.0f;
         }
 
         public async Task<PriceDetailsVm> Handle(CalculateOrderPriceQuery request,
             CancellationToken cancellationToken)
         {
-            var foundPromo      = await GetPromoAsync(request, cancellationToken);
-            var sellingPrice    = await GetSellingPriceAsync(request, cancellationToken, foundPromo);
-            var shippingPrice   = await GetShippingPriceAsync(request, cancellationToken, foundPromo);
+            var foundPromo            = await GetPromoAsync(request, cancellationToken);
+            var sellingPrice          = await GetSellingPriceAsync(request);
+            var shippingPrice         = await GetShippingPriceAsync(request);
+            var sellingPriceDiscount  = await GetSellingPriceDiscountAsync(request, foundPromo);
+            var shippingPriceDiscount = await GetShippingPriceDiscountAsync(request, foundPromo);
 
             return new PriceDetailsVm
             {
-                SellingPrice  = (long)Math.Ceiling(sellingPrice),
-                ShippingPrice = (long)Math.Ceiling(shippingPrice)
+                SellingPrice          = (long)Math.Ceiling(sellingPrice),
+                ShippingPrice         = (long)Math.Ceiling(shippingPrice),
+                SellingPriceDiscount  = (long)Math.Ceiling(sellingPriceDiscount),
+                ShippingPriceDiscount = (long)Math.Ceiling(shippingPriceDiscount)
             };
         }
     }

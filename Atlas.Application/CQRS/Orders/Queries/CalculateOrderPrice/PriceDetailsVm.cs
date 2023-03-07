@@ -6,11 +6,15 @@
 
         public long SellingPrice { get; set; }
 
+        public long SellingPriceDiscount { get; set; }
+
+        public long ShippingPriceDiscount { get; set; }
+
         public long TotalPrice
         {
             get
             {
-                return ShippingPrice + SellingPrice;
+                return ShippingPrice + SellingPrice - (SellingPriceDiscount + ShippingPriceDiscount);
             }
         }
     }

@@ -102,7 +102,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
                 if (promoGoods.Contains(createGoodToOrder.GoodId))
                 {
-                    priceForGood = priceForGood * (1 - promo.DiscountPrice) - promo.DiscountPrice;
+                    priceForGood = priceForGood * (1 - promo.DiscountPercent) - promo.DiscountPrice;
                     if (priceForGood < 0)
                         priceForGood = 0;
                 }
