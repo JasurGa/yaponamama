@@ -31,7 +31,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderPaymentType
             order.PaymentType = request.PaymentType;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
-            if (order.TelegramUserId != null && request.PaymentType == (int)PaymentType.Payme)
+            if (order.TelegramUserId != null && request.PaymentType == (int)PaymentType.Terminal)
             {
                 await _botCallbacksService.SendPaymentAsync(order.TelegramUserId.Value, 
                     order.IsDevVersionBot, order.Id);
