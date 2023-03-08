@@ -28,10 +28,15 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderPaymentType
                 throw new NotFoundException(nameof(Order), request.Id);
             }
 
+            if (order.PaymentType == request.PaymentType)
+            {
+                return Unit.Value;
+            }
+
             order.PaymentType = request.PaymentType;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
-            if (order.TelegramUserId != null && request.PaymentType == (int)PaymentType.Terminal)
+            if (order.TelegramUserId != null && request.PaymentType == (int)PaymentType.Payme)
             {
                 await _botCallbacksService.SendPaymentAsync(order.TelegramUserId.Value, 
                     order.IsDevVersionBot, order.Id);
