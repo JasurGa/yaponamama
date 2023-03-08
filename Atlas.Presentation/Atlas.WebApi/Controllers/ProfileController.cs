@@ -5,6 +5,7 @@ using Atlas.Application.CQRS.Clients.Queries.GetClientDetails;
 using Atlas.Application.CQRS.Couriers.Commands.UpdateCourier;
 using Atlas.Application.CQRS.Couriers.Queries.GetCourierDetails;
 using Atlas.Application.CQRS.Users.Commands.UpdateUser;
+using Atlas.Application.CQRS.Users.Commands.UpdateUserLogin;
 using Atlas.Application.CQRS.Users.Queries.GetUserDetails;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
@@ -234,6 +235,45 @@ namespace Atlas.WebApi.Controllers
             });
 
             await Mediator.Send(command);
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Updates the user's login / phone number
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     PUT /api/1.0/profile/login
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "phoneNumber": "+998901234567"
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="updateUserLoginDto">UpdateUserLoginDto object</param>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPut("login")]
+        [AuthRoleFilter(new string[] { Roles.Client, Roles.Courier })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> UpdateProfileLoginAsync([FromBody] UpdateUserLoginDto updateUserLoginDto)
+        {
+            var command = _mapper.Map<UpdateUserLoginCommand>(updateUserLoginDto, opt =>
+            {
+                opt.AfterMap((src, dst) =>
+                {
+                    dst.Id = UserId;
+                });
+            });
+
+            await Mediator.Send(command);
+
             return NoContent();
         }
     }
