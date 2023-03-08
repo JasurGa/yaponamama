@@ -373,12 +373,15 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             },
             cancellationToken);
 
-            await _mediator.Send(new AttachNotificationToUserCommand
+            if (foundCourier != null)
             {
-                UserId         = foundCourier.UserId,
-                NotificationId = notificationId
-            },
-            cancellationToken);
+                await _mediator.Send(new AttachNotificationToUserCommand
+                {
+                    UserId         = foundCourier.UserId,
+                    NotificationId = notificationId
+                },
+                cancellationToken);
+            }
 
             return order.Id;
         }
