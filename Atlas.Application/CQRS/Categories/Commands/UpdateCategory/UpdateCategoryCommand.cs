@@ -18,5 +18,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.UpdateCategory
         public string ImageUrl { get; set; }
 
         public bool IsMainCategory { get; set; }
+
+        public int OrderNumber { get; set; }
     }
 }

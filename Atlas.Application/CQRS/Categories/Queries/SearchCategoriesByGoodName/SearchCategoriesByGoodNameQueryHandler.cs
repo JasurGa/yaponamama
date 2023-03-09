@@ -41,7 +41,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.SearchCategoriesByGoodName
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (c:Category)<-[r:BELONGS_TO]-(g:Good) WHERE g.Id IN $Ids RETURN {Id: c.Id, Name: c.Name, NameRu: c.NameRu, NameEn: c.NameEn, NameUz: c.NameUz, Count: COUNT(r)};", new
+                var cursor = await session.RunAsync("MATCH (c:Category)<-[r:BELONGS_TO]-(g:Good) WHERE g.Id IN $Ids RETURN {Id: c.Id, Name: c.Name, NameRu: c.NameRu, NameEn: c.NameEn, NameUz: c.NameUz, Count: COUNT(r), OrderNumber: c.OrderNumber};", new
                 {
                     Ids = goodIds
                 });

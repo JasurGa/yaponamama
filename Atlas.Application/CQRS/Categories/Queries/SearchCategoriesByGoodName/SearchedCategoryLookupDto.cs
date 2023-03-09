@@ -19,6 +19,8 @@ namespace Atlas.Application.CQRS.Categories.Queries.SearchCategoriesByGoodName
 
         public int Count { get; set; }
 
+        public int OrderNumber { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Category, SearchedCategoryLookupDto>()
@@ -31,7 +33,9 @@ namespace Atlas.Application.CQRS.Categories.Queries.SearchCategoriesByGoodName
                 .ForMember(dst => dst.NameEn, opt =>
                     opt.MapFrom(src => src.NameEn))
                 .ForMember(dst => dst.NameUz, opt =>
-                    opt.MapFrom(src => src.NameUz));
+                    opt.MapFrom(src => src.NameUz))
+                .ForMember(dst => dst.OrderNumber, opt =>
+                    opt.MapFrom(src => src.OrderNumber));
         }
     }
 }

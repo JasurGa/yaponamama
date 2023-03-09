@@ -23,5 +23,7 @@ namespace Atlas.Domain
         public int ChildCategoriesCount { get; set; }
 
         public int GoodsCount { get; set; }
+
+        public int OrderNumber { get; set; }
     }
 }

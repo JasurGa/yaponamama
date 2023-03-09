@@ -18,6 +18,8 @@ namespace Atlas.WebApi.Models
 
         public bool IsMainCategory { get; set; }
 
+        public int OrderNumber { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateCategoryDto, CreateCategoryCommand>()
@@ -32,7 +34,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(p => p.ImageUrl, opt =>
                     opt.MapFrom(p => p.ImageUrl))
                 .ForMember(p => p.IsMainCategory, opt =>
-                    opt.MapFrom(p => p.IsMainCategory));
+                    opt.MapFrom(p => p.IsMainCategory))
+                .ForMember(p => p.OrderNumber, opt =>
+                    opt.MapFrom(p => p.OrderNumber));
         }
     }
 }

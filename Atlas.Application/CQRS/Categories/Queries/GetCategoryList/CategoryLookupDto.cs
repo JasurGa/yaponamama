@@ -27,6 +27,8 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
         public int TotalAvailableGoodsCount { get; set; }
 
         public int GoodsCount { get; set; }
+        
+        public int OrderNumber { get; set; }
 
         public List<Guid> Children { get; set; }
 
@@ -50,7 +52,9 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
                 .ForMember(dst => dst.ChildCategoriesCount, opt =>
                     opt.MapFrom(src => src.ChildCategoriesCount))
                 .ForMember(dst => dst.GoodsCount, opt =>
-                    opt.MapFrom(src => src.GoodsCount));
+                    opt.MapFrom(src => src.GoodsCount))
+                .ForMember(dst => dst.OrderNumber, opt =>
+                    opt.MapFrom(src => src.OrderNumber));
         }
     }
 }

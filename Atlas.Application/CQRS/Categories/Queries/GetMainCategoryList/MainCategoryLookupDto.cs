@@ -21,6 +21,8 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetMainCategoryList
 
         public bool IsMainCategory { get; set; }
 
+        public int OrderNumber { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Category, MainCategoryLookupDto>()
@@ -37,7 +39,9 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetMainCategoryList
                 .ForMember(dst => dst.ImageUrl, opt =>
                     opt.MapFrom(src => src.ImageUrl))
                 .ForMember(dst => dst.IsMainCategory, opt =>
-                    opt.MapFrom(src => src.IsMainCategory));
+                    opt.MapFrom(src => src.IsMainCategory))
+                .ForMember(dst => dst.OrderNumber, opt =>
+                    opt.MapFrom(src => src.OrderNumber));
         }
     }
 }
