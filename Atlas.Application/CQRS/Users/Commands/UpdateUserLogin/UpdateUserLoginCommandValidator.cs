@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Atlas.Application.Common.Extensions;
+using FluentValidation;
 using System;
 
 namespace Atlas.Application.CQRS.Users.Commands.UpdateUserLogin
@@ -11,7 +12,8 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUserLogin
                 .NotEqual(Guid.Empty);
 
             RuleFor(x => x.Login)
-                .NotEmpty();
+                .NotEmpty()
+                .PhoneNumber();
         }
     }
 }
