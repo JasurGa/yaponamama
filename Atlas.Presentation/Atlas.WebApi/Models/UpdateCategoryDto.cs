@@ -23,6 +23,8 @@ namespace Atlas.WebApi.Models
 
         public int OrderNumber { get; set; }
 
+        public bool IsHidden { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateCategoryDto, UpdateCategoryCommand>()
@@ -41,7 +43,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(x => x.IsMainCategory, opt =>
                     opt.MapFrom(x => x.IsMainCategory))
                 .ForMember(x => x.OrderNumber, opt =>
-                    opt.MapFrom(x => x.OrderNumber));
+                    opt.MapFrom(x => x.OrderNumber))
+                .ForMember(x => x.IsHidden, opt =>
+                    opt.MapFrom(x => x.IsHidden));
         }
     }
 }

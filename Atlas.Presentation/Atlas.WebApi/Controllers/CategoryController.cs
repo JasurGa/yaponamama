@@ -66,20 +66,24 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/category/main?showDeleted=false
+        ///     GET /api/1.0/category/main?showDeleted=false&amp;showHidden=false
         ///     
         /// </remarks>
+        /// <param name="showDeleted">Show deleted (bool)</param>
+        /// <param name="showHidden">Show hidden (bool)</param>
         /// <returns>Returns MainCategoryListVm object</returns>
         /// <response code="200">Success</response>
         [HttpGet("main")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<MainCategoryListVm>> GetAllMainAsync(
-            [FromQuery] bool showDeleted = false)
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] bool showHidden  = false)
         {
             var vm = await Mediator.Send(new GetMainCategoryListQuery
             {
-                ShowDeleted = showDeleted
+                ShowDeleted = showDeleted,
+                ShowHidden  = showHidden
             });
 
             return Ok(vm);
@@ -117,20 +121,24 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/category?showDeleted=false
+        ///     GET /api/1.0/category?showDeleted=false&amp;showHidden=false
         ///     
         /// </remarks>
+        /// <param name="showDeleted">Show deleted (bool)</param>
+        /// <param name="showHidden">Show hidden (bool)</param>
         /// <returns>Returns CategoryListVm object</returns>
         /// <response code="200">Success</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<CategoryListVm>> GetAllAsync(
-            [FromQuery] bool showDeleted = false)
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] bool showHidden  = false)
         {
             var vm = await Mediator.Send(new GetCategoryListQuery
             {
-                ShowDeleted = showDeleted
+                ShowDeleted = showDeleted,
+                ShowHidden  = showHidden
             });
 
             return Ok(vm);
@@ -142,21 +150,26 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/children?showDeleted=false
+        ///     GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/children?showDeleted=false&amp;showHidden=false
         ///     
         /// </remarks>
+        /// <param name="id">Category id (Guid)</param>
+        /// <param name="showDeleted">Show deleted (bool)</param>
+        /// <param name="showHidden">Show hidden (bool)</param>
         /// <returns>Returns CategoryListVm object</returns>
         /// <response code="200">Success</response>
         [HttpGet("{id}/children")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<CategoryListVm>> GetChildrenCategoriesAsync([FromRoute] Guid id,
-            [FromQuery] bool showDeleted = false)
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] bool showHidden  = false)
         {
             var vm = await Mediator.Send(new GetCategoryChildrenQuery
             {
                 Id          = id,
-                ShowDeleted = showDeleted
+                ShowDeleted = showDeleted,
+                ShowHidden  = showHidden
             });
 
             return Ok(vm);
@@ -168,11 +181,12 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/children/paged?showDeleted=false&amp;pageSize=10&amp;pageIndex=0
+        ///     GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/children/paged?showDeleted=false&amp;showHidden=false&amp;pageSize=10&amp;pageIndex=0
         /// 
         /// </remarks>
         /// <param name="id">Category id (guid)</param>
         /// <param name="showDeleted">Show deleted list or not</param>
+        /// <param name="showHidden">Show hidden list or not</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>Returns PageDto CategoryLookupDto object</returns>
@@ -183,13 +197,15 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<PageDto<CategoryLookupDto>>> GetChildrenCategoriesPagedAsync(
             [FromRoute] Guid id,
             [FromQuery] bool showDeleted = false,
-            [FromQuery] int pageIndex    = 0,
-            [FromQuery] int pageSize     = 10)
+            [FromQuery] bool showHidden  = false,
+            [FromQuery] int  pageIndex   = 0,
+            [FromQuery] int  pageSize    = 10)
         {
             var vm = await Mediator.Send(new GetCategoryChildrenPagedListQuery
             {
                 Id          = id,
                 ShowDeleted = showDeleted,
+                ShowHidden  = showHidden,
                 PageIndex   = pageIndex,
                 PageSize    = pageSize
             });
@@ -203,7 +219,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/parent?showDeleted=false
+        ///     GET /api/1.0/category/a3eb7b4a-9f4e-4c71-8619-398655c563b8/parent?showDeleted=false&amp;showHidden=false
         ///     
         /// </remarks>
         /// <returns>Returns CategoryListVm object</returns>
@@ -212,12 +228,14 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<CategoryListVm>> GetParentCategoriesAsync([FromRoute] Guid id,
-            [FromQuery] bool showDeleted = false)
+            [FromQuery] bool showDeleted = false,
+            [FromQuery] bool showHidden  = false)
         {
             var vm = await Mediator.Send(new GetCategoryParentsQuery
             {
                 Id          = id,
-                ShowDeleted = showDeleted
+                ShowDeleted = showDeleted,
+                ShowHidden  = showHidden
             });
 
             return Ok(vm);
@@ -229,10 +247,11 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/category/paged?showDeleted=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
+        ///     GET /api/1.0/category/paged?showDeleted=false&amp;showHidden=false&amp;pageIndex=0&amp;pageSize=10&amp;sortable=Name&amp;ascending=true
         ///     
         /// </remarks>
         /// <param name="showDeleted">Show deleted list</param>
+        /// <param name="showHidden">Show hidden list</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="sortable">Property to sort</param>
@@ -244,14 +263,16 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<CategoryLookupDto>>> GetAllPagedAsync(
             [FromQuery] bool   showDeleted = false,
+            [FromQuery] bool   showHidden  = false,
             [FromQuery] int    pageIndex   = 0,
             [FromQuery] int    pageSize    = 10,
-            [FromQuery] string sortable   = "Name",
+            [FromQuery] string sortable    = "Name",
             [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetCategoryPagedListQuery
             {
                 ShowDeleted = showDeleted,
+                ShowHidden  = showHidden,
                 PageIndex   = pageIndex,
                 PageSize    = pageSize,
                 Sortable    = sortable,
@@ -335,6 +356,7 @@ namespace Atlas.WebApi.Controllers
         ///         "nameUz": "Sample name of category",
         ///         "imageUrl": "/0123456789abcdef0123456789abcdef.png",
         ///         "isMainCategory": true,
+        ///         "isHidden": false,
         ///     }
         ///     
         /// </remarks>
@@ -368,6 +390,7 @@ namespace Atlas.WebApi.Controllers
         ///         "nameEn": "Sample name of category",
         ///         "nameUz": "Sample name of category",
         ///         "imageUrl": "/0123456789abcdef0123456789abcdef.png",
+        ///         "isHidden": false
         ///     }
         ///     
         /// </remarks>

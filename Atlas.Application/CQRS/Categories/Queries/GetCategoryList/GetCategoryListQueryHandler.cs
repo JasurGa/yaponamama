@@ -36,17 +36,19 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryList
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id: c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, NameRu: c.NameRu, NameEn: c.NameEn, NameUz: c.NameUz, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g), OrderNumber: c.OrderNumber} AS r ORDER BY r.OrderNumber", new
+                var cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $IsDeleted, IsHidden: $IsHidden}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $IsDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id: c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, NameRu: c.NameRu, NameEn: c.NameEn, NameUz: c.NameUz, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g), OrderNumber: c.OrderNumber, IsHidden: c.IsHidden} AS r ORDER BY r.OrderNumber", new
                 {
-                    IsDeleted = request.ShowDeleted
+                    IsDeleted = request.ShowDeleted,
+                    IsHidden  = request.ShowHidden
                 });
 
                 categories = _mapper.Map<List<Category>, List<CategoryLookupDto>>(
                     await cursor.ConvertDictManyAsync<Category>());
 
-                cursor = await session.RunAsync("MATCH (p:Category{IsDeleted: $IsDeleted})<-[:BELONGS_TO]-(c:Category{IsDeleted: $IsDeleted}) RETURN p.Id AS ParentId, c.Id As ChildId", new
+                cursor = await session.RunAsync("MATCH (p:Category{IsDeleted: $IsDeleted, IsHidden: $IsHidden})<-[:BELONGS_TO]-(c:Category{IsDeleted: $IsDeleted, IsHidden: $IsHidden}) RETURN p.Id AS ParentId, c.Id As ChildId", new
                 {
-                    IsDeleted = request.ShowDeleted
+                    IsDeleted = request.ShowDeleted,
+                    IsHidden  = request.ShowHidden
                 });
 
                 var records = await cursor.ToListAsync();

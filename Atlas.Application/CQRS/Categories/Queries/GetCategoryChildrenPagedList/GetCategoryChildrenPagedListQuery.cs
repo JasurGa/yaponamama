@@ -11,6 +11,8 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryChildrenPagedList
 
         public bool ShowDeleted { get; set; }
 
+        public bool ShowHidden { get; set; }
+
         public int PageSize { get; set; }
 
         public int PageIndex { get; set; }

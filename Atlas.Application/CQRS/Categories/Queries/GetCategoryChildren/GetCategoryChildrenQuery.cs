@@ -9,5 +9,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryChildren
         public Guid Id { get; set; }
 
         public bool ShowDeleted { get; set; }
+
+        public bool ShowHidden { get; set; }
     }
 }

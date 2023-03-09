@@ -23,6 +23,8 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetMainCategoryList
 
         public int OrderNumber { get; set; }
 
+        public bool IsHidden { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Category, MainCategoryLookupDto>()
@@ -41,7 +43,9 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetMainCategoryList
                 .ForMember(dst => dst.IsMainCategory, opt =>
                     opt.MapFrom(src => src.IsMainCategory))
                 .ForMember(dst => dst.OrderNumber, opt =>
-                    opt.MapFrom(src => src.OrderNumber));
+                    opt.MapFrom(src => src.OrderNumber))
+                .ForMember(dst => dst.IsHidden, opt =>
+                    opt.MapFrom(src => src.IsHidden));
         }
     }
 }

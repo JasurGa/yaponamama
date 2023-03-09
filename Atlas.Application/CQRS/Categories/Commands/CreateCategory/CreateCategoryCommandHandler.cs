@@ -27,12 +27,13 @@ namespace Atlas.Application.CQRS.Categories.Commands.CreateCategory
                 IsMainCategory = request.IsMainCategory,
                 OrderNumber    = request.OrderNumber,
                 IsDeleted      = false,
+                IsHidden       = request.IsHidden,
             };
 
             IAsyncSession session = _driver.AsyncSession();
             try
             {
-                await session.RunAsync("CREATE (c:Category{Id: $Id, Name: $Name, NameRu: $NameRu, NameEn: $NameEn, NameUz: $NameUz, ImageUrl: $ImageUrl, IsMainCategory: $IsMainCategory, IsDeleted: False, OrderNumber: $OrderNumber})", new
+                await session.RunAsync("CREATE (c:Category{Id: $Id, Name: $Name, NameRu: $NameRu, NameEn: $NameEn, NameUz: $NameUz, ImageUrl: $ImageUrl, IsMainCategory: $IsMainCategory, IsDeleted: False, OrderNumber: $OrderNumber, IsHidden: $IsHidden})", new
                 {
                     Id             = category.Id.ToString(),
                     Name           = category.Name,
@@ -42,6 +43,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.CreateCategory
                     ImageUrl       = category.ImageUrl,
                     IsMainCategory = category.IsMainCategory,
                     OrderNumber    = category.OrderNumber,
+                    IsHidden       = category.IsHidden,
                 });
             }
             finally

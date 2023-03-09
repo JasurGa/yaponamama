@@ -25,5 +25,7 @@ namespace Atlas.Domain
         public int GoodsCount { get; set; }
 
         public int OrderNumber { get; set; }
+
+        public bool IsHidden { get; set; }
     }
 }

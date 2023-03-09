@@ -29,19 +29,21 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryChildrenPagedList
             var session = _driver.AsyncSession();
             try
             {
-                var cursor = await session.RunAsync("MATCH (c:Category {Id: $Id})<-[:BELONGS_TO]-(sc:Category{IsDeleted: $ShowDeleted}) RETURN COUNT(sc)", new 
+                var cursor = await session.RunAsync("MATCH (c:Category {Id: $Id})<-[:BELONGS_TO]-(sc:Category{IsDeleted: $ShowDeleted, IsHidden: $ShowHidden}) RETURN COUNT(sc)", new 
                 { 
                     Id          = request.Id.ToString(),
-                    ShowDeleted = request.ShowDeleted
+                    ShowDeleted = request.ShowDeleted,
+                    ShowHidden  = request.ShowHidden
                 });
 
                 var record = await cursor.SingleAsync();
                 categoriesCount = record[0].As<int>();
 
-                cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted})-[:BELONGS_TO]->(p:Category{Id: $Id}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $ShowDeleted}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id:c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, NameRu: c.NameRu, NameEn: c.NameEn, NameUz: c.NameUz, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g, OrderNumber: c.OrderNumber)} AS r ORDER BY r.OrderNumber SKIP $Skip LIMIT $Limit", new
+                cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted, IsHidden: $ShowHidden})-[:BELONGS_TO]->(p:Category{Id: $Id}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $ShowDeleted, IsHidden: $ShowHidden}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id:c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, NameRu: c.NameRu, NameEn: c.NameEn, NameUz: c.NameUz, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g), OrderNumber: c.OrderNumber, IsHidden: c.IsHidden} AS r ORDER BY r.OrderNumber SKIP $Skip LIMIT $Limit", new
                 {
                     Id          = request.Id.ToString(),
                     ShowDeleted = request.ShowDeleted,
+                    ShowHidden  = request.ShowHidden,
                     Skip        = request.PageIndex * request.PageSize,
                     Limit       = request.PageSize
                 });

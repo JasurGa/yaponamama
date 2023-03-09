@@ -27,6 +27,8 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails
 
         public int OrderNumber { get; set; }
 
+        public bool IsHidden { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Category, CategoryDetailsVm>()
@@ -49,7 +51,9 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails
                 .ForMember(dst => dst.GoodsCount, opt =>
                     opt.MapFrom(src => src.GoodsCount))
                 .ForMember(dst => dst.OrderNumber, opt =>
-                    opt.MapFrom(src => src.OrderNumber));
+                    opt.MapFrom(src => src.OrderNumber))
+                .ForMember(dst => dst.IsHidden, opt =>
+                    opt.MapFrom(src => src.IsHidden));
         }
     }
 }
