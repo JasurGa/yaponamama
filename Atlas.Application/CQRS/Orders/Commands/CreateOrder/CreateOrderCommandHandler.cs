@@ -347,6 +347,12 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             {
                 await _botCallbacksService.UpdateStatusAsync(order.TelegramUserId.Value, order.IsDevVersionBot,
                     order.Id, order.Status);
+
+                if (order.PaymentType == (int)PaymentType.Payme)
+                {
+                    await _botCallbacksService.SendPaymentAsync(order.TelegramUserId.Value, order.IsDevVersionBot,
+                        order.Id);
+                }
             }
 
             foreach (var createGoodToOrder in request.GoodToOrders)
