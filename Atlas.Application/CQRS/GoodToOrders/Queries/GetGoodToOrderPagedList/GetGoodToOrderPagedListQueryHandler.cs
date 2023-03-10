@@ -28,7 +28,7 @@ namespace Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderPagedList
                     cancellationToken);
 
             var goodToOrders = await _dbContext.GoodToOrders
-                .Where(x => x.Order.Status != (int)OrderStatus.CanceledByAdmin)
+                .Where(x => x.Order.Status == (int)OrderStatus.Success)
                 .OrderByDescending(x => x.Order.CreatedAt)
                 .Skip(request.PageSize * request.PageIndex)
                 .Take(request.PageSize)
