@@ -22,6 +22,8 @@ namespace Atlas.WebApi.Models
         
         public bool IsHidden { get; set; }
 
+        public bool IsVerified { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateCategoryDto, CreateCategoryCommand>()
@@ -40,7 +42,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(p => p.OrderNumber, opt =>
                     opt.MapFrom(p => p.OrderNumber))
                 .ForMember(p => p.IsHidden, opt =>
-                    opt.MapFrom(p => p.IsHidden));
+                    opt.MapFrom(p => p.IsHidden))
+                .ForMember(p => p.IsVerified, opt =>
+                    opt.MapFrom(p => p.IsVerified));
         }
     }
 }

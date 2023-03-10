@@ -357,6 +357,7 @@ namespace Atlas.WebApi.Controllers
         ///         "imageUrl": "/0123456789abcdef0123456789abcdef.png",
         ///         "isMainCategory": true,
         ///         "isHidden": false,
+        ///         "isVerified": false
         ///     }
         ///     
         /// </remarks>
@@ -390,7 +391,8 @@ namespace Atlas.WebApi.Controllers
         ///         "nameEn": "Sample name of category",
         ///         "nameUz": "Sample name of category",
         ///         "imageUrl": "/0123456789abcdef0123456789abcdef.png",
-        ///         "isHidden": false
+        ///         "isHidden": false,
+        ///         "isVerified": false
         ///     }
         ///     
         /// </remarks>
