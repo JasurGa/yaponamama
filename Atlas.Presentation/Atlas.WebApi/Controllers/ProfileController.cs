@@ -246,7 +246,6 @@ namespace Atlas.WebApi.Controllers
         ///     
         ///     PUT /api/1.0/profile/login
         ///     {
-        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "phoneNumber": "+998901234567"
         ///     }
         ///     
@@ -258,7 +257,6 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpPut("login")]
-        [AuthRoleFilter(new string[] { Roles.Client, Roles.Courier })]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
