@@ -24,7 +24,7 @@ namespace Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderPagedList
         public async Task<PageDto<GoodToOrderLookupDto>> Handle(GetGoodToOrderPagedListQuery request, CancellationToken cancellationToken)
         {
             var goodToOrdersCount = await _dbContext.GoodToOrders.CountAsync(x => 
-                x.Order.Status != (int)OrderStatus.CanceledByAdmin, 
+                x.Order.Status == (int)OrderStatus.Success, 
                     cancellationToken);
 
             var goodToOrders = await _dbContext.GoodToOrders
