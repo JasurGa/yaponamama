@@ -20,5 +20,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.CreateCategory
         public int OrderNumber { get; set; }
 
         public bool IsHidden { get; set; }
+
+        public bool IsVerified { get; set; }
     }
 }

@@ -37,6 +37,9 @@ namespace Atlas.Identity.Services
         {
             var claims = new List<Claim>();
 
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x =>
+                x.Id == userId);
+
             var client = await _dbContext.Clients.FirstOrDefaultAsync(x =>
                 x.UserId == userId);
 
@@ -56,7 +59,10 @@ namespace Atlas.Identity.Services
                 x.UserId == userId);
 
             if (client != null)
+            {
                 claims.Add(new Claim(TokenClaims.ClientId, client.Id.ToString()));
+                claims.Add(new Claim(TokenClaims.IsVerified, client.IsPassportVerified.ToString()));
+            }
 
             if (courier != null)
                 claims.Add(new Claim(TokenClaims.CourierId, courier.Id.ToString()));

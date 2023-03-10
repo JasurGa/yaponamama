@@ -27,5 +27,7 @@ namespace Atlas.Domain
         public int OrderNumber { get; set; }
 
         public bool IsHidden { get; set; }
+
+        public bool IsVerified { get; set; }
     }
 }

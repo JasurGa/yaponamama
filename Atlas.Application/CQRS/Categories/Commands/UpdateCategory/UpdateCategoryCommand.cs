@@ -22,5 +22,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.UpdateCategory
         public int OrderNumber { get; set; }
 
         public bool IsHidden { get; set; }
+    
+        public bool IsVerified { get; set; }
     }
 }

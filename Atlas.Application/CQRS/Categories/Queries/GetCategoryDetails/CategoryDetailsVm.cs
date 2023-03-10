@@ -29,6 +29,8 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails
 
         public bool IsHidden { get; set; }
 
+        public bool IsVerified { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Category, CategoryDetailsVm>()
@@ -53,7 +55,9 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryDetails
                 .ForMember(dst => dst.OrderNumber, opt =>
                     opt.MapFrom(src => src.OrderNumber))
                 .ForMember(dst => dst.IsHidden, opt =>
-                    opt.MapFrom(src => src.IsHidden));
+                    opt.MapFrom(src => src.IsHidden))
+                .ForMember(dst => dst.IsVerified, opt =>
+                    opt.MapFrom(src => src.IsVerified));
         }
     }
 }

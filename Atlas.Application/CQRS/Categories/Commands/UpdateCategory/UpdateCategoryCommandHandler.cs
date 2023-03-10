@@ -22,7 +22,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.UpdateCategory
             var session = _driver.AsyncSession();
             try
             {
-                await session.RunAsync("MATCH (c:Category{Id: $Id}) SET c.Name = $Name, c.NameRu = $NameRu, c.NameEn = $NameEn, c.NameUz = $NameUz, c.ImageUrl = $ImageUrl, c.OrderNumber = $OrderNumber, c.IsMainCategory = $IsMainCategory, c.IsHidden = $IsHidden", new
+                await session.RunAsync("MATCH (c:Category{Id: $Id}) SET c.Name = $Name, c.NameRu = $NameRu, c.NameEn = $NameEn, c.NameUz = $NameUz, c.ImageUrl = $ImageUrl, c.OrderNumber = $OrderNumber, c.IsMainCategory = $IsMainCategory, c.IsHidden = $IsHidden, c.IsVerified = $IsVerified", new
                 {
                     Id             = request.Id.ToString(),
                     Name           = request.Name,
@@ -33,6 +33,7 @@ namespace Atlas.Application.CQRS.Categories.Commands.UpdateCategory
                     OrderNumber    = request.OrderNumber,
                     IsMainCategory = request.IsMainCategory,
                     IsHidden       = request.IsHidden,
+                    IsVerified     = request.IsVerified,
                 });
             }
             finally

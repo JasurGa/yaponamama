@@ -15,5 +15,7 @@
         public const string ClientId = "ClientId";
 
         public const string SupportId = "SupportId";
+
+        public const string IsVerified = "IsVerified";
     }
 }
