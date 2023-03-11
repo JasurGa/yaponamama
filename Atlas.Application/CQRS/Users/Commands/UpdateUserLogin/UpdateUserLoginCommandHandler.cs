@@ -3,6 +3,7 @@ using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,6 +24,14 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUserLogin
             if (user == null)
             {
                 throw new NotFoundException(nameof(User), request.Id);
+            }
+
+            var existingUser = await _dbContext.Users.FirstOrDefaultAsync(x => 
+                x.Login == request.Login, cancellationToken);
+
+            if (existingUser != null)
+            {
+                throw new ArgumentException("User with this login already exists");
             }
 
             var verification = await _dbContext.VerifyCodes.FirstOrDefaultAsync(x =>
