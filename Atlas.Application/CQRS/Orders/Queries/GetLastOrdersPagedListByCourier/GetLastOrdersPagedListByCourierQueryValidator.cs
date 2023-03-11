@@ -11,7 +11,11 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
                 .NotEqual(Guid.Empty);
 
             RuleFor(x => x.PageSize)
-                .NotEmpty();
+                .GreaterThan(0);
+
+            RuleFor(x => x.PageIndex)
+                .GreaterThanOrEqualTo(0);
+
         }
     }
 }
