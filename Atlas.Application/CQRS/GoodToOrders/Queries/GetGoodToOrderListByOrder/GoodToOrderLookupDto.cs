@@ -33,7 +33,7 @@ namespace Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderListByOrder
 
         public int Count { get; set; }
 
-        public int MaxCount { get; set; }
+        public long MaxCount { get; set; }
 
         public void Mapping(Profile profile)
         {
