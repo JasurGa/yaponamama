@@ -40,7 +40,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.GetCategoryPagedList
                 var record = await cursor.SingleAsync();
                 categoriesCount = record[0].As<int>();  
 
-                cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted, IsHidden: $ShowHidden, IsMainCategory: true}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $ShowDeleted, IsHidden: $ShowHidden}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id:c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, NameRu: c.NameRu, NameEn: c.NameEn, NameUz: c.NameUz, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g), OrderNumber: c.OrderNumber, IsHidden: c.IsHidden} AS r ORDER BY r[$Property] SKIP $Skip LIMIT $Limit", new
+                cursor = await session.RunAsync("MATCH (c:Category{IsDeleted: $ShowDeleted, IsHidden: $ShowHidden, IsMainCategory: true}) OPTIONAL MATCH (c)<-[:BELONGS_TO]-(ch:Category{IsDeleted: $ShowDeleted, IsHidden: $ShowHidden}) OPTIONAL MATCH (c)<-[:BELONGS_TO*]-(g:Good) RETURN {ImageUrl: c.ImageUrl, IsDeleted: c.IsDeleted, Id:c.Id, IsMainCategory: c.IsMainCategory, Name: c.Name, NameRu: c.NameRu, NameEn: c.NameEn, NameUz: c.NameUz, ChildCategoriesCount: COUNT(DISTINCT ch), GoodsCount: COUNT(DISTINCT g), OrderNumber: c.OrderNumber, IsHidden: c.IsHidden, IsVerified: c.IsVerified} AS r ORDER BY r[$Property] SKIP $Skip LIMIT $Limit", new
                 {
                     ShowDeleted = request.ShowDeleted,
                     ShowHidden  = request.ShowHidden,
