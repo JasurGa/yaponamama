@@ -33,6 +33,8 @@ namespace Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderListByOrder
 
         public int Count { get; set; }
 
+        public int MaxCount { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<GoodToOrder, GoodToOrderLookupDto>()
@@ -62,7 +64,9 @@ namespace Atlas.Application.CQRS.GoodToOrders.Queries.GetGoodToOrderListByOrder
                 .ForMember(dest => dest.ProviderId, opt =>
                     opt.MapFrom(src => src.Good.Provider.Id))
                 .ForMember(dest => dest.ProviderName, opt =>
-                    opt.MapFrom(src => src.Good.Provider.Name));
+                    opt.MapFrom(src => src.Good.Provider.Name))
+                .ForMember(dest => dest.MaxCount, opt =>
+                    opt.MapFrom(src => src.Good.StoreToGoods.Sum(x => x.Count)));
         }
     }
 }
