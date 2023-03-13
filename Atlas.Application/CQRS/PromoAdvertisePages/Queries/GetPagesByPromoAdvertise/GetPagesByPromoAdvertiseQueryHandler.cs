@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Atlas.Application.CQRS.Goods.Queries.GetGoodDetails;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using AutoMapper;
@@ -29,6 +30,21 @@ namespace Atlas.Application.CQRS.PromoAdvertisePages.Queries.GetPagesByPromoAdve
                 .Include(x => x.PromoAdvertiseGoods)
                 .ProjectTo<PromoAdvertisePageLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
+
+            foreach (var page in promoAdvertisePages)
+            {
+                foreach (var good in page.Goods)
+                {
+                    good.StoreToCount = await _dbContext.StoreToGoods
+                        .Where(x => x.GoodId == good.Id)
+                        .Select(x => new StoreToCountLookupDto
+                        {
+                            StoreId = x.StoreId,
+                            Count   = x.Count
+                        })
+                        .ToListAsync(cancellationToken);
+                }
+            }
 
             return new PromoAdvertisePageListVm
             {
