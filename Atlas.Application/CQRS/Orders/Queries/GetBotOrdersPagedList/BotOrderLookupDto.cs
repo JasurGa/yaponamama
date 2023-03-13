@@ -20,7 +20,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList
 
         public DateTime CreatedAt { get; set; }
 
-        public DateTime? DeliverAt { get; set; }
+        public DateTime DeliverAt { get; set; }
 
         public DateTime? StatusLastEditedAt { get; set; }
 

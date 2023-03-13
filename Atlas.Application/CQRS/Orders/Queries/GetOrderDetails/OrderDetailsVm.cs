@@ -67,7 +67,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public bool IsPrePayed { get; set; }
 
-        public DateTime? DeliverAt { get; set; }
+        public DateTime DeliverAt { get; set; }
 
         public bool CanRefund { get; set; }
 
