@@ -370,7 +370,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpGet("{id}")]
-        [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support, Roles.SupplyManager })]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.Support, Roles.SupplyManager, Roles.Courier })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

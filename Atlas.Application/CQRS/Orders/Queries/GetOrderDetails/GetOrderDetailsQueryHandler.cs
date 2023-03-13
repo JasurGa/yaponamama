@@ -27,6 +27,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                 .Include(x => x.Promo)
                 .Include(x => x.Store)
                 .Include(x => x.GoodToOrders).ThenInclude(x => x.Good.Provider)
+                .Include(x => x.GoodToOrders).ThenInclude(x => x.Good.StoreToGoods)
                 .FirstOrDefaultAsync(x => x.Id == request.Id, 
                     cancellationToken);
 
