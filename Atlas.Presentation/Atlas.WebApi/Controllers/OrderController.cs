@@ -561,7 +561,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/order/paged?pageIndex=0&amp;pageSize=10&amp;filterIsPrePayed=false&amp;filterPaymentType=0&amp;filterStatus=0&amp;filterFromCreated=null&amp;filterToCreated=null,
+        ///     GET /api/1.0/order/paged?pageIndex=0&amp;pageSize=10&amp;filterIsPrePayed=false&amp;filterPaymentType=0&amp;filterStatus=0&amp;filterFromCreatedAt=null&amp;filterToCreatedAt=null,
         ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
