@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.SupplyManagers.Queries.FindSupplyManagerPagedLi
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
             var supplyManagers = _dbContext.SupplyManagers.Include(x => x.User).Where(x => x.IsDeleted == request.ShowDeleted)
-                .OrderBy(x => EF.Functions.TrigramsSimilarity((x.PhoneNumber + " " + x.User.Login + " " + x.User.FirstName + " " + x.User.LastName + " " + x.User.MiddleName).ToLower().Trim(),
+                .OrderByDescending(x => EF.Functions.TrigramsSimilarity((x.PhoneNumber + " " + x.User.Login + " " + x.User.FirstName + " " + x.User.LastName + " " + x.User.MiddleName).ToLower().Trim(),
                     request.SearchQuery));
 
             var supplyManagersCount = await supplyManagers.CountAsync(cancellationToken);

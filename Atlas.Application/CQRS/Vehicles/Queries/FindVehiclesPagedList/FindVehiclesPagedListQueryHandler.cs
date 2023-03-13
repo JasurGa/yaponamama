@@ -28,7 +28,7 @@ namespace Atlas.Application.CQRS.Vehicles.Queries.FindVehiclesPagedList
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
             var vehicles = _dbContext.Vehicles.Where(x => x.IsDeleted == request.ShowDeleted)
-                .OrderBy(x => EF.Functions.TrigramsSimilarity((x.Name + " " + x.RegistrationNumber).ToLower().Trim(),
+                .OrderByDescending(x => EF.Functions.TrigramsSimilarity((x.Name + " " + x.RegistrationNumber).ToLower().Trim(),
                     request.SearchQuery));
 
             var vehiclesCount = await vehicles.CountAsync(cancellationToken);

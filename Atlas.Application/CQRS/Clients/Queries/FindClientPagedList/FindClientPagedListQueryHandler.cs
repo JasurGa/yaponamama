@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.Clients.Queries.FindClientPagedList
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
             var clients = _dbContext.Clients.Where(x => x.IsDeleted == request.ShowDeleted)
-                .Include(x => x.User).OrderBy(x => EF.Functions.TrigramsSimilarity(
+                .Include(x => x.User).OrderByDescending(x => EF.Functions.TrigramsSimilarity(
                     (x.PhoneNumber + " " + x.User.Login + " " + x.User.FirstName + " " + x.User.LastName + " " + x.User.MiddleName).ToLower().Trim(),
                         request.SearchQuery));
 

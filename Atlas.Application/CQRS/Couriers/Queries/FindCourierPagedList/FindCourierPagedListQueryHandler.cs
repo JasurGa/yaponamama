@@ -35,7 +35,7 @@ namespace Atlas.Application.CQRS.Couriers.Queries.FindCourierPagedList
                 couriers.Where(x => x.Vehicle.StoreId == request.FilterStoreId);
             }
 
-            couriers = couriers.OrderBy(x => EF.Functions.TrigramsSimilarity((x.PhoneNumber + " " + x.User.Login + " " + x.User.FirstName + " " + x.User.LastName + " " + x.User.MiddleName).ToLower().Trim(),
+            couriers = couriers.OrderByDescending(x => EF.Functions.TrigramsSimilarity((x.PhoneNumber + " " + x.User.Login + " " + x.User.FirstName + " " + x.User.LastName + " " + x.User.MiddleName).ToLower().Trim(),
                 request.SearchQuery));
 
             var couriersCount = await couriers.CountAsync(cancellationToken);

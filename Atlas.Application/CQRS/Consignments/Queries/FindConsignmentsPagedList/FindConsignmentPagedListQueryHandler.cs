@@ -35,7 +35,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
 
             if (request.SearchQuery != null)
             {
-                query = query.OrderBy(x =>
+                query = query.OrderByDescending(x =>
                     EF.Functions.TrigramsSimilarity((x.StoreToGood.Good.NameRu + " " + x.StoreToGood.Good.NameEn + " " + x.StoreToGood.Good.NameUz).ToLower().Trim(),
                         request.SearchQuery.ToLower().Trim()));
             }
