@@ -394,6 +394,9 @@ namespace Atlas.WebApi.Controllers
         ///     
         /// </remarks>
         /// <param name="id">Client id (guid)</param>
+        /// <param name="showActive">Show active (bool)</param>
+        /// <param name="pageSize">Page size (int)</param>
+        /// <param name="pageIndex">Page index (int)</param>
         /// <returns>Returns PageDto OrderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="404">Not found</response>
@@ -404,11 +407,17 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllForClientAsync([FromRoute] Guid id)
+        public async Task<ActionResult<PageDto<OrderLookupDto>>> GetAllForClientAsync([FromRoute] Guid id,
+            [FromQuery] bool showActive = false,
+            [FromQuery] int  pageSize   = 10,
+            [FromQuery] int  pageIndex  = 0)
         {
             var vm = await Mediator.Send(new GetLastOrdersPagedListByClientQuery
             {
-                ClientId = id
+                ClientId   = id,
+                ShowActive = showActive,
+                PageSize   = pageSize,
+                PageIndex  = pageIndex
             });
 
             return Ok(vm);
