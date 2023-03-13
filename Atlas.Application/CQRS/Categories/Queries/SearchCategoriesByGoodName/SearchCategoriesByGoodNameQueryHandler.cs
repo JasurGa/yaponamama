@@ -30,7 +30,7 @@ namespace Atlas.Application.CQRS.Categories.Queries.SearchCategoriesByGoodName
             var translitedRu = TranslitConverter.TranslitEnRu(notTranslited);
             var translitedEn = TranslitConverter.TranslitRuEn(notTranslited);
 
-            var goodIds = await _dbContext.Goods.Where(x => x.IsDeleted == false).OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
+            var goodIds = await _dbContext.Goods.Where(x => x.IsDeleted == false).OrderBy(x => EF.Functions.TrigramsSimilarity(
                 (x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice).ToLower().Trim(),
                        notTranslited + " " + translitedRu + " " + translitedEn))
                 .Select(x => x.Id.ToString()).Take(200)

@@ -26,7 +26,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.FindOrderPagedList
         {
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
-            var orders = _dbContext.Orders.OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
+            var orders = _dbContext.Orders.OrderBy(x => EF.Functions.TrigramsSimilarity(
                 GenerateOrderCode(x.Id).ToString().ToLower().Trim(),
                     request.SearchQuery));
 

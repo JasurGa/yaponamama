@@ -67,10 +67,10 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
             if (request.SearchQuery != null)
             {
                 var notTranslited = request.SearchQuery.ToLower().Trim();
-                var translitedRu  = ""; // TranslitConverter.TranslitEnRu(notTranslited);
-                var translitedEn  = ""; // TranslitConverter.TranslitRuEn(notTranslited);
+                var translitedRu  = TranslitConverter.TranslitEnRu(notTranslited);
+                var translitedEn  = TranslitConverter.TranslitRuEn(notTranslited);
 
-                goods = goods.OrderBy(x => EF.Functions.TrigramsStrictWordSimilarityDistance(
+                goods = goods.OrderBy(x => EF.Functions.TrigramsSimilarity(
                     (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
                         notTranslited + " " + translitedRu + " " + translitedEn));
             }

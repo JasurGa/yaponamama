@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.Users.Queries.FindUserPagedList
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
             var users = _dbContext.Users.Where(x => x.IsDeleted == request.ShowDeleted)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance(
+                .OrderBy(x => EF.Functions.TrigramsSimilarity(
                     (x.Login + " " + x.FirstName + " " + x.LastName + " " + x.MiddleName).ToLower().Trim(),
                         request.SearchQuery));
 

@@ -27,7 +27,7 @@ namespace Atlas.Application.CQRS.Stores.Queries.FindStoresPagedList
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
             var stores = _dbContext.Stores.Where(x => x.IsDeleted == request.ShowDeleted)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz).ToLower().Trim(),
+                .OrderBy(x => EF.Functions.TrigramsSimilarity((x.Name + " " + x.NameRu + " " + x.NameEn + " " + x.NameUz).ToLower().Trim(),
                     request.SearchQuery));
 
             var storesCount = await stores.CountAsync(cancellationToken);

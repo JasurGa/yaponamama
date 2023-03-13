@@ -26,7 +26,7 @@ namespace Atlas.Application.CQRS.HeadRecruiters.Quieries.FindHeadRecruitersPaged
             request.SearchQuery = request.SearchQuery.ToLower().Trim();
 
             var headRecruiters = _dbContext.HeadRecruiters.Include(x => x.User).Where(x => x.IsDeleted == request.ShowDeleted)
-                .OrderBy(x => EF.Functions.TrigramsWordSimilarityDistance((x.User.Login + " " + x.User.FirstName + " " + x.User.LastName + " " + x.User.MiddleName).ToLower().Trim(),
+                .OrderBy(x => EF.Functions.TrigramsSimilarity((x.User.Login + " " + x.User.FirstName + " " + x.User.LastName + " " + x.User.MiddleName).ToLower().Trim(),
                     request.SearchQuery));
 
             var headRecruitersCount = await headRecruiters.CountAsync(cancellationToken);
