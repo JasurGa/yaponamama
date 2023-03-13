@@ -37,6 +37,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public DateTime FinishedAt { get; set; }
 
+        public DateTime? StatusLastEditedAt { get; set; }
+
         public string Address { get; set; }
 
         public float ToLongitude { get; set; }
@@ -65,7 +67,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public bool IsPrePayed { get; set; }
 
-        public DateTime DeliverAt { get; set; }
+        public DateTime? DeliverAt { get; set; }
 
         public bool CanRefund { get; set; }
 
@@ -110,6 +112,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                     opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dst => dst.FinishedAt, opt =>
                     opt.MapFrom(src => src.FinishedAt))
+                .ForMember(dst => dst.StatusLastEditedAt, opt =>
+                    opt.MapFrom(src => src.StatusLastEditedAt))
                 .ForMember(dst => dst.Address, opt =>
                     opt.MapFrom(src => src.Address))
                 .ForMember(dst => dst.ToLongitude, opt =>

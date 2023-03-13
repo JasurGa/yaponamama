@@ -124,6 +124,9 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
             order.IsDevVersionBot       = request.IsDevVersionBot;
             order.GoodReplacementType   = request.GoodReplacementType;
 
+            if (order.Status != request.Status)
+                order.StatusLastEditedAt = DateTime.UtcNow;
+
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

@@ -20,7 +20,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList
 
         public DateTime CreatedAt { get; set; }
 
-        public DateTime DeliverAt { get; set; }
+        public DateTime? DeliverAt { get; set; }
+
+        public DateTime? StatusLastEditedAt { get; set; }
 
         public DateTime FinishedAt { get; set; }
 
@@ -43,6 +45,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList
                     opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dst => dst.DeliverAt, opt =>
                     opt.MapFrom(src => src.DeliverAt))
+                .ForMember(dst => dst.StatusLastEditedAt, opt =>
+                    opt.MapFrom(src => src.StatusLastEditedAt))
                 .ForMember(dst => dst.FinishedAt, opt =>
                     opt.MapFrom(src => src.FinishedAt))
                 .ForMember(dst => dst.GoodToOrders, opt =>

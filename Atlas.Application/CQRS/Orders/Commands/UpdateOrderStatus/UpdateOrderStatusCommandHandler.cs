@@ -69,6 +69,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrderStatus
 
             if (order.Status != request.Status)
             {
+                order.StatusLastEditedAt = DateTime.UtcNow;
+
                 if (request.Status == (int)OrderStatus.Success || request.Status == (int)OrderStatus.CanceledByAdmin || request.Status == (int)OrderStatus.CanceledByUser)
                 {
                     order.FinishedAt = DateTime.UtcNow;

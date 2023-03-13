@@ -51,6 +51,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
 
         public DateTime CreatedAt { get; set; }
 
+        public DateTime? StatusLastEditedAt { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Order, OrderLookupDto>()
@@ -79,7 +81,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
                 .ForMember(dst => dst.PaymentType, opt =>
                     opt.MapFrom(src => src.PaymentType))
                 .ForMember(dst => dst.CreatedAt, opt =>
-                    opt.MapFrom(src => src.CreatedAt));
+                    opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dst => dst.StatusLastEditedAt, opt =>
+                    opt.MapFrom(src => src.StatusLastEditedAt));
         }
     }
 }

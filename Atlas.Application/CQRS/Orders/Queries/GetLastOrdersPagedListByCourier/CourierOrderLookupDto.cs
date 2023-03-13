@@ -67,6 +67,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
 
         public DateTime FinishedAt { get; set; }
 
+        public DateTime? StatusLastEditedAt { get; set; }
+
         public CourierOrderStoreDetailsVm Store { get; set; }
 
         public CourierOrderClientDetailsVm Client { get; set; }
@@ -118,6 +120,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
                     opt.MapFrom(src => src.DeliverAt))
                 .ForMember(dst => dst.FinishedAt, opt =>
                     opt.MapFrom(src => src.FinishedAt))
+                .ForMember(dst => dst.StatusLastEditedAt, opt =>
+                    opt.MapFrom(src => src.StatusLastEditedAt))
                 .ForMember(dst => dst.Client, opt =>
                     opt.MapFrom(src => src.Client))
                 .ForMember(dst => dst.GoodToOrders, opt =>

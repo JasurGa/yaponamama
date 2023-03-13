@@ -311,6 +311,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 PaymentType           = request.PaymentType,
                 CreatedAt             = DateTime.UtcNow,
                 FinishedAt            = null,
+                StatusLastEditedAt    = null,
                 SellingPrice          = sellingPrice,
                 ShippingPrice         = shippingPrice,
                 PurchasePrice         = purchasePrice,
