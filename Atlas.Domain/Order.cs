@@ -65,6 +65,10 @@ namespace Atlas.Domain
 
         public int GoodReplacementType { get; set; }
 
+        public long SellingPriceDiscount { get; set; }
+
+        public long ShippingPriceDiscount { get; set; }
+
         public Client Client { get; set; }
 
         public Courier Courier { get; set; }

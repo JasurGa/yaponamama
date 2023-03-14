@@ -13,6 +13,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList
         public string ExternalId { get; set; }
 
         public long TotalPrice { get; set; }
+        
+        public long SellingPriceDiscount { get; set; }
+
+        public long ShippingPriceDiscount { get; set; }
 
         public bool IsPickup { get; set; }
 
@@ -37,6 +41,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList
                     opt.MapFrom(src => src.ExternalId))
                 .ForMember(dst => dst.TotalPrice, opt =>
                     opt.MapFrom(src => (long)(Math.Ceiling(src.SellingPrice) + Math.Ceiling(src.ShippingPrice))))
+                .ForMember(dst => dst.SellingPriceDiscount, opt =>
+                    opt.MapFrom(src => src.SellingPriceDiscount))
+                .ForMember(dst => dst.ShippingPriceDiscount, opt =>
+                    opt.MapFrom(src => src.ShippingPriceDiscount))
                 .ForMember(dst => dst.IsPickup, opt =>
                     opt.MapFrom(src => src.IsPickup))
                 .ForMember(dst => dst.Status, opt =>

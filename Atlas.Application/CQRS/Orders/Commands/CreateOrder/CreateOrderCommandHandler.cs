@@ -7,6 +7,7 @@ using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Common.Helpers;
 using Atlas.Application.CQRS.Notifications.Commands.AttachNotificationToUser;
 using Atlas.Application.CQRS.Notifications.Commands.CreateNotification;
+using Atlas.Application.CQRS.Orders.Queries.CalculateOrderPrice;
 using Atlas.Application.Enums;
 using Atlas.Application.Interfaces;
 using Atlas.Application.Services;
@@ -292,6 +293,15 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
             var shippingPrice   = await GetShippingPriceAsync(request, cancellationToken, foundPromo);
             var purchasePrice   = await GetPurchasePriceAsync(request, cancellationToken);
             var extenralId      = await GenerateExternalIdAsync();
+            var priceDetails    = await _mediator.Send(new CalculateOrderPriceQuery
+            {
+                ClientId     = request.ClientId,
+                GoodToOrders = request.GoodToOrders,
+                IsPickup     = request.IsPickup,
+                Promo        = request.Promo,
+                ToLatitude   = request.ToLatitude,
+                ToLongitude  = request.ToLongitude,
+            });
 
             var order = new Order
             {
@@ -325,6 +335,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 TelegramUserId        = request.TelegramUserId,
                 IsDevVersionBot       = request.IsDevVersionBot,
                 GoodReplacementType   = request.GoodReplacementType,
+                SellingPriceDiscount  = priceDetails.SellingPriceDiscount,
+                ShippingPriceDiscount = priceDetails.ShippingPriceDiscount
             };
 
             await _dbContext.Orders.AddAsync(order,
