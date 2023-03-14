@@ -114,6 +114,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                     opt.MapFrom(src => (long)Math.Ceiling(src.SellingPrice)))
                 .ForMember(dst => dst.ShippingPrice, opt =>
                     opt.MapFrom(src => (long)Math.Ceiling(src.ShippingPrice)))
+                .ForMember(dst => dst.SellingPriceDiscount, opt =>
+                    opt.MapFrom(src => src.SellingPriceDiscount))
+                .ForMember(dst => dst.ShippingPriceDiscount, opt =>
+                    opt.MapFrom(src => src.ShippingPriceDiscount))
                 .ForMember(dst => dst.Status, opt =>
                     opt.MapFrom(src => src.Status))
                 .ForMember(dst => dst.StoreName, opt =>
