@@ -31,8 +31,8 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
             profile.CreateMap<Promo, PromoLookupDto>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
-                .ForMember(dst => dst.ClientId, opt =>
-                    opt.MapFrom(src => src.ClientId))
+                .ForMember(dst => dst.Client, opt =>
+                    opt.MapFrom(src => src.Client))
                 .ForMember(dst => dst.Name, opt =>
                     opt.MapFrom(src => src.Name))
                 .ForMember(dst => dst.Description, opt =>
