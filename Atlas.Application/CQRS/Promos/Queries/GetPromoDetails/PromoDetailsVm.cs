@@ -1,4 +1,5 @@
 ﻿using Atlas.Application.Common.Mappings;
+using Atlas.Application.CQRS.Clients.Queries.GetClientDetails;
 using Atlas.Domain;
 using AutoMapper;
 using System;
@@ -9,7 +10,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
     {
         public Guid Id { get; set; }
 
-        public Guid ClientId { get; set; }
+        public ClientDetailsVm Client { get; set; }
 
         public string Name { get; set; }
 
@@ -30,8 +31,8 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoDetails
             profile.CreateMap<Promo, PromoDetailsVm>()
                 .ForMember(dst => dst.Id, opt =>
                     opt.MapFrom(src => src.Id))
-                .ForMember(dst => dst.ClientId, opt =>
-                    opt.MapFrom(src => src.ClientId))
+                .ForMember(dst => dst.Client, opt =>
+                    opt.MapFrom(src => src.Client))
                 .ForMember(dst => dst.Name, opt =>
                     opt.MapFrom(src => src.Name))
                 .ForMember(dst => dst.Description, opt =>

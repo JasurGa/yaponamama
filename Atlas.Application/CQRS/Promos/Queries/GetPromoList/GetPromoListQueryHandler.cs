@@ -19,6 +19,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
         public async Task<PromoListVm> Handle(GetPromoListQuery request, CancellationToken cancellationToken)
         {
             var promos = await _dbContext.Promos
+                .Include(x => x.Client).ThenInclude(x => x.User)
                 .ProjectTo<PromoLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

@@ -2,6 +2,7 @@
 using Atlas.Domain;
 using System;
 using AutoMapper;
+using Atlas.Application.CQRS.Clients.Queries.GetClientsList;
 
 namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
 {
@@ -9,7 +10,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoList
     {
         public Guid Id { get; set; }
 
-        public Guid ClientId { get; set; }
+        public ClientLookupDto Client { get; set; }
 
         public string Name { get; set; }
 

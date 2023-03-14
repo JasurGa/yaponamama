@@ -31,6 +31,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoPagedListForClient
 
             var promos = await _dbContext.Promos
                 .Where(x => x.ClientId == request.ClientId)
+                .Include(x => x.Client).ThenInclude(x => x.User)
                 .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)

@@ -15,7 +15,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoListForClient
 {
     public class GetPromoListForClientQueryHandler : IRequestHandler<GetPromoListForClientQuery, PromoListVm>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper         _mapper;
         private readonly IAtlasDbContext _dbContext;
 
         public GetPromoListForClientQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
@@ -25,6 +25,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoListForClient
         {
             var promos = await _dbContext.Promos
                 .Where(x => x.ClientId == request.ClientId)
+                .Include(x => x.Client).ThenInclude(x => x.User)
                 .ProjectTo<PromoLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

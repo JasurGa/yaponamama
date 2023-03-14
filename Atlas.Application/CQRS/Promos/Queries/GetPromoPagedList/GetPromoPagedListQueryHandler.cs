@@ -39,6 +39,7 @@ namespace Atlas.Application.CQRS.Promos.Queries.GetPromoPagedList
             var promosCount = await promosQuery.CountAsync(cancellationToken);
             
             var promos = await promosQuery
+                .Include(x => x.Client).ThenInclude(x => x.User)
                 .OrderByDynamic(request.Sortable, request.Ascending)
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
