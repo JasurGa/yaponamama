@@ -1,4 +1,4 @@
-﻿namespace Atlas.SubscribeApi.Abstractions
+﻿namespace Atlas.SubscribeApi.Models
 {
     public class FiscalDataLookupDto
     {

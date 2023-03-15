@@ -12,6 +12,6 @@ namespace Atlas.SubscribeApi.Models
 
         public string title { get; set; }
 
-        public int value { get; set; }
+        public long value { get; set; }
     }
 }

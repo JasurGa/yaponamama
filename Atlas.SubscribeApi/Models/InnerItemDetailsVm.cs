@@ -8,6 +8,8 @@ namespace Atlas.SubscribeApi.Models
 {
     public class InnerItemDetailsVm
     {
+        public long discount { get; set; }
+
         public string title { get; set; }
 
         public long price { get; set; }

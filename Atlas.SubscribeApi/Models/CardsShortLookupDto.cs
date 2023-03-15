@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas.SubscribeApi.Models
 {
-    public class CardsCreateLookupDto
+    public class CardsShortLookupDto
     {
         public string number { get; set; }
 

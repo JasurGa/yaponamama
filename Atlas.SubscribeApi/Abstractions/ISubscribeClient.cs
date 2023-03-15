@@ -6,7 +6,7 @@ namespace Atlas.SubscribeApi.Abstractions
 {
     public interface ISubscribeClient
     {
-        Task<CardDetailsVm> CardsCreateAsync(CardsCreateLookupDto card, bool save);
+        Task<CardDetailsVm> CardsCreateAsync(CardsShortLookupDto card, AccountLookupDto account, bool save, string customer);
 
         Task<SentVerifiyCodeDetailsVm> CardsGetVerifyCodeAsync(string token);
 
@@ -16,7 +16,7 @@ namespace Atlas.SubscribeApi.Abstractions
 
         Task<SuccessDetailsVm> CardsRemoveAsync(string token);
 
-        Task<ReceiptDetailsVm> ReceiptsCreateAsync(int amount, string description, DetailLookupDto detail);
+        Task<ReceiptDetailsVm> ReceiptsCreateAsync(long amount, AccountLookupDto account, string description, DetailLookupDto detail);
 
         Task<PayReceiptDetailsVm> ReceiptsPayAsync(string id, string token, PayerLookupDto payer);
 

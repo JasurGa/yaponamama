@@ -20,6 +20,6 @@
 
         public InnerTermsDetailsVm terms { get; set; }
 
-        public PayerLookupDto payer { get; set; }
+        public PayerShortLookupDto payer { get; set; }
     }
 }

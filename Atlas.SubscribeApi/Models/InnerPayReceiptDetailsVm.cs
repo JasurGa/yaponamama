@@ -32,7 +32,7 @@
 
         public List<InnerAccountDetailsVm> account { get; set; }
 
-        public InnerCardDetailsVm card { get; set; }
+        public CardsShortLookupDto card { get; set; }
 
         public InnerMerchantDetailsVm merchant { get; set; }
 
