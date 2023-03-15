@@ -608,12 +608,13 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         ///     
-        ///     GET /api/1.0/order/bot/paged?pageIndex=0&amp;pageSize=10&amp;status=1
+        ///     GET /api/1.0/order/bot/paged?pageIndex=0&amp;pageSize=10&amp;status=1&amp;getCanceled=false
         ///     
         /// </remarks>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="status">Order status</param>
+        /// <param name="getCanceled">Get canceled</param>
         /// <returns>Returns PageDto BotOrderLookupDto object</returns>
         /// <response code="200">Success</response>
         /// <response code="401">If the user is unauthorized</response>
@@ -623,16 +624,18 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<BotOrderLookupDto>>> GetPagedBotOrdersAsync(
-            [FromQuery] int pageIndex = 0,
-            [FromQuery] int pageSize = 10,
-            [FromQuery] int? status = null)
+            [FromQuery] int  pageIndex   = 0,
+            [FromQuery] int  pageSize    = 10,
+            [FromQuery] int? status      = null,
+            [FromQuery] bool getCanceled = false)
         {
             var vm = await Mediator.Send(new GetBotOrdersPagedListQuery
             {
-                ClientId  = ClientId,
-                Status    = status,
-                PageIndex = pageIndex,
-                PageSize  = pageSize
+                ClientId    = ClientId,
+                Status      = status,
+                PageIndex   = pageIndex,
+                PageSize    = pageSize,
+                GetCanceled = getCanceled
             });
 
             return Ok(vm);

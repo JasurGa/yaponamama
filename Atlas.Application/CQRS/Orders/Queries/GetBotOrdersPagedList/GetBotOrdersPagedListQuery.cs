@@ -13,5 +13,7 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList
         public int PageSize { get; set; }
 
         public int PageIndex { get; set; }
+        
+        public bool GetCanceled { get; set; }
     }
 }

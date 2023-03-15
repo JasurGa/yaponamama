@@ -1,4 +1,5 @@
-﻿using Atlas.Application.Interfaces;
+﻿using Atlas.Application.Enums;
+using Atlas.Application.Interfaces;
 using Atlas.Application.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -34,27 +35,27 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList
                     cancellationToken);
             }
 
-            var orders = new List<BotOrderLookupDto>();
+            var ordersQuery = _dbContext.Orders
+                .Where(x => x.ClientId == request.ClientId);
+
             if (request.Status != null)
             {
-                orders = await _dbContext.Orders
-                    .Where(x => x.ClientId == request.ClientId && x.Status == request.Status)
-                    .OrderByDescending(x => x.CreatedAt)
-                    .Skip(request.PageIndex * request.PageSize)
-                    .Take(request.PageSize)
-                    .ProjectTo<BotOrderLookupDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
+                ordersQuery = ordersQuery
+                    .Where(x => x.Status == request.Status);
             }
-            else
+            if (request.GetCanceled)
             {
-                orders = await _dbContext.Orders
-                    .Where(x => x.ClientId == request.ClientId)
-                    .OrderByDescending(x => x.CreatedAt)
-                    .Skip(request.PageIndex * request.PageSize)
-                    .Take(request.PageSize)
-                    .ProjectTo<BotOrderLookupDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
+                ordersQuery = ordersQuery.Where(x => 
+                    x.Status == (int)OrderStatus.CanceledByAdmin ||
+                    x.Status == (int)OrderStatus.CanceledByUser);
             }
+
+            var orders = await ordersQuery
+                .OrderByDescending(x => x.CreatedAt)
+                .Skip(request.PageIndex * request.PageSize)
+                .Take(request.PageSize)
+                .ProjectTo<BotOrderLookupDto>(_mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
 
             return new PageDto<BotOrderLookupDto>
             {
