@@ -51,6 +51,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public long ShippingPrice { get; set; }
 
+        public long SellingPriceDiscount { get; set; }
+
+        public long ShippingPriceDiscount { get; set; }
+
         public long TotalPrice
         {
             get
@@ -126,6 +130,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                     opt.MapFrom(src => (long)Math.Ceiling(src.SellingPrice)))
                 .ForMember(dst => dst.ShippingPrice, opt =>
                     opt.MapFrom(src => (long)Math.Ceiling(src.ShippingPrice)))
+                .ForMember(dst => dst.SellingPriceDiscount, opt =>
+                    opt.MapFrom(src => src.SellingPriceDiscount))
+                .ForMember(dst => dst.ShippingPriceDiscount, opt =>
+                    opt.MapFrom(src => src.ShippingPriceDiscount))
                 .ForMember(dst => dst.Status, opt =>
                     opt.MapFrom(src => src.Status))
                 .ForMember(dst => dst.IsPrePayed, opt =>

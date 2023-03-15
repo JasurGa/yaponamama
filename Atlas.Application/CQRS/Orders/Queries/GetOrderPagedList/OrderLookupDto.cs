@@ -41,6 +41,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
             }
         }
 
+        public long SellingPriceDiscount { get; set; }
+
+        public long ShippingPriceDiscount { get; set; }
+
         public int Status { get; set; }
 
         public int GoodCount { get; set; }
@@ -72,6 +76,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
                     opt.MapFrom(src => (long)Math.Ceiling(src.ShippingPrice)))
                 .ForMember(dst => dst.PurchasePrice, opt =>
                     opt.MapFrom(src => (long)Math.Ceiling(src.PurchasePrice)))
+                .ForMember(dst => dst.SellingPriceDiscount, opt =>
+                    opt.MapFrom(src => src.SellingPriceDiscount))
+                .ForMember(dst => dst.ShippingPriceDiscount, opt =>
+                    opt.MapFrom(src => src.ShippingPriceDiscount))
                 .ForMember(dst => dst.GoodCount, opt =>
                     opt.MapFrom(src => src.GoodToOrders.Sum(x => x.Count)))
                 .ForMember(dst => dst.Status, opt =>

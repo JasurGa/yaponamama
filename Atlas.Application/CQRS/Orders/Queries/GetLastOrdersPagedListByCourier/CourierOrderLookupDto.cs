@@ -37,6 +37,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
 
         public long ShippingPrice { get; set; }
 
+        public long SellingPriceDiscount { get; set; }
+
+        public long ShippingPriceDiscount { get; set; }
+
         public long TotalPrice
         {
             get
@@ -98,6 +102,10 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByCourier
                     opt.MapFrom(src => (long)Math.Ceiling(src.SellingPrice)))
                 .ForMember(dst => dst.ShippingPrice, opt =>
                     opt.MapFrom(src => (long)Math.Ceiling(src.ShippingPrice)))
+                .ForMember(dst => dst.SellingPriceDiscount, opt =>
+                    opt.MapFrom(src => src.SellingPriceDiscount))
+                .ForMember(dst => dst.ShippingPriceDiscount, opt =>
+                    opt.MapFrom(src => src.ShippingPriceDiscount))
                 .ForMember(dst => dst.Comment, opt =>
                     opt.MapFrom(src => src.Comment))
                 .ForMember(dst => dst.Apartment, opt =>
