@@ -31,6 +31,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public DateTime FinishedAt { get; set; }
 
+        public DateTime DeliverAt { get; set; }
+
         public DateTime? StatusLastEditedAt { get; set; }
 
         public string Address { get; set; }
@@ -100,6 +102,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                     opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dst => dst.FinishedAt, opt =>
                     opt.MapFrom(src => src.FinishedAt))
+                .ForMember(dst => dst.DeliverAt, opt =>
+                    opt.MapFrom(src => src.DeliverAt))
                 .ForMember(dst => dst.StatusLastEditedAt, opt =>
                     opt.MapFrom(src => src.StatusLastEditedAt))
                 .ForMember(dst => dst.Address, opt =>
