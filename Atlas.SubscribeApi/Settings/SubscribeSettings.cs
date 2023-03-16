@@ -8,5 +8,10 @@ namespace Atlas.SubscribeApi.Settings
 {
     public class SubscribeSettings
     {
+        public const string SubscribeSection = "Subscribe";
+
+        public string Url { get; set; }
+
+        public string AuthToken { get; set; }
     }
 }

@@ -17,10 +17,6 @@ namespace Atlas.Eskiz
             var password   = section.GetValue<string>("Password");
             var fromNumber = section.GetValue<string>("FromNumber");
 
-            Console.WriteLine("Eskiz.AddSettings Email: " + email);
-            Console.WriteLine("Eskiz.AddSettings Password: " + password);
-            Console.WriteLine("Eskiz.AddSettings FromNumber: " + fromNumber);
-
             services.Configure<EskizSettings>(o =>
             {
                 o.Email      = email;

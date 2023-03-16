@@ -6,31 +6,31 @@ namespace Atlas.SubscribeApi.Abstractions
 {
     public interface ISubscribeClient
     {
-        Task<CardDetailsVm> CardsCreateAsync(CardsShortLookupDto card, AccountLookupDto account, bool save, string customer);
+        CardDetailsVm? CardsCreate(CardsShortLookupDto card, AccountLookupDto account, bool save, string customer);
 
-        Task<SentVerifiyCodeDetailsVm> CardsGetVerifyCodeAsync(string token);
+        SentVerifiyCodeDetailsVm? CardsGetVerifyCode(string token);
 
-        Task<CardDetailsVm> CardsVerifyAsync(string token, string code);
+        CardDetailsVm? CardsVerify(string token, string code);
 
-        Task<CardDetailsVm> CardsCheckAsync(string token);
+        CardDetailsVm? CardsCheck(string token);
 
-        Task<SuccessDetailsVm> CardsRemoveAsync(string token);
+        SuccessDetailsVm? CardsRemove(string token);
 
-        Task<ReceiptDetailsVm> ReceiptsCreateAsync(long amount, AccountLookupDto account, string description, DetailLookupDto detail);
+        ReceiptDetailsVm? ReceiptsCreate(long amount, AccountLookupDto account, string description, DetailLookupDto detail);
 
-        Task<PayReceiptDetailsVm> ReceiptsPayAsync(string id, string token, PayerLookupDto payer);
+        PayReceiptDetailsVm? ReceiptsPay(string id, string token, PayerLookupDto payer);
 
-        Task<SuccessDetailsVm> ReceiptsSendAsync(string id, string phone);
+        SuccessDetailsVm? ReceiptsSend(string id, string phone);
 
-        Task<PayReceiptDetailsVm> ReceiptsCancelAsync(string id);
+        PayReceiptDetailsVm? ReceiptsCancel(string id);
 
-        Task<StateDetailsVm> ReceiptsCheckAsync(string id);
+        StateDetailsVm? ReceiptsCheck(string id);
 
-        Task<PayReceiptDetailsVm> ReceiptsGetAsync(string id);
+        PayReceiptDetailsVm? ReceiptsGet(string id);
 
-        Task<List<InnerPayReceiptDetailsVm>> ReceiptsGetAllAsync(long count, long from, long to, long offset);
+        List<InnerPayReceiptDetailsVm>? ReceiptsGetAll(long count, long from, long to, long offset);
 
-        Task<SuccessDetailsVm> ReceiptsSetFiscalDataAsync(string id, FiscalDataLookupDto fiscalData);
+        SuccessDetailsVm? ReceiptsSetFiscalData(string id, FiscalDataLookupDto fiscalData);
     }
 }
 
