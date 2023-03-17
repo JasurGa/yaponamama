@@ -30,7 +30,7 @@
 
         public long comission { get; set; }
 
-        public List<InnerAccountDetailsVm> account { get; set; }
+        public List<AccountLookupDto> account { get; set; }
 
         public CardsShortLookupDto card { get; set; }
 

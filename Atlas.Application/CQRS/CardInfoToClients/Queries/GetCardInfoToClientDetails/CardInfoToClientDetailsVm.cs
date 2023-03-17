@@ -13,15 +13,15 @@ namespace Atlas.Application.CQRS.CardInfoToClients.Queries.GetCardInfoToClientDe
 
         public string Name { get; set; }
 
-        public string CardNumber { get; set; }
+        public string Number { get; set; }
 
-        public string DateOfIssue { get; set; }
+        public string Expire { get; set; }
 
-        public string Cvc { get; set; }
+        public string Token { get; set; }
 
-        public string Cvc2 { get; set; }
+        public bool Recurrent { get; set; }
 
-        public string CardHolder { get; set; }
+        public bool Verify { get; set; }
 
         public void Mapping(Profile profile)
         {
@@ -30,16 +30,16 @@ namespace Atlas.Application.CQRS.CardInfoToClients.Queries.GetCardInfoToClientDe
                     opt.MapFrom(src => src.ClientId))
                 .ForMember(dst => dst.Name, opt =>
                     opt.MapFrom(src => src.Name))
-                .ForMember(dst => dst.CardNumber, opt =>
-                    opt.MapFrom(src => src.CardNumber))
-                .ForMember(dst => dst.DateOfIssue, opt =>
-                    opt.MapFrom(src => src.DateOfIssue))
-                .ForMember(dst => dst.Cvc, opt =>
-                    opt.MapFrom(src => src.Cvc))
-                .ForMember(dst => dst.Cvc2, opt =>
-                    opt.MapFrom(src => src.Cvc2))
-                .ForMember(dst => dst.CardHolder, opt =>
-                    opt.MapFrom(src => src.CardHolder));
+                .ForMember(dst => dst.Number, opt =>
+                    opt.MapFrom(src => src.Number))
+                .ForMember(dst => dst.Expire, opt =>
+                    opt.MapFrom(src => src.Expire))
+                .ForMember(dst => dst.Token, opt =>
+                    opt.MapFrom(src => src.Token))
+                .ForMember(dst => dst.Recurrent, opt =>
+                    opt.MapFrom(src => src.Recurrent))
+                .ForMember(dst => dst.Verify, opt =>
+                    opt.MapFrom(src => src.Verify));
         }
     }
 }

@@ -38,6 +38,6 @@ namespace Atlas.SubscribeApi.Models
 
         public long comission { get; set; }
 
-        public InnerAccountDetailsVm account { get; set; }
+        public AccountLookupDto account { get; set; }
     }
 }

@@ -9,15 +9,15 @@ namespace Atlas.Domain
 
         public string Name { get; set; }
 
-        public string CardNumber { get; set; }
+        public string Number { get; set; }
 
-        public string DateOfIssue { get; set; }
+        public string Expire { get; set; }
 
-        public string Cvc { get; set; }
+        public string Token { get; set; }
 
-        public string Cvc2 { get;set; }
+        public bool Recurrent { get; set; }
 
-        public string CardHolder { get; set; }
+        public bool Verify { get; set; }
 
         public Client Client { get; set; }
     }

@@ -21,12 +21,12 @@ namespace Atlas.Application.CQRS.CardInfoToClients.Commands.CreateCardInfoToClie
             {
                 Id          = Guid.NewGuid(),
                 ClientId    = request.ClientId,
-                CardHolder  = request.CardHolder,
-                CardNumber  = request.CardNumber,
-                Cvc         = request.Cvc,
-                Cvc2        = request.Cvc2,
-                DateOfIssue = request.DateOfIssue,
                 Name        = request.Name,
+                Number      = request.Number,
+                Expire      = request.Expire,
+                Token       = request.Token,
+                Recurrent   = request.Recurrent,
+                Verify      = request.Verify
             };
 
             await _dbContext.CardInfoToClients.AddAsync(cardInfoToClient,

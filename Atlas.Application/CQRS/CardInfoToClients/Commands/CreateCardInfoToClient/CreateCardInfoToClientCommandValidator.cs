@@ -10,13 +10,13 @@ namespace Atlas.Application.CQRS.CardInfoToClients.Commands.CreateCardInfoToClie
             RuleFor(e => e.Name)
                 .NotEmpty();
 
-            RuleFor(e => e.CardNumber)
+            RuleFor(e => e.Number)
                 .NotEmpty();
 
             RuleFor(e => e.ClientId)
                 .NotEqual(Guid.Empty);
 
-            RuleFor(e => e.DateOfIssue)
+            RuleFor(e => e.Expire)
                 .NotEmpty();
         }
     }

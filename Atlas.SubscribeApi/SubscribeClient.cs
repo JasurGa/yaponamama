@@ -85,7 +85,7 @@ namespace Atlas.SubscribeApi
             }
         }
 
-        public CardDetailsVm? CardsCreate(CardsShortLookupDto card, AccountLookupDto account, bool save, string customer)
+        public CardDetailsVm? CardsCreate(CardsShortLookupDto card, AccountLookupDto account, bool save, string? customer)
         {
             var response = InvokeMethod("cards.create", new
             {

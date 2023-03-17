@@ -26,13 +26,13 @@ namespace Atlas.Application.CQRS.CardInfoToClients.Commands.UpdateCardInfoToClie
                 throw new NotFoundException(nameof(CardInfoToClient), request.Id);
             }    
 
-            cardInfoToClient.CardHolder  = request.CardHolder;
-            cardInfoToClient.CardNumber  = request.CardNumber;
-            cardInfoToClient.Cvc         = request.Cvc;
-            cardInfoToClient.Cvc2        = request.Cvc2;
-            cardInfoToClient.DateOfIssue = request.DateOfIssue;
-            cardInfoToClient.Name        = request.Name;
-
+            cardInfoToClient.Name      = request.Name;
+            cardInfoToClient.Number    = request.Number;
+            cardInfoToClient.Expire    = request.Expire;
+            cardInfoToClient.Token     = request.Token;
+            cardInfoToClient.Recurrent = request.Recurrent;
+            cardInfoToClient.Verify    = request.Verify;
+            
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

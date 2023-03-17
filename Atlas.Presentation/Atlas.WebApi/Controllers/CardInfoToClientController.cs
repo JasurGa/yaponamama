@@ -34,11 +34,11 @@ namespace Atlas.WebApi.Controllers
         ///     POST /api/1.0/cardinfotoclient
         ///     {
         ///         "name": "123",
-        ///         "cardNumber": "4795 5900 9003 4390",
-        ///         "dateOfIssue": "1900-01-01T10:00:00",
-        ///         "cvc": "123",
-        ///         "cvc2": "123",
-        ///         "cardHolder": "IVAN IVANOV"
+        ///         "number": "4795590090034390",
+        ///         "expire": "0399",
+        ///         "token": "dasjhkgffkjhglkfdhfkjhdsjhdkjsahdjsahdkjsahjfhdsjkfjdsk",
+        ///         "recurrent": true,
+        ///         "verify": true
         ///     }
         ///     
         /// </remarks>
@@ -128,11 +128,11 @@ namespace Atlas.WebApi.Controllers
         ///     {
         ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
         ///         "name": "123",
-        ///         "cardNumber": "4796 4900 4332 3445",
-        ///         "dateOfIssue": "1900-01-01T10:00:00",
-        ///         "cvc": "123",
-        ///         "cvc2": "123",
-        ///         "cardHolder": "IVAN IVANOV"
+        ///         "number": "4795590090034390",
+        ///         "expire": "0399",
+        ///         "token": "dasjhkgffkjhglkfdhfkjhdsjhdkjsahdjsahdkjsahjfhdsjkfjdsk",
+        ///         "recurrent": true,
+        ///         "verify": true
         ///     }
         ///     
         /// </remarks>
