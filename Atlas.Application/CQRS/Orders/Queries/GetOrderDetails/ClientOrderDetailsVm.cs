@@ -88,6 +88,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public int GoodReplacementType { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public IList<GoodToOrderLookupDto> GoodToOrders { get; set; }
 
         public StoreDetailsVm Store { get; set; }
@@ -159,6 +161,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                     opt.MapFrom(src => src.TelegramUserId))
                 .ForMember(dst => dst.GoodReplacementType, opt =>
                     opt.MapFrom(src => src.GoodReplacementType))
+                .ForMember(dst => dst.IsPrivateHouse, opt =>
+                    opt.MapFrom(src => src.IsPrivateHouse))
                 .ForMember(dst => dst.GoodToOrders, opt =>
                     opt.MapFrom(src => src.GoodToOrders));
         }

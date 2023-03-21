@@ -30,6 +30,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList
 
         public DateTime FinishedAt { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public List<BotGoodToOrderLookupDto> GoodToOrders { get; set; }
 
         public void Mapping(Profile profile)
@@ -57,6 +59,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetBotOrdersPagedList
                     opt.MapFrom(src => src.StatusLastEditedAt))
                 .ForMember(dst => dst.FinishedAt, opt =>
                     opt.MapFrom(src => src.FinishedAt))
+                .ForMember(dst => dst.IsPrivateHouse, opt =>
+                    opt.MapFrom(src => src.IsPrivateHouse))
                 .ForMember(dst => dst.GoodToOrders, opt =>
                     opt.MapFrom(src => src.GoodToOrders));
         }

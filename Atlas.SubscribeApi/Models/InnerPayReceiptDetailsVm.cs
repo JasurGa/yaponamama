@@ -1,4 +1,6 @@
-﻿namespace Atlas.SubscribeApi.Models
+﻿using System.Collections.Generic;
+
+namespace Atlas.SubscribeApi.Models
 {
     public class InnerPayReceiptDetailsVm
     {

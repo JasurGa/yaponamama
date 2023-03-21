@@ -57,6 +57,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
 
         public long ShippingPriceDiscount { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public IList<GoodToOrderLookupDto> GoodToOrders { get; set; }
 
         public void Mapping(Profile profile)
@@ -101,7 +103,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetLastOrdersPagedListByClient
                 .ForMember(dst => dst.SellingPriceDiscount, opt =>
                     opt.MapFrom(src => src.SellingPriceDiscount))
                 .ForMember(dst => dst.ShippingPriceDiscount, opt =>
-                    opt.MapFrom(src => src.ShippingPriceDiscount));
+                    opt.MapFrom(src => src.ShippingPriceDiscount))
+                .ForMember(dst => dst.IsPrivateHouse, opt =>
+                    opt.MapFrom(src => src.IsPrivateHouse));
         }
     }
 }

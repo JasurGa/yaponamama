@@ -139,12 +139,13 @@ namespace Atlas.WebApi.Controllers
         ///         "isDevVersionBot": "false",
         ///         "telegramUserId": 0123432432,
         ///         "goodReplacementType": 0,
+        ///         "isPrivateHouse": false,
         ///         "goodToOrders": [
         ///             {
         ///                 "goodId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         ///                 "count": 10
         ///             }
-        ///         ]
+        ///         ],
         ///     }
         ///     
         /// </remarks>
@@ -236,6 +237,7 @@ namespace Atlas.WebApi.Controllers
         ///         "isDevVersionBot": "false",
         ///         "telegramUserId": 0123432432
         ///         "goodReplacementType": 0,
+        ///         "isPrivateHouse": false
         ///     }
         ///     
         /// </remarks>

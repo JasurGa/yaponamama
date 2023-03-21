@@ -38,6 +38,8 @@ namespace Atlas.WebApi.Models
 
         public int GoodReplacementType { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public IEnumerable<CreateGoodToOrderDto> GoodToOrders { get; set; }
 
         public void Mapping(Profile profile)
@@ -74,7 +76,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(dst => dst.TelegramUserId, opt =>
                     opt.MapFrom(src => src.TelegramUserId))
                 .ForMember(dst => dst.GoodReplacementType, opt =>
-                    opt.MapFrom(src => src.GoodReplacementType));
+                    opt.MapFrom(src => src.GoodReplacementType))
+                .ForMember(dst => dst.IsPrivateHouse, opt =>
+                    opt.MapFrom(src => src.IsPrivateHouse));
         }
     }
 }

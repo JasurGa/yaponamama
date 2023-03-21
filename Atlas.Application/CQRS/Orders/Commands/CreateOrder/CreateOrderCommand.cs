@@ -39,6 +39,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
 
         public int GoodReplacementType { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public IEnumerable<CreateGoodToOrderCommand> GoodToOrders { get; set; }
     }
 }

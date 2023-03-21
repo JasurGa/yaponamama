@@ -69,6 +69,8 @@ namespace Atlas.Domain
 
         public long ShippingPriceDiscount { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public Client Client { get; set; }
 
         public Courier Courier { get; set; }

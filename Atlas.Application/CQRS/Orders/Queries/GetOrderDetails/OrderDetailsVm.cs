@@ -83,6 +83,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
 
         public int GoodReplacementType { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public StoreDetailsVm Store { get; set; }
 
         public CourierDetailsVm Courier { get; set; }
@@ -151,7 +153,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderDetails
                 .ForMember(dst => dst.TelegramUserId, opt =>
                     opt.MapFrom(src => src.TelegramUserId))
                 .ForMember(dst => dst.GoodReplacementType, opt =>
-                    opt.MapFrom(src => src.GoodReplacementType));
+                    opt.MapFrom(src => src.GoodReplacementType))
+                .ForMember(dst => dst.IsPrivateHouse, opt =>
+                    opt.MapFrom(src => src.IsPrivateHouse));
         }
     }
 }

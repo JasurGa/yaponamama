@@ -11,6 +11,7 @@ using System.Text;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace Atlas.SubscribeApi
 {
@@ -31,11 +32,13 @@ namespace Atlas.SubscribeApi
 
             webRequest.Headers.Add("X-Auth", _subscribeSettings.AuthToken);
 
-            var joe        = new JObject();
-            joe["jsonrpc"] = "1.0";
-            joe["id"]      = "1";
-            joe["method"]  = method;
-            joe["params"]  = JObject.FromObject(parameters);
+            var joe = new JObject
+            {
+                ["jsonrpc"] = "1.0",
+                ["id"]      = "1",
+                ["method"]  = method,
+                ["params"]  = JObject.FromObject(parameters)
+            };
 
             var s = JsonConvert.SerializeObject(joe);
             var byteArray = Encoding.UTF8.GetBytes(s);
@@ -43,41 +46,33 @@ namespace Atlas.SubscribeApi
 
             try
             {
-                using (var dataStream = webRequest.GetRequestStream())
-                {
-                    dataStream.Write(byteArray, 0, byteArray.Length);
-                }
+                using var dataStream = webRequest.GetRequestStream();
+                dataStream.Write(byteArray, 0, byteArray.Length);
             }
             catch
             {
                 throw;
             }
 
-            WebResponse webResponse = null;
             try
             {
-                using (webResponse = webRequest.GetResponse())
-                {
-                    using (var str = webResponse.GetResponseStream())
-                    {
-                        using (var sr = new StreamReader(str))
-                        {
-                            var response = JsonConvert.DeserializeObject<JObject>(sr.ReadToEnd());
-                            return response != null ? response["result"] : null;
-                        }
-                    }
-                }
+                using var webResponse = webRequest.GetResponse();
+                using var str = webResponse.GetResponseStream();
+                using var sr = new StreamReader(str);
+                var response = JsonConvert.DeserializeObject<JObject>(sr.ReadToEnd());
+                return response?["result"];
             }
             catch (WebException webex)
             {
-                using (var str = webex.Response.GetResponseStream())
+                using var str = webex?.Response?.GetResponseStream();
+                if (str is null)
                 {
-                    using (var sr = new StreamReader(str))
-                    {
-                        var response = JsonConvert.DeserializeObject<JObject>(sr.ReadToEnd());
-                        return response != null ? response["result"] : null;
-                    }
+                    throw;
                 }
+
+                using var sr = new StreamReader(str);
+                var response = JsonConvert.DeserializeObject<JObject>(sr.ReadToEnd());
+                return response?["result"];
             }
             catch (Exception)
             {
@@ -89,144 +84,144 @@ namespace Atlas.SubscribeApi
         {
             var response = InvokeMethod("cards.create", new
             {
-                card     = card,
-                account  = account, 
-                save     = save,
-                customer = customer
+                card,
+                account,
+                save,
+                customer
             });
 
-            return response != null ? response.ToObject<CardDetailsVm>() : null;
+            return response?.ToObject<CardDetailsVm>();
         }
 
         public SentVerifiyCodeDetailsVm? CardsGetVerifyCode(string token)
         {
             var response = InvokeMethod("cards.get_verify_code", new
             {
-                token = token
+                token
             });
 
-            return response != null ? response.ToObject<SentVerifiyCodeDetailsVm>() : null;
+            return response?.ToObject<SentVerifiyCodeDetailsVm>();
         }
 
         public CardDetailsVm? CardsVerify(string token, string code)
         {
             var response = InvokeMethod("cards.verify", new
             {
-                token = token,
-                code  = code
+                token,
+                code
             });
 
-            return response != null ? response.ToObject<CardDetailsVm>() : null;
+            return response?.ToObject<CardDetailsVm>();
         }
 
         public CardDetailsVm? CardsCheck(string token)
         {
             var response = InvokeMethod("cards.check", new
             {
-                token = token
+                token
             });
 
-            return response != null ? response.ToObject<CardDetailsVm>() : null;
+            return response?.ToObject<CardDetailsVm>();
         }
 
         public SuccessDetailsVm? CardsRemove(string token)
         {
             var response = InvokeMethod("cards.remove", new
             {
-                token = token
+                token
             });
 
-            return response != null ? response.ToObject<SuccessDetailsVm>() : null;
+            return response?.ToObject<SuccessDetailsVm>();
         }
         
         public ReceiptDetailsVm? ReceiptsCreate(long amount, AccountLookupDto account, string description, DetailLookupDto detail)
         {
             var response = InvokeMethod("receipts.create", new
             {
-                amount      = amount,
-                account     = account,
-                description = description,
-                detail      = detail
+                amount,
+                account,
+                description,
+                detail
             });
 
-            return response != null ? response.ToObject<ReceiptDetailsVm>() : null;
+            return response?.ToObject<ReceiptDetailsVm>();
         }
 
         public PayReceiptDetailsVm? ReceiptsPay(string id, string token, PayerLookupDto payer)
         {
             var response = InvokeMethod("receipts.pay", new
             {
-                id    = id,
-                token = token,
-                payer = payer
+                id,
+                token,
+                payer
             });
 
-            return response != null ? response.ToObject<PayReceiptDetailsVm>() : null;
+            return response?.ToObject<PayReceiptDetailsVm>();
         }
 
         public SuccessDetailsVm? ReceiptsSend(string id, string phone)
         {
             var response = InvokeMethod("receipts.send", new
             {
-                id    = id,
-                phone = phone
+                id,
+                phone
             });
 
-            return response != null ? response.ToObject<SuccessDetailsVm>() : null;
+            return response?.ToObject<SuccessDetailsVm>();
         }
 
         public PayReceiptDetailsVm? ReceiptsCancel(string id)
         {
             var response = InvokeMethod("receipts.cancel", new
             {
-                id = id,
+                id,
             });
 
-            return response != null ? response.ToObject<PayReceiptDetailsVm>() : null;
+            return response?.ToObject<PayReceiptDetailsVm>();
         }
 
         public StateDetailsVm? ReceiptsCheck(string id)
         {
             var response = InvokeMethod("receipts.check", new
             {
-                id = id,
+                id,
             });
 
-            return response != null ? response.ToObject<StateDetailsVm>() : null;
+            return response?.ToObject<StateDetailsVm>();
         }
 
         public PayReceiptDetailsVm? ReceiptsGet(string id)
         {
             var response = InvokeMethod("receipts.get", new
             {
-                id = id,
+                id,
             });
 
-            return response != null ? response.ToObject<PayReceiptDetailsVm>() : null;
+            return response?.ToObject<PayReceiptDetailsVm>();
         }
 
         public List<InnerPayReceiptDetailsVm>? ReceiptsGetAll(long count, long from, long to, long offset)
         {
             var response = InvokeMethod("receipts.get_all", new
             {
-                count  = count,
-                from   = from,
-                to     = to,
-                offset = offset
+                count,
+                from,
+                to,
+                offset
             });
 
-            return response != null ? response.ToObject<List<InnerPayReceiptDetailsVm>>() : null;
+            return response?.ToObject<List<InnerPayReceiptDetailsVm>>();
         }
 
         public SuccessDetailsVm? ReceiptsSetFiscalData(string id, FiscalDataLookupDto fiscal_data)
         {
             var response = InvokeMethod("receipts.set_fiscal_data", new
             {
-                id          = id,
-                fiscal_data = fiscal_data
+                id,
+                fiscal_data
             });
 
-            return response != null ? response.ToObject<SuccessDetailsVm>() : null;        
+            return response?.ToObject<SuccessDetailsVm>();        
         }
     }
 }

@@ -56,5 +56,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
         public Guid? PromoId { get; set; }
 
         public int GoodReplacementType { get; set; }
+
+        public bool IsPrivateHouse { get; set; }
     }
 }

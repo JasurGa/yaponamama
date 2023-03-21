@@ -10,40 +10,37 @@ namespace Atlas.TestApp
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            var id       = "634006530c7921dcc8394821";
-            var password = "UXTVWZe4Q@XevDbhRjj&M%zq1KCKPZoKN?OK";
+            var id       = "641429f38e437c587b7b4326";
+            var password = "";
 
-            var subscribeApiClientFrontend = new SubscribeClient(Options.Create<SubscribeSettings>(new SubscribeSettings
+            var subscribeApiClient = new SubscribeClient(Options.Create(new SubscribeSettings
             {
                 Url       = "https://checkout.test.paycom.uz/api",
                 AuthToken = $"{id}"
             }));
 
-            var subscribeApiClientBackend = new SubscribeClient(Options.Create<SubscribeSettings>(new SubscribeSettings
-            {
-                Url = "https://checkout.test.paycom.uz/api",
-                AuthToken = $"{id}:{password}"
-            }));
-
-            Console.WriteLine(CardsCreate(subscribeApiClientFrontend));
-        }
-
-        public static string CardsCreate(ISubscribeClient subscribeApiClient)
-        {
-            var result = subscribeApiClient.CardsCreate(new CardsShortLookupDto
+            var cardsCreate = subscribeApiClient.CardsCreate(new CardsShortLookupDto
             {
                 number = "8600495473316478",
                 expire = "0399"
             },
-            new AccountLookupDto
-            {
-            },
-            true,
-            null);
+            new AccountLookupDto { }, true, null);
 
-            return JsonConvert.SerializeObject(result);
+            var cardsGetVerifyCode = subscribeApiClient.CardsGetVerifyCode(cardsCreate.card.token);
+            var cardsVerify = subscribeApiClient.CardsVerify(cardsCreate.card.token, "666666");
+
+            Console.WriteLine(JsonConvert.SerializeObject(cardsCreate));
+            Console.WriteLine(JsonConvert.SerializeObject(cardsGetVerifyCode));
+            Console.WriteLine(JsonConvert.SerializeObject(cardsVerify));
+
+            subscribeApiClient = new SubscribeClient(Options.Create(new SubscribeSettings
+            {
+                Url       = "https://checkout.test.paycom.uz/api",
+                AuthToken = $"{id}:{password}"
+            }));
+
         }
     }
 }

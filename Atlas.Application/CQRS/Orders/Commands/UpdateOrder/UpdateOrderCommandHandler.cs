@@ -123,6 +123,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.UpdateOrder
             order.TelegramUserId        = request.TelegramUserId;
             order.IsDevVersionBot       = request.IsDevVersionBot;
             order.GoodReplacementType   = request.GoodReplacementType;
+            order.IsPrivateHouse        = request.IsPrivateHouse;
 
             if (order.Status != request.Status)
                 order.StatusLastEditedAt = DateTime.UtcNow;

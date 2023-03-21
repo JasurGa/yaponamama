@@ -14,8 +14,8 @@ namespace Atlas.Application.CQRS.DisposeToConsignments.Queries.GetDisposeToConsi
         private readonly IMapper _mapper;
         private readonly IAtlasDbContext _dbContext;
 
-        public GetDisposeToConsignmentDetailsQueryHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public GetDisposeToConsignmentDetailsQueryHandler(IMapper mapper, IAtlasDbContext dbContext) =>
+            (_mapper, _dbContext) = (mapper, dbContext);
 
         public async Task<DisposeToConsignmentDetailsVm> Handle(GetDisposeToConsignmentDetailsQuery request, CancellationToken cancellationToken)
         {

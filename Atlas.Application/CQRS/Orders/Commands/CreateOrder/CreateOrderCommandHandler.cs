@@ -336,7 +336,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.CreateOrder
                 IsDevVersionBot       = request.IsDevVersionBot,
                 GoodReplacementType   = request.GoodReplacementType,
                 SellingPriceDiscount  = priceDetails.SellingPriceDiscount,
-                ShippingPriceDiscount = priceDetails.ShippingPriceDiscount
+                ShippingPriceDiscount = priceDetails.ShippingPriceDiscount,
+                IsPrivateHouse        = request.IsPrivateHouse,
             };
 
             await _dbContext.Orders.AddAsync(order,

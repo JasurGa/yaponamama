@@ -57,6 +57,8 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
 
         public DateTime? StatusLastEditedAt { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Order, OrderLookupDto>()
@@ -91,7 +93,9 @@ namespace Atlas.Application.CQRS.Orders.Queries.GetOrderPagedList
                 .ForMember(dst => dst.CreatedAt, opt =>
                     opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dst => dst.StatusLastEditedAt, opt =>
-                    opt.MapFrom(src => src.StatusLastEditedAt));
+                    opt.MapFrom(src => src.StatusLastEditedAt))
+                .ForMember(dst => dst.IsPrivateHouse, opt =>
+                    opt.MapFrom(src => src.IsPrivateHouse));
         }
     }
 }

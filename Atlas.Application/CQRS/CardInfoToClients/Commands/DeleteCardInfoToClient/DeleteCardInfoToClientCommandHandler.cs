@@ -6,15 +6,17 @@ using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Atlas.SubscribeApi.Abstractions;
 
 namespace Atlas.Application.CQRS.CardInfoToClients.Commands.DeleteCardInfoToClient
 {
     public class DeleteCardInfoToClientCommandHandler : IRequestHandler<DeleteCardInfoToClientCommand>
     {
-        private readonly IAtlasDbContext _dbContext;
+        private readonly IAtlasDbContext  _dbContext;
+        private readonly ISubscribeClient _subscribeClient;
 
-        public DeleteCardInfoToClientCommandHandler(IAtlasDbContext dbContext) =>
-            _dbContext = dbContext;
+        public DeleteCardInfoToClientCommandHandler(IAtlasDbContext dbContext, ISubscribeClient subscribeClient) =>
+            (_dbContext, _subscribeClient) = (dbContext, subscribeClient);
 
         public async Task<Unit> Handle(DeleteCardInfoToClientCommand request, CancellationToken cancellationToken)
         {
@@ -28,6 +30,7 @@ namespace Atlas.Application.CQRS.CardInfoToClients.Commands.DeleteCardInfoToClie
 
             _dbContext.CardInfoToClients.Remove(cardInfoToClient);
             await _dbContext.SaveChangesAsync(cancellationToken);
+            _subscribeClient.CardsRemove(cardInfoToClient.Token);
 
             return Unit.Value;
         }
