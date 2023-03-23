@@ -33,14 +33,6 @@ namespace Atlas.Application.CQRS.Orders.Commands.PayOrder
                 throw new NotFoundException(nameof(Client), request.ClientId);
             }
 
-            var cardInfo = await _dbContext.CardInfoToClients.FirstOrDefaultAsync(x =>
-                x.Token == request.Token, cancellationToken);
-
-            if (cardInfo == null || cardInfo.ClientId != request.ClientId) 
-            {
-                throw new NotFoundException(nameof(CardInfoToClient), request.Token);
-            }
-
             var order = await _dbContext.Orders.Include(x => x.GoodToOrders)
                 .ThenInclude(x => x.Good).FirstOrDefaultAsync(x => 
                     x.Id == request.OrderId, cancellationToken);
