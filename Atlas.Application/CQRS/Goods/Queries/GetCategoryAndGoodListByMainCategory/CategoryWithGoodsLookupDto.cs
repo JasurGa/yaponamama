@@ -12,6 +12,13 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
         public string Name { get; set; }
 
+        public string NameRu { get; set; }
+
+        public string NameEn { get; set; }
+
+        public string NameUz { get; set; }
+
+
         public int GoodsCount { get; set; }
 
         public List<GoodInCategoryLookupDto> Goods { get; set; }
@@ -23,6 +30,12 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
                     opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt =>
                     opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.NameRu, opt =>
+                    opt.MapFrom(src => src.NameRu))
+                .ForMember(dest => dest.NameEn, opt =>
+                    opt.MapFrom(src => src.NameEn))
+                .ForMember(dest => dest.NameUz, opt =>
+                    opt.MapFrom(src => src.NameUz))
                 .ForMember(dest => dest.GoodsCount, opt =>
                     opt.MapFrom(src => src.GoodsCount));
         }

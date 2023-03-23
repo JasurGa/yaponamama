@@ -14,6 +14,12 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
         public string Name { get; set; }
 
+        public string NameRu { get; set; }
+
+        public string NameEn { get; set; }
+
+        public string NameUz { get; set; }
+
         public long SellingPrice { get; set; }
 
         public float Discount { get; set; }
@@ -27,6 +33,12 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
                     opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt =>
                     opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.NameRu, opt =>
+                    opt.MapFrom(src => src.NameRu))
+                .ForMember(dest => dest.NameEn, opt =>
+                    opt.MapFrom(src => src.NameEn))
+                .ForMember(dest => dest.NameUz, opt =>
+                    opt.MapFrom(src => src.NameUz))
                 .ForMember(dest => dest.PhotoPath, opt =>
                     opt.MapFrom(src => src.PhotoPath))
                 .ForMember(dest => dest.SellingPrice, opt =>
