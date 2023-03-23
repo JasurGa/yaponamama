@@ -36,7 +36,6 @@
     <Folder Include="CQRS\Goods\Queries\GetGoodListByCategory\" />
     <Folder Include="CQRS\Goods\Queries\GetGoodPagedListByCategory\" />
     <Folder Include="Models\" />
-    <Folder Include="CQRS\Orders\Commands\" />
     <Folder Include="CQRS\Orders\Queries\GetOrderDetails\" />
     <Folder Include="CQRS\Notifications\" />
     <Folder Include="CQRS\Notifications\Commands\" />

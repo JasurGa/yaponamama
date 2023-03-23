@@ -4,6 +4,7 @@ using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
 using Atlas.Application.CQRS.Orders.Commands.CancelOrderByClient;
 using Atlas.Application.CQRS.Orders.Commands.ChangeOrderRefundStatus;
 using Atlas.Application.CQRS.Orders.Commands.CreateOrder;
+using Atlas.Application.CQRS.Orders.Commands.PayOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrder;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderPaymentType;
 using Atlas.Application.CQRS.Orders.Commands.UpdateOrderPrepayment;
@@ -19,6 +20,7 @@ using Atlas.Application.CQRS.Orders.Queries.GetOrderDetails;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForAdmin;
 using Atlas.Application.CQRS.Orders.Queries.GetOrderDetailsForCourier;
 using Atlas.Application.Models;
+using Atlas.SubscribeApi.Models;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
@@ -113,6 +115,44 @@ namespace Atlas.WebApi.Controllers
                 PageSize    = pageSize,
                 PageIndex   = pageIndex
             });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Pay the order
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     POST /api/1.0/order/pay
+        ///     {
+        ///         "token": "asdasdasdsadsadsadsadsaasdsadsadasd",
+        ///         "orderId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="payOrderDto">PayOrderDto object</param>
+        /// <returns>Returns SuccessDetailsVm object</returns>
+        /// <response code="200">Success</response>
+        /// <response code="404">NotFound</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPost("pay")]
+        [AuthRoleFilter(Roles.Client)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<SuccessDetailsVm>> PayAsync([FromBody] PayOrderDto payOrderDto)
+        {
+            var vm = await Mediator.Send(_mapper.Map<PayOrderDto,
+                PayOrderCommand>(payOrderDto, opt =>
+                {
+                    opt.AfterMap((src, dst) =>
+                    {
+                        dst.ClientId = ClientId;
+                    });
+                }));
 
             return Ok(vm);
         }

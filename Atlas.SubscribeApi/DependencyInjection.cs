@@ -8,7 +8,7 @@ namespace Atlas.SubscribeApi
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddEskiz(this IServiceCollection services,
+        public static IServiceCollection AddSubscribeApi(this IServiceCollection services,
             IConfiguration Configuration)
         {
             var section = Configuration.GetSection(SubscribeSettings.SubscribeSection);

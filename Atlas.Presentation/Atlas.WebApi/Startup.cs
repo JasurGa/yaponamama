@@ -22,6 +22,7 @@ using Atlas.WebApi.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Threading.Tasks;
 using Atlas.Application.Services;
+using Atlas.SubscribeApi;
 
 namespace Atlas.WebApi
 {
@@ -133,6 +134,8 @@ namespace Atlas.WebApi
                 e.MaximumReceiveMessageSize = 102400000;
                 e.EnableDetailedErrors      = true;
             });
+
+            services.AddSubscribeApi(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,

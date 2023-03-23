@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,11 +11,11 @@ namespace Atlas.SubscribeApi.Models
     {
         public string _id { get; set; }
 
-        public long create_time { get; set; }
+        public BigInteger create_time { get; set; }
 
-        public long pay_time { get; set; }
+        public BigInteger pay_time { get; set; }
 
-        public long cancel_time { get; set; }
+        public BigInteger cancel_time { get; set; }
 
         public long state { get; set; }
 
@@ -38,6 +39,6 @@ namespace Atlas.SubscribeApi.Models
 
         public long comission { get; set; }
 
-        public AccountLookupDto account { get; set; }
+        public List<AccountLookupDto> account { get; set; }
     }
 }
