@@ -53,6 +53,8 @@ namespace Atlas.Domain
 
         public DateTime CreatedAt { get; set; }
 
+        public bool IsVerified { get; set; }
+
         public ICollection<StoreToGood> StoreToGoods { get; set; }
 
         public ICollection<PhotoToGood> PhotoToGoods { get; set; }

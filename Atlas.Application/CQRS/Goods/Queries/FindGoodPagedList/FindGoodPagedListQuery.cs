@@ -20,6 +20,10 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
+
+        public Guid ClientId { get; set; }
+
+        public bool IsAuthenticated { get; set; }
     }
 }
 

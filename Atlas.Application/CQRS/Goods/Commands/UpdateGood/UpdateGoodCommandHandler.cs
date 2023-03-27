@@ -54,6 +54,7 @@ namespace Atlas.Application.CQRS.Goods.Commands.UpdateGood
             good.SaleTaxPercent = request.SaleTaxPercent;
             good.CodeIkpu       = request.CodeIkpu;
             good.PackageCode    = request.PackageCode;
+            good.IsVerified     = request.IsVerified;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

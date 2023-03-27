@@ -25,5 +25,7 @@ namespace Atlas.WebApi.Controllers
         internal Guid CourierId => !User.Identity.IsAuthenticated
             ? Guid.Empty
             : Guid.Parse(User.FindFirst(TokenClaims.CourierId).Value);
+
+        internal bool IsAuthenticated => User.Identity.IsAuthenticated;
     }
 }

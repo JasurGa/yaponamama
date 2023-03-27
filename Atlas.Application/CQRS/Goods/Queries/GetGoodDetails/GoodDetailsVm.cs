@@ -61,6 +61,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
 
         public string PackageCode { get; set; }
 
+        public bool IsVerified { get; set; }
+
         public List<StoreToCountLookupDto> StoreToCount { get; set; }
 
         public void Mapping(Profile profile)
@@ -116,6 +118,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodDetails
                     opt.MapFrom(src => src.SaleTaxPercent))
                 .ForMember(dest => dest.PackageCode, opt =>
                     opt.MapFrom(src => src.PackageCode))
+                .ForMember(dest => dest.IsVerified, opt =>
+                    opt.MapFrom(src => src.IsVerified))
                 .ForMember(dest => dest.StoreToCount, opt =>
                     opt.Ignore());
         }

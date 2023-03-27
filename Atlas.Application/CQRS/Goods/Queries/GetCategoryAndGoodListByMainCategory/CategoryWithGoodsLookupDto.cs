@@ -18,7 +18,6 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCateg
 
         public string NameUz { get; set; }
 
-
         public int GoodsCount { get; set; }
 
         public List<GoodInCategoryLookupDto> Goods { get; set; }

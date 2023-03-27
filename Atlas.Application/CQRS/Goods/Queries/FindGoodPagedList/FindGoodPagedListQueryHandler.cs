@@ -75,6 +75,17 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
                         notTranslited + " " + translitedRu + " " + translitedEn));
             }
 
+            if (!request.IsAuthenticated || request.ClientId != Guid.Empty)
+            {
+                var client = await _dbContext.Clients.FirstOrDefaultAsync(x =>
+                    x.Id == request.ClientId, cancellationToken);
+
+                if (client == null || !client.IsPassportVerified)
+                {
+                    goods = goods.Where(x => !x.IsVerified);
+                }
+            }
+
             var goodsCount = await goods.CountAsync(cancellationToken);
             var pagedGoods = await goods.Skip(request.PageSize * request.PageIndex)
                 .Take(request.PageSize)

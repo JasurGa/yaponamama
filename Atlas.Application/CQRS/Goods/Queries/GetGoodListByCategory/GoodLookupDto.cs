@@ -61,6 +61,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
 
         public string PackageCode { get; set; }
 
+        public bool IsVerified { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Good, GoodLookupDto>()
@@ -113,7 +115,9 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodListByCategory
                 .ForMember(dest => dest.SaleTaxPercent, opt =>
                     opt.MapFrom(src => src.SaleTaxPercent))
                 .ForMember(dest => dest.PackageCode, opt =>
-                    opt.MapFrom(src => src.PackageCode));
+                    opt.MapFrom(src => src.PackageCode))
+                .ForMember(dest => dest.IsVerified, opt =>
+                    opt.MapFrom(src => src.IsVerified));
         }
     }
 }

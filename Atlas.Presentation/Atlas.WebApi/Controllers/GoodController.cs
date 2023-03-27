@@ -158,7 +158,8 @@ namespace Atlas.WebApi.Controllers
                 FilterCategoryId      = filterCategoryId,
                 FilterMaxSellingPrice = filterMaxSellingPrice,
                 FilterMinSellingPrice = filterMinSellingPrice,
-                ShowDeleted           = showDeleted
+                ShowDeleted           = showDeleted,
+                ClientId              = ClientId
             });
 
             return Ok(vm);

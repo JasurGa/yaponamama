@@ -82,8 +82,10 @@ namespace Atlas.WebApi.Controllers
         {
             var vm = await Mediator.Send(new GetMainCategoryListQuery
             {
-                ShowDeleted = showDeleted,
-                ShowHidden  = showHidden
+                ShowDeleted     = showDeleted,
+                ShowHidden      = showHidden,
+                ClientId        = ClientId,
+                IsAuthenticated = IsAuthenticated
             });
 
             return Ok(vm);

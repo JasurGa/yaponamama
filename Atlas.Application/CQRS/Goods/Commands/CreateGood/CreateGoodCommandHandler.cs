@@ -51,7 +51,8 @@ namespace Atlas.Application.CQRS.Goods.Commands.CreateGood
                 CreatedAt      = DateTime.UtcNow,
                 CodeIkpu       = request.CodeIkpu,
                 SaleTaxPercent = request.SaleTaxPercent,
-                PackageCode    = request.PackageCode
+                PackageCode    = request.PackageCode,
+                IsVerified     = request.IsVerified
             };
 
             await _dbContext.Goods.AddAsync(good, cancellationToken);
