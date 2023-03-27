@@ -20,10 +20,10 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.CreateAddressToClient
             CancellationToken cancellationToken)
         {
             var oldAddressToClient = await _dbContext.AddressToClients.FirstOrDefaultAsync(x =>
-                x.Address == request.Address &&
-                x.ClientId == request.ClientId &&
-                x.Entrance == request.Entrance &&
-                x.Floor == request.Floor &&
+                x.Address   == request.Address  &&
+                x.ClientId  == request.ClientId &&
+                x.Entrance  == request.Entrance &&
+                x.Floor     == request.Floor    &&
                 x.Apartment == request.Apartment);
 
             if (oldAddressToClient != null)
@@ -33,17 +33,18 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.CreateAddressToClient
 
             var addressToClient = new AddressToClient
             {
-                Id          = Guid.NewGuid(),
-                ClientId    = request.ClientId,
-                Address     = request.Address,
-                Entrance    = request.Entrance,
-                Floor       = request.Floor,
-                Apartment   = request.Apartment,
-                Latitude    = request.Latitude,
-                Longitude   = request.Longitude,
-                AddressType = request.AddressType,
-                PhoneNumber = request.PhoneNumber,
-                CreatedAt   = DateTime.UtcNow,
+                Id             = Guid.NewGuid(),
+                ClientId       = request.ClientId,
+                Address        = request.Address,
+                Entrance       = request.Entrance,
+                Floor          = request.Floor,
+                Apartment      = request.Apartment,
+                Latitude       = request.Latitude,
+                Longitude      = request.Longitude,
+                AddressType    = request.AddressType,
+                PhoneNumber    = request.PhoneNumber,
+                IsPrivateHouse = request.IsPrivateHouse,
+                CreatedAt      = DateTime.UtcNow,
             };
 
             await _dbContext.AddressToClients.AddAsync(addressToClient,

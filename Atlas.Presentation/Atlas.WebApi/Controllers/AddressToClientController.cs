@@ -39,7 +39,8 @@ namespace Atlas.WebApi.Controllers
         ///         "apartment": "72b",
         ///         "latitude": 0,
         ///         "longitude": 0,
-        ///         "phoneNumber": "+998901234567"
+        ///         "phoneNumber": "+998901234567",
+        ///         "isPrivateHouse": false
         ///     }
         ///     
         /// </remarks>
@@ -134,7 +135,8 @@ namespace Atlas.WebApi.Controllers
         ///         "apartment": "72b",
         ///         "latitude": 0,
         ///         "longitude": 0,
-        ///         "phoneNumber": "+998901234567"
+        ///         "phoneNumber": "+998901234567",
+        ///         "isPrivateHouse": false
         ///     }
         ///     
         /// </remarks>

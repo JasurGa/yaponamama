@@ -23,6 +23,8 @@ namespace Atlas.Domain
 
         public string PhoneNumber { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public Client Client { get; set; }

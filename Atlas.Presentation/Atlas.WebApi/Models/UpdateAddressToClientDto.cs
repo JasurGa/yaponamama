@@ -25,6 +25,8 @@ namespace Atlas.WebApi.Models
 
         public string PhoneNumber { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public void Mapping(Profile profile)
         {
             profile.CreateMap<UpdateAddressToClientDto, UpdateAddressToClientCommand>()
@@ -45,7 +47,9 @@ namespace Atlas.WebApi.Models
                 .ForMember(x => x.AddressType, opt =>
                     opt.MapFrom(x => x.AddressType))
                 .ForMember(x => x.PhoneNumber, opt =>
-                    opt.MapFrom(x => x.PhoneNumber));
+                    opt.MapFrom(x => x.PhoneNumber))
+                .ForMember(x => x.IsPrivateHouse, opt =>
+                    opt.MapFrom(x => x.IsPrivateHouse));
         }
     }
 }

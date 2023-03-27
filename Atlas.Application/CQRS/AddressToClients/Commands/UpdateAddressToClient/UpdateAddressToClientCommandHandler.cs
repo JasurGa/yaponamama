@@ -26,14 +26,15 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.UpdateAddressToClient
                 throw new NotFoundException(nameof(AddressToClient), request.Id);
             }
 
-            address.Address     = request.Address;
-            address.Entrance    = request.Entrance;
-            address.Floor       = request.Floor;
-            address.Apartment   = request.Apartment;
-            address.Latitude    = request.Latitude;
-            address.Longitude   = request.Longitude;
-            address.AddressType = request.AddressType;
-            address.PhoneNumber = request.PhoneNumber;
+            address.Address        = request.Address;
+            address.Entrance       = request.Entrance;
+            address.Floor          = request.Floor;
+            address.Apartment      = request.Apartment;
+            address.Latitude       = request.Latitude;
+            address.Longitude      = request.Longitude;
+            address.AddressType    = request.AddressType;
+            address.PhoneNumber    = request.PhoneNumber;
+            address.IsPrivateHouse = request.IsPrivateHouse;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
             return Unit.Value;

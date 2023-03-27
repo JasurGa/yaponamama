@@ -27,6 +27,8 @@ namespace Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientDeta
 
         public string PhoneNumber { get; set; }
 
+        public bool IsPrivateHouse { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public void Mapping(Profile profile)
@@ -52,6 +54,8 @@ namespace Atlas.Application.CQRS.AddressToClients.Queries.GetAddressToClientDeta
                     opt => opt.MapFrom(e => e.AddressType))
                 .ForMember(eVm => eVm.PhoneNumber,
                     opt => opt.MapFrom(e => e.PhoneNumber))
+                .ForMember(eVm => eVm.IsPrivateHouse,
+                    opt => opt.MapFrom(e => e.IsPrivateHouse))
                 .ForMember(eVm => eVm.CreatedAt,
                     opt => opt.MapFrom(e => e.CreatedAt));
         }

@@ -24,5 +24,7 @@ namespace Atlas.Application.CQRS.AddressToClients.Commands.UpdateAddressToClient
         public int AddressType { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public bool IsPrivateHouse { get; set; }
     }
 }
