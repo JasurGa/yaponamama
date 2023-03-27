@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Atlas.Application.CQRS.CardInfoToClients.Commands.CreateCardInfoToClient
 {
@@ -17,7 +19,15 @@ namespace Atlas.Application.CQRS.CardInfoToClients.Commands.CreateCardInfoToClie
 
         public async Task<Guid> Handle(CreateCardInfoToClientCommand request, CancellationToken cancellationToken)
         {
-            var cardInfoToClient = new CardInfoToClient
+            var cardInfoToClient = await _dbContext.CardInfoToClients.FirstOrDefaultAsync(x =>
+                x.Number == request.Number && x.ClientId == request.ClientId, cancellationToken);
+
+            if (cardInfoToClient != null)
+            {
+                throw new AlreadyExistsException(nameof(CardInfoToClient), request.Number);
+            }
+
+            cardInfoToClient = new CardInfoToClient
             {
                 Id          = Guid.NewGuid(),
                 ClientId    = request.ClientId,

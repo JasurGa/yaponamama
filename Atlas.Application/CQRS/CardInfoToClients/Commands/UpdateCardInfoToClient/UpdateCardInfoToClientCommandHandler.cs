@@ -18,7 +18,16 @@ namespace Atlas.Application.CQRS.CardInfoToClients.Commands.UpdateCardInfoToClie
 
         public async Task<Unit> Handle(UpdateCardInfoToClientCommand request, CancellationToken cancellationToken)
         {
-            var cardInfoToClient = await _dbContext.CardInfoToClients
+            var cardInfoToClient = await _dbContext.CardInfoToClients.FirstOrDefaultAsync(x =>
+                x.Number == request.Number && x.ClientId == request.ClientId && 
+                x.Id != request.Id, cancellationToken);
+
+            if (cardInfoToClient != null)
+            {
+                throw new AlreadyExistsException(nameof(CardInfoToClient), request.Number);
+            }
+
+            cardInfoToClient = await _dbContext.CardInfoToClients
                 .FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
 
             if (cardInfoToClient == null || cardInfoToClient.ClientId != request.ClientId)
