@@ -29,7 +29,7 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
             var userWithTheSameLogin = await _dbContext.Users.FirstOrDefaultAsync(x =>
                 x.Id != request.Id && x.Login == request.Login, cancellationToken);
 
-            if ( userWithTheSameLogin != null)
+            if (userWithTheSameLogin != null)
             {
                 throw new AlreadyExistsException(nameof(User), request.Login);
             }
