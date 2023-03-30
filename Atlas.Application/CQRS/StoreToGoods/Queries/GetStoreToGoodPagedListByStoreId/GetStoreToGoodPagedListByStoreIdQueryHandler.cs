@@ -38,7 +38,7 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.GetStoreToGoodPagedListByS
 
             var storeToGoods = await storeToGoodsQuery
                 .OrderByDynamic(request.Sortable, request.Ascending)
-                .OrderByDescending(x => x.Count)
+                //.OrderByDescending(x => x.Count)
                 .Skip(request.PageSize * request.PageIndex)
                 .Take(request.PageSize)
                 .ProjectTo<StoreToGoodLookupDto>(_mapper.ConfigurationProvider)
