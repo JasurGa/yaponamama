@@ -26,6 +26,14 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
                 throw new NotFoundException(nameof(User), request.Id);
             }
 
+            var userWithTheSameLogin = await _dbContext.Users.FirstOrDefaultAsync(x =>
+                x.Id != request.Id && x.Login == request.Login, cancellationToken);
+
+            if ( userWithTheSameLogin != null)
+            {
+                throw new AlreadyExistsException(nameof(User), request.Login);
+            }
+
             user.Login           = request.Login;
             user.FirstName       = request.FirstName;
             user.LastName        = request.LastName;
