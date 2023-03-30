@@ -75,6 +75,7 @@ namespace Atlas.Identity.Controllers
 
             user.Salt         = GenerateSalt();
             user.PasswordHash = Sha256Crypto.GetHash(user.Salt + changePassword.NewPassword);
+
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return NoContent();

@@ -4,9 +4,12 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
 using Atlas.Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update;
 
 namespace Atlas.Application.CQRS.Users.Commands.CreateUser
 {
@@ -47,8 +50,15 @@ namespace Atlas.Application.CQRS.Users.Commands.CreateUser
 
         public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var salt = GenerateSalt();
+            var userWithTheSameLogin = await _dbContext.Users.FirstOrDefaultAsync(x =>
+                x.Login == request.Login, cancellationToken);
 
+            if (userWithTheSameLogin != null)
+            {
+                throw new AlreadyExistsException(nameof(User), request.Login);
+            }
+
+            var salt = GenerateSalt();
             var user = new User
             {
                 Id              = Guid.NewGuid(),

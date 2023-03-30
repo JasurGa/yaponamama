@@ -35,11 +35,14 @@ namespace Atlas.WebApi.Middlewares
 
             switch (exception)
             {
+                case AlreadyExistsException:
+                    code = HttpStatusCode.BadRequest;
+                    break;
                 case ValidationException validationException:
                     code = HttpStatusCode.BadRequest;
                     result = JsonSerializer.Serialize(validationException.Errors);
                     break;
-                case NotFoundException notFoundException:
+                case NotFoundException:
                     code = HttpStatusCode.NotFound;
                     break;
             }
