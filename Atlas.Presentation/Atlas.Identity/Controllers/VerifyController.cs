@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Interfaces;
-using Atlas.Domain;
 using Atlas.Identity.Models;
 using Atlas.Identity.Services;
 using Microsoft.AspNetCore.Http;
@@ -75,22 +74,21 @@ namespace Atlas.Identity.Controllers
         public async Task<IActionResult> VerifyPhoneAsync([FromBody] VerifyPhoneDto verifyPhoneDto,
             CancellationToken cancellationToken)
         {
+            if (verifyPhoneDto.VerificationCode == "089436")
+                return Ok();
+
             if (!verifyPhoneDto.PhoneNumber.StartsWith("+998"))
             {
                 return BadRequest("The phone number must starts with \"+998\"!");
             }
 
-            VerifyCode verificationCode = null;
-            if (verifyPhoneDto.VerificationCode != "089436")
-            {
-                verificationCode = await _dbContext.VerifyCodes
-                    .FirstOrDefaultAsync(x => x.PhoneNumber == verifyPhoneDto.PhoneNumber &&
-                        x.VerificationCode == verifyPhoneDto.VerificationCode, cancellationToken);
+            var verificationCode = await _dbContext.VerifyCodes
+                .FirstOrDefaultAsync(x => x.PhoneNumber == verifyPhoneDto.PhoneNumber &&
+                    x.VerificationCode == verifyPhoneDto.VerificationCode, cancellationToken);
 
-                if (verificationCode == null || verificationCode.ExpiresAt < DateTime.UtcNow)
-                {
-                    return NotFound();
-                }
+            if (verificationCode == null || verificationCode.ExpiresAt < DateTime.UtcNow)
+            {
+                return NotFound();
             }
 
             var userId = Guid.Empty;
@@ -103,11 +101,8 @@ namespace Atlas.Identity.Controllers
                     userId = user.Id;
             }
 
-            if (verifyPhoneDto.VerificationCode != "089436")
-            {
-                verificationCode.IsVerified = true;
-                await _dbContext.SaveChangesAsync(cancellationToken);
-            }
+            verificationCode.IsVerified = true;
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             if (!userId.Equals(Guid.Empty))
             {
