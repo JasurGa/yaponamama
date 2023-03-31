@@ -1,5 +1,6 @@
 ﻿using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.GoodToCarts.Commands.CreateGoodToCart;
+using Atlas.Application.CQRS.GoodToCarts.Commands.DeleteAllGoodToCarts;
 using Atlas.Application.CQRS.GoodToCarts.Commands.DeleteGoodToCart;
 using Atlas.Application.CQRS.GoodToCarts.Commands.UpdateGoodToCart;
 using Atlas.Application.CQRS.GoodToCarts.Commands.UpdateManyGoodsInCart;
@@ -138,6 +139,35 @@ namespace Atlas.WebApi.Controllers
             {
                 Id = id,
                 ClientId = ClientId,
+            });
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Removes all goods from client's shopping cart
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     DELETE /api/1.0/goodtocart/all
+        ///     
+        /// </remarks>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpDelete("all")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager, Roles.Support })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> DeleteAllAsync()
+        {
+            await Mediator.Send(new DeleteAllGoodToCartsCommand
+            {
+                ClientId = ClientId
             });
 
             return NoContent();
