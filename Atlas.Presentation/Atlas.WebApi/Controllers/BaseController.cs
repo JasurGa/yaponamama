@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Claims;
 using Atlas.Application.Common.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,17 +15,62 @@ namespace Atlas.WebApi.Controllers
         protected IMediator Mediator =>
             _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
 
-        internal Guid UserId => !User.Identity.IsAuthenticated
-            ? Guid.Empty
-            : Guid.Parse(User.FindFirst(TokenClaims.UserId).Value);
+        internal Guid UserId
+        {
+            get
+            {
+                if (!IsAuthenticated)
+                {
+                    return Guid.Empty;
+                }
 
-        internal Guid ClientId => !User.Identity.IsAuthenticated
-            ? Guid.Empty
-            : Guid.Parse(User.FindFirst(TokenClaims.ClientId).Value);
+                var cl = User.FindFirst(TokenClaims.UserId);
+                if (cl == null || cl.Value == null)
+                {
+                    return Guid.Empty;
+                }
 
-        internal Guid CourierId => !User.Identity.IsAuthenticated
-            ? Guid.Empty
-            : Guid.Parse(User.FindFirst(TokenClaims.CourierId).Value);
+                return Guid.Parse(cl.Value);
+            }
+        }
+
+        internal Guid ClientId 
+        {
+            get
+            {
+                if (!IsAuthenticated)
+                {
+                    return Guid.Empty;
+                }
+
+                var cl = User.FindFirst(TokenClaims.ClientId);
+                if (cl == null || cl.Value == null)
+                {
+                    return Guid.Empty;
+                }
+
+                return Guid.Parse(cl.Value);
+            }
+        }
+
+        internal Guid CourierId
+        {
+            get
+            {
+                if (!IsAuthenticated)
+                {
+                    return Guid.Empty;
+                }
+
+                var cl = User.FindFirst(TokenClaims.CourierId);
+                if (cl == null || cl.Value == null)
+                {
+                    return Guid.Empty;
+                }
+
+                return Guid.Parse(cl.Value);
+            }
+        }
 
         internal bool IsAuthenticated => User.Identity.IsAuthenticated;
     }
