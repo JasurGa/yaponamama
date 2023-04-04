@@ -127,7 +127,7 @@ namespace Atlas.WebApi.Controllers
         /// <response code="401">If the user is unauthorized</response>
         [Authorize]
         [HttpGet("paged")]
-        [AuthRoleFilter(new string[] { Roles.Admin })]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PageDto<ConsignmentLookupDto>>> GetAllPagedAsync(
