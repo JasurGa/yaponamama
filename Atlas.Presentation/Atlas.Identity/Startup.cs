@@ -5,7 +5,6 @@ using Atlas.Application;
 using Atlas.Eskiz;
 using Atlas.Identity.Extensions;
 using Atlas.Identity.Middlewares;
-using Atlas.Identity.Observers;
 using Atlas.Identity.Services;
 using Atlas.Identity.Settings;
 using Atlas.Persistence;
@@ -106,18 +105,13 @@ namespace Atlas.Identity
                 });
             });
 
-            services.AddScoped<DiagnosticObserver>();
-            services.AddTransient<UptimeService>();
             services.AddScheduler();
 
             services.AddHealthChecks();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-            DiagnosticListener diagnosticListenerSource, DiagnosticObserver diagnosticObserver)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            diagnosticListenerSource.Subscribe(diagnosticObserver);
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -143,13 +137,6 @@ namespace Atlas.Identity
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
-
-            app.ApplicationServices.UseScheduler(scheduler =>
-            {
-                scheduler
-                    .Schedule<UptimeService>()
-                    .EveryFiveSeconds();
             });
 
             app.UseHealthChecks("/health");

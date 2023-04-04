@@ -41,9 +41,6 @@ namespace Atlas.Persistence
                 });
             });
 
-            services.AddScoped<IAtlasInfluxDbService,
-                AtlasInfluxDbService>();
-
             services.AddScoped<IAtlasDbContext>(provider =>
                 provider.GetService<AtlasDbContext>());
 
