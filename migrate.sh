@@ -1,10 +1,16 @@
 #!/bin/sh
-export PATH="$PATH:/root/.dotnet"
-export PATH="$PATH:/root/.dotnet/tools"
+#export PATH="$PATH:/root/.dotnet"
+#export PATH="$PATH:/root/.dotnet/tools"
 
-export PATH=$PATH:$HOME/.dotnet/tools
-export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$PATH:$DOTNET_ROOT
+#export PATH=$PATH:$HOME/.dotnet/tools
+#export DOTNET_ROOT=$HOME/.dotnet
+#export PATH=$PATH:$DOTNET_ROOT
+
+export PATH="$PATH:$HOME/.dotnet/tools"
+export DOTNET_ROOT=/snap/dotnet-sdk/current
+export MSBuildSDKsPath=/usr/share/dotnet/sdk/$(dotnet --version)/Sdks/
+export PATH="${PATH}:${DOTNET_ROOT}"
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 echo "[*] Applying migrations..."
 
