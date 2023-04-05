@@ -34,7 +34,7 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.FindStoreToGoodPagedList
                         (x.Good.NameRu + " " + x.Good.NameEn + " " + x.Good.NameUz + " " +
                         x.Good.DescriptionRu + " " + x.Good.DescriptionEn + " " + x.Good.DescriptionUz + " " +
                         x.Good.SellingPrice + " " + x.Good.PackageCode).ToLower().Trim(),
-                        notTranslited) > 0)
+                        notTranslited) > request.MinSimilarity)
                     .OrderByDescending(x => EF.Functions.TrigramsSimilarity(
                         (x.Good.NameRu + " " + x.Good.NameEn + " " + x.Good.NameUz + " " +
                         x.Good.DescriptionRu + " " + x.Good.DescriptionEn + " " + x.Good.DescriptionUz + " " +

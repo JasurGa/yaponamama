@@ -86,7 +86,7 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
                         (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " +
                          x.DescriptionRu + " " + x.DescriptionEn + " " + x.DescriptionUz + " " +
                          x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
-                        notTranslited) > 0)
+                        notTranslited) > request.MinSimilarity)
                     .OrderByDescending(x => EF.Functions.TrigramsSimilarity(
                         (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " +
                          x.DescriptionRu + " " + x.DescriptionEn + " " + x.DescriptionUz + " " +

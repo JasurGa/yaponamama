@@ -38,6 +38,7 @@ namespace Atlas.WebApi.Controllers
         /// </remarks>
         /// <param name="storeId">Store id (guid)</param>
         /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="minSimilarity">Min similarity (double)</param>
         /// <param name="pageIndex">Page Index (int)</param>
         /// <param name="pageSize">Page Size (int)</param>
         /// <returns>Returns PageDto GoodLookupDto</returns>
@@ -51,16 +52,18 @@ namespace Atlas.WebApi.Controllers
         public async Task<ActionResult<PageDto<StoreToGoodLookupDto>>> SearchAsync(
             [FromRoute] Guid storeId,
             [FromQuery] string searchQuery,
+            [FromQuery] double minSimilarity = 0,
             [FromQuery] int pageSize = 10, 
             [FromQuery] int pageIndex = 0
         )
         {
             var vm = await Mediator.Send(new FindStoreToGoodPagedListQuery
             {
-                SearchQuery = searchQuery,
-                PageIndex   = pageIndex,
-                PageSize    = pageSize,
-                StoreId     = storeId
+                SearchQuery   = searchQuery,
+                MinSimilarity = minSimilarity,
+                PageIndex     = pageIndex,
+                PageSize      = pageSize,
+                StoreId       = storeId
             });
 
             return Ok(vm);

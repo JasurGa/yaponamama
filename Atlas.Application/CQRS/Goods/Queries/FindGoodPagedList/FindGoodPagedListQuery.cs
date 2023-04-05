@@ -11,6 +11,8 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
 
         public string SearchQuery { get; set; }
 
+        public double MinSimilarity { get; set; }
+
         public Guid? FilterCategoryId { get; set; }
 
         public int? FilterMinSellingPrice { get; set; }

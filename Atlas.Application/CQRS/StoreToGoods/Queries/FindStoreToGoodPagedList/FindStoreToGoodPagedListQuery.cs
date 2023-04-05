@@ -11,6 +11,8 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.FindStoreToGoodPagedList
 
         public string SearchQuery { get; set; }
 
+        public double MinSimilarity { get; set; }
+
         public int PageIndex { get; set; }
 
         public int PageSize { get; set; }
