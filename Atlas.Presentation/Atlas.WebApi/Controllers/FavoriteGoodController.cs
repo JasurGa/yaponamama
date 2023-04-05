@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using Atlas.Application.Common.Constants;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.CreateFavoriteGood;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.CreateManyFavoriteGoods;
+using Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteAllFavoriteGoods;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteFavoriteGood;
 using Atlas.Application.CQRS.FavoriteGoods.Commands.DeleteFavoriteGoods;
 using Atlas.Application.CQRS.FavoriteGoods.Queries.GetFavoritesByClientId;
+using Atlas.Application.CQRS.GoodToCarts.Commands.DeleteAllGoodToCarts;
 using Atlas.WebApi.Filters;
 using Atlas.WebApi.Models;
 using AutoMapper;
@@ -102,6 +104,35 @@ namespace Atlas.WebApi.Controllers
                 }));
 
             return Ok(vm);
+        }
+
+        /// <summary>
+        /// Removes all favorite goods for client
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     DELETE /api/1.0/favoritegood/all
+        ///     
+        /// </remarks>
+        /// <returns>Returns NoContent</returns>
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpDelete("all")]
+        [AuthRoleFilter(new string[] { Roles.Client })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> DeleteAllAsync()
+        {
+            await Mediator.Send(new DeleteAllFavoriteGoodsCommand
+            {
+                ClientId = ClientId
+            });
+
+            return NoContent();
         }
 
         /// <summary>

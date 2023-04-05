@@ -54,8 +54,6 @@
     <Folder Include="CQRS\Notifications\Commands\DettachNotificationToRole\" />
     <Folder Include="CQRS\Notifications\Commands\DettachNotificationToUser\" />
     <Folder Include="CQRS\Notifications\Commands\UpdateNotification\" />
-    <Folder Include="CQRS\FavoriteGoods\" />
-    <Folder Include="CQRS\FavoriteGoods\Commands\" />
     <Folder Include="CQRS\FavoriteGoods\Commands\CreateFavoriteGood\" />
     <Folder Include="CQRS\FavoriteGoods\Commands\DeleteFavoriteGood\" />
     <Folder Include="CQRS\FavoriteGoods\Queries\" />
