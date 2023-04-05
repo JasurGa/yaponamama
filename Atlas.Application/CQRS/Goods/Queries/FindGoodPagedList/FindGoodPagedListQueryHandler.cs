@@ -81,11 +81,17 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
                 //var translitedRu  = TranslitConverter.TranslitEnRu(notTranslited);
                 //var translitedEn  = TranslitConverter.TranslitRuEn(notTranslited);
 
-                goods = goods.OrderByDescending(x => EF.Functions.TrigramsSimilarity(
-                    (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + 
-                     x.DescriptionRu + " " + x.DescriptionEn + " " + x.DescriptionUz + " " + 
-                     x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
-                    notTranslited)); // + " " + translitedRu + " " + translitedEn));
+                goods = goods
+                    .Where(x => EF.Functions.TrigramsSimilarity(
+                        (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " +
+                         x.DescriptionRu + " " + x.DescriptionEn + " " + x.DescriptionUz + " " +
+                         x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
+                        notTranslited) > 0)
+                    .OrderByDescending(x => EF.Functions.TrigramsSimilarity(
+                        (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " +
+                         x.DescriptionRu + " " + x.DescriptionEn + " " + x.DescriptionUz + " " +
+                         x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
+                        notTranslited));
             }
 
             var goodsCount = await goods.CountAsync(cancellationToken);
