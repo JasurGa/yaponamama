@@ -22,12 +22,15 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.FindStoreToGoodPagedList
 
         public async Task<PageDto<StoreToGoodLookupDto>> Handle(FindStoreToGoodPagedListQuery request, CancellationToken cancellationToken)
         {
-            var query = _dbContext.StoreToGoods.Where(x => x.StoreId == request.StoreId).AsQueryable();
+            var query = _dbContext.StoreToGoods.Where(x => 
+                x.StoreId == request.StoreId).AsQueryable();
 
             if (request.SearchQuery != null)
             {
-                query = query.OrderByDescending(x =>
-                    EF.Functions.TrigramsSimilarity((x.Good.Name + " " + x.Good.NameRu + " " + x.Good.NameEn + " " + x.Good.NameUz).ToLower().Trim(),
+                query = query.OrderByDescending(x => EF.Functions.TrigramsSimilarity(
+                    (x.Good.NameRu + " " + x.Good.NameEn + " " + x.Good.NameUz + " " +
+                     x.Good.DescriptionRu + " " + x.Good.DescriptionEn + " " + x.Good.DescriptionUz + " " +
+                     x.Good.SellingPrice + " " + x.Good.PackageCode).ToLower().Trim(),
                         request.SearchQuery.ToLower().Trim()));
             } 
             else
@@ -41,8 +44,6 @@ namespace Atlas.Application.CQRS.StoreToGoods.Queries.FindStoreToGoodPagedList
                 .Take(request.PageSize)
                 .ProjectTo<StoreToGoodLookupDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
-
-
 
             return new PageDto<StoreToGoodLookupDto>
             {
