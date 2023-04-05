@@ -64,17 +64,6 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
 
             goods = goods.Where(x => x.IsDeleted == request.ShowDeleted);
 
-            if (request.SearchQuery != null)
-            {
-                var notTranslited = request.SearchQuery.ToLower().Trim();
-                var translitedRu  = TranslitConverter.TranslitEnRu(notTranslited);
-                var translitedEn  = TranslitConverter.TranslitRuEn(notTranslited);
-
-                goods = goods.OrderByDescending(x => EF.Functions.TrigramsSimilarity(
-                    (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
-                        notTranslited + " " + translitedRu + " " + translitedEn));
-            }
-
             if (!request.IsAuthenticated || request.ClientId != Guid.Empty)
             {
                 var client = await _dbContext.Clients.FirstOrDefaultAsync(x =>
@@ -84,6 +73,17 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
                 {
                     goods = goods.Where(x => !x.IsVerified);
                 }
+            }
+
+            if (request.SearchQuery != null)
+            {
+                var notTranslited = request.SearchQuery.ToLower().Trim();
+                //var translitedRu  = TranslitConverter.TranslitEnRu(notTranslited);
+                //var translitedEn  = TranslitConverter.TranslitRuEn(notTranslited);
+
+                goods = goods.OrderByDescending(x => EF.Functions.TrigramsSimilarity(
+                    (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " + x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
+                        notTranslited)); // + " " + translitedRu + " " + translitedEn));
             }
 
             var goodsCount = await goods.CountAsync(cancellationToken);
