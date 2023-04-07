@@ -2,6 +2,7 @@
 using Atlas.Application.CQRS.Categories.Queries.GetCategoryList;
 using Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoriesToGood;
 using Atlas.Application.CQRS.CategoryToGoods.Commands.CreateCategoryToGood;
+using Atlas.Application.CQRS.CategoryToGoods.Commands.CreateManyCategoryToGood;
 using Atlas.Application.CQRS.CategoryToGoods.Commands.DeleteCategoryToGood;
 using Atlas.Application.CQRS.CategoryToGoods.Queries.GetCategoryToGoodListByGoodId;
 using Atlas.WebApi.Filters;
@@ -84,6 +85,38 @@ namespace Atlas.WebApi.Controllers
         {
             await Mediator.Send(_mapper.Map<CreateCategoriesToGoodDto,
                 CreateCategoriesToGoodCommand>(createCategoriesToGood));
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Attaches categories to goods
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     POST /api/1.0/categorytogood/manytomany
+        ///     {
+        ///         [
+        ///             "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "categoryIds": "a3eb7b4a-9f4e-4c71-8619-398655c563b8"
+        ///         ]
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="createCategoriesToGoods">CreateCategoriesToGoodsDto object</param>
+        /// <returns>Returns NoContent</returns> 
+        /// <response code="204">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPost("manytomany")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> CreateAsync([FromBody] CreateCategoriesToGoodsDto createCategoriesToGoods)
+        {
+            await Mediator.Send(_mapper.Map<CreateCategoriesToGoodsDto,
+                CreateManyCategoryToGoodCommand>(createCategoriesToGoods));
 
             return NoContent();
         }
