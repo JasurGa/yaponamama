@@ -29,7 +29,9 @@ namespace Atlas.Application.CQRS.Clients.Commands.VerifyClient
                 throw new NotFoundException(nameof(Client), request.ClientId);
             }
 
-            client.IsPassportVerified = true;
+            client.IsPassportVerified = request.IsPassportVerified;
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
             return Unit.Value;
         }
     }
