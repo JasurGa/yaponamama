@@ -34,6 +34,7 @@ using Atlas.Application.CQRS.Goods.Queries.GetCategoryAndGoodListByMainCategory;
 using System.Collections.Generic;
 using Atlas.Application.CQRS.Goods.Queries.GetAvailableGoodList;
 using Atlas.Application.CQRS.Goods.Queries.GetPopularGoodList;
+using Atlas.Application.CQRS.Goods.Commands.CreateManyGoods;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -721,6 +722,56 @@ namespace Atlas.WebApi.Controllers
                 CreateGoodCommand>(createGood));
 
             return Ok(goodId);
+        }
+
+        /// <summary>
+        /// Creates many goods
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /api/1.0/good/many
+        ///     [
+        ///         {
+        ///             "name": "Маленькая бутылка Pepsi",
+        ///             "nameRu": "Маленькая бутылка Pepsi",
+        ///             "nameEn": "Маленькая бутылка Pepsi",
+        ///             "nameUz": "Маленькая бутылка Pepsi",
+        ///             "description": "Абсолютно такая же как и кола",
+        ///             "descriptionRu": "Абсолютно такая же как и кола",
+        ///             "descriptionEn": "Абсолютно такая же как и кола",
+        ///             "descriptionUz": "Абсолютно такая же как и кола",
+        ///             "noteRu": "Может потеплеть из-за жары",
+        ///             "noteUz": "Может потеплеть из-за жары",
+        ///             "noteEn": "Может потеплеть из-за жары",
+        ///             "photoPath": "/storage/goods/small-pepsi/img.jpg",
+        ///             "sellingPrice": 6000,
+        ///             "purchasePrice": 4000,
+        ///             "providerId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "discount": 1000,
+        ///             "mass": 0,
+        ///             "volume": 0.5,
+        ///         }
+        ///     ]
+        /// 
+        /// </remarks>
+        /// <param name="createManyGoods">CreateManyGoodsDto object</param>
+        /// <returns>Returns List of ids (List Guid)</returns> 
+        /// <response code="200">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPost("many")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<List<Guid>>> CreateManyAsync([FromBody] CreateManyGoodsDto createManyGoods)
+        {
+            var goodIds = await Mediator.Send(_mapper.Map<CreateManyGoodsDto,
+                CreateManyGoodsCommand>(createManyGoods));
+
+            return Ok(goodIds);
         }
 
         /// <summary>
