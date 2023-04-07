@@ -2,6 +2,7 @@
 using Atlas.Application.CQRS.Clients.Commands.DeleteClient;
 using Atlas.Application.CQRS.Clients.Commands.RestoreClient;
 using Atlas.Application.CQRS.Clients.Commands.UpdateClient;
+using Atlas.Application.CQRS.Clients.Commands.VerifyClient;
 using Atlas.Application.CQRS.Clients.Queries.FindClientPagedList;
 using Atlas.Application.CQRS.Clients.Queries.GetClientDetails;
 using Atlas.Application.CQRS.Clients.Queries.GetClientPagedList;
@@ -183,6 +184,38 @@ namespace Atlas.WebApi.Controllers
         {
             await Mediator.Send(_mapper.Map<UpdateClientDto,
                 UpdateClientCommand>(updateClient));
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Updates the client's verification status
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     PUT /api/1.0/client/verification
+        ///     {
+        ///         "id": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "isPassportVerified": true
+        ///     }
+        ///     
+        /// </remarks>
+        /// <param name="verifyClient">VerifiyClientDto object</param>
+        /// <returns>Returns NoContent</returns> 
+        /// <response code="204">Success</response>
+        /// <response code="404">Not found</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPut("verification")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Guid>> VerifyClientAsync([FromBody] VerifyClientDto verifyClient)
+        {
+            await Mediator.Send(_mapper.Map<VerifyClientDto,
+                VerifyClientCommand>(verifyClient));
 
             return NoContent();
         }
