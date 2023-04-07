@@ -62,12 +62,15 @@ namespace Atlas.WebApi.Controllers
         /// Sample request:
         ///     
         ///     POST /api/1.0/phototogoods/many
-        ///     [
-        ///         {
-        ///             "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///             "photoPath": "photo.jpg"
-        ///         }
-        ///     ]
+        ///     {
+        ///         "photoToGoods": 
+        ///         [
+        ///             {
+        ///                 "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///                 "photoPath": "photo.jpg"
+        ///             }
+        ///         ]
+        ///     }
         ///     
         /// </remarks>
         /// <returns>Returns NoContent</returns>
