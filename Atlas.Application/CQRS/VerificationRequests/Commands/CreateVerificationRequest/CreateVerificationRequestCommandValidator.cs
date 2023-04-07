@@ -9,12 +9,6 @@ namespace Atlas.Application.CQRS.VerificationRequests.Commands.CreateVerificatio
         {
             RuleFor(x => x.ClientId)
                 .NotEqual(Guid.Empty);
-
-            RuleFor(x => x.PassportPhotoPath)
-                .NotNull();
-
-            RuleFor(x => x.SelfieWithPassportPhotoPath)
-                .NotNull();
         }
     }
 }
