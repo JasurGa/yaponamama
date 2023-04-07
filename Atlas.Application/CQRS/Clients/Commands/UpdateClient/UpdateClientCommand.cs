@@ -17,5 +17,7 @@ namespace Atlas.Application.CQRS.Clients.Commands.UpdateClient
         public string SelfieWithPassportPhotoPath { get; set; }
 
         public bool IsPassportVerified { get; set; }
+
+        public bool IsPassportPending { get; set; }
     }
 }

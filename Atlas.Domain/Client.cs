@@ -17,6 +17,8 @@ namespace Atlas.Domain
 
         public bool IsPassportVerified { get; set; }
 
+        public bool IsPassportPending { get; set; }
+
         public long Balance { get; set; }
 
         public bool IsDeleted { get; set; }

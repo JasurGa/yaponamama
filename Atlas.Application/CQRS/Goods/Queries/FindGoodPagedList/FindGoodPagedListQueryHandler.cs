@@ -84,12 +84,10 @@ namespace Atlas.Application.CQRS.Goods.Queries.FindGoodPagedList
                 goods = goods
                     .Where(x => EF.Functions.TrigramsSimilarity(
                         (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " +
-                         x.DescriptionRu + " " + x.DescriptionEn + " " + x.DescriptionUz + " " +
                          x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
                         notTranslited) > request.MinSimilarity)
                     .OrderByDescending(x => EF.Functions.TrigramsSimilarity(
                         (x.NameRu + " " + x.NameEn + " " + x.NameUz + " " +
-                         x.DescriptionRu + " " + x.DescriptionEn + " " + x.DescriptionUz + " " +
                          x.SellingPrice + " " + x.PackageCode).ToLower().Trim(),
                         notTranslited));
             }

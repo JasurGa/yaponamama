@@ -23,6 +23,8 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
 
         public bool IsPassportVerified { get; set; }
 
+        public bool IsPassportPending { get; set; }
+
         public long Balance { get; set; }
 
         public List<AddressToClientDetailsVm> Adresseses { get; set; }
@@ -44,6 +46,8 @@ namespace Atlas.Application.CQRS.Clients.Queries.GetClientDetails
                     opt.MapFrom(src => src.PassportPhotoPath))
                 .ForMember(dest => dest.IsPassportVerified, opt =>
                     opt.MapFrom(src => src.IsPassportVerified))
+                .ForMember(dest => dest.IsPassportPending, opt =>
+                    opt.MapFrom(src => src.IsPassportPending))
                 .ForMember(dest => dest.Balance, opt =>
                     opt.MapFrom(src => src.Balance))
                 .ForMember(dest => dest.Adresseses, opt =>

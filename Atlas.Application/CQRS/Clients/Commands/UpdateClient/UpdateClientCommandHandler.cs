@@ -33,6 +33,7 @@ namespace Atlas.Application.CQRS.Clients.Commands.UpdateClient
             client.PassportPhotoPath           = request.PassportPhotoPath;
             client.SelfieWithPassportPhotoPath = request.SelfieWithPassportPhotoPath;
             client.IsPassportVerified          = request.IsPassportVerified;
+            client.IsPassportPending           = request.IsPassportPending;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
