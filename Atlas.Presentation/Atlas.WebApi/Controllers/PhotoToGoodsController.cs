@@ -11,6 +11,7 @@ using AutoMapper;
 using Atlas.Application.CQRS.PhotoToGoods.Commands.CreatePhotoToGood;
 using Atlas.Application.CQRS.PhotoToGoods.Commands.DeletePhotoToGood;
 using Atlas.Application.CQRS.PhotoToGoods.Queries.GetPhotosByGoodId;
+using Atlas.Application.CQRS.PhotoToGoods.Commands.CreateManyPhotosToGoods;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -50,6 +51,39 @@ namespace Atlas.WebApi.Controllers
         {
             await Mediator.Send(_mapper.Map<CreatePhotoToGoodDto,
                 CreatePhotoToGoodCommand>(createPhotoToGoodDto));
+
+            return NoContent();
+        }
+
+        /// <summary>
+        /// Creates many photos to goods
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     POST /api/1.0/phototogoods/many
+        ///     [
+        ///         {
+        ///             "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///             "photoPath": "photo.jpg"
+        ///         }
+        ///     ]
+        ///     
+        /// </remarks>
+        /// <returns>Returns NoContent</returns>
+        /// <param name="createManyPhotosToGoods">CreateManyPhotosToGoodsDto object</param>
+        /// <response code="204">Success</response>
+        /// <response code="404">NotFound</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [Authorize]
+        [HttpPost("many")]
+        [AuthRoleFilter(new string[] { Roles.Admin, Roles.SupplyManager })]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult> CreateManyAsync([FromBody] CreateManyPhotosToGoodsDto createManyPhotosToGoods)
+        {
+            await Mediator.Send(_mapper.Map<CreateManyPhotosToGoodsDto,
+                CreateManyPhotosToGoodsCommand>(createManyPhotosToGoods));
 
             return NoContent();
         }
