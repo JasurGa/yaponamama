@@ -21,7 +21,7 @@ namespace Atlas.Application.CQRS.Users.Commands.UpdateUser
 
             RuleFor(x => x.Sex)
                 //.InclusiveBetween(0, Enum.GetNames(typeof(UserSex)).Length);
-                .InclusiveBetween(0, 1);
+                .InclusiveBetween(0, 2);
         }
     }
 }
