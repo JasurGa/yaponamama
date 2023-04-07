@@ -167,6 +167,7 @@ namespace Atlas.Identity.Controllers
                 Balance                     = 0,
                 IsDeleted                   = false,
                 IsPassportVerified          = false,
+                IsPassportPending           = false,
                 PhoneNumber                 = registerDto.PhoneNumber,
                 PassportPhotoPath           = "",
             }, cancellationToken);
@@ -178,7 +179,7 @@ namespace Atlas.Identity.Controllers
             var token = _tokenService.GenerateToken(refreshToken, new Claim[]
             {
                 new Claim(TokenClaims.UserId, userId.ToString()),
-                new Claim(TokenClaims.ClientId, clientId.ToString())
+                new Claim(TokenClaims.ClientId, clientId.ToString()),
             });
 
             return Ok(token);
