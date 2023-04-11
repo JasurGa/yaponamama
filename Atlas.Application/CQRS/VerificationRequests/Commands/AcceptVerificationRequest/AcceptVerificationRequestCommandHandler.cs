@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -37,6 +36,7 @@ namespace Atlas.Application.CQRS.VerificationRequests.Commands.AcceptVerificatio
             client.PassportPhotoPath           = verificationRequest.PassportPhotoPath;
             client.SelfieWithPassportPhotoPath = verificationRequest.SelfieWithPassportPhotoPath;
             client.IsPassportVerified          = true;
+            client.IsPassportPending           = false;
 
             verificationRequest.IsChecked  = true;
             verificationRequest.IsVerified = true;

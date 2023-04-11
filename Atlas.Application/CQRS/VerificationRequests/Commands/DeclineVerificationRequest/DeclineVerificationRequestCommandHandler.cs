@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Atlas.Application.Common.Exceptions;
 using Atlas.Application.Interfaces;
@@ -30,6 +29,12 @@ namespace Atlas.Application.CQRS.VerificationRequests.Commands.DeclineVerificati
             verificationRequest.IsChecked  = true;
             verificationRequest.IsVerified = false;
             verificationRequest.Comment    = request.Comment;
+
+
+            var client = await _dbContext.Clients.FirstOrDefaultAsync(x =>
+                x.Id == verificationRequest.ClientId, cancellationToken);
+
+            client.IsPassportPending = false;
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
