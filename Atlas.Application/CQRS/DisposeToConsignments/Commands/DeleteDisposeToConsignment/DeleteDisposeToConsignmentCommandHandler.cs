@@ -17,13 +17,17 @@ namespace Atlas.Application.CQRS.DisposeToConsignments.Commands.DeleteDisposeToC
 
         public async Task<Unit> Handle(DeleteDisposeToConsignmentCommand request, CancellationToken cancellationToken)
         {
-            var disposeToConsignment = await _dbContext.DisposeToConsignments.FirstOrDefaultAsync(x =>
-                x.Id == request.Id, cancellationToken);
+            var disposeToConsignment = await _dbContext.DisposeToConsignments
+                .Include(x => x.Consignment.StoreToGood)
+                .FirstOrDefaultAsync(x => x.Id == request.Id, 
+                    cancellationToken);
 
             if (disposeToConsignment == null)
             {
                 throw new NotFoundException(nameof(Consignment), request.Id);
             }
+
+            disposeToConsignment.Consignment.StoreToGood.Count += disposeToConsignment.Count;
 
             _dbContext.DisposeToConsignments.Remove(disposeToConsignment);
 

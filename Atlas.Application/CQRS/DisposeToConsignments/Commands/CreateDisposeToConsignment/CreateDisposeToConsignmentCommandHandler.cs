@@ -20,6 +20,7 @@ namespace Atlas.Application.CQRS.DisposeToConsignments.Commands.CreateDisposeToC
         {
             var consignment = await _dbContext.Consignments
                 .Include(x => x.DisposeToConsignment)
+                .Include(x => x.StoreToGood)
                 .FirstOrDefaultAsync(x => x.Id == request.ConsignmentId, 
                     cancellationToken);
 
@@ -36,6 +37,8 @@ namespace Atlas.Application.CQRS.DisposeToConsignments.Commands.CreateDisposeToC
                 Comment = request.Comment,
                 CreatedAt = DateTime.UtcNow,
             };
+
+            consignment.StoreToGood.Count -= request.Count;
 
             await _dbContext.DisposeToConsignments.AddAsync(disposeToGood, cancellationToken);
 
