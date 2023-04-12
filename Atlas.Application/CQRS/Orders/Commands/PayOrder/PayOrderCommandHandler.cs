@@ -71,7 +71,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.PayOrder
             {
                 return new SuccessDetailsVm
                 {
-                    success = false
+                    success = false,
+                    message = "Unable to create a receipt."
                 };
             }
 
@@ -83,7 +84,8 @@ namespace Atlas.Application.CQRS.Orders.Commands.PayOrder
                 _subscribeClient.ReceiptsCancel(receipt.receipt._id);
                 return new SuccessDetailsVm
                 {
-                    success = false
+                    success = false,
+                    message = "Unable to process a payment."
                 };
             }
 

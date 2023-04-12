@@ -9,5 +9,7 @@ namespace Atlas.SubscribeApi.Models
     public class SuccessDetailsVm
     {
         public bool success { get; set; }
+        
+        public string message { get; set; }
     }
 }
