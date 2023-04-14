@@ -14,7 +14,7 @@
 
         public long date { get; set; }
 
-        public InnerLogoDetailsVm logo { get; set; }
+        public string logo { get; set; }
 
         public string type { get; set; }
 
