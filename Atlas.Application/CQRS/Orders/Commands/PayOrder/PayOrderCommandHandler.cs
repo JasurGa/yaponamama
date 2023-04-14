@@ -77,8 +77,10 @@ namespace Atlas.Application.CQRS.Orders.Commands.PayOrder
                 };
             }
 
-            var payment = _subscribeClient.ReceiptsPay(receipt.receipt._id,
-                request.Token, null);
+            var payment = _subscribeClient.ReceiptsPay(receipt.receipt._id, request.Token, new PayerLookupDto
+            {
+                phone = order.Client.PhoneNumber
+            });
 
             if (payment == null)
             {
