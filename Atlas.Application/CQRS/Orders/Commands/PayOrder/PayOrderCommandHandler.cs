@@ -46,6 +46,7 @@ namespace Atlas.Application.CQRS.Orders.Commands.PayOrder
             var receipt = _subscribeClient.ReceiptsCreate(amount, new AccountLookupDto
                 {
                     order_id = order.Id,
+                    order    = order.Id,
                 },
                 "OQ-OT: Оплата заказа",
                 new DetailLookupDto
