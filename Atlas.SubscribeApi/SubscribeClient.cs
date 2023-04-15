@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Collections.Generic;
 using Atlas.SubscribeApi.Abstractions;
 using Atlas.SubscribeApi.Models;
@@ -8,7 +6,6 @@ using Atlas.SubscribeApi.Settings;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Text;
-using System.Xml.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
@@ -56,6 +53,7 @@ namespace Atlas.SubscribeApi
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                throw;
             }
 
             try
@@ -76,6 +74,7 @@ namespace Atlas.SubscribeApi
                 if (str is null)
                 {
                     Console.WriteLine("STR is null");
+                    throw;
                 }
 
                 using var sr = new StreamReader(str);
@@ -85,6 +84,7 @@ namespace Atlas.SubscribeApi
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                throw;
             }
         }
 
