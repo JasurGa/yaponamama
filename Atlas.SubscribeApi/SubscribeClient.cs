@@ -55,7 +55,7 @@ namespace Atlas.SubscribeApi
             //}
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                Console.WriteLine(e.Message);
             }
 
             try
@@ -75,7 +75,7 @@ namespace Atlas.SubscribeApi
                 //}
                 if (str is null)
                 {
-                    throw new ArgumentNullException(nameof(str), "STR is null");
+                    Console.WriteLine("STR is null");
                 }
 
                 using var sr = new StreamReader(str);
@@ -84,7 +84,7 @@ namespace Atlas.SubscribeApi
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                Console.WriteLine(e.Message);
             }
         }
 
