@@ -203,10 +203,10 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Guid>> UpdateAsync([FromBody] UpdatePromoCategoryDto updateCategory)
+        public async Task<ActionResult<Guid>> UpdateAsync([FromBody] UpdatePromoCategoryDto updatePromoCategory)
         {
             await Mediator.Send(_mapper.Map<UpdatePromoCategoryDto,
-                UpdatePromoCategoryCommand>(updateCategory));
+                UpdatePromoCategoryCommand>(updatePromoCategory));
 
             return NoContent();
         }
