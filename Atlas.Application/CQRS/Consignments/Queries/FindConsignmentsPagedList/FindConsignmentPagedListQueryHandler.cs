@@ -25,7 +25,7 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
         public async Task<PageDto<ConsignmentLookupDto>> Handle(FindConsignmentPagedListQuery request, CancellationToken cancellationToken)
         {
             var query = _dbContext.Consignments
-                .Where(x => x.IsDeleted == request.ShowDeleted)
+                .Where(x => x.IsDeleted == request.ShowDeleted && x.DisposeToConsignment == null)
                 .AsQueryable();
 
             if (request.FilterStartDate != null && request.FilterEndDate != null)
