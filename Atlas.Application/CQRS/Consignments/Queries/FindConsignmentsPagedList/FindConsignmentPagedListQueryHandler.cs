@@ -28,6 +28,11 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
                 .Where(x => x.IsDeleted == request.ShowDeleted && x.DisposeToConsignment == null)
                 .AsQueryable();
 
+            if (request.ShowExpired)
+            {
+                query = query.Where(x => x.ExpirateAt <= DateTime.UtcNow);
+            }
+
             if (request.FilterStartDate != null && request.FilterEndDate != null)
             {
                 query = query.Where(x => x.PurchasedAt >= request.FilterStartDate && x.PurchasedAt <= request.FilterEndDate);

@@ -22,6 +22,8 @@ namespace Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList
         public int PageIndex { get; set; }
 
         public bool ShowDeleted { get; set; }
+
+        public bool ShowExpired { get; set; }
     }
 }
 
