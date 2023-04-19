@@ -15,6 +15,7 @@ using Atlas.Application.CQRS.PromoCategories.Commands.CreatePromoCategory;
 using Atlas.Application.CQRS.PromoCategories.Commands.UpdatePromoCategory;
 using Atlas.Application.CQRS.PromoCategories.Commands.DeletePromoCategory;
 using Atlas.Application.CQRS.PromoCategories.Commands.RestorePromoCategory;
+using Atlas.Application.CQRS.PromoCategories.Commands.CreateManyPromoCategories;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -133,12 +134,46 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(Roles.Admin)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreatePromoCategoryDto createCategory)
+        public async Task<ActionResult<Guid>> CreateAsync([FromBody] CreatePromoCategoryDto createPromoCategory)
         {
             var categoryId = await Mediator.Send(_mapper.Map<CreatePromoCategoryDto,
-                CreatePromoCategoryCommand>(createCategory));
+                CreatePromoCategoryCommand>(createPromoCategory));
 
             return Ok(categoryId);
+        }
+
+        /// <summary>
+        /// Creates a bunch of new promo categories
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///     
+        ///     POST /api/1.0/promocategory/many
+        ///     [
+        ///         {
+        ///             "nameRu": "Sample name of category",
+        ///             "nameEn": "Sample name of category",
+        ///             "nameUz": "Sample name of category",
+        ///             "imageUrl": "/0123456789abcdef0123456789abcdef.png"
+        ///         }
+        ///     ]
+        ///     
+        /// </remarks>
+        /// <param name="createManyPromoCategories">CreateManyPromoCategoriesDto object</param>
+        /// <returns>Returns id (guid)</returns> 
+        /// <response code="200">Success</response>
+        /// <response code="401">If the user is unauthorized</response>
+        [HttpPost("many")]
+        [Authorize]
+        [AuthRoleFilter(Roles.Admin)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<Guid>> CreateManyAsync([FromBody] CreateManyPromoCategoriesDto createManyPromoCategories)
+        {
+            var promoCategoryIds = await Mediator.Send(_mapper.Map<CreateManyPromoCategoriesDto,
+                CreateManyPromoCategoriesCommand>(createManyPromoCategories));
+
+            return Ok(promoCategoryIds);
         }
 
         /// <summary>
@@ -168,10 +203,10 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<Guid>> UpdateAsync([FromBody] UpdatePromoCategoryDto updateCategory)
+        public async Task<ActionResult<Guid>> UpdateAsync([FromBody] UpdatePromoCategoryDto updatePromoCategory)
         {
             await Mediator.Send(_mapper.Map<UpdatePromoCategoryDto,
-                UpdatePromoCategoryCommand>(updateCategory));
+                UpdatePromoCategoryCommand>(updatePromoCategory));
 
             return NoContent();
         }

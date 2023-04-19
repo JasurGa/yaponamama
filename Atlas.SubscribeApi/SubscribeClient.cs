@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Collections.Generic;
 using Atlas.SubscribeApi.Abstractions;
 using Atlas.SubscribeApi.Models;
@@ -8,7 +6,6 @@ using Atlas.SubscribeApi.Settings;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Text;
-using System.Xml.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
@@ -28,16 +25,16 @@ namespace Atlas.SubscribeApi
         {
             var webRequest = (HttpWebRequest)WebRequest.Create(_subscribeSettings.Url);
             webRequest.ContentType = "application/json-rpc";
-            webRequest.Method      = "POST";
+            webRequest.Method = "POST";
 
             webRequest.Headers.Add("X-Auth", _subscribeSettings.AuthToken);
 
             var joe = new JObject
             {
                 ["jsonrpc"] = "1.0",
-                ["id"]      = "1",
-                ["method"]  = method,
-                ["params"]  = JObject.FromObject(parameters)
+                ["id"] = "1",
+                ["method"] = method,
+                ["params"] = JObject.FromObject(parameters)
             };
 
             var s = JsonConvert.SerializeObject(joe);
@@ -49,8 +46,13 @@ namespace Atlas.SubscribeApi
                 using var dataStream = webRequest.GetRequestStream();
                 dataStream.Write(byteArray, 0, byteArray.Length);
             }
-            catch
+            //catch
+            //{
+            //    throw;
+            //}
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 throw;
             }
 
@@ -65,8 +67,13 @@ namespace Atlas.SubscribeApi
             catch (WebException webex)
             {
                 using var str = webex?.Response?.GetResponseStream();
+                //if (str is null)
+                //{
+                //    throw;
+                //}
                 if (str is null)
                 {
+                    Console.WriteLine("STR is null");
                     throw;
                 }
 
@@ -74,8 +81,9 @@ namespace Atlas.SubscribeApi
                 var response = JsonConvert.DeserializeObject<JObject>(sr.ReadToEnd());
                 return response?["result"];
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 throw;
             }
         }
@@ -133,7 +141,7 @@ namespace Atlas.SubscribeApi
 
             return response?.ToObject<SuccessDetailsVm>();
         }
-        
+
         public ReceiptDetailsVm? ReceiptsCreate(long amount, AccountLookupDto account, string description, DetailLookupDto detail)
         {
             var response = InvokeMethod("receipts.create", new
@@ -221,7 +229,7 @@ namespace Atlas.SubscribeApi
                 fiscal_data
             });
 
-            return response?.ToObject<SuccessDetailsVm>();        
+            return response?.ToObject<SuccessDetailsVm>();
         }
     }
 }

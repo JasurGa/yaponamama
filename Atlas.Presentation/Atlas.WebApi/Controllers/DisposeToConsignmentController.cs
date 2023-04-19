@@ -12,6 +12,9 @@ using Atlas.Application.CQRS.DisposeToConsignments.Queries.GetDisposeToConsignme
 using Atlas.Application.CQRS.DisposeToConsignments.Commands.DeleteDisposeToConsignment;
 using Atlas.Application.Models;
 using Atlas.Application.CQRS.DisposeToConsignments.Queries.GetDisposeToConsignmentPagedList;
+using Atlas.Application.CQRS.Consignments.Queries.FindConsignmentsPagedList;
+using Atlas.Application.CQRS.Consignments.Queries.GetConsignmentList;
+using Atlas.Application.CQRS.DisposeToConsignments.Queries.FindDisposeToConsignmentPagedList;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -112,6 +115,41 @@ namespace Atlas.WebApi.Controllers
             var vm = await Mediator.Send(new GetDisposeToConsignmentDetailsQuery
             {
                 Id = id
+            });
+
+            return Ok(vm);
+        }
+
+        /// <summary>
+        /// Search for consignment dispose records
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/1.0/disposetoconsignment/search?searchQuery=bla+bla+bla&amp;pageIndex=0&amp;pageSize=0
+        ///     
+        /// </remarks>
+        /// <param name="searchQuery">Search Query (string)</param>
+        /// <param name="pageSize">Page Size (int)</param>
+        /// <param name="pageIndex">Page Index (int)</param>
+        /// <returns>Returns PageDto ConsignmentLookupDto</returns>
+        /// <response code="200">Success</response>c
+        /// <response code="404">Not Found</response>
+        [Authorize]
+        [HttpGet("search")]
+        [AuthRoleFilter(new string[] { Roles.Admin })]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PageDto<DisposeToConsignmentLookupDto>>> SearchAsync(
+            [FromQuery] string searchQuery,
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize  = 10)
+        {
+            var vm = await Mediator.Send(new FindDisposeToConsignmentPagedListQuery
+            {
+                SearchQuery = searchQuery,
+                PageSize    = pageSize,
+                PageIndex   = pageIndex
             });
 
             return Ok(vm);
