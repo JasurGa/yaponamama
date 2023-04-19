@@ -10,4 +10,8 @@
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="5.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Atlas.OfdApi\Atlas.OfdApi.csproj" />
+  </ItemGroup>
+
 </Project>

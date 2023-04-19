@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.2.0" />
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="5.0.0" />
   </ItemGroup>
 
