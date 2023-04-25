@@ -32,8 +32,8 @@ namespace Atlas.WebApi.Controllers
         ///
         ///     POST /api/1.0/promocategorytogood/many
         ///     {
-        ///         "goodId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
-        ///         "promoCategoryIds": ["a3eb7b4a-9f4e-4c71-8619-398655c563b8"]
+        ///         "promoCategoryId": "a3eb7b4a-9f4e-4c71-8619-398655c563b8",
+        ///         "goodIds": ["a3eb7b4a-9f4e-4c71-8619-398655c563b8"]
         ///     }
         ///     
         /// </remarks>

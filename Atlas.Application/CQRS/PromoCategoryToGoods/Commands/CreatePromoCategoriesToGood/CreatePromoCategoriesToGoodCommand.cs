@@ -6,9 +6,9 @@ namespace Atlas.Application.CQRS.PromoCategoryToGoods.Commands.CreatePromoCatego
 {
     public class CreatePromoCategoriesToGoodCommand : IRequest
     {
-        public Guid GoodId { get; set; }
+        public List<Guid> GoodIds { get; set; }
 
-        public List<Guid> PromoCategoryIds { get; set; }
+        public Guid PromoCategoryId { get; set; }
     }
 }
 

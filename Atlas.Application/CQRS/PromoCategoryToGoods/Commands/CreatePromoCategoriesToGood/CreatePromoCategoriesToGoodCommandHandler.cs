@@ -18,18 +18,18 @@ namespace Atlas.Application.CQRS.PromoCategoryToGoods.Commands.CreatePromoCatego
 
         public async Task<Unit> Handle(CreatePromoCategoriesToGoodCommand request, CancellationToken cancellationToken)
         {
-            foreach (var categoryId in request.PromoCategoryIds)
+            foreach (var goodId in request.GoodIds)
             {
                 var promoCategoryToGood = await _dbContext.PromoCategoryToGoods.FirstOrDefaultAsync(x =>
-                    x.GoodId == request.GoodId && x.PromoCategoryId == categoryId);
+                    x.GoodId == goodId && x.PromoCategoryId == request.PromoCategoryId);
 
                 if (promoCategoryToGood == null)
                 {
                     await _dbContext.PromoCategoryToGoods.AddAsync(new PromoCategoryToGood
                     {
                         Id              = Guid.NewGuid(),
-                        GoodId          = request.GoodId,
-                        PromoCategoryId = categoryId
+                        GoodId          = goodId,
+                        PromoCategoryId = request.PromoCategoryId
                     });
                 }
             }
