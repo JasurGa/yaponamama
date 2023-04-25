@@ -35,6 +35,7 @@ using System.Collections.Generic;
 using Atlas.Application.CQRS.Goods.Queries.GetAvailableGoodList;
 using Atlas.Application.CQRS.Goods.Queries.GetPopularGoodList;
 using Atlas.Application.CQRS.Goods.Commands.CreateManyGoods;
+using Atlas.Domain;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -163,7 +164,7 @@ namespace Atlas.WebApi.Controllers
                 FilterMaxSellingPrice = filterMaxSellingPrice,
                 FilterMinSellingPrice = filterMinSellingPrice,
                 ShowDeleted           = showDeleted,
-                ClientId              = ClientId
+                ClientId              = ClientId,
             });
 
             return Ok(vm);
@@ -376,10 +377,12 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PageDto<GoodLookupDto>>> GetPagedGoodsByProviderIdAsync(
-            [FromRoute] Guid providerId,
-            [FromQuery] int  pageIndex   = 0,
-            [FromQuery] int  pageSize    = 10,
-            [FromQuery] bool showDeleted = false)
+            [FromRoute] Guid   providerId,
+            [FromQuery] int    pageIndex   = 0,
+            [FromQuery] int    pageSize    = 10,
+            [FromQuery] bool   showDeleted = false,
+            [FromQuery] string sortable    = nameof(Good.NameRu),
+            [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetGoodPagedListByProviderQuery
             {
@@ -387,6 +390,8 @@ namespace Atlas.WebApi.Controllers
                 PageIndex   = pageIndex,
                 PageSize    = pageSize,
                 ShowDeleted = showDeleted,
+                Sortable    = sortable,
+                Ascending   = ascending
             });
 
             return Ok(vm);
@@ -416,7 +421,7 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] int    pageIndex   = 0,
             [FromQuery] int    pageSize    = 10,
             [FromQuery] bool   showDeleted = false,
-            [FromQuery] string sortable    = "Name",
+            [FromQuery] string sortable    = nameof(Good.NameRu),
             [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetGoodPagedListByCategoryQuery
@@ -456,7 +461,7 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] int    pageIndex   = 0,
             [FromQuery] int    pageSize    = 10,
             [FromQuery] bool   showDeleted = false,
-            [FromQuery] string sortable    = "Name",
+            [FromQuery] string sortable    = nameof(Good.NameRu),
             [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetGoodPagedListByPromoCategoryQuery
@@ -554,7 +559,7 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] int    pageIndex   = 0, 
             [FromQuery] int    pageSize    = 10,
             [FromQuery] bool   showDeleted = false,
-            [FromQuery] string sortable    = "Name",
+            [FromQuery] string sortable    = nameof(Good.NameRu),
             [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetGoodPagedListQuery
@@ -575,7 +580,7 @@ namespace Atlas.WebApi.Controllers
         /// <remarks>
         /// Sample request:
         /// 
-        ///     GET /api/1.0/good/discounted/paged?pageSize=10&amp;pageIndex=0&amp;showDeleted=true&amp;sortable=Name&amp;ascending=true
+        ///     GET /api/1.0/good/discounted/paged?pageSize=10&amp;pageIndex=0&amp;showDeleted=true&amp;sortable=NameRu&amp;ascending=true
         ///     
         /// </remarks>
         /// <param name="pageSize">Page size</param>
@@ -591,7 +596,7 @@ namespace Atlas.WebApi.Controllers
             [FromQuery] int    pageIndex   = 0,
             [FromQuery] int    pageSize    = 10,
             [FromQuery] bool   showDeleted = false,
-            [FromQuery] string sortable    = "Name",
+            [FromQuery] string sortable    = nameof(Good.NameRu),
             [FromQuery] bool   ascending   = true)
         {
             var vm = await Mediator.Send(new GetGoodWithDiscountPagedListQuery

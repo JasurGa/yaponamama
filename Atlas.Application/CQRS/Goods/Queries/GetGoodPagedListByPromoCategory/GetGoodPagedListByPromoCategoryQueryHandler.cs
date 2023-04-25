@@ -43,7 +43,6 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByPromoCategory
                 .Where(x => goodIds.Contains(x.Id) &&
                     x.IsDeleted == request.ShowDeleted)
                 .OrderByDynamic(request.Sortable, request.Ascending)
-                .OrderByDescending(x => x.StoreToGoods.Select(x => x.Count).Sum())
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)

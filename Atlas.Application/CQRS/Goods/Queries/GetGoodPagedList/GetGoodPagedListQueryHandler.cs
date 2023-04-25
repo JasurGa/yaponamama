@@ -31,7 +31,6 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedList
             var goods = await _dbContext.Goods
                 .Where(x => x.IsDeleted == request.ShowDeleted)
                 .OrderByDynamic(request.Sortable, request.Ascending)
-                .OrderByDescending(x => x.StoreToGoods.Select(x => x.Count).Sum())
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)

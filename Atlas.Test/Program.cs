@@ -1,5 +1,6 @@
 ﻿using Atlas.OfdApi.Helpers;
 using System;
+using System.IO;
 using System.Text;
 
 namespace Atlas.Test
@@ -12,10 +13,13 @@ namespace Atlas.Test
             var certRequest = CryptoHelper.ParseCsrFile("C:\\Users\\User\\Desktop\\OFD\\user1.csr");
             var certificate = CryptoHelper.GetCertificate(certRequest, privateKey);
 
-            var message = Encoding.UTF8.GetBytes("Hello, world!");
-            var encoded = Encoding.UTF8.GetString(CryptoHelper.EncodeData(message, certificate));
-            
-            Console.WriteLine(encoded);
+            var message = File.ReadAllBytes("C:\\Users\\User\\Desktop\\test\\data.txt");
+            var encoded = CryptoHelper.EncodeData(message, certificate);
+
+            using (var file = File.OpenWrite("C:\\Users\\User\\Desktop\\test\\test_atlas.bin"))
+            {
+                file.Write(encoded);
+            }
         }
     }
 }
