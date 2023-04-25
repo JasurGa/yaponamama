@@ -20,7 +20,7 @@ namespace Atlas.SubscribeApi.Models
 
         public long operation { get; set; }
 
-        public InnerCategoryDetailsVm category { get; set; }
+        public object? category { get; set; }
 
         public InnerErrorDetailsVm error { get; set; }
 
