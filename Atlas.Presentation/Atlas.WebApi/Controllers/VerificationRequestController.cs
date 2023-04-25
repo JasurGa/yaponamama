@@ -14,6 +14,7 @@ using Atlas.Application.CQRS.VerificationRequests.Queries.GetMyVerificationReque
 using Atlas.Application.CQRS.VerificationRequests.Queries.GetPagedVerificationRequestsList;
 using Atlas.Application.CQRS.VerificationRequests.Queries.GetVerificationRequestDetails;
 using Atlas.Application.CQRS.VerificationRequests.Queries.GetMyVerificationRequestDetails;
+using Atlas.Application.Models;
 
 namespace Atlas.WebApi.Controllers
 {
@@ -51,7 +52,7 @@ namespace Atlas.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> CreateAsync(CreateVerificationRequestDto createVerificationRequest)
+        public async Task<ActionResult<Guid>> CreateAsync(CreateVerificationRequestDto createVerificationRequest)
         {
             var vm = await Mediator.Send(_mapper.Map<CreateVerificationRequestDto,
                 CreateVerificationRequestCommand>(createVerificationRequest, opt =>
@@ -82,10 +83,10 @@ namespace Atlas.WebApi.Controllers
         [Authorize]
         [HttpPatch("{id}")]
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.HeadRecruiter, Roles.SupplyManager, Roles.Support })]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> AcceptAsync([FromRoute] Guid id)
+        public async Task<ActionResult> AcceptAsync([FromRoute] Guid id)
         {
             await Mediator.Send(new AcceptVerificationRequestCommand
             {
@@ -114,10 +115,10 @@ namespace Atlas.WebApi.Controllers
         [Authorize]
         [HttpDelete("{id}")]
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.HeadRecruiter, Roles.SupplyManager, Roles.Support })]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> DeclineAsync([FromRoute] Guid id, [FromBody] string comment)
+        public async Task<ActionResult> DeclineAsync([FromRoute] Guid id, [FromBody] string comment)
         {
             await Mediator.Send(new DeclineVerificationRequestCommand
             {
@@ -145,7 +146,7 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetMyVerificationRequestsAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<VerificationRequestLookupDto>>> GetMyVerificationRequestsAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             var vm = await Mediator.Send(new GetMyVerificationRequestsQuery
             {
@@ -174,7 +175,7 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.HeadRecruiter, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetVerificationRequestsAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PageDto<VerificationRequestLookupDto>>> GetVerificationRequestsAsync([FromQuery] int pageIndex = 0, [FromQuery] int pageSize = 10)
         {
             var vm = await Mediator.Send(new GetPagedVerificationRequestsListQuery
             {
@@ -203,7 +204,7 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(new string[] { Roles.Admin, Roles.HeadRecruiter, Roles.SupplyManager, Roles.Support })]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
+        public async Task<ActionResult<VerificationRequestDetailsVm>> GetByIdAsync([FromRoute] Guid id)
         {
             var vm = await Mediator.Send(new GetVerificationRequestDetailsQuery
             {
@@ -231,7 +232,7 @@ namespace Atlas.WebApi.Controllers
         [AuthRoleFilter(Roles.Client)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetMyByIdAsync([FromRoute] Guid id)
+        public async Task<ActionResult<VerificationRequestDetailsVm>> GetMyByIdAsync([FromRoute] Guid id)
         {
             var vm = await Mediator.Send(new GetMyVerificationRequestDetailsQuery
             {
