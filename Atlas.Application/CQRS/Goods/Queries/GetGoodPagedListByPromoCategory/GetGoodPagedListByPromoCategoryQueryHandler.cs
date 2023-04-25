@@ -39,10 +39,26 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByPromoCategory
                     x.IsDeleted == request.ShowDeleted,
                         cancellationToken);
 
-            var goods = await _dbContext.Goods
-                .Where(x => goodIds.Contains(x.Id) &&
-                    x.IsDeleted == request.ShowDeleted)
-                .OrderByDynamic(request.Sortable, request.Ascending)
+            var goodsQuery = _dbContext.Goods.Where(x => goodIds.Contains(x.Id) &&
+                x.IsDeleted == request.ShowDeleted);
+
+            if (request.Sortable == "TotalCount")
+            {
+                if (request.Ascending)
+                {
+                    goodsQuery = goodsQuery.OrderBy(x => x.StoreToGoods.Sum(x => x.Count));
+                }
+                else
+                {
+                    goodsQuery = goodsQuery.OrderByDescending(x => x.StoreToGoods.Sum(x => x.Count));
+                }
+            }
+            else
+            {
+                goodsQuery = goodsQuery.OrderByDynamic(request.Sortable, request.Ascending);
+            }
+
+            var goods = await goodsQuery
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)

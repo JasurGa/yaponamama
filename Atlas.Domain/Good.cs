@@ -67,10 +67,5 @@ namespace Atlas.Domain
         public ICollection<PromoToGood> PromoToGoods { get; set; }
 
         public Provider Provider { get; set; }
-
-        public long TotalCount 
-        {
-            get => StoreToGoods.Sum(x => x.Count);
-        }
     }
 }

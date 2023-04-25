@@ -37,9 +37,26 @@ namespace Atlas.Application.CQRS.Goods.Queries.GetGoodPagedListByProvider
                 .Where(x => x.IsDeleted == request.ShowDeleted && x.ProviderId == request.ProviderId)
                 .CountAsync(cancellationToken);
 
-            var goods = await _dbContext.Goods.OrderBy(x => x.Name)
-                .Where(x => x.IsDeleted == request.ShowDeleted && x.ProviderId == request.ProviderId)
-                .OrderByDynamic(request.Sortable, request.Ascending)
+            var goodsQuery = _dbContext.Goods
+                .Where(x => x.IsDeleted == request.ShowDeleted && x.ProviderId == request.ProviderId);
+
+            if (request.Sortable == "TotalCount")
+            {
+                if (request.Ascending)
+                {
+                    goodsQuery = goodsQuery.OrderBy(x => x.StoreToGoods.Sum(x => x.Count));
+                }
+                else
+                {
+                    goodsQuery = goodsQuery.OrderByDescending(x => x.StoreToGoods.Sum(x => x.Count));
+                }
+            }
+            else
+            {
+                goodsQuery = goodsQuery.OrderByDynamic(request.Sortable, request.Ascending);
+            }
+
+            var goods = await goodsQuery
                 .Skip(request.PageIndex * request.PageSize)
                 .Take(request.PageSize)
                 .ProjectTo<GoodLookupDto>(_mapper.ConfigurationProvider)
